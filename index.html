@@ -2919,7 +2919,22 @@ const Hero=(()=>{
     [.40,.46,.30,"#C3CDFF","#F2C6A8",0],[.66,.27,.14,"#C4D9AE","#C3CDFF",1.7],[.27,.74,.10,"#F5C842","#F2C6A8",3.1],
     [.72,.70,.20,"#F2C6A8","#C3CDFF",4.2],[.52,.88,.07,"#C3CDFF","#C4D9AE",2.4],[.24,.20,.05,"#C4D9AE","#F5C842",5.3],[.86,.40,.07,"#C3CDFF","#F2C6A8",.8]];
   const hx=(h,a)=>{const n=parseInt(h.slice(1),16);return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`};
-  function orb(x,y,r,c1,c2,t,ph){const dk=col.dark;
+  const DKT={"#C3CDFF":"#5B6BA8","#F2C6A8":"#8A6650","#C4D9AE":"#5E7A55","#F5C842":"#9A7A2C"};
+  function orbDark(x,y,r,c1,c2,t,ph){const a=DKT[c1]||c1,b=DKT[c2]||c2;
+    let gr=g.createRadialGradient(x,y,r*.7,x,y,r*1.7);gr.addColorStop(0,hx(a,.16));gr.addColorStop(1,hx(a,0));
+    g.fillStyle=gr;g.beginPath();g.arc(x,y,r*1.7,0,TAU);g.fill();
+    g.save();g.beginPath();g.arc(x,y,r,0,TAU);g.clip();
+    gr=g.createRadialGradient(x-r*.3,y-r*.35,r*.1,x,y,r);
+    gr.addColorStop(0,hx(a,.10));gr.addColorStop(.62,hx(a,.14));gr.addColorStop(.9,hx(b,.32));gr.addColorStop(1,hx(b,.5));
+    g.fillStyle=gr;g.fillRect(x-r,y-r,r*2,r*2);
+    if(g.createConicGradient){const cg=g.createConicGradient(t*.3+ph,x,y);["#7A6CC9","#4F8FA8","#6E9A5E","#A8894A","#8A5E9A","#7A6CC9"].forEach((c,i,arr)=>cg.addColorStop(i/(arr.length-1),c));
+      g.globalAlpha=.14;g.globalCompositeOperation="screen";g.fillStyle=cg;g.fillRect(x-r,y-r,r*2,r*2);g.globalCompositeOperation="source-over";g.globalAlpha=1}
+    g.restore();
+    gr=g.createLinearGradient(x-r,y-r,x+r,y+r);gr.addColorStop(0,"rgba(220,232,255,.42)");gr.addColorStop(.5,"rgba(220,232,255,.05)");gr.addColorStop(1,hx(b,.55));
+    g.strokeStyle=gr;g.lineWidth=Math.max(1,r*.018);g.beginPath();g.arc(x,y,r-g.lineWidth/2,0,TAU);g.stroke();
+    g.save();g.translate(x-r*.42,y-r*.48);g.rotate(-.65);gr=g.createRadialGradient(0,0,0,0,0,r*.2);gr.addColorStop(0,"rgba(235,242,255,.42)");gr.addColorStop(1,"rgba(235,242,255,0)");
+    g.fillStyle=gr;g.scale(1,.45);g.beginPath();g.arc(0,0,r*.2,0,TAU);g.fill();g.restore()}
+  function orb(x,y,r,c1,c2,t,ph){const dk=col.dark;if(dk)return orbDark(x,y,r,c1,c2,t,ph);
     let gr=g.createRadialGradient(x,y,r*.5,x,y,r*2.1);gr.addColorStop(0,hx(c1,dk?.26:.32));gr.addColorStop(1,hx(c1,0));
     g.fillStyle=gr;g.beginPath();g.arc(x,y,r*2.1,0,TAU);g.fill();
     g.save();g.beginPath();g.arc(x,y,r,0,TAU);g.clip();
