@@ -766,7 +766,7 @@ body.locked{overflow:hidden}
     <h2>GENA</h2><p class="gsub">Конструктор промтов для дизайнеров КуулКлевер</p>
     <p class="gwait" id="gWait">Проверяем вход…</p>
     <form id="gForm" hidden novalidate>
-      <div class="gtabs" role="tablist"><button type="button" role="tab" id="gTabIn" aria-selected="true">Вход</button><button type="button" role="tab" id="gTabUp" aria-selected="false">Регистрация</button></div>
+      <div class="gtabs" role="tablist"><button type="button" role="tab" id="gTabUp" aria-selected="true">Регистрация</button><button type="button" role="tab" id="gTabIn" aria-selected="false">Вход</button></div>
       <label class="lbl" for="gEmail">Почта</label><input type="email" id="gEmail" autocomplete="email" required placeholder="Любая ваша почта">
       <div id="gNameRow" hidden><label class="lbl" for="gName">Имя для команды</label><input type="text" id="gName" autocomplete="name" maxlength="40" placeholder="Например: Аня Петрова"></div>
       <label class="lbl" for="gPass">Пароль команды</label><input type="password" id="gPass" autocomplete="current-password" required placeholder="Из письма-приглашения">
@@ -1606,7 +1606,8 @@ function logEvent(kind,meta){
 }
 
 /* ----- sign-in gate ----- */
-const gate={mode:"in"};
+let __known=false;try{__known=localStorage.getItem("gena-known")==="1"}catch(e){}
+const gate={mode:__known?"in":"up"};
 function gateMode(m){gate.mode=m;$("gTabIn").setAttribute("aria-selected",String(m==="in"));$("gTabUp").setAttribute("aria-selected",String(m==="up"));
   $("gNameRow").hidden=m!=="up";$("gName").required=m==="up";$("gSubmit").textContent=m==="up"?"Зарегистрироваться":"Войти";
   $("gPass").autocomplete=m==="up"?"new-password":"current-password";$("gErr").textContent="";$("gNote").hidden=m!=="up"}
@@ -1614,7 +1615,7 @@ function gateShow(state,msg){$("gate").hidden=state==="off";document.body.classL
   $("gForm").hidden=state!=="form";$("gWait").hidden=state!=="wait";if(msg!=null)$("gWait").textContent=msg}
 const errRu=e=>{const m=String(e&&e.message||e||"");
   if(/GENA_NOT_ALLOWED|Database error saving new user/i.test(m))return "Неверный пароль команды. Проверьте письмо-приглашение.";
-  if(/Invalid login credentials/i.test(m))return gate.mode==="in"?"Неверная почта или пароль. Если вы здесь впервые, откройте вкладку «Регистрация».":"Неверная почта или пароль.";
+  if(/Invalid login credentials/i.test(m))return gate.mode==="in"?"Неверная почта или пароль. Если вы здесь впервые, откройте вкладку «Регистрация».":"Эта почта уже зарегистрирована. Откройте вкладку «Вход».";
   if(/already registered|already exists/i.test(m))return "Эта почта уже зарегистрирована. Войдите во вкладке «Вход».";
   if(/Password should be|at least 6/i.test(m))return "Неверный пароль команды. Проверьте письмо-приглашение.";
   if(/Email not confirmed/i.test(m))return "Почта ещё не подтверждена. Попросите администратора отключить подтверждение или подтвердить вас.";
@@ -1641,7 +1642,7 @@ $("uAdmin").addEventListener("click",()=>{userMenu(false);openAdmin()});
 async function onSession(session){
   Cloud.user=session?session.user:null;
   if(!Cloud.user){Cloud.profile=null;Cloud.admin=false;$("uwrap").hidden=true;$("tpl").hidden=true;$("tOpen").hidden=true;gateMode(gate.mode);gateShow("form");return}
-  gateShow("off");$("uwrap").hidden=false;
+  gateShow("off");$("uwrap").hidden=false;try{localStorage.setItem("gena-known","1")}catch(e){}
   const [{data:prof},{data:adm}]=await Promise.all([Cloud.sb.from("profiles").select("name,email").eq("id",Cloud.user.id).maybeSingle(),Cloud.sb.rpc("is_admin")]);
   Cloud.profile=prof||{name:"",email:Cloud.user.email};Cloud.admin=adm===true;
   const nm=Cloud.profile.name||Cloud.user.email.split("@")[0];
@@ -1748,7 +1749,7 @@ $("admBody").addEventListener("click",async e=>{const b=e.target.closest("[data-
 
 /* ----- start ----- */
 (async()=>{
-  gateMode("in");
+  gateMode(gate.mode);
   if(!(window.supabase&&window.supabase.createClient)){gateShow("wait","Не удалось загрузить модуль входа. Проверьте интернет и обновите страницу.");return}
   Cloud.sb=window.supabase.createClient(SUPA_URL,SUPA_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
   gateShow("wait","Проверяем вход…");
