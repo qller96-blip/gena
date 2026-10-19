@@ -560,6 +560,7 @@ html,body{overflow-x:clip}
 .hero .hcopy{position:relative;z-index:2}
 .wrap>.quick,.wrap>main,.wrap>aside{position:relative;z-index:1}
 .wrap>aside{position:sticky}
+@media (max-width:980px){.wrap>aside{z-index:55}}
 @media (min-width:701px){
   .hero .stage{position:absolute;z-index:0;pointer-events:none;top:-120px;bottom:-150px;height:auto;left:38%;right:calc(-1 * max(24px,(100vw - 1320px)/2));
     -webkit-mask-image:radial-gradient(62% 58% at 60% 46%,#000 42%,transparent 100%);mask-image:radial-gradient(62% 58% at 60% 46%,#000 42%,transparent 100%)}
