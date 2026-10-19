@@ -597,6 +597,15 @@ html,body{overflow-x:clip}
 body.v-gallery .foot{display:block}
 @media (max-width:700px){.foot{margin-top:36px;padding:0 2px 16px}.fside{margin-left:0;flex-basis:100%}}
 
+
+/* v14: background described in words */
+.surf.bgtxt{display:grid;place-items:center;background:var(--sunk);color:var(--ink)}
+.surf.bgtxt svg{width:70%;height:auto}
+#bgText{gap:10px}#bgText .lbl{margin:0}
+#bgTextIn{min-height:72px;resize:vertical}
+.bgideas{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.bgideas .hint{margin:0 2px 0 0}
+.chip.sm{font-size:12.5px;padding:5px 10px}
+
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -873,7 +882,7 @@ body.locked{overflow:hidden}
 
     <section class="block" id="s-bg">
       <div class="bh"><span class="num">03</span><h2>Фон и декор</h2>
-        <details class="info"><summary aria-label="Подробнее">i</summary><div><p><b>Цвет</b>: ровный фон одного цвета. <b>Градиент</b>: мягкий переход от светлого к основному цвету. <b>Поверхность</b>: продукт стоит на столе, камне или ткани.</p></div></details>
+        <details class="info"><summary aria-label="Подробнее">i</summary><div><p><b>Цвет</b>: ровный фон одного цвета. <b>Градиент</b>: мягкий переход от светлого к основному цвету. <b>Поверхность</b>: продукт стоит на столе, камне или ткани. <b>Своими словами</b>: опишите фон сами, если уже знаете, каким он должен быть.</p></div></details>
         <p class="lead">Фон и предметы вокруг продукта.</p></div>
       <div class="grid" id="bgmode"></div>
       <div class="panel" id="bgSolid">
@@ -886,6 +895,12 @@ body.locked{overflow:hidden}
         <div class="readout" id="gradRead"></div>
         <div id="gpals" class="pals"></div>
         <div class="custom">Свои цвета <input type="color" id="g1" aria-label="Светлый цвет"> → <input type="color" id="g2" aria-label="Основной цвет"></div>
+      </div>
+      <div class="panel" id="bgText" hidden>
+        <label class="lbl" for="bgTextIn">Опишите фон и окружение</label>
+        <textarea id="bgTextIn" rows="3" maxlength="600" placeholder="Например: тёмная мраморная столешница у окна, на заднем плане размытая кухня, утренний мягкий свет"></textarea>
+        <div class="bgideas" id="bgIdeas"><span class="hint">Идеи:</span><button type="button" class="chip sm">светлый мрамор у окна, утро</button><button type="button" class="chip sm">грубая деревянная доска, размытая кухня позади</button><button type="button" class="chip sm">льняная скатерть, мягкие тени листвы</button><button type="button" class="chip sm">тёмный камень, тёплый боковой свет, дымка</button><button type="button" class="chip sm">песок и гладкие морские камни</button></div>
+        <small class="hint">Можно по-русски. Текст попадёт в промт как описание фона, а свет, ракурс и стиль возьмутся из других шагов.</small>
       </div>
       <div class="panel" id="bgScene" hidden>
         <div class="grid sm" id="surfaces"></div>
@@ -1262,7 +1277,8 @@ const GRIDS=[
 const BGMODES=[
  {id:"solid",t:"Цвет",d:"Ровный фон одного цвета"},
  {id:"grad",t:"Градиент",d:"Мягкий переход цвета"},
- {id:"scene",t:"Поверхность",d:"Стол, камень, ткань"}
+ {id:"scene",t:"Поверхность",d:"Стол, камень, ткань"},
+ {id:"text",t:"Своими словами",d:"Опишите фон текстом"}
 ];
 const PAL=[
  {g:"Нейтральные",c:[["Белый","#FFFFFF","clean white"],["Молочный","#F7F7F7","soft off-white"],["Светло-серый","#E3E4E4","light cool grey"],["Жемчуг","#DFDFDF","light grey"],["Серебро","#BCBCBC","silver grey"],["Серый","#808080","mid grey"],["Уголь","#4F4F4F","charcoal grey"],["Графит","#383A3F","deep graphite"],["Почти чёрный","#1E1E1E","near-black"]]},
@@ -1491,7 +1507,7 @@ const DOF=[
 const RATIOS=[["21:9",21,9],["1:1",1,1],["4:5",4,5],["3:4",3,4],["2:3",2,3],["9:16",9,16],["16:9",16,9],["3:2",3,2]];
 
 /* ---------- STATE ---------- */
-const DEF={style:"fintech",angle:"e45",arr:"cluster",place:"center",grid:"golden",tilt:"left",fill:"70",light:"auto",lcount:"all",lside:"left",lsoft:"soft",ltemp:"neutral",noCrop:true,dof:"all",objList:"",isolate:true,scale:true,food:false,bg:"grad",color:"#F3D9E4",g1:"#F4F6FB",g2:"#E2E8F5",gbase:"#E2E8F5",gdir:"radial",gmode:"pal",surface:"lwood",decor:"few",decorAuto:true,shadow:"ao",ratio:"1:1",cat:"none",product:"",props:"",src:"photo",items:[{type:"cup",mat:"matte",color:"#F5F5F2",what:"",label:"",details:""}],sv:{},pod:"none",podShape:"cyl",podTiers:"2",podCol:"bg",rebuild:true,keepProduct:true,keepText:true,avoid:true};
+const DEF={bgText:"",style:"fintech",angle:"e45",arr:"cluster",place:"center",grid:"golden",tilt:"left",fill:"70",light:"auto",lcount:"all",lside:"left",lsoft:"soft",ltemp:"neutral",noCrop:true,dof:"all",objList:"",isolate:true,scale:true,food:false,bg:"grad",color:"#F3D9E4",g1:"#F4F6FB",g2:"#E2E8F5",gbase:"#E2E8F5",gdir:"radial",gmode:"pal",surface:"lwood",decor:"few",decorAuto:true,shadow:"ao",ratio:"1:1",cat:"none",product:"",props:"",src:"photo",items:[{type:"cup",mat:"matte",color:"#F5F5F2",what:"",label:"",details:""}],sv:{},pod:"none",podShape:"cyl",podTiers:"2",podCol:"bg",rebuild:true,keepProduct:true,keepText:true,avoid:true};
 const freshS=()=>JSON.parse(JSON.stringify(DEF));
 let S=freshS();
 try{const s=JSON.parse(localStorage.getItem("ppc-v7")||"null");if(s)S=Object.assign(freshS(),s)}catch(e){}
@@ -1657,7 +1673,7 @@ $("place").innerHTML=cardsHTML(PLACE,placeSVG);
 $("grids").innerHTML=cardsHTML(GRIDS,gridSVG);
 $("shadows").innerHTML=cardsHTML(SHADOWS,shadowSVG);
 $("bgmode").innerHTML=BGMODES.map(o=>{
-  const prev=o.id==="solid"?`<div class="surf" style="background:#F3D9E4"></div>`:o.id==="grad"?`<div class="surf" style="background:radial-gradient(circle at 50% 45%,#F4F6FB,#E2E8F5 78%)"></div>`:`<div class="sfw">${thWood("oak")}</div>`;
+  const prev=o.id==="solid"?`<div class="surf" style="background:#F3D9E4"></div>`:o.id==="grad"?`<div class="surf" style="background:radial-gradient(circle at 50% 45%,#F4F6FB,#E2E8F5 78%)"></div>`:o.id==="text"?`<div class="surf bgtxt"><svg viewBox="0 0 120 80" aria-hidden="true"><text x="22" y="52" font-size="34" font-weight="600" fill="currentColor" font-family="Inter Tight,system-ui,sans-serif">Aa</text><rect x="74" y="26" width="2.5" height="32" rx="1.2" fill="var(--detail)"/><rect x="22" y="62" width="58" height="3" rx="1.5" fill="currentColor" opacity=".25"/></svg></div>`:`<div class="sfw">${thWood("oak")}</div>`;
   return `<button class="card" type="button" data-v="${o.id}" aria-pressed="false">${prev}<div class="meta"><span class="t">${o.t}</span><span class="d">${o.d}</span></div></button>`}).join("");
 $("surfaces").innerHTML=SURF.map(o=>`<button class="card${o.x?" xo":""}" type="button" data-v="${o.id}" aria-pressed="false"><div class="sfw" data-sf="${o.id}"></div><div class="meta"><span class="t" style="font-size:13px">${o.t}</span><span class="d">${o.d}</span></div></button>`).join("");
 $("pods").innerHTML=cardsHTML(PODS,podSVG);
@@ -1697,6 +1713,8 @@ $("prodList").addEventListener("click",e=>{const card=e.target.closest(".pcard")
 $("prodList").addEventListener("input",e=>{const t=e.target,card=t.closest(".pcard");if(!card||!t.dataset.f)return;const it=S.items[+card.dataset.i];it[t.dataset.f]=t.type==="color"?t.value.toUpperCase():t.value;update()});
 renderProds();
 ["product","props","objList"].forEach(k=>$(k).addEventListener("input",e=>{S[k]=e.target.value;update()}));
+$("bgTextIn").addEventListener("input",e=>{S.bgText=e.target.value;update()});
+$("bgIdeas").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const t=$("bgTextIn"),v=t.value.trim();S.bgText=v?v.replace(/[,.\s]+$/,"")+", "+b.textContent:b.textContent;t.value=S.bgText;update();t.focus()});
 const growProd=()=>{const t=$("product");t.style.height="auto";t.style.height=t.scrollHeight+2+"px"};$("product").addEventListener("input",growProd);requestAnimationFrame(growProd);
 ["rebuild","keepProduct","keepText","avoid","decorAuto","isolate","scale","food","noCrop"].forEach(k=>$(k).addEventListener("change",e=>{S[k]=e.target.checked;update()}));
 
@@ -1808,6 +1826,8 @@ function sections(){
     const pi=S.gmode==="pal"?pinfo(S.gbase):null,a=S.gmode==="pal"?lighten(S.gbase,.38):S.g1,b=S.gmode==="pal"?S.gbase:S.g2,nm=pi?pi[2]+" ":"";
     const g={vert:`Seamless smooth vertical ${nm}gradient background: from a lighter ${a} at the top to ${b} at the bottom`,diag:`Seamless smooth diagonal ${nm}gradient background: a lighter ${a} in the top-left corner flowing into ${b} in the bottom-right`,radial:`Seamless smooth radial ${nm}gradient background: a lighter ${a} soft glow right behind the products, fading into ${b} toward the edges`}[S.gdir];
     out.push(["BACKGROUND",`${g}, soft and even with no banding, no texture, no horizon line.${dc.n===0?nothing:""}`]);}
+  else if(S.bg==="text"){const d=(S.bgText||"").trim();
+    out.push(["BACKGROUND",d?`Background and setting exactly as the designer describes it (translate to English if needed): "${d}". Render it photographically, consistent with the light, camera angle and style above; keep it supportive so it never competes with the products.${dc.n===0?" No extra props beyond what is described.":""}`:`A simple, tasteful background that suits the products, soft and uncluttered.${dc.n===0?nothing:""}`])}
   else{
     let b=`${ar.float?"Below the products is":"The products sit on"} ${sfEn()}.`;
     if(side)b+=" Surface details stay near the products; the open side stays simple and soft.";
@@ -1828,7 +1848,7 @@ function sections(){
   }
 
   {const pe=podEn();if(pe)out.push(["PODIUM",pe])}
-  const env=S.bg==="solid"?`the ${cname(S.color)} background`:S.bg==="grad"?(S.gmode==="pal"?`the ${cname(S.gbase)} gradient background`:`the ${S.g1}–${S.g2} background`):"the surrounding scene";
+  const env=S.bg==="solid"?`the ${cname(S.color)} background`:S.bg==="grad"?(S.gmode==="pal"?`the ${cname(S.gbase)} gradient background`:`the ${S.g1}–${S.g2} background`):S.bg==="text"?"the described background":"the surrounding scene";
   out.push(["STYLE",st.look.replace("{ENV}",env)]);
   if(S.light==="auto")out.push(["LIGHT",st.light]);
   else{const lt=find(LIGHTS,S.light),K=S.lside==="right"?"right":"left",F=K==="left"?"right":"left";
@@ -1846,7 +1866,7 @@ function sections(){
   if(gr.p)key.push({thirds:"rule of thirds",golden:"golden-ratio balance",sym:"strict symmetry",diag:"diagonal flow",tri:"triangular build"}[gr.id]);
   if(noCrop)key.push("fully inside the frame, nothing cropped");
   if(S.pod!=="none")key.push(find(PODS,S.pod).t==="Мягкие"?"soft rounded podiums":"display podiums");
-  key.push(S.bg==="scene"?sfEn():S.bg==="solid"?`plain ${S.color} background`:"plain gradient background");
+  key.push(S.bg==="scene"?sfEn():S.bg==="solid"?`plain ${S.color} background`:S.bg==="text"?"background as described":"plain gradient background");
   out.push(["KEY",key.join(", ")+"."]);
   return out;
 }
@@ -1872,7 +1892,7 @@ const PRESETS=[
  {id:"social11",t:"Соцсети 1:1",d:"Солнце, тени листвы, лён и немного декора",tags:["1:1","Солнце"],kind:"stand",
   set:{style:"sun",angle:"slight",place:"center",grid:"diag",tilt:"none",fill:"70",noCrop:true,light:"key45",lside:"left",lsoft:"hard",ltemp:"warm",dof:"all",bg:"scene",surface:"linen",sv:{linen:"#F4F1EA"},decor:"bal",shadow:"hard",ratio:"1:1",pod:"none"}}
 ];
-const SCENE_KEYS=["style","angle","arr","place","grid","tilt","fill","light","lside","lsoft","ltemp","dof","bg","color","gbase","gdir","gmode","g1","g2","surface","sv","decor","shadow","ratio","pod","podShape","podTiers","podCol","noCrop"];
+const SCENE_KEYS=["bgText","style","angle","arr","place","grid","tilt","fill","light","lside","lsoft","ltemp","dof","bg","color","gbase","gdir","gmode","g1","g2","surface","sv","decor","shadow","ratio","pod","podShape","podTiers","podCol","noCrop"];
 const sceneSig=st=>JSON.stringify(SCENE_KEYS.map(k=>k==="sv"?Object.entries(st.sv||{}).sort():st[k]));
 function presetState(pr,base){
   const st=JSON.parse(JSON.stringify(base));Object.assign(st,JSON.parse(JSON.stringify(pr.set)));st.sv=Object.assign({},base.sv,pr.set.sv||{});
@@ -2081,11 +2101,11 @@ $("tSave").addEventListener("submit",async e=>{e.preventDefault();const name=$("
 
 /* ----- analytics: what designers copy ----- */
 const ANA_KEYS=[["style","Стиль",STYLES],["ratio","Формат",null],["angle","Ракурс",ANGLES],["arr","Расстановка",ARR],["place","Место в кадре",PLACE],["grid","Схема",GRIDS],["fill","Масштаб",FILL],["bg","Фон",BGMODES],["decor","Декор",DECOR],["shadow","Тень",SHADOWS],["light","Свет",LIGHTS],["pod","Подиум",PODS],["dof","Резкость",DOF]];
-const COMBO_KEYS=["style","ratio","angle","arr","place","grid","fill","bg","surface","gbase","color","decor","shadow","light","pod","tilt"];
+const COMBO_KEYS=["style","ratio","angle","arr","place","grid","fill","bg","bgText","surface","gbase","color","decor","shadow","light","pod","tilt"];
 const valLabel=(k,v)=>{const L=(ANA_KEYS.find(x=>x[0]===k)||[])[2];if(k==="ratio")return v==="auto"?"Авто":v;if(k==="fill")return v+"%";const o=L&&find(L,v);return o?o.t:String(v)};
 function sceneChips(sc){const out=[valLabel("style",sc.style),sc.ratio==="auto"?"Формат авто":sc.ratio,valLabel("angle",sc.angle),valLabel("arr",sc.arr),valLabel("place",sc.place)];
   if(sc.grid&&sc.grid!=="free")out.push(valLabel("grid",sc.grid));
-  out.push(sc.bg==="scene"?(find(SURF,sc.surface)||{t:"Поверхность"}).t:sc.bg==="grad"?"Градиент":"Цвет");
+  out.push(sc.bg==="scene"?(find(SURF,sc.surface)||{t:"Поверхность"}).t:sc.bg==="grad"?"Градиент":sc.bg==="text"?"Свой фон":"Цвет");
   if(sc.pod&&sc.pod!=="none")out.push("Подиум: "+valLabel("pod",sc.pod).toLowerCase());
   out.push("Масштаб "+sc.fill+"%");return out}
 async function openAdmin(){
@@ -2217,7 +2237,7 @@ function update(){
    $("gradRead").innerHTML=`<i style="background:${gradCss(ga,gb,S.gdir)}"></i><span>${gi?`<b>${gi[0]}</b>`:"Свои цвета"}</span><code>${ga} → ${gb}</code>`;}
   mark($("srcSeg"),S.src);mark($("cats"),S.cat);["rebuild","isolate","keepProduct"].forEach(id=>{$(id).closest(".tg").hidden=S.src==="text"});$("srcText").hidden=S.src!=="text";$("srcPhoto").hidden=S.src==="text";syncProds();
   mark($("pods"),S.pod);mark($("podShape"),S.podShape);mark($("podTiers"),S.podTiers);syncPod();syncSurf();
-  $("bgSolid").hidden=S.bg!=="solid";$("bgGrad").hidden=S.bg!=="grad";$("bgScene").hidden=S.bg!=="scene";
+  $("bgText").hidden=S.bg!=="text";if($("bgTextIn").value!==(S.bgText||""))$("bgTextIn").value=S.bgText||"";$("bgSolid").hidden=S.bg!=="solid";$("bgGrad").hidden=S.bg!=="grad";$("bgScene").hidden=S.bg!=="scene";
   if($("product").value!==S.product)$("product").value=S.product;
   if($("props").value!==S.props)$("props").value=S.props;
   if($("objList").value!==S.objList)$("objList").value=S.objList;
@@ -2231,7 +2251,7 @@ function update(){
   const ar=find(ARR,S.arr),shd=find(SHADOWS,S.shadow);
   $("out").innerHTML=sections().map(([h,t])=>h?`<b>${h}:</b> ${esc(t)}`:esc(t)).join("\n\n");
   const n=plain().length;$("count").textContent=n+" симв.";
-  const bgL=S.bg==="solid"?"Фон "+((pinfo(S.color)||[S.color])[0]):S.bg==="grad"?"Градиент "+(S.gmode==="pal"?(pinfo(S.gbase)||[""])[0]:"свой"):sfLabel();
+  const bgL=S.bg==="text"?"Фон: свой текст":S.bg==="solid"?"Фон "+((pinfo(S.color)||[S.color])[0]):S.bg==="grad"?"Градиент "+(S.gmode==="pal"?(pinfo(S.gbase)||[""])[0]:"свой"):sfLabel();
   const chips=[...(S.cat!=="none"?[[find(CATS,S.cat)[1],"s-ref"]]:[]),...(S.src==="text"?[[S.items.length===1?"Продукт: описание":`Продуктов: ${S.items.length}`,"s-ref"]]:[]),[find(STYLES,S.style).t,"s-style"],["Свет: "+find(LIGHTS,S.light).t.toLowerCase(),"s-light"],[find(ANGLES,S.angle).t,"s-cam"],[ar.t,"s-comp"],...(ar.float?[[find(TILT,S.tilt).t,"s-comp"]]:[]),[find(PLACE,S.place).t,"s-comp"],[find(GRIDS,S.grid).t,"s-comp"],[bgL,"s-bg"],...(S.pod!=="none"?[["Подиум: "+find(PODS,S.pod).t.toLowerCase(),"s-pod"]]:[]),["Декор: "+find(DECOR,S.decor).t.toLowerCase(),"s-bg"],["Масштаб "+S.fill+"%","s-comp"],["Тень: "+shd.t.toLowerCase(),"s-fin"],[S.ratio==="auto"?"Формат авто":S.ratio,"pvbox"]];
   $("summary").innerHTML=chips.map(([l,t])=>`<button type="button" data-t="${t}">${esc(l)}</button>`).join("");
   syncRatio();syncTg();drawPreview();if($("qgrid").childElementCount)syncPresets();if(window.Hero)Hero.setLabels(chips.map(c=>c[0]));
@@ -2494,7 +2514,7 @@ function drawPreview(T){
   /* background */
   const fl=T.floor,ga=S.gmode==="pal"?lighten(S.gbase,.38):S.g1,gb=S.gmode==="pal"?S.gbase:S.g2;
   if(S.bg==="scene"){const sf=find(SURF,S.surface);pv.style.background="linear-gradient(#EFEDE9,#D9D6D0)";fl.hidden=false;fl.style.background=`url("data:image/svg+xml;utf8,${encodeURIComponent(sfThumb(sf.id))}") center/cover`;fl.style.height=(PV_FLOOR[an.id]||45)+"%"}
-  else{fl.hidden=true;pv.style.background=S.bg==="solid"?S.color:gradCss(ga,gb,S.gdir)}
+  else{fl.hidden=true;pv.style.background=S.bg==="solid"?S.color:S.bg==="text"?"linear-gradient(165deg,#F2EFEA,#DCD6CD)":gradCss(ga,gb,S.gdir)}
 
   /* light: key side and source glyphs */
   const auto=li.id==="auto",flip=!auto&&S.lside==="right"?-1:1;
