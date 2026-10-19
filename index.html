@@ -323,6 +323,37 @@ aside.haspv pre#out{max-height:calc(100vh - 610px);min-height:170px}
 
 
 
+
+/* v9: feedback */
+.fbfab{all:unset;box-sizing:border-box;cursor:pointer;position:fixed;z-index:58;right:max(20px,env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));display:inline-flex;align-items:center;gap:8px;padding:12px 18px 12px 14px;border-radius:999px;background:var(--detail);color:#272E32;font-weight:650;font-size:14.5px;box-shadow:0 10px 28px rgba(150,100,0,.35),0 0 0 3px color-mix(in srgb,var(--detail) 30%,transparent);transition:transform .15s}
+.fbfab:hover{transform:translateY(-2px)}
+.fbfab:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.fbfab svg{width:20px;height:20px}
+.fbwrap{position:fixed;inset:0;z-index:95;display:grid;place-items:center;padding:20px max(16px,env(safe-area-inset-left,0px));background:rgba(10,14,12,.45);overflow:auto}
+.fbcard{width:min(520px,100%);background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:6px;box-shadow:0 24px 60px rgba(0,0,0,.25)}
+.fbhead{display:flex;align-items:center;gap:8px}.fbhead h2{font-size:20px;flex:1}
+.fbsub{margin:0 0 8px}
+.fbcard .lbl{margin:8px 0 2px}
+.fbdrop{border:1.5px dashed var(--line);border-radius:12px;min-height:110px;display:grid;place-items:center;padding:12px;cursor:pointer;background:var(--sunk);text-align:center;font-size:13.5px;color:var(--muted)}
+.fbdrop:hover,.fbdrop.over{border-color:var(--accent);color:var(--ink)}
+.fbdrop:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.fbempty b{color:var(--ink)}
+.fbprev{position:relative;width:100%}
+.fbprev img{display:block;max-width:100%;max-height:220px;margin:0 auto;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+.fbprev .tdel{all:unset;cursor:pointer;position:absolute;top:6px;right:6px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--panel);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.fbact{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:6px}
+.afb{display:flex;flex-direction:column;margin:0;padding:0}
+.afb li{list-style:none;display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:14px;align-items:start;padding:14px 0;border-bottom:1px solid var(--line)}
+.afb li.done{opacity:.55}
+.afb .shot{width:120px;height:80px;border-radius:8px;background:var(--sunk) center/cover no-repeat;border:1px solid var(--line);display:grid;place-items:center;font-size:11px;color:var(--muted);text-decoration:none}
+.afb p{margin:0 0 4px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px}
+.afb small{color:var(--muted);font-size:12px}
+.afb .fres{all:unset;cursor:pointer;font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+.afb .fres:focus-visible{outline:2px solid var(--accent)}
+.afb ul{margin:0;padding:0}
+@media (max-width:980px){.fbfab{bottom:calc(84px + env(safe-area-inset-bottom,0px));padding:10px 14px 10px 12px;font-size:13.5px}}
+@media (max-width:560px){.afb li{grid-template-columns:80px minmax(0,1fr)}.afb .shot{width:80px;height:60px}.afb .fres{grid-column:2}}
+
 /* v8: lighter product step */
 .cliptip{display:flex;gap:10px;align-items:flex-start;margin:0 0 14px;padding:10px 12px;border-radius:10px;background:color-mix(in srgb,var(--detail) 16%,var(--panel));color:var(--ink);font-size:13.5px;line-height:1.45}
 .cliptip svg{width:18px;height:18px;flex:none;margin-top:1px;color:var(--mark)}
@@ -778,6 +809,23 @@ body.locked{overflow:hidden}
 </div>
 <div class="adm" id="adm" role="dialog" aria-modal="true" aria-labelledby="admTitle" hidden>
   <div class="admin-in"><div class="admhead"><h2 id="admTitle">Аналитика</h2><span class="hint">видна только администратору</span><button class="iconbtn" type="button" id="admClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div id="admBody"></div></div>
+</div>
+<button class="fbfab" type="button" id="fbOpen" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M12 8v4M12 15.5v.5"/></svg><span>Нашли проблему?</span></button>
+<div class="fbwrap" id="fb" role="dialog" aria-modal="true" aria-labelledby="fbTitle" hidden>
+  <form class="fbcard" id="fbForm" novalidate>
+    <div class="fbhead"><h2 id="fbTitle">Что неудобно?</h2><button class="iconbtn" type="button" id="fbClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <p class="hint fbsub">Баг, неудобство, лишнее или чего не хватает. Пары предложений достаточно.</p>
+    <label class="lbl" for="fbText">Комментарий</label>
+    <textarea id="fbText" rows="4" maxlength="2000" required placeholder="Что делали, что ожидали, что получилось"></textarea>
+    <span class="lbl">Скриншот <span class="opt-tag">по желанию</span></span>
+    <div class="fbdrop" id="fbDrop" tabindex="0" role="button" aria-label="Добавить скриншот: вставьте из буфера, перетащите или выберите файл">
+      <input type="file" id="fbFile" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+      <div class="fbempty" id="fbEmpty"><b>Вставьте Ctrl+V</b> (⌘V на Mac), перетащите сюда или <u>выберите файл</u></div>
+      <div class="fbprev" id="fbPrev" hidden><img id="fbImg" alt="Скриншот"><button class="tdel" type="button" id="fbRm">Убрать</button></div>
+    </div>
+    <p class="gerr" id="fbErr" role="alert"></p>
+    <div class="fbact"><button class="btn" type="submit" id="fbSend">Отправить</button><span class="hint">Настройки сцены приложатся сами</span></div>
+  </form>
 </div>
 <div class="shade" id="shade" hidden></div>
 <div class="mbar"><button class="mtog" id="mSheet" type="button" aria-expanded="false" aria-controls="aside"><b>Схема и промт</b><span id="mstat">Промт готов</span></button><button class="btn" id="mcopy" type="button">Скопировать</button></div>
@@ -1633,6 +1681,37 @@ $("gForm").addEventListener("submit",async e=>{e.preventDefault();if(!Cloud.sb)r
     else{const {error}=await Cloud.sb.auth.signInWithPassword({email,password});if(error)throw error}
   }catch(err){$("gErr").textContent=errRu(err)}finally{btn.disabled=false}});
 
+
+/* ----- feedback ----- */
+let fbShot=null;
+function fbOpen(o){$("fb").hidden=!o;document.body.classList.toggle("locked",o||!$("adm").hidden);if(o){$("fbErr").textContent="";$("fbText").focus()}else $("fbOpen").focus()}
+function fbSet(file){if(!file||!/^image\//.test(file.type)){$("fbErr").textContent="Нужна картинка: PNG, JPG, WEBP или GIF.";return}
+  if(file.size>8*1024*1024){$("fbErr").textContent="Картинка больше 8 МБ. Сделайте скриншот поменьше.";return}
+  fbShot=file;$("fbErr").textContent="";const u=URL.createObjectURL(file);$("fbImg").src=u;$("fbPrev").hidden=false;$("fbEmpty").hidden=true}
+function fbClear(){fbShot=null;$("fbPrev").hidden=true;$("fbEmpty").hidden=false;$("fbImg").removeAttribute("src");$("fbFile").value=""}
+$("fbOpen").addEventListener("click",()=>fbOpen(true));
+$("fbClose").addEventListener("click",()=>fbOpen(false));
+$("fb").addEventListener("click",e=>{if(e.target===$("fb"))fbOpen(false)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("fb").hidden)fbOpen(false)});
+$("fbDrop").addEventListener("click",e=>{if(e.target.closest("#fbRm"))return;$("fbFile").click()});
+$("fbDrop").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();$("fbFile").click()}});
+$("fbFile").addEventListener("change",e=>{if(e.target.files[0])fbSet(e.target.files[0])});
+$("fbRm").addEventListener("click",e=>{e.stopPropagation();fbClear()});
+["dragenter","dragover"].forEach(t=>$("fbDrop").addEventListener(t,e=>{e.preventDefault();$("fbDrop").classList.add("over")}));
+["dragleave","drop"].forEach(t=>$("fbDrop").addEventListener(t,e=>{e.preventDefault();$("fbDrop").classList.remove("over")}));
+$("fbDrop").addEventListener("drop",e=>{const f=e.dataTransfer.files[0];if(f)fbSet(f)});
+document.addEventListener("paste",e=>{if($("fb").hidden)return;const it=[...(e.clipboardData||{}).items||[]].find(i=>i.type.startsWith("image/"));if(it){e.preventDefault();fbSet(it.getAsFile())}});
+$("fbForm").addEventListener("submit",async e=>{e.preventDefault();const text=$("fbText").value.trim();
+  if(!text){$("fbErr").textContent="Напишите пару слов, что не так.";$("fbText").focus();return}
+  if(!Cloud.sb||!Cloud.user){$("fbErr").textContent="Войдите, чтобы отправить отзыв.";return}
+  const btn=$("fbSend");btn.disabled=true;btn.textContent="Отправляю…";$("fbErr").textContent="";
+  try{let path=null;
+    if(fbShot){const ext=(fbShot.type.split("/")[1]||"png").replace("jpeg","jpg");path=`${Cloud.user.id}/${Date.now()}.${ext}`;
+      const up=await Cloud.sb.storage.from("feedback").upload(path,fbShot,{contentType:fbShot.type,upsert:false});if(up.error)throw up.error}
+    const {error}=await Cloud.sb.from("feedback").insert({text,screenshot:path,scene:sceneOf(S),ua:navigator.userAgent.slice(0,300)});if(error)throw error;
+    $("fbText").value="";fbClear();fbOpen(false);toast("Спасибо! Отзыв отправлен")}
+  catch(err){$("fbErr").textContent="Не получилось отправить: "+(err&&err.message||err)}
+  finally{btn.disabled=false;btn.textContent="Отправить"}});
 /* ----- user menu ----- */
 function userMenu(o){$("uPop").hidden=!o;$("uBtn").setAttribute("aria-expanded",String(o))}
 $("uBtn").addEventListener("click",e=>{e.stopPropagation();userMenu($("uPop").hidden)});
@@ -1641,8 +1720,8 @@ $("uOut").addEventListener("click",async()=>{userMenu(false);await Cloud.sb.auth
 $("uAdmin").addEventListener("click",()=>{userMenu(false);openAdmin()});
 async function onSession(session){
   Cloud.user=session?session.user:null;
-  if(!Cloud.user){Cloud.profile=null;Cloud.admin=false;$("uwrap").hidden=true;$("tpl").hidden=true;$("tOpen").hidden=true;gateMode(gate.mode);gateShow("form");return}
-  gateShow("off");$("uwrap").hidden=false;try{localStorage.setItem("gena-known","1")}catch(e){}
+  if(!Cloud.user){Cloud.profile=null;Cloud.admin=false;$("uwrap").hidden=true;$("fbOpen").hidden=true;$("tpl").hidden=true;$("tOpen").hidden=true;gateMode(gate.mode);gateShow("form");return}
+  gateShow("off");$("uwrap").hidden=false;$("fbOpen").hidden=false;try{localStorage.setItem("gena-known","1")}catch(e){}
   const [{data:prof},{data:adm}]=await Promise.all([Cloud.sb.from("profiles").select("name,email").eq("id",Cloud.user.id).maybeSingle(),Cloud.sb.rpc("is_admin")]);
   Cloud.profile=prof||{name:"",email:Cloud.user.email};Cloud.admin=adm===true;
   const nm=Cloud.profile.name||Cloud.user.email.split("@")[0];
@@ -1695,15 +1774,15 @@ async function openAdmin(){
   const [ev,pr,al]=await Promise.all([
     Cloud.sb.from("scene_events").select("user_id,kind,scene,meta,created_at").order("created_at",{ascending:false}).limit(5000),
     Cloud.sb.from("profiles").select("id,name,email,created_at"),
-    Promise.resolve({data:[]})]);
+    Cloud.sb.from("feedback").select("id,author_name,text,screenshot,resolved,created_at,ua").order("created_at",{ascending:false}).limit(200)]);
   if(ev.error||pr.error){$("admBody").innerHTML=`<p class="hint">Не удалось загрузить аналитику: ${escA((ev.error||pr.error).message)}</p>`;return}
-  renderAdmin(ev.data||[],pr.data||[],al.data||[])}
+  renderAdmin(ev.data||[],pr.data||[],[],al.data||[])}
 function closeAdmin(){$("adm").hidden=true;document.body.classList.remove("locked")}
 $("admClose").addEventListener("click",closeAdmin);
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("adm").hidden)closeAdmin()});
 let ADM={combos:[]};
 const plur=(n,a,b,c)=>{const m=n%100,k=n%10;return m>10&&m<20?c:k===1?a:k>1&&k<5?b:c};
-function renderAdmin(events,profiles,allowed){
+function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
   const copies=events.filter(e=>e.kind==="copy"),names=Object.fromEntries(profiles.map(p=>[p.id,p.name||p.email]));
   const week=Date.now()-7*864e5,users=new Set(copies.map(e=>e.user_id));
   const tiles=[["Дизайнеров",profiles.length],["Активны за 7 дней",new Set(copies.filter(e=>+new Date(e.created_at)>week).map(e=>e.user_id)).size],["Скопировано промтов",copies.length],["За 7 дней",copies.filter(e=>+new Date(e.created_at)>week).length]];
@@ -1720,6 +1799,7 @@ function renderAdmin(events,profiles,allowed){
   const per=profiles.map(p=>{const mine=copies.filter(e=>e.user_id===p.id),st=new Map();mine.forEach(e=>{const v=(e.scene||{}).style;st.set(v,(st.get(v)||0)+1)});
     const fav=[...st.entries()].sort((a,b)=>b[1]-a[1])[0];return {name:p.name||p.email,email:p.email,n:mine.length,last:mine[0]?mine[0].created_at:null,fav:fav?valLabel("style",fav[0]):"—"}}).sort((a,b)=>b.n-a.n);
   $("admBody").innerHTML=`
+   <section><h3>Обратная связь${fbs.filter(f=>!f.resolved).length?` · новых ${fbs.filter(f=>!f.resolved).length}`:""}</h3>${fbs.length?`<ul class="afb">${fbs.map(f=>`<li class="${f.resolved?"done":""}">${f.screenshot?`<a class="shot" data-shot="${escA(f.screenshot)}" href="#" target="_blank" rel="noopener">скриншот</a>`:'<span class="shot">без скриншота</span>'}<div><p>${escA(f.text)}</p><small>${escA(f.author_name||"Коллега")} · ${fmtDate(f.created_at)} ${/Mobi/.test(f.ua||"")?"· телефон":""}</small></div><button class="fres" type="button" data-fres="${escA(f.id)}" data-v="${f.resolved?"0":"1"}">${f.resolved?"Вернуть":"Решено"}</button></li>`).join("")}</ul>`:'<p class="tempty">Пока отзывов нет.</p>'}</section>
    <div class="atiles">${tiles.map(([t,v])=>`<div><b>${v}</b><span>${t}</span></div>`).join("")}</div>
    <section><h3>Популярные сочетания</h3><p class="hint">Одинаковые настройки, с которыми копировали промт. Сверху — те, что используют больше разных дизайнеров.</p>
     <div class="acombos">${ADM.combos.length?ADM.combos.map((c,i)=>`<div class="acombo"><div class="qthumb"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div>
@@ -1729,6 +1809,7 @@ function renderAdmin(events,profiles,allowed){
    <section><h3>Дизайнеры</h3><div class="atable"><table><thead><tr><th>Имя</th><th>Почта</th><th class="n">Промтов</th><th>Любимый стиль</th><th>Последний раз</th></tr></thead><tbody>${per.map(r=>`<tr><td>${escA(r.name)}</td><td>${escA(r.email)}</td><td class="n">${r.n}</td><td>${escA(r.fav)}</td><td>${r.last?fmtDate(r.last):"—"}</td></tr>`).join("")||'<tr><td colspan="5">Пока никто не зарегистрировался</td></tr>'}</tbody></table></div></section>
    <section><h3>Пароль команды</h3><p class="hint">С ним регистрируются новые дизайнеры, с любой почтой. Смена пароля не выкидывает тех, кто уже зарегистрирован: они входят со старым.</p>
     <form class="aadd" id="aPw"><input type="text" id="aPwNew" minlength="8" required placeholder="Новый пароль, от 8 символов" aria-label="Новый пароль команды" autocomplete="off"><button class="btn" type="submit">Сменить</button></form></section>`;
+  $("admBody").querySelectorAll("[data-shot]").forEach(async a=>{const {data}=await Cloud.sb.storage.from("feedback").createSignedUrl(a.dataset.shot,3600);if(data&&data.signedUrl){a.href=data.signedUrl;a.style.backgroundImage=`url("${data.signedUrl}")`;a.textContent=""}});
   const keep=S;
   try{ADM.combos.forEach((c,i)=>{const el=$("admBody").querySelectorAll(".acombo")[i],st=JSON.parse(JSON.stringify(keep));Object.assign(st,JSON.parse(JSON.stringify(c.scene)));S=st;autofix();
     drawPreview({pv:el.querySelector(".pv"),floor:el.querySelector(".pvfloor"),svg:el.querySelector("svg"),leg:null,mw:150,mh:100,px:"a"+i})})}finally{S=keep}
@@ -1743,7 +1824,9 @@ $("admBody").addEventListener("submit",async e=>{e.preventDefault();const f=e.ta
   if(f.id==="aAdd"){const email=$("aEmail").value.trim().toLowerCase();if(!email)return;
     const {error}=await Cloud.sb.from("allowed_emails").insert({email});if(error&&!/duplicate/i.test(error.message)){toast("Не получилось добавить: "+error.message);return}
     toast(`${email} может зарегистрироваться`);openAdmin()}});
-$("admBody").addEventListener("click",async e=>{const b=e.target.closest("[data-rm]");if(!b)return;
+$("admBody").addEventListener("click",async e=>{const r=e.target.closest("[data-fres]");
+  if(r){const {error}=await Cloud.sb.from("feedback").update({resolved:r.dataset.v==="1"}).eq("id",r.dataset.fres);if(error)toast("Не получилось: "+error.message);else openAdmin();return}
+  const b=e.target.closest("[data-rm]");if(!b)return;
   if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Точно убрать?";return}
   const {error}=await Cloud.sb.from("allowed_emails").delete().eq("email",b.dataset.rm);if(error){toast("Не получилось: "+error.message)}else{toast("Почта убрана из списка. Уже созданный аккаунт продолжит работать");openAdmin()}});
 
