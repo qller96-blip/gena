@@ -465,7 +465,8 @@ body.v-gallery .topbar-in .setwrap{display:none}body.v-gallery .views{margin-rig
 .steps button[aria-current="true"] span{color:var(--mark)}
 .steps button:not([aria-current="true"]):hover em{max-width:130px;opacity:1;margin-left:6px}
 .views a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
-@media (max-width:1100px){.steps{justify-content:space-between}}
+@media (min-width:701px){.topbar .topbar-in{flex-wrap:nowrap}.topbar-in .steps{order:0;flex:0 1 auto;margin:0 0 0 auto;padding-top:0;border-top:0}.topbar-in .steps+.setwrap{margin-left:6px}.block{scroll-margin-top:100px}}
+@media (max-width:700px){.steps{justify-content:space-between}}
 
 /* v11: after-copy modal + confetti */
 #confetti{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:140}
@@ -505,6 +506,52 @@ body.v-gallery .topbar-in .setwrap{display:none}body.v-gallery .views{margin-rig
 @media (max-width:700px){.donewrap{place-items:end center;padding:0}.donecard{width:100%;border-radius:20px 20px 0 0;max-height:92dvh;overflow:auto;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px));animation-name:sheetin}
   @keyframes sheetin{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}.donesteps li{font-size:12px;padding:7px 4px}}
 @media (prefers-reduced-motion:reduce){.donecard,.donebadge,.donebadge svg{animation:none}.donebadge svg{stroke-dashoffset:0}}
+
+
+/* v12: first screen — compact hero, quick start in the left column, prompt panel visible at once */
+.hero{padding:14px 4px 0;gap:24px;grid-template-columns:minmax(0,1fr) minmax(240px,400px)}
+.hero h1{font-size:clamp(28px,3vw,38px);max-width:none}
+.hero p{margin-top:10px;font-size:15px;max-width:60ch}
+.hcopy .eyebrow{margin-bottom:10px}
+.stage{height:clamp(150px,13vw,190px)}
+.quick{grid-column:1;grid-row:2;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 16px 14px;gap:12px;box-shadow:0 10px 30px rgba(20,30,25,.04)}
+.wrap>main{grid-column:1;grid-row:3}
+.wrap>aside{grid-column:2;grid-row:2/4}
+.qhead{align-items:center;gap:10px 14px;padding:0 2px}
+.qhead h2{font-size:17px}
+.qhead p{flex:1 1 160px;min-width:0;font-size:13px}
+.qtabs button i{font-style:normal;color:var(--muted);font-weight:600;margin-left:2px}
+.qtabs button i:empty{display:none}
+.qnav{display:flex;gap:2px;margin-left:auto}.qnav .iconbtn{width:32px;height:32px;border:1px solid var(--line)}.qnav .iconbtn svg{width:16px;height:16px}
+.qnav .iconbtn:disabled{opacity:.35;cursor:default}
+.qrow{position:relative;margin:0 -16px;min-width:0}
+.qrow .qgrid{display:grid;grid-auto-flow:column;grid-auto-columns:176px;grid-template-columns:none;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding:0 16px;padding:2px 16px 6px;scrollbar-width:none;overscroll-behavior-x:contain}
+.qrow .qgrid::-webkit-scrollbar{display:none}
+.qrow::before,.qrow::after{content:"";position:absolute;top:0;bottom:6px;width:28px;pointer-events:none;z-index:1;opacity:0;transition:opacity .2s}
+.qrow::before{left:0;background:linear-gradient(90deg,var(--panel),transparent)}.qrow::after{right:0;background:linear-gradient(-90deg,var(--panel),transparent)}
+.qrow.l::before,.qrow.r::after{opacity:1}
+.qrow .qcard{scroll-snap-align:start;padding:6px;gap:7px}
+.qrow .qthumb{height:84px}
+.qrow .qmeta b{font-size:13.5px}
+.qrow .qmeta span{font-size:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.qrow .qtags i{font-size:10.5px}
+.qrow .tpl{margin:0}.qrow .tempty{margin:0 16px}
+.qtabs button[aria-selected="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.actions.atop{padding-bottom:12px;border-bottom:1px solid var(--line)}.actions.atop #copy{flex:1 1 auto;text-align:center}
+.actions.atop .count,.actions.atop .status{display:none}
+.actions.atop{flex-wrap:nowrap}.actions.atop .btn.ghost{padding:11px 13px}
+.quick[data-qt="team"] #qgrid,.quick:not([data-qt="team"]) #tpl{display:none}
+/* prompt panel: fits the viewport, copy button never scrolls away */
+@media (min-width:981px){
+  aside{top:calc(env(safe-area-inset-top,0px) + 88px);max-height:calc(100vh - 100px);overflow:hidden;gap:12px}
+  aside>*{flex:none}
+  aside pre#out,aside.haspv pre#out{flex:1 1 auto;min-height:96px;max-height:none;overflow:auto}
+  aside .actions{position:relative;padding-top:2px}
+  aside .tsave{flex:none}
+  @media (max-height:820px){aside .summary{max-height:62px;overflow:auto}}
+}
+@media (max-width:980px){.quick,.wrap>main,.wrap>aside{grid-column:1;grid-row:auto}}
+@media (max-width:700px){.quick{padding:14px 12px 10px}.qrow{margin:0 -12px}.qrow .qgrid{padding:2px 12px 6px;grid-auto-columns:160px}.qnav{display:none}.qhead p{display:none}}
 
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
@@ -728,19 +775,19 @@ body.locked{overflow:hidden}
   <header class="hero">
     <div class="hcopy">
       <p class="eyebrow"><i></i>Для дизайнеров КуулКлевер</p>
-      <h1>Промт для продуктовой сцены <em>за минуту</em></h1>
+      <h1>Промт для продуктовой сцены <em>за&nbsp;минуту</em></h1>
       <p>Выберите сценарий или соберите сцену по шагам. Промт собирается сам: копируйте и вставляйте в Nano Banana.</p>
     </div>
     <div class="stage" id="stage" aria-hidden="true"><canvas id="heroCv"></canvas><span class="stagecap" id="stageCap"></span></div>
   </header>
 
   <section class="quick" id="quick" aria-labelledby="qTitle">
-    <div class="qhead"><h2 id="qTitle">Начните со сценария</h2><p>Один клик настраивает все шаги, продукт остаётся вашим.</p></div>
-    <div class="qgrid" id="qgrid"></div>
-    <div class="tpl" id="tpl" hidden>
-      <div class="qhead"><h2>Шаблоны команды</h2><p>Удачная генерация? Сохраните её настройки, и ими смогут пользоваться все.</p></div>
-      <div class="qgrid" id="tgrid"></div>
-    </div>
+    <div class="qhead"><h2 id="qTitle">Начните с готового</h2>
+      <div class="gsort qtabs" role="tablist" aria-label="Готовые настройки"><button type="button" role="tab" data-qt="kk" aria-selected="true">Сценарии</button><button type="button" role="tab" data-qt="team" id="qtTeam" aria-selected="false" hidden>Шаблоны команды <i id="tplN"></i></button></div>
+      <p id="qSub">Один клик настраивает все шаги, продукт остаётся вашим.</p>
+      <div class="qnav"><button class="iconbtn" type="button" data-qs="-1" aria-label="Прокрутить назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button class="iconbtn" type="button" data-qs="1" aria-label="Прокрутить вперёд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div></div>
+    <div class="qrow" id="qrow"><div class="qgrid" id="qgrid"></div>
+    <div class="tpl" id="tpl" hidden><div class="qgrid" id="tgrid"></div></div></div>
   </section>
 
   <main>
@@ -920,6 +967,14 @@ body.locked{overflow:hidden}
         <p>Серые варианты несовместимы с текущим выбором: нажмите на них, чтобы узнать причину.</p>
         <p>Промт на английском: так модели точнее понимают свет и оптику. Описание продукта можно писать по-русски.</p>
       </div></details></div>
+        <div class="actions atop">
+      <button class="btn" id="copy" type="button">Скопировать промт</button>
+      <button class="btn ghost" id="reset" type="button">Сбросить</button>
+      <button class="btn ghost" id="tOpen" type="button" hidden>В шаблоны</button>
+      <span class="status" id="status"></span>
+      <span class="count" id="count"></span>
+    </div>
+    <form class="tsave" id="tSave" hidden><label class="lbl" for="tName">Название шаблона</label><div class="trow"><input type="text" id="tName" maxlength="48" placeholder="Например: баннер 21:9, мясо на доске" required><button class="btn" type="submit">Сохранить</button><button class="btn ghost" type="button" id="tCancel">Отмена</button></div><small class="hint">Сохраняются настройки сцены, без продукта.</small></form>
     <div class="summary" id="summary"></div>
     <div class="pvbox" id="pvbox">
       <div class="pvhead"><span>Схема сцены</span><div class="rwrap"><button class="rbtn" type="button" id="rBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="ratios" title="Соотношение сторон кадра"><i class="ri" id="rIco"></i><b id="rVal">1:1</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="rpop" id="ratios" role="listbox" aria-label="Формат кадра" hidden></div></div><button class="pvtog" type="button" id="pvTog" aria-expanded="true" aria-controls="pvw">Скрыть</button></div>
@@ -928,14 +983,6 @@ body.locked{overflow:hidden}
     </div>
     <div class="warn" id="autoNote" hidden></div>
     <pre id="out"></pre>
-    <div class="actions">
-      <button class="btn" id="copy" type="button">Скопировать промт</button>
-      <button class="btn ghost" id="reset" type="button">Сбросить</button>
-      <button class="btn ghost" id="tOpen" type="button" hidden>В шаблоны</button>
-      <span class="status" id="status"></span>
-      <span class="count" id="count"></span>
-    </div>
-    <form class="tsave" id="tSave" hidden><label class="lbl" for="tName">Название шаблона</label><div class="trow"><input type="text" id="tName" maxlength="48" placeholder="Например: баннер 21:9, мясо на доске" required><button class="btn" type="submit">Сохранить</button><button class="btn ghost" type="button" id="tCancel">Отмена</button></div><small class="hint">Сохраняются настройки сцены, без продукта.</small></form>
   </aside>
 </div>
 
@@ -1809,8 +1856,21 @@ $("qgrid").addEventListener("click",e=>{const c=e.target.closest("[data-q]");if(
 
 
 
+
+/* ----- quick start tabs + row scroll ----- */
+function qTab(t){$("quick").dataset.qt=t;$("quick").querySelectorAll("[data-qt]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.qt===t)));
+  $("qSub").textContent=t==="team"?"Удачные настройки коллег. Сохраните свои кнопкой «В шаблоны» под промтом.":"Один клик настраивает все шаги, продукт остаётся вашим.";qEdges()}
+const qGrid=()=>$("quick").dataset.qt==="team"?$("tgrid"):$("qgrid");
+function qEdges(){const g=qGrid(),r=$("qrow"),max=g.scrollWidth-g.clientWidth-2;r.classList.toggle("l",g.scrollLeft>2);r.classList.toggle("r",g.scrollLeft<max);
+  const [a,b]=$("quick").querySelectorAll("[data-qs]");a.disabled=g.scrollLeft<=2;b.disabled=g.scrollLeft>=max;$("quick").querySelector(".qnav").style.display=max>0?"":"none"}
+$("quick").querySelector(".qtabs").addEventListener("click",e=>{const b=e.target.closest("[data-qt]");if(b)qTab(b.dataset.qt)});
+$("quick").querySelector(".qnav").addEventListener("click",e=>{const b=e.target.closest("[data-qs]");if(!b)return;const g=qGrid();g.scrollBy({left:+b.dataset.qs*(g.clientWidth-60),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})});
+["qgrid","tgrid"].forEach(id=>$(id).addEventListener("scroll",qEdges,{passive:true}));
+if("ResizeObserver" in window)new ResizeObserver(qEdges).observe($("qrow"));
+qTab("kk");
+
 /* ---------- EXPERIMENTAL OPTIONS: hidden until asked ---------- */
-["arr","grids","shadows","tilt","pods","surfaces"].forEach(id=>{const g=$(id),n=g.querySelectorAll(".xo").length;if(!n)return;
+["arr","grids","shadows","tilt","pods","surfaces"].forEach(id=>{const g=$(id),xs=g.querySelectorAll(".xo"),n=xs.length;if(!n)return;if(n===1){xs[0].classList.remove("xo");return}
   const b=document.createElement("button");b.type="button";b.className="more";b.setAttribute("aria-expanded","false");
   b.innerHTML=`<span>Ещё варианты (${n})</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>`;
   b.addEventListener("click",()=>{const o=!g.classList.contains("showx");g.classList.toggle("showx",o);b.setAttribute("aria-expanded",String(o));b.querySelector("span").textContent=o?"Скрыть экспериментальные":`Ещё варианты (${n})`});
@@ -1931,13 +1991,13 @@ $("uOut").addEventListener("click",async()=>{userMenu(false);await Cloud.sb.auth
 $("uAdmin").addEventListener("click",()=>{userMenu(false);openAdmin()});
 async function onSession(session){
   Cloud.user=session?session.user:null;
-  if(!Cloud.user){Cloud.profile=null;Cloud.admin=false;$("uwrap").hidden=true;$("histBtn").hidden=true;$("viewNav").hidden=true;route();$("fbOpen").hidden=true;$("tpl").hidden=true;$("tOpen").hidden=true;gateMode(gate.mode);gateShow("form");return}
+  if(!Cloud.user){Cloud.profile=null;Cloud.admin=false;$("uwrap").hidden=true;$("histBtn").hidden=true;$("viewNav").hidden=true;$("qtTeam").hidden=true;qTab("kk");route();$("fbOpen").hidden=true;$("tpl").hidden=true;$("tOpen").hidden=true;gateMode(gate.mode);gateShow("form");return}
   gateShow("off");$("uwrap").hidden=false;$("fbOpen").hidden=false;try{localStorage.setItem("gena-known","1")}catch(e){}
   const [{data:prof},{data:adm}]=await Promise.all([Cloud.sb.from("profiles").select("name,email").eq("id",Cloud.user.id).maybeSingle(),Cloud.sb.rpc("is_admin")]);
   Cloud.profile=prof||{name:"",email:Cloud.user.email};Cloud.admin=adm===true;
   const nm=Cloud.profile.name||Cloud.user.email.split("@")[0];
   $("uName").textContent=nm;$("uMail").textContent=Cloud.user.email;$("uIni").textContent=nm.trim().charAt(0).toUpperCase()||"?";$("uAdmin").hidden=!Cloud.admin;
-  $("tpl").hidden=false;$("tOpen").hidden=false;loadTemplates();
+  $("tpl").hidden=false;$("qtTeam").hidden=false;$("tOpen").hidden=false;loadTemplates();
   $("histBtn").hidden=false;$("viewNav").hidden=false;loadHistory();route();
 }
 
@@ -1947,7 +2007,7 @@ async function loadTemplates(){
   if(error){$("tgrid").innerHTML=`<p class="tempty">Не удалось загрузить шаблоны. Обновите страницу.</p>`;return}
   TPL=data||[];drawTemplates()}
 function drawTemplates(){
-  const g=$("tgrid");
+  const g=$("tgrid");$("tplN").textContent=TPL.length||"";
   if(!TPL.length){g.innerHTML=`<p class="tempty">Пока пусто. Получилось хорошо — нажмите «В шаблоны» под промтом.</p>`;return}
   g.innerHTML=TPL.map(t=>{const mine=Cloud.user&&t.author_id===Cloud.user.id,can=mine||Cloud.admin;
     return `<div class="qcard" role="button" tabindex="0" data-tp="${escA(t.id)}"><div class="qthumb"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div><div class="qmeta"><b>${escA(t.name)}</b><small>${t.from_analytics?'<span class="pop">Популярное</span> ':""}${escA(t.author_name||"Коллега")}${mine?" (вы)":""} · ${fmtDate(t.created_at)}</small></div>${can?`<button class="tdel" type="button" data-del="${escA(t.id)}">Удалить</button>`:""}</div>`}).join("");
@@ -2322,7 +2382,7 @@ $("doneStars").addEventListener("click",async e=>{const b=e.target.closest("[dat
 function copy(statusEl){
   const txt=plain();
   const wantDone=Cloud.user&&prefGet("gena-done",true);let hp=null;const showDone=c=>{if(!wantDone)return;if(document.body.classList.contains("sheet"))sheet(false);doneOpen(c,hp||Promise.resolve(null))};
-  const ok=()=>{showDone(true);statusEl.textContent="Скопировано";setTimeout(()=>{statusEl.textContent=statusEl.id==="mstat"?"Промт готов":""},2200)};
+  const ok=()=>{showDone(true);statusEl.textContent="Скопировано";if(statusEl.id==="status"){const c=$("copy");c.textContent="Скопировано ✓";clearTimeout(c._t);c._t=setTimeout(()=>c.textContent="Скопировать промт",2200)}setTimeout(()=>{statusEl.textContent=statusEl.id==="mstat"?"Промт готов":""},2200)};
   const fb=()=>{const r=document.createRange();r.selectNodeContents($("out"));const s=getSelection();s.removeAllRanges();s.addRange(r);statusEl.textContent="Текст выделен, нажми ⌘C";showDone(false)};
   logEvent("copy");hp=historyTouch();
   try{navigator.clipboard.writeText(txt).then(ok,fb)}catch(e){fb()}
