@@ -1242,6 +1242,8 @@ const ANGLES=[
   svg:`<line class="gl" x1="14" y1="62" x2="106" y2="62"/><rect class="fl" x="38" y="16" width="44" height="46"/><rect class="lb" x="46" y="30" width="28" height="16" rx="2"/>`},
  {id:"side",t:"Три четверти",d:"Видны перед и бок",p:"Three-quarter view at eye level, product turned about 30° away from the camera, revealing the front and one side, 70mm lens.",
   svg:`<line class="gl" x1="14" y1="64" x2="106" y2="64"/><polygon class="fl" points="30,22 64,18 64,64 30,60"/><polygon class="fr" points="64,18 88,22 88,60 64,64"/><polygon class="lb" points="37,33 57,30.6 57,47 37,48.7"/>`},
+ {id:"hq",t:"3/4 сверху",d:"Верх, перед и бок, с перспективой",p:"Elevated three-quarter view with natural perspective: camera about 30–35° above the product and turned about 35–45° to the side, so the top, the front and one side are all visible at once. Real lens perspective, not isometric: parallel edges converge slightly with distance and verticals taper gently downward (three-point perspective), 35–50mm lens.",
+  svg:`<polygon class="ft" points="60,9 83,19 60,31 37,19"/><polygon class="fl" points="37,19 60,31 60,64 40,50"/><polygon class="fr" points="60,31 83,19 80,50 60,64"/><polygon class="lb" points="42,32 56,39.5 56,50 43.5,43"/>`},
  {id:"top",t:"Сверху",d:"Строго сверху, как раскладка",p:"Camera directly overhead, 90° top-down flat lay view, near-orthographic perspective with minimal lens distortion.",
   svg:`<rect class="ft" x="38" y="14" width="44" height="44" rx="2"/><circle cx="60" cy="36" r="11" fill="var(--fig-l)"/>`},
  {id:"iso",x:true,t:"Изометрия",d:"Как чертёж, без перспективы",p:"Isometric three-quarter view from about 35° above, orthographic projection with parallel lines and no perspective convergence, top and two sides equally visible.",
@@ -2499,8 +2501,8 @@ $("brandLink").addEventListener("click",e=>{e.preventDefault();window.scrollTo({
 if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){const nav=$("steps");nav.querySelectorAll("[data-t]").forEach(b=>{const on=b.dataset.t===en.target.id;b.setAttribute("aria-current",String(on));if(on&&nav.scrollWidth>nav.clientWidth)nav.scrollTo({left:b.offsetLeft-nav.clientWidth/2+b.offsetWidth/2,behavior:"smooth"})})}})},{rootMargin:"-30% 0px -60% 0px"});document.querySelectorAll("main .block").forEach(b=>io.observe(b))}
 
 /* ---------- SCENE PREVIEW (schematic) ---------- */
-const PV_E={front:.07,slight:.16,e45:.32,side:.22,iso:.3,profile:.08,hero:.04,dutch:.18,macro:.24,top:1};
-const PV_FLOOR={top:100,e45:62,iso:66,slight:50,macro:58,hero:24,front:36,profile:36,side:42,dutch:46};
+const PV_E={hq:.3,front:.07,slight:.16,e45:.32,side:.22,iso:.3,profile:.08,hero:.04,dutch:.18,macro:.24,top:1};
+const PV_FLOOR={hq:60,top:100,e45:62,iso:66,slight:50,macro:58,hero:24,front:36,profile:36,side:42,dutch:46};
 const LTEMP_C={neutral:"#FFFFFF",warm:"#FFD58A",cool:"#BFDFFF"};
 function pvRng(seed){return ()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646}}
 function drawPreview(T){
