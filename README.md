@@ -19,7 +19,7 @@
 
 Settings → Pages → Source: Deploy from a branch → `main` / `(root)` → Save. Сайт: https://qller96-blip.github.io/gena/
 
-Библиотека Supabase встроена в `index.html`, внешние CDN не нужны.
+Библиотека Supabase лежит в `vendor/`, внешние CDN не нужны.
 
 ## Выкладка на Vercel (если доступен)
 
