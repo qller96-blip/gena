@@ -1475,6 +1475,7 @@ const TILT=[
  {id:"none",t:"Без наклона",d:"Ровно",rot:[0,0,0],p:"Objects stay upright and level."},
  {id:"left",t:"Все влево",d:"Единый поток",rot:[-16,-16,-16],p:"All objects share the same orientation: every object is rotated and tilted in the same direction, leaning about 10–20° to the left, as if the whole arrangement is gently turning to the left together, creating one smooth unified flow from right to left."},
  {id:"right",t:"Все вправо",d:"Единый поток",rot:[16,16,16],p:"All objects share the same orientation: every object is rotated and tilted in the same direction, leaning about 10–20° to the right, as if the whole arrangement is gently turning to the right together, creating one smooth unified flow from left to right."},
+ {id:"fan",t:"Веером",d:"Мягкая дуга",rot:[-14,0,14],p:"The objects fan out in one gentle arc, like a spread hand of cards: the central object stays upright and sits slightly higher, the objects on each side tilt outward about 10–15° and sit a little lower, all following one smooth symmetrical curve with even spacing."},
  {id:"varied",x:true,t:"Каждый по-своему",d:"Динамика",rot:[-22,14,-6],p:"Each object is rotated at its own angle for a dynamic, playful feel."}];
 const CATS=[["none","Без категории"],["meat","Мясо и гриль"],["dairy","Молочное"],["ready","Готовая еда"],["bakery","Выпечка и десерты"],["produce","Овощи и фрукты"],["alcohol","Вино и алкоголь"],["drinks","Напитки"]];
 const CATP={meat:"Meat looks fresh and juicy: natural marbling, moist surface, deep natural red and appetizing seared crust where cooked; never grey, dry or plastic.",
@@ -1649,7 +1650,9 @@ function lightSVG(o){
 function tiltSVG(o){
   const [a,b,c]=o.rot;let d=`<defs><filter id="tb${o.id}" x="-50%" y="-300%" width="200%" height="700%"><feGaussianBlur stdDeviation="2.5"/></filter></defs>`;
   d+=`<ellipse cx="60" cy="66" rx="34" ry="3" fill="var(--ink)" opacity=".1" filter="url(#tb${o.id})"/>`;
-  d+=box(36,34,15,24,a)+jar(62,32,1.35,b)+box(86,36,13,20,c);
+  const fan=o.id==="fan";
+  d+=box(fan?37:36,fan?37:34,15,24,a)+jar(62,fan?29:32,1.35,b)+box(fan?85:86,fan?39:36,13,20,c);
+  if(fan)d+=`<path d="M26 26 Q60 0 94 26" fill="none" stroke="var(--detail)" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 5"/>`;
   if(o.id==="left")d+=`<path d="M100 14 Q60 2 22 14" fill="none" stroke="var(--detail)" stroke-width="2.4" stroke-linecap="round"/><path d="M28 9 L21 14 L29 18" fill="none" stroke="var(--detail)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`;
   if(o.id==="right")d+=`<path d="M20 14 Q60 2 98 14" fill="none" stroke="var(--detail)" stroke-width="2.4" stroke-linecap="round"/><path d="M92 9 L99 14 L91 18" fill="none" stroke="var(--detail)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>`;
   return `<svg class="fig" viewBox="0 0 120 74" aria-hidden="true">${d}</svg>`;
@@ -1867,6 +1870,7 @@ function sections(){
   const key=[{one:"a single product",group:"one cohesive standing group",onefly:"a single levitating product",cluster:"one cohesive floating group",apart:"separately floating products that never touch"}[ar.id]];
   if(ar.float&&S.tilt==="left")key.push("all objects leaning left in one direction");
   if(ar.float&&S.tilt==="right")key.push("all objects leaning right in one direction");
+  if(ar.float&&S.tilt==="fan")key.push("objects fanned out in one gentle symmetrical arc");
   if(gr.p)key.push({thirds:"rule of thirds",golden:"golden-ratio balance",sym:"strict symmetry",diag:"diagonal flow",tri:"triangular build"}[gr.id]);
   if(noCrop)key.push("fully inside the frame, nothing cropped");
   if(S.pod!=="none")key.push(find(PODS,S.pod).t==="Мягкие"?"soft rounded podiums":"display podiums");
@@ -2566,7 +2570,8 @@ function drawPreview(T){
   const groundY=by+h0*.2;
   const TD={cup:.62,bottle:.95,wine:1.12,jar:.8,box:.9,tray:.42,none:.55},PHOTO_T=["jar","bottle","cup","box","wine"];
   const P=it.map((o,i)=>{const ty=txt?items[i].type:PHOTO_T[i%5],hh=h0*o.k*(TD[ty]||.8);return {x:cx+o.dx*w0,by:by+o.dy*h0,h:hh,w:iconW(ty,hh),dy:o.dy,ty,col:txt?items[i].color:null,mat:txt?items[i].mat:null,
-    rot:float?({left:-13,right:13,varied:[-18,12,-6,9,-12][i],none:0}[S.tilt]||0):0,i}});
+    rot:float?(S.tilt==="fan"?Math.max(-15,Math.min(15,o.dx*34)):{left:-13,right:13,varied:[-18,12,-6,9,-12][i],none:0}[S.tilt]||0):0,i}});
+  if(float&&S.tilt==="fan")P.forEach(p=>{const d=Math.min(1,Math.abs(p.x-cx)/(w0*.6||1));p.by+=h0*.09*(d*d)-h0*.04});
   /* podium under the group */
   let podStr="";
   if(S.pod!=="none"&&an.id!=="macro"){
