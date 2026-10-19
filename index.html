@@ -553,6 +553,50 @@ body.v-gallery .topbar-in .setwrap{display:none}body.v-gallery .views{margin-rig
 @media (max-width:980px){.quick,.wrap>main,.wrap>aside{grid-column:1;grid-row:auto}}
 @media (max-width:700px){.quick{padding:14px 12px 10px}.qrow{margin:0 -12px}.qrow .qgrid{padding:2px 12px 6px;grid-auto-columns:160px}.qnav{display:none}.qhead p{display:none}}
 
+
+html,body{overflow-x:clip}
+/* v13: hero spheres behind the UI, gallery hover actions, admin result shots, footer */
+.hero{position:relative;z-index:0}
+.hero .hcopy{position:relative;z-index:2}
+.wrap>.quick,.wrap>main,.wrap>aside{position:relative;z-index:1}
+.wrap>aside{position:sticky}
+@media (min-width:701px){
+  .hero .stage{position:absolute;z-index:0;pointer-events:none;top:-120px;bottom:-150px;height:auto;left:38%;right:calc(-1 * max(24px,(100vw - 1320px)/2));
+    -webkit-mask-image:radial-gradient(62% 58% at 60% 46%,#000 42%,transparent 100%);mask-image:radial-gradient(62% 58% at 60% 46%,#000 42%,transparent 100%)}
+  .hero .stage::before{display:none}
+  .hero .stagecap{display:none}
+}
+.gtile{display:block}
+.gtop{position:absolute;top:10px;right:10px;display:flex;gap:6px;opacity:0;transform:translateY(-4px);transition:opacity .18s,transform .18s;z-index:2}
+.gbtn{all:unset;cursor:pointer;height:32px;min-width:32px;padding:0 9px;box-sizing:border-box;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;gap:5px;font-size:12.5px;font-weight:650;color:#fff;background:rgba(18,22,20,.48);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.gbtn svg{width:15px;height:15px}.gbtn:hover{background:rgba(18,22,20,.68)}.gbtn.on{background:var(--detail);color:#272E32}
+.gbtn:focus-visible,.gapply:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.gcap{grid-template-columns:minmax(0,1fr) auto auto}
+.gtx{display:flex;flex-direction:column;min-width:0}.gtx b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gcap .glike{grid-row:auto;grid-column:auto;align-self:center}
+.gapply{all:unset;cursor:pointer;display:none;font-size:13px;font-weight:650;padding:8px 14px;border-radius:10px;background:var(--detail);color:#272E32;white-space:nowrap}
+.gapply:hover{background:#ffd75a}
+@media (hover:hover){.gtile:hover .gtop,.gtile:focus-within .gtop{opacity:1;transform:none}
+  .gtile:hover .gapply,.gtile:focus-within .gapply{display:inline-block}.gtile:hover .glike,.gtile:focus-within .glike{display:none}}
+@media (hover:none){.gtop,.gapply{display:none}}
+.aleft{display:flex;flex-direction:column;gap:6px;position:relative}
+.ashot{all:unset;cursor:zoom-in;display:block;height:112px;border-radius:8px;overflow:hidden;background:var(--panel);position:relative}
+.ashot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}.ashot:hover img{transform:scale(1.05)}
+.ashot i{position:absolute;right:6px;bottom:6px;font-style:normal;font-size:11px;font-weight:700;color:#fff;background:rgba(0,0,0,.55);border-radius:999px;padding:1px 7px}
+.ashot:focus-visible,.amore button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.acombo .aleft .amini{position:absolute;left:6px;top:6px;height:auto;width:auto;padding:3px;background:var(--panel);box-shadow:0 2px 8px rgba(0,0,0,.2);border-radius:6px;pointer-events:none}
+.amore{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.amore button{all:unset;cursor:zoom-in;aspect-ratio:1;border-radius:5px;overflow:hidden;background:var(--panel)}.amore img{width:100%;height:100%;object-fit:cover;display:block}
+.foot{max-width:1320px;margin:56px auto 0;padding:0 4px 28px}
+.foot-in{display:flex;align-items:center;gap:14px 18px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:13px}
+.fmark{font-family:var(--f-display);font-size:22px;font-weight:650;letter-spacing:.04em;color:var(--ink)}
+.fwords{display:flex;flex-direction:column;gap:1px}
+.fwords span{color:var(--ink);font-weight:500}.fwords i{font-style:normal;font-weight:700;color:var(--mark)}
+.fwords small{font-size:12px}
+.fside{margin-left:auto;font-size:12.5px}
+body.v-gallery .foot{display:block}
+@media (max-width:700px){.foot{margin-top:36px;padding:0 2px 16px}.fside{margin-left:0;flex-basis:100%}}
+
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -742,7 +786,7 @@ body.locked{overflow:hidden}
 <div class="glow" aria-hidden="true"></div>
 <div class="topbar">
   <div class="topbar-in">
-    <a class="brand" href="#s-ref" id="brandLink"><svg viewBox="0 0 120 120" role="img" aria-label="GENA"><path fill="#FFF6E3" d="M26 50C24 92 42 109 60 109C78 109 96 92 94 50Z"/><g fill="none" stroke="#282F33" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5.5" d="M25 54C25 93 44 109 60 109C76 109 95 93 95 54"/><path stroke-width="4.5" d="M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84"/><path stroke-width="4.5" d="M49 93Q60 100 71 93"/></g><path fill="#282F33" d="M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z"/><path fill="#282F33" d="M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z"/><g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="28" y="59" width="27" height="22" rx="8"/><rect x="65" y="59" width="27" height="22" rx="8"/><path d="M55 67H65"/></g><circle cx="42" cy="70.5" r="3.6" fill="#282F33"/><circle cx="78" cy="70.5" r="3.6" fill="#282F33"/></svg><span><b>GENA</b></span></a>
+    <a class="brand" href="#s-ref" id="brandLink" title="GENA — Generative Engine for Neural Art"><svg viewBox="0 0 120 120" role="img" aria-label="GENA"><path fill="#FFF6E3" d="M26 50C24 92 42 109 60 109C78 109 96 92 94 50Z"/><g fill="none" stroke="#282F33" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5.5" d="M25 54C25 93 44 109 60 109C76 109 95 93 95 54"/><path stroke-width="4.5" d="M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84"/><path stroke-width="4.5" d="M49 93Q60 100 71 93"/></g><path fill="#282F33" d="M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z"/><path fill="#282F33" d="M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z"/><g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="28" y="59" width="27" height="22" rx="8"/><rect x="65" y="59" width="27" height="22" rx="8"/><path d="M55 67H65"/></g><circle cx="42" cy="70.5" r="3.6" fill="#282F33"/><circle cx="78" cy="70.5" r="3.6" fill="#282F33"/></svg><span><b>GENA</b></span></a>
     <nav class="views" id="viewNav" aria-label="Разделы" hidden><a href="#" data-view="builder" aria-current="true">Конструктор</a><a href="#gallery" data-view="gallery" aria-current="false">Галерея</a></nav>
     <nav class="steps" id="steps" aria-label="Шаги">
       <button type="button" data-t="s-ref" title="Продукт" aria-label="Шаг 01: Продукт"><span>01</span><em>Продукт</em></button>
@@ -758,6 +802,7 @@ body.locked{overflow:hidden}
       <button class="iconbtn" type="button" id="setBtn" aria-haspopup="true" aria-expanded="false" aria-controls="setPop" aria-label="Анимация в шапке" title="Анимация в шапке"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3.2l7.6 4.4v8.8L12 20.8l-7.6-4.4V7.6z"/><path d="M4.4 7.6L12 12l7.6-4.4M12 12v8.8"/></svg></button>
       <div class="pop" id="setPop" role="radiogroup" aria-label="Анимация в шапке" hidden>
         <p class="poph">Анимация в шапке</p>
+        <button class="opt" type="button" role="radio" data-hm="orbs" aria-checked="false"><span class="oi"><svg viewBox="0 0 28 28"><defs><radialGradient id="oiG" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#C3CDFF"/><stop offset="1" stop-color="#F2C6A8"/></radialGradient></defs><circle cx="12" cy="13" r="8" fill="url(#oiG)" opacity=".9"/><circle cx="21" cy="20" r="4.5" fill="url(#oiG)" opacity=".75"/><circle cx="21.5" cy="7" r="2.5" fill="var(--detail)" opacity=".7"/></svg></span><span><b>Сферы</b><small>Полупрозрачные переливы, спокойное движение</small></span><i class="ok"></i></button>
         <button class="opt" type="button" role="radio" data-hm="build" aria-checked="false"><span class="oi"><svg viewBox="0 0 28 28"><g fill="var(--fig-l)"><rect x="11" y="4" width="6" height="5" rx="1"/><rect x="8" y="10" width="12" height="14" rx="2"/></g><rect x="9.5" y="14" width="9" height="4" fill="var(--detail)"/><g fill="var(--fig-r)"><rect x="2" y="20" width="3" height="3"/><rect x="23" y="6" width="3" height="3"/></g></svg></span><span><b>Сборка</b><small>Кубы собираются в продукт и рассыпаются</small></span><i class="ok"></i></button>
         <button class="opt" type="button" role="radio" data-hm="array" aria-checked="false"><span class="oi"><svg viewBox="0 0 28 28" fill="var(--fig-l)"><rect x="12" y="2.5" width="4" height="4" rx=".8"/><rect x="19" y="5.5" width="4" height="4" rx=".8"/><rect x="21.5" y="12" width="4" height="4" rx=".8" fill="var(--detail)"/><rect x="19" y="18.5" width="4" height="4" rx=".8"/><rect x="12" y="21.5" width="4" height="4" rx=".8"/><rect x="5" y="18.5" width="4" height="4" rx=".8"/><rect x="2.5" y="12" width="4" height="4" rx=".8"/><rect x="5" y="5.5" width="4" height="4" rx=".8"/></svg></span><span><b>Массив</b><small>Один кубик, разные схемы клонирования</small></span><i class="ok"></i></button>
         <button class="opt" type="button" role="radio" data-hm="chips" aria-checked="false"><span class="oi"><svg viewBox="0 0 28 28"><rect x="3" y="3" width="16" height="6" rx="3" fill="none" stroke="var(--fig-r)" stroke-width="1.4"/><path d="M11 11v4" stroke="var(--fig-r)" stroke-width="1.4"/><g fill="var(--fig-l)"><rect x="8" y="17" width="5" height="5" rx=".8"/><rect x="14" y="17" width="5" height="5" rx=".8" fill="var(--detail)"/><rect x="11" y="22.5" width="5" height="3" rx=".8"/></g></svg></span><span><b>Промт → сцена</b><small>Ваши настройки складываются в композицию</small></span><i class="ok"></i></button>
@@ -776,7 +821,7 @@ body.locked{overflow:hidden}
     <div class="hcopy">
       <p class="eyebrow"><i></i>Для дизайнеров КуулКлевер</p>
       <h1>Промт для продуктовой сцены <em>за&nbsp;минуту</em></h1>
-      <p>Выберите сценарий или соберите сцену по шагам. Промт собирается сам: копируйте и вставляйте в Nano Banana.</p>
+      <p>Выберите сценарий или соберите сцену по шагам. Промт собирается сам: скопируйте его в Nano Banana или GPT Image и приложите фото продукта как референс.</p>
     </div>
     <div class="stage" id="stage" aria-hidden="true"><canvas id="heroCv"></canvas><span class="stagecap" id="stageCap"></span></div>
   </header>
@@ -991,6 +1036,7 @@ body.locked{overflow:hidden}
     <div class="gsort" id="galSort" role="group" aria-label="Сортировка"><button type="button" data-gs="new" aria-pressed="true">Новые</button><button type="button" data-gs="top" aria-pressed="false">Полезные</button><button type="button" data-gs="mine" aria-pressed="false">Мои</button></div></div>
   <div class="ggrid" id="galGrid" aria-busy="true"></div>
 </section>
+<footer class="foot"><div class="foot-in"><b class="fmark">GENA</b><span class="fwords"><span><i>G</i>enerative <i>E</i>ngine for <i>N</i>eural <i>A</i>rt</span><small>Генеративный движок для нейро-арта</small></span><span class="fside">Для дизайнеров КуулКлевер</span></div></footer>
 <div id="toast" role="status" hidden></div>
 <div class="hwrap" id="hist" role="dialog" aria-modal="true" aria-labelledby="histTitle" hidden>
   <div class="hpanel">
@@ -1605,6 +1651,7 @@ function toastUndo(t,undo){const el=$("toast");el.textContent="";const sp=docume
 function cardsHTML(list,fig,extra=()=>""){return list.map(o=>`<button class="card${o.x?" xo":""}" type="button" data-v="${o.id}" aria-pressed="false">${fig(o)}<div class="meta"><span class="t">${o.t}</span>${o.d?`<span class="d">${o.d}</span>`:""}${extra(o)}</div></button>`).join("")}
 $("styles").innerHTML=cardsHTML(STYLES,styleSVG,o=>`<span class="tag">${o.kind}</span>`);
 $("angles").innerHTML=cardsHTML(ANGLES.filter(x=>!x.x),angleSVG);$("anglesX").innerHTML=cardsHTML(ANGLES.filter(x=>x.x),angleSVG);
+["anglesX","lightsX"].forEach(id=>$(id).classList.add("showx"));$("amore").hidden=!ANGLES.some(x=>x.x);$("lmore").hidden=!LIGHTS.some(x=>x.x);
 $("arr").innerHTML=cardsHTML(ARR,arrSVG);
 $("place").innerHTML=cardsHTML(PLACE,placeSVG);
 $("grids").innerHTML=cardsHTML(GRIDS,gridSVG);
@@ -2047,8 +2094,10 @@ async function openAdmin(){
     Cloud.sb.from("scene_events").select("user_id,kind,scene,meta,created_at").order("created_at",{ascending:false}).limit(5000),
     Cloud.sb.from("profiles").select("id,name,email,created_at"),
     Cloud.sb.from("feedback").select("id,author_name,text,screenshot,resolved,created_at,ua").order("created_at",{ascending:false}).limit(200),
-    Cloud.sb.from("prompt_history").select("user_id,scene,rating,used_at").not("rating","is",null).order("used_at",{ascending:false}).limit(1000)]);
+    Cloud.sb.from("prompt_history").select("id,user_id,scene,rating,used_at").not("rating","is",null).order("used_at",{ascending:false}).limit(1000)]);
   ADM.rated=rh.data||[];
+  const {data:pubs}=await Cloud.sb.from("publications").select("id,user_id,author_name,history_id,title,scene,prompt,rating,image_path,thumb_path,w,h,likes,created_at").limit(500);
+  ADM.pubs=pubs||[];ADM.pubs.forEach(p=>{if(!GAL.rows.some(x=>x.id===p.id))GAL.rows.push(p)});
   if(ev.error||pr.error){$("admBody").innerHTML=`<p class="hint">Не удалось загрузить аналитику: ${escA((ev.error||pr.error).message)}</p>`;return}
   renderAdmin(ev.data||[],pr.data||[],[],al.data||[])}
 function closeAdmin(){$("adm").hidden=true;document.body.classList.remove("locked")}
@@ -2067,7 +2116,8 @@ function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
     const c=combos.get(key)||{n:0,users:new Set(),scene:sc,last:e.created_at};c.n++;c.users.add(e.user_id);combos.set(key,c)});
   ADM.combos=[...combos.values()].sort((a,b)=>b.users.size-a.users.size||b.n-a.n).slice(0,8);
   // rated scenes
-  const rm=new Map();ADM.rated.forEach(r=>{const sc=r.scene||{},k=comboKey(sc),c=rm.get(k)||{sum:0,n:0,users:new Set(),scene:sc};c.sum+=r.rating;c.n++;c.users.add(r.user_id);rm.set(k,c)});
+  const rm=new Map(),pubBy=new Map((ADM.pubs||[]).filter(p=>p.history_id).map(p=>[p.history_id,p]));
+  ADM.rated.forEach(r=>{const sc=r.scene||{},k=comboKey(sc),c=rm.get(k)||{sum:0,n:0,users:new Set(),scene:sc,pubs:[]};c.sum+=r.rating;c.n++;c.users.add(r.user_id);if(pubBy.has(r.id))c.pubs.push(pubBy.get(r.id));rm.set(k,c)});
   ADM.rc=[...rm.values()].map(c=>Object.assign(c,{avg:c.sum/c.n})).sort((a,b)=>b.avg-a.avg||b.n-a.n).slice(0,8);
   // setting popularity
   const pop=ANA_KEYS.map(([k,t])=>{const m=new Map();copies.forEach(e=>{const v=(e.scene||{})[k];if(v!=null)m.set(v,(m.get(v)||0)+1)});
@@ -2084,7 +2134,7 @@ function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
       <div class="ameta"><b>${c.n} ${plur(c.n,"раз","раза","раз")} · ${c.users.size} ${plur(c.users.size,"дизайнер","дизайнера","дизайнеров")}</b><div class="achips">${sceneChips(c.scene).map(x=>`<i>${escA(x)}</i>`).join("")}</div>
       <form class="amk" data-ci="${i}"><input type="text" maxlength="60" required placeholder="Название шаблона" aria-label="Название шаблона"><button class="btn" type="submit">Сделать шаблоном</button></form></div></div>`).join(""):'<p class="tempty">Пока никто не копировал промт. Данные появятся, когда дизайнеры начнут работать.</p>'}</div></section>
    <section><h3>Оценённые сцены</h3><p class="hint">Как дизайнеры оценили результат генерации. Одинаковые настройки сцены собраны вместе, сверху лучшие по средней оценке.</p>
-    <div class="acombos">${ADM.rc.length?ADM.rc.map((c,i)=>`<div class="acombo arated"><div class="qthumb"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div>
+    <div class="acombos">${ADM.rc.length?ADM.rc.map((c,i)=>`<div class="acombo arated"><div class="aleft">${c.pubs.length?`<button class="ashot" type="button" data-wk="${escA(c.pubs[0].id)}" aria-label="Открыть результат"><img alt="" data-tp="${escA(c.pubs[0].thumb_path)}">${c.pubs.length>1?`<i>+${c.pubs.length-1}</i>`:""}</button>`:""}<div class="qthumb${c.pubs.length?" amini":""}" title="Схема сцены"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div>${c.pubs.length>1?`<div class="amore">${c.pubs.slice(1,5).map(p=>`<button type="button" data-wk="${escA(p.id)}" aria-label="Открыть результат"><img alt="" data-tp="${escA(p.thumb_path)}"></button>`).join("")}</div>`:""}</div>
       <div class="ameta"><b class="arate">${starsHTML(Math.round(c.avg),"",true)} ${c.avg.toFixed(1).replace(".",",")} · ${c.n} ${plur(c.n,"оценка","оценки","оценок")}</b><small class="hint">${[...c.users].map(u=>escA(names[u]||"Коллега")).join(", ")}</small><div class="achips">${sceneChips(c.scene).map(x=>`<i>${escA(x)}</i>`).join("")}</div>
       <form class="amk" data-ri="${i}"><input type="text" maxlength="60" required placeholder="Название шаблона" aria-label="Название шаблона"><button class="btn" type="submit">Сделать шаблоном</button></form></div></div>`).join(""):'<p class="tempty">Оценок пока нет. Дизайнеры ставят их в «Мои промты» после генерации.</p>'}</div></section>
    <section><h3>Какие настройки выбирают</h3><div class="agrid">${pop}</div></section>
@@ -2095,8 +2145,10 @@ function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
   const keep=S;
   try{ADM.combos.forEach((c,i)=>{const el=$("admBody").querySelectorAll(".acombo")[i],st=JSON.parse(JSON.stringify(keep));Object.assign(st,JSON.parse(JSON.stringify(c.scene)));S=st;autofix();
     drawPreview({pv:el.querySelector(".pv"),floor:el.querySelector(".pvfloor"),svg:el.querySelector("svg"),leg:null,mw:150,mh:100,px:"a"+i})})}finally{S=keep}
-  $("admBody").querySelectorAll(".arated").forEach((el,i)=>miniPreview(el.querySelector(".qthumb"),ADM.rc[i].scene,"ar"+i,150,100));
+  $("admBody").querySelectorAll(".arated").forEach((el,i)=>miniPreview(el.querySelector(".qthumb"),ADM.rc[i].scene,"ar"+i,ADM.rc[i].pubs.length?60:150,ADM.rc[i].pubs.length?44:100));
+  const tps=[...$("admBody").querySelectorAll("img[data-tp]")];if(tps.length)signed(tps.map(x=>x.dataset.tp)).then(()=>tps.forEach(x=>{x.src=GAL.urls[x.dataset.tp]||""}));
 }
+$("admBody").addEventListener("click",e=>{const b=e.target.closest("[data-wk]");if(b){e.preventDefault();workOpen(b.dataset.wk)}});
 $("admBody").addEventListener("submit",async e=>{e.preventDefault();const f=e.target;
   if(f.matches(".amk")){const c=f.dataset.ri!=null?ADM.rc[+f.dataset.ri]:ADM.combos[+f.dataset.ci],name=f.querySelector("input").value.trim();if(!c||!name)return;
     const {error}=await Cloud.sb.from("templates").insert({name,scene:c.scene,from_analytics:true});
@@ -2315,9 +2367,14 @@ function drawGallery(){
   if(!rows.length){G.innerHTML=`<div class="gempty"><b>${GAL.mine?"У вас пока нет публикаций":"Здесь появятся лучшие работы команды"}</b><p>Оцените свой промт на 4–5 в «Мои промты» и опубликуйте результат генерации.</p><button class="btn" type="button" id="galToHist">Открыть «Мои промты»</button></div>`;
     $("galToHist").addEventListener("click",()=>histOpen(true));return}
   G.innerHTML=rows.map(r=>{const ar=r.w/r.h,cls=ar>=1.55?"wide":ar<=.72?"tall":"";
-    return `<button class="gtile ${cls}" type="button" data-pub="${escA(r.id)}" aria-label="${escA((r.title||"Работа")+", автор "+(r.author_name||"коллега"))}"><img src="${escA(GAL.urls[r.thumb_path]||"")}" alt="" loading="lazy" decoding="async"><span class="gcap"><b>${escA(r.title||r.author_name||"Работа")}</b><small>${escA(r.title?r.author_name:fmtDate(r.created_at))}</small><em class="glike${GAL.liked.has(r.id)?" on":""}">${r.likes}</em></span></button>`}).join("")}
+    const on=GAL.liked.has(r.id);
+    return `<div class="gtile ${cls}" role="button" tabindex="0" data-pub="${escA(r.id)}" aria-label="${escA((r.title||"Работа")+", автор "+(r.author_name||"коллега"))}"><img src="${escA(GAL.urls[r.thumb_path]||"")}" alt="" loading="lazy" decoding="async">
+      <span class="gtop"><button class="gbtn${on?" on":""}" type="button" data-ga="like" aria-pressed="${on}" title="Полезно"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9zM7 11l4-8a2.5 2.5 0 0 1 2.5 3L13 10h5.6a2 2 0 0 1 2 2.4l-1.4 6A2 2 0 0 1 17.3 20H7"/></svg><b>${r.likes}</b></button><button class="gbtn" type="button" data-ga="copy" title="Скопировать промт" aria-label="Скопировать промт"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></button></span>
+      <span class="gcap"><span class="gtx"><b>${escA(r.title||r.author_name||"Работа")}</b><small>${escA(r.title?r.author_name:fmtDate(r.created_at))}</small></span><em class="glike${on?" on":""}">${r.likes}</em><button class="gapply" type="button" data-ga="apply">Применить</button></span></div>`}).join("")}
 $("galSort").addEventListener("click",e=>{const b=e.target.closest("[data-gs]");if(!b)return;if(b.dataset.gs==="mine"){GAL.mine=true;drawGallery();return}GAL.mine=false;GAL.sort=b.dataset.gs;loadGallery()});
-$("galGrid").addEventListener("click",e=>{const t=e.target.closest("[data-pub]");if(t)workOpen(t.dataset.pub)});
+$("galGrid").addEventListener("click",e=>{const t=e.target.closest("[data-pub]");if(!t)return;const a=e.target.closest("[data-ga]"),r=GAL.rows.find(x=>x.id===t.dataset.pub);
+  if(a&&r){e.stopPropagation();if(a.dataset.ga==="apply")applyPub(r);if(a.dataset.ga==="copy")copyPub(r);if(a.dataset.ga==="like")likePub(r);return}workOpen(t.dataset.pub)});
+$("galGrid").addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches(".gtile")){e.preventDefault();workOpen(e.target.dataset.pub)}});
 async function workOpen(id){const r=GAL.rows.find(x=>x.id===id);if(!r)return;GAL.cur=r;
   $("work").hidden=false;document.body.classList.add("locked");
   $("wImg").src=GAL.urls[r.thumb_path]||"";$("wImg").alt=r.title||"Работа";$("wImgBox").style.aspectRatio=`${r.w}/${r.h}`;
@@ -2326,16 +2383,19 @@ async function workOpen(id){const r=GAL.rows.find(x=>x.id===id);if(!r)return;GAL
   workLike();$("wDel").hidden=!(r.user_id===Cloud.user.id||Cloud.admin);$("wDel").dataset.arm="";$("wDel").textContent="Удалить";$("wApply").focus();
   await signed([r.image_path]);if(GAL.cur===r&&GAL.urls[r.image_path])$("wImg").src=GAL.urls[r.image_path]}
 function workLike(){const r=GAL.cur,on=GAL.liked.has(r.id);$("wLike").setAttribute("aria-pressed",String(on));$("wLikeN").textContent=r.likes}
-function workClose(){$("work").hidden=true;document.body.classList.remove("locked");GAL.cur=null}
+function workClose(){$("work").hidden=true;document.body.classList.toggle("locked",!$("adm").hidden);GAL.cur=null}
 $("wClose").addEventListener("click",workClose);
 $("work").addEventListener("click",e=>{if(e.target===$("work"))workClose()});
 document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!$("pub").hidden)pubClose();else if(!$("work").hidden)workClose();else if(!$("hist").hidden)histOpen(false)});
-$("wApply").addEventListener("click",()=>{const r=GAL.cur,snap=JSON.stringify(S);Object.assign(S,JSON.parse(JSON.stringify(r.scene||{})));S.sv=Object.assign({},JSON.parse(snap).sv,(r.scene||{}).sv||{});S.preset=null;
-  drawLights();update();workClose();go("builder");logEvent("template",{publication:r.id});toastUndo("Сцена из галереи применена, продукт ваш",()=>{S=JSON.parse(snap);drawLights();renderProds();update()})});
-$("wCopy").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(GAL.cur.prompt);toast("Промт автора скопирован. В нём продукт автора — замените на свой")}catch(e){toast("Не получилось скопировать")}});
-$("wLike").addEventListener("click",async()=>{const r=GAL.cur,on=GAL.liked.has(r.id);
+$("wApply").addEventListener("click",()=>applyPub(GAL.cur));
+function applyPub(r){const snap=JSON.stringify(S);Object.assign(S,JSON.parse(JSON.stringify(r.scene||{})));S.sv=Object.assign({},JSON.parse(snap).sv,(r.scene||{}).sv||{});S.preset=null;
+  drawLights();update();if(!$("work").hidden)workClose();if(!$("adm").hidden)closeAdmin();go("builder");logEvent("template",{publication:r.id});toastUndo("Сцена из галереи применена, продукт ваш",()=>{S=JSON.parse(snap);drawLights();renderProds();update()})}
+$("wCopy").addEventListener("click",()=>copyPub(GAL.cur));
+async function copyPub(r){try{await navigator.clipboard.writeText(r.prompt);toast("Промт автора скопирован. В нём продукт автора — замените на свой")}catch(e){toast("Не получилось скопировать")}}
+$("wLike").addEventListener("click",()=>likePub(GAL.cur));
+async function likePub(r){const on=GAL.liked.has(r.id);
   const {error}=on?await Cloud.sb.from("publication_likes").delete().eq("publication_id",r.id).eq("user_id",Cloud.user.id):await Cloud.sb.from("publication_likes").insert({publication_id:r.id});
-  if(error){toast("Не получилось");return}if(on){GAL.liked.delete(r.id);r.likes--}else{GAL.liked.add(r.id);r.likes++}workLike();drawGallery()});
+  if(error){toast("Не получилось");return}if(on){GAL.liked.delete(r.id);r.likes--}else{GAL.liked.add(r.id);r.likes++}if(GAL.cur===r)workLike();if(!$("galPage").hidden)drawGallery()}
 $("wDel").addEventListener("click",async()=>{const b=$("wDel"),r=GAL.cur;if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Точно удалить?";return}
   const {error}=await Cloud.sb.from("publications").delete().eq("id",r.id);if(error){toast("Не получилось удалить");return}
   await Cloud.sb.storage.from("works").remove([r.image_path,r.thumb_path]);workClose();toast("Публикация удалена");loadGallery();loadHistory()});
@@ -2638,7 +2698,7 @@ const Hero=(()=>{
   const RM=matchMedia("(prefers-reduced-motion: reduce)");
   const C30=Math.cos(Math.PI/6),TAU=Math.PI*2;
   const LG=(()=>{const v=[.35,.7,1],l=Math.hypot(...v);return v.map(x=>x/l)})();
-  let W=0,H=0,DPR=1,mode="build",still=false,raf=0,onScreen=true,t0=performance.now(),lastT=0,col=null;
+  let W=0,H=0,DPR=1,mode="orbs",still=false,raf=0,onScreen=true,t0=performance.now(),lastT=0,col=null;
   let labels=["3D-рендер","Свет по стилю","Сверху 45°","Группа парит","Золотое сечение","Градиент","Декор: мало","Масштаб 75%","Тень","1:1"];
 
   /* colour helpers */
@@ -2815,8 +2875,33 @@ const Hero=(()=>{
   /* ===== loop ===== */
   let capPrev="";
   function capSet(a,b){const h=b?`${a} · <b>${b.replace(/</g,"&lt;")}</b>`:a;if(h!==capPrev){cap.innerHTML=h;capPrev=h}}
-  const FR={build:buildFrame,array:arrayFrame,chips:chipsFrame};
-  const STILL_T={build:BUILD_T*.55,array:SEG*2+1,chips:()=>chipsCycle().end+1.2};
+  /* ===== mode 4: iridescent spheres ===== */
+  const ORBS=[ // x,y in stage fractions, r in fractions of min(W,H), two tints, phase
+    [.54,.46,.30,"#C3CDFF","#F2C6A8",0],[.80,.27,.14,"#C4D9AE","#C3CDFF",1.7],[.40,.74,.10,"#F5C842","#F2C6A8",3.1],
+    [.86,.72,.20,"#F2C6A8","#C3CDFF",4.2],[.66,.88,.07,"#C3CDFF","#C4D9AE",2.4],[.43,.22,.05,"#C4D9AE","#F5C842",5.3],[.97,.42,.07,"#C3CDFF","#F2C6A8",.8]];
+  const hx=(h,a)=>{const n=parseInt(h.slice(1),16);return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`};
+  function orb(x,y,r,c1,c2,t,ph){const dk=col.dark;
+    let gr=g.createRadialGradient(x,y,r*.5,x,y,r*2.1);gr.addColorStop(0,hx(c1,dk?.26:.32));gr.addColorStop(1,hx(c1,0));
+    g.fillStyle=gr;g.beginPath();g.arc(x,y,r*2.1,0,TAU);g.fill();
+    g.save();g.beginPath();g.arc(x,y,r,0,TAU);g.clip();
+    gr=g.createRadialGradient(x-r*.38,y-r*.42,r*.04,x,y,r*1.02);
+    gr.addColorStop(0,`rgba(255,255,255,${dk?.55:.9})`);gr.addColorStop(.38,hx(c1,dk?.28:.34));gr.addColorStop(.82,hx(c2,dk?.36:.42));gr.addColorStop(1,hx(c2,dk?.62:.66));
+    g.fillStyle=gr;g.fillRect(x-r,y-r,r*2,r*2);
+    if(g.createConicGradient){const cg=g.createConicGradient(t*.35+ph,x,y);["#FFC9EC","#BDEBFF","#D6FFC9","#FFF0B0","#E3CCFF","#FFC9EC"].forEach((c,i,a)=>cg.addColorStop(i/(a.length-1),c));
+      g.globalAlpha=dk?.22:.3;g.globalCompositeOperation="soft-light";g.fillStyle=cg;g.fillRect(x-r,y-r,r*2,r*2);g.globalCompositeOperation="source-over";g.globalAlpha=1}
+    gr=g.createRadialGradient(x+r*.28,y+r*.5,0,x+r*.28,y+r*.5,r*.7);gr.addColorStop(0,"rgba(255,255,255,.38)");gr.addColorStop(1,"rgba(255,255,255,0)");g.fillStyle=gr;g.fillRect(x-r,y-r,r*2,r*2);
+    g.restore();
+    gr=g.createLinearGradient(x-r,y-r,x+r,y+r);gr.addColorStop(0,"rgba(255,255,255,.85)");gr.addColorStop(.5,"rgba(255,255,255,.12)");gr.addColorStop(1,"rgba(255,255,255,.45)");
+    g.strokeStyle=gr;g.lineWidth=Math.max(1,r*.025);g.beginPath();g.arc(x,y,r-g.lineWidth/2,0,TAU);g.stroke();
+    g.save();g.translate(x-r*.4,y-r*.46);g.rotate(-.65);gr=g.createRadialGradient(0,0,0,0,0,r*.24);gr.addColorStop(0,"rgba(255,255,255,.95)");gr.addColorStop(1,"rgba(255,255,255,0)");
+    g.fillStyle=gr;g.scale(1,.5);g.beginPath();g.arc(0,0,r*.24,0,TAU);g.fill();g.restore()}
+  function orbsFrame(t){const m=Math.min(W,H*1.25);
+    const list=ORBS.map(([fx,fy,fr,c1,c2,ph])=>{const s=1+.035*Math.sin(t*.5+ph);
+      return {x:fx*W+Math.sin(t*.22+ph)*W*.018,y:fy*H+Math.cos(t*.18+ph*1.3)*H*.03,r:fr*m*.62*s,c1,c2,ph}}).sort((a,b)=>a.r-b.r);
+    for(const o of list)orb(o.x,o.y,o.r,o.c1,o.c2,t,o.ph);
+    capSet("",null)}
+  const FR={orbs:orbsFrame,build:buildFrame,array:arrayFrame,chips:chipsFrame};
+  const STILL_T={orbs:3,build:BUILD_T*.55,array:SEG*2+1,chips:()=>chipsCycle().end+1.2};
   function render(t){
     if(!W||!col)return;
     g.setTransform(DPR,0,0,DPR,0,0);g.clearRect(0,0,W,H);
@@ -2839,8 +2924,8 @@ const Hero=(()=>{
 
   /* settings popover */
   const btn=$("setBtn"),pop=$("setPop"),chk=$("hmStill");
-  try{const s=JSON.parse(localStorage.getItem("gena-hero")||"null");if(s){if(FR[s.mode])mode=s.mode;still=!!s.still}}catch(e){}
-  const store=()=>{try{localStorage.setItem("gena-hero",JSON.stringify({mode,still}))}catch(e){}};
+  try{const s=JSON.parse(localStorage.getItem("gena-hero")||"null");if(s){if(s.v===2&&FR[s.mode])mode=s.mode;still=!!s.still}}catch(e){}
+  const store=()=>{try{localStorage.setItem("gena-hero",JSON.stringify({v:2,mode,still}))}catch(e){}};
   function syncUI(){
     pop.querySelectorAll("[data-hm]").forEach(b=>b.setAttribute("aria-checked",String(b.dataset.hm===mode)));
     chk.checked=isStill();chk.disabled=RM.matches;
