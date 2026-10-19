@@ -15,7 +15,13 @@
 
 Ключ в `index.html` публичный (publishable): все права ограничены политиками RLS в базе.
 
-## Выкладка на Vercel
+## Выкладка на GitHub Pages
+
+Settings → Pages → Source: Deploy from a branch → `main` / `(root)` → Save. Сайт: https://qller96-blip.github.io/gena/
+
+Библиотека Supabase встроена в `index.html`, внешние CDN не нужны.
+
+## Выкладка на Vercel (если доступен)
 
 1. vercel.com → Add New → Project → импортировать этот репозиторий.
 2. Framework Preset: **Other**. Build Command и Output Directory оставить пустыми.
