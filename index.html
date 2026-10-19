@@ -555,6 +555,7 @@ body.v-gallery .topbar-in .setwrap{display:none}body.v-gallery .views{margin-rig
 
 
 html,body{overflow-x:clip}
+#setBtn,.setwrap{display:none!important}
 /* v13: hero spheres behind the UI, gallery hover actions, admin result shots, footer */
 .hero{position:relative;z-index:0}
 .hero .hcopy{position:relative;z-index:2}
@@ -562,8 +563,8 @@ html,body{overflow-x:clip}
 .wrap>aside{position:sticky}
 @media (max-width:980px){.wrap>aside{z-index:55}}
 @media (min-width:701px){
-  .hero .stage{position:absolute;z-index:0;pointer-events:none;top:-120px;bottom:-150px;height:auto;left:38%;right:calc(-1 * max(24px,(100vw - 1320px)/2));
-    -webkit-mask-image:radial-gradient(62% 58% at 60% 46%,#000 42%,transparent 100%);mask-image:radial-gradient(62% 58% at 60% 46%,#000 42%,transparent 100%)}
+  .hero .stage{position:absolute;z-index:0;pointer-events:none;top:-120px;bottom:-150px;height:auto;left:44%;right:-40px;
+    -webkit-mask-image:radial-gradient(52% 56% at 48% 46%,#000 50%,transparent 100%);mask-image:radial-gradient(52% 56% at 48% 46%,#000 50%,transparent 100%)}
   .hero .stage::before{display:none}
   .hero .stagecap{display:none}
 }
@@ -838,7 +839,7 @@ body.locked{overflow:hidden}
 
   <section class="quick" id="quick" aria-labelledby="qTitle">
     <div class="qhead"><h2 id="qTitle">Начните с готового</h2>
-      <div class="gsort qtabs" role="tablist" aria-label="Готовые настройки"><button type="button" role="tab" data-qt="kk" aria-selected="true">Сценарии</button><button type="button" role="tab" data-qt="team" id="qtTeam" aria-selected="false" hidden>Шаблоны команды <i id="tplN"></i></button></div>
+      <div class="gsort qtabs" role="tablist" aria-label="Готовые настройки"><button type="button" role="tab" data-qt="kk" aria-selected="true">Сценарии</button><button type="button" role="tab" data-qt="team" id="qtTeam" aria-selected="false" hidden>Шаблоны команды</button></div>
       <p id="qSub">Один клик настраивает все шаги, продукт остаётся вашим.</p>
       <div class="qnav"><button class="iconbtn" type="button" data-qs="-1" aria-label="Прокрутить назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button class="iconbtn" type="button" data-qs="1" aria-label="Прокрутить вперёд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div></div>
     <div class="qrow" id="qrow"><div class="qgrid" id="qgrid"></div>
@@ -2075,7 +2076,7 @@ async function loadTemplates(){
   if(error){$("tgrid").innerHTML=`<p class="tempty">Не удалось загрузить шаблоны. Обновите страницу.</p>`;return}
   TPL=data||[];drawTemplates()}
 function drawTemplates(){
-  const g=$("tgrid");$("tplN").textContent=TPL.length||"";
+  const g=$("tgrid");
   if(!TPL.length){g.innerHTML=`<p class="tempty">Пока пусто. Получилось хорошо — нажмите «В шаблоны» под промтом.</p>`;return}
   g.innerHTML=TPL.map(t=>{const mine=Cloud.user&&t.author_id===Cloud.user.id,can=mine||Cloud.admin;
     return `<div class="qcard" role="button" tabindex="0" data-tp="${escA(t.id)}"><div class="qthumb"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div><div class="qmeta"><b>${escA(t.name)}</b><small>${t.from_analytics?'<span class="pop">Популярное</span> ':""}${escA(t.author_name||"Коллега")}${mine?" (вы)":""} · ${fmtDate(t.created_at)}</small></div>${can?`<button class="tdel" type="button" data-del="${escA(t.id)}">Удалить</button>`:""}</div>`}).join("");
@@ -2898,8 +2899,8 @@ const Hero=(()=>{
   function capSet(a,b){const h=b?`${a} · <b>${b.replace(/</g,"&lt;")}</b>`:a;if(h!==capPrev){cap.innerHTML=h;capPrev=h}}
   /* ===== mode 4: iridescent spheres ===== */
   const ORBS=[ // x,y in stage fractions, r in fractions of min(W,H), two tints, phase
-    [.54,.46,.30,"#C3CDFF","#F2C6A8",0],[.80,.27,.14,"#C4D9AE","#C3CDFF",1.7],[.40,.74,.10,"#F5C842","#F2C6A8",3.1],
-    [.86,.72,.20,"#F2C6A8","#C3CDFF",4.2],[.66,.88,.07,"#C3CDFF","#C4D9AE",2.4],[.43,.22,.05,"#C4D9AE","#F5C842",5.3],[.97,.42,.07,"#C3CDFF","#F2C6A8",.8]];
+    [.40,.46,.30,"#C3CDFF","#F2C6A8",0],[.66,.27,.14,"#C4D9AE","#C3CDFF",1.7],[.27,.74,.10,"#F5C842","#F2C6A8",3.1],
+    [.72,.70,.20,"#F2C6A8","#C3CDFF",4.2],[.52,.88,.07,"#C3CDFF","#C4D9AE",2.4],[.24,.20,.05,"#C4D9AE","#F5C842",5.3],[.86,.40,.07,"#C3CDFF","#F2C6A8",.8]];
   const hx=(h,a)=>{const n=parseInt(h.slice(1),16);return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`};
   function orb(x,y,r,c1,c2,t,ph){const dk=col.dark;
     let gr=g.createRadialGradient(x,y,r*.5,x,y,r*2.1);gr.addColorStop(0,hx(c1,dk?.26:.32));gr.addColorStop(1,hx(c1,0));
@@ -2945,7 +2946,7 @@ const Hero=(()=>{
 
   /* settings popover */
   const btn=$("setBtn"),pop=$("setPop"),chk=$("hmStill");
-  try{const s=JSON.parse(localStorage.getItem("gena-hero")||"null");if(s){if(s.v===2&&FR[s.mode])mode=s.mode;still=!!s.still}}catch(e){}
+  try{const s=JSON.parse(localStorage.getItem("gena-hero")||"null");if(s){still=!!s.still}}catch(e){}
   const store=()=>{try{localStorage.setItem("gena-hero",JSON.stringify({v:2,mode,still}))}catch(e){}};
   function syncUI(){
     pop.querySelectorAll("[data-hm]").forEach(b=>b.setAttribute("aria-checked",String(b.dataset.hm===mode)));
