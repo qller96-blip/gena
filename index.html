@@ -555,7 +555,7 @@ body.v-gallery .topbar-in .setwrap{display:none}body.v-gallery .views{margin-rig
 @media (max-width:700px){.quick{padding:14px 12px 10px}.qrow{margin:0 -12px}.qrow .qgrid{padding:2px 12px 6px;grid-auto-columns:160px}.qnav{display:none}.qhead p{display:none}}
 
 
-html,body{overflow-x:clip}
+.hero{overflow-x:clip}
 #setBtn,.setwrap{display:none!important}
 /* v13: hero spheres behind the UI, gallery hover actions, admin result shots, footer */
 .hero{position:relative;z-index:0}
@@ -2486,6 +2486,15 @@ let rstT;$("reset").addEventListener("click",()=>{const b=$("reset");
 /* info popovers: one open at a time, close on outside click */
 document.addEventListener("click",e=>{document.querySelectorAll("details.info[open]").forEach(d=>{if(!d.contains(e.target))d.open=false})});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll("details.info[open]").forEach(d=>d.open=false)});
+/* mobile: info popovers are fixed to the viewport — place them right under the "i" */
+const infoMQ=matchMedia("(max-width:700px)");
+function placeInfo(d){const c=d.querySelector(":scope>div");if(!c)return;if(!infoMQ.matches){c.style.top="";return}
+  const r=d.querySelector("summary").getBoundingClientRect(),h=c.offsetHeight,below=r.bottom+8,above=r.top-8-h;
+  c.style.top=Math.max(12,below+h>innerHeight-12&&above>12?above:Math.min(below,innerHeight-12-h))+"px"}
+document.addEventListener("toggle",e=>{const d=e.target;if(!(d instanceof HTMLDetailsElement)||!d.matches(".info")||!d.open)return;
+  document.querySelectorAll("details.info[open]").forEach(x=>{if(x!==d)x.open=false});placeInfo(d)},true);
+addEventListener("scroll",()=>{if(infoMQ.matches)document.querySelectorAll("details.info[open]").forEach(d=>placeInfo(d))},{passive:true});
+addEventListener("resize",()=>document.querySelectorAll("details.info[open]").forEach(d=>placeInfo(d)));
 
 /* theme */
 const root=document.documentElement,mq=matchMedia("(prefers-color-scheme: dark)");
