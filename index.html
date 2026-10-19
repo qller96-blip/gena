@@ -361,6 +361,100 @@ aside.haspv pre#out{max-height:calc(100vh - 610px);min-height:170px}
 #product{min-height:44px;overflow:hidden;resize:none}
 #srcPhoto .hint{margin-top:6px}
 
+
+/* v10: history, publish, gallery */
+#toast{z-index:130}
+.views{display:flex;gap:2px;background:var(--sunk);border:1px solid var(--line);border-radius:12px;padding:3px;flex:none}
+.views a{text-decoration:none;color:var(--muted);font-size:13.5px;font-weight:550;padding:7px 12px;border-radius:9px;white-space:nowrap}
+.views a:hover{color:var(--ink)}
+.views a[aria-current="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.hbtn{all:unset;cursor:pointer;flex:none;display:flex;align-items:center;gap:7px;height:38px;padding:0 12px;border-radius:12px;border:1px solid var(--line);font-size:13.5px;font-weight:550;position:relative}
+.hbtn:hover{background:var(--hover)}.hbtn:focus-visible{outline:2px solid var(--accent)}
+.hbtn svg{width:18px;height:18px}
+.badge{min-width:18px;height:18px;border-radius:9px;background:var(--detail);color:#272E32;font-size:11px;font-weight:700;display:grid;place-items:center;padding:0 5px;box-sizing:border-box}
+.steps{margin-left:auto}.views+.steps{margin-left:auto}
+body.v-gallery .wrap,body.v-gallery .mbar,body.v-gallery .steps,body.v-gallery .shade{display:none!important}
+body.v-gallery .topbar-in .setwrap{margin-left:auto}
+/* history drawer */
+.hwrap{position:fixed;inset:0;z-index:92;background:rgba(10,14,12,.4);display:flex;justify-content:flex-end}
+.hpanel{width:min(560px,100%);height:100%;background:var(--panel);border-left:1px solid var(--line);display:flex;flex-direction:column;gap:10px;padding:18px 20px 0;box-sizing:border-box;box-shadow:-20px 0 50px rgba(0,0,0,.18)}
+.hsub{margin:0}
+.gsort{display:flex;gap:2px;background:var(--sunk);border:1px solid var(--line);border-radius:12px;padding:3px;align-self:flex-start;flex:none}
+.gsort button{all:unset;cursor:pointer;font-size:13px;font-weight:550;color:var(--muted);padding:6px 12px;border-radius:9px;white-space:nowrap}
+.gsort button[aria-pressed="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.gsort button:focus-visible{outline:2px solid var(--accent)}
+.hlist{list-style:none;margin:0 -20px;padding:4px 20px 24px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:10px}
+.hitem{display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;padding:12px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--panel)}
+.hthumb{height:96px;border-radius:8px;background:var(--sunk);display:grid;place-items:center;overflow:hidden}
+.hbody{display:flex;flex-direction:column;gap:8px;min-width:0}
+.hmeta{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.hmeta small{color:var(--muted);font-size:12.5px;margin-right:auto}
+.hmeta em{font-style:normal;font-size:11px;font-weight:650;border-radius:6px;padding:1px 7px}
+.hkeep{background:var(--accent-soft);color:var(--ink)}.hpub{background:color-mix(in srgb,var(--detail) 30%,var(--panel));color:var(--ink)}
+.hrate{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.stars{display:inline-flex;gap:1px}
+.stars button,.stars i{all:unset;width:22px;height:22px;cursor:pointer;background:currentColor;color:color-mix(in srgb,var(--ink) 18%,transparent);-webkit-mask:var(--star) center/20px no-repeat;mask:var(--star) center/20px no-repeat;transition:color .12s}
+.stars i{cursor:default;width:15px;height:15px;-webkit-mask-size:14px;mask-size:14px}
+.stars .on{color:var(--detail)}
+.stars:not(.ro):hover button{color:var(--detail)}.stars:not(.ro) button:hover~button{color:color-mix(in srgb,var(--ink) 18%,transparent)}
+.stars button:focus-visible{outline:2px solid var(--accent);border-radius:4px}
+:root{--star:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z'/%3E%3C/svg%3E")}
+.hact{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.btn.sm{padding:8px 12px;font-size:13px;border-radius:10px}.btn.ghost.sm{padding:7px 11px}
+.btn.accent{border-color:var(--detail);background:color-mix(in srgb,var(--detail) 18%,transparent)}
+.hhint{font-size:12px;color:var(--muted)}
+.hdel{all:unset;cursor:pointer;margin-left:auto;font-size:12.5px;color:var(--muted);padding:6px 4px}
+.hdel:hover{color:#B3261E}.hdel:focus-visible{outline:2px solid var(--accent)}
+/* publish */
+.pubscene{display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:center;padding:10px;background:var(--sunk);border-radius:12px;margin-bottom:4px}
+.pubscene .hthumb{height:72px;background:var(--panel)}.pubscene b{font-size:13.5px;display:block;margin-bottom:6px}
+.pubscene .achips{margin-bottom:6px}
+.pubdrop{min-height:150px}.pubdrop img{max-height:240px}
+#pubTitle{padding:10px 12px}
+/* gallery */
+.gal{max-width:1320px;margin:0 auto;padding:28px 0 80px;display:flex;flex-direction:column;gap:22px}
+.galhead{display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.galhead h1{font-size:clamp(30px,4vw,44px);margin:0 0 6px;letter-spacing:-.02em}.galhead p{margin:0;color:var(--muted);max-width:56ch}
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));grid-auto-rows:240px;grid-auto-flow:dense;gap:12px}
+.gtile{all:unset;cursor:pointer;position:relative;border-radius:var(--r);overflow:hidden;background:var(--sunk);box-shadow:0 0 0 1px var(--line)}
+.gtile.wide{grid-column:span 2}.gtile.tall{grid-row:span 2}
+.gtile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.gtile:hover img{transform:scale(1.035)}
+.gtile:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.gcap{position:absolute;inset:auto 0 0 0;display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:10px;align-items:end;padding:28px 14px 12px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.62));opacity:0;transform:translateY(6px);transition:opacity .2s,transform .2s}
+.gtile:hover .gcap,.gtile:focus-visible .gcap{opacity:1;transform:none}
+@media (hover:none){.gcap{opacity:1;transform:none}}
+.gcap b{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.gcap small{grid-column:1;font-size:12px;opacity:.85}
+.glike{grid-row:1/span 2;grid-column:2;font-style:normal;font-size:12px;font-weight:650;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-radius:999px;padding:3px 9px}
+.glike::before{content:"\25B2  ";font-size:9px}.glike.on{background:var(--detail);color:#272E32}
+.gempty{grid-column:1/-1;grid-row:span 2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;border:1.5px dashed var(--line);border-radius:var(--r);padding:24px;background:var(--panel)}
+.gempty b{font-size:18px}.gempty p{margin:0 0 8px;color:var(--muted);max-width:42ch}
+.ggrid[aria-busy="true"]:empty{min-height:240px;border-radius:var(--r);background:linear-gradient(90deg,var(--sunk),var(--panel),var(--sunk));background-size:200% 100%;animation:shim 1.2s linear infinite}
+@keyframes shim{to{background-position:-200% 0}}
+/* work detail */
+.wwrap{padding:24px}
+.wcard{width:min(1180px,100%);max-height:calc(100dvh - 48px);display:grid;grid-template-columns:minmax(0,1fr) 340px;background:var(--panel);border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.wimg{background:#0e1110;display:grid;place-items:center;min-height:0;max-height:calc(100dvh - 48px)}
+.wimg img{max-width:100%;max-height:calc(100dvh - 48px);object-fit:contain;display:block}
+.wside{display:flex;flex-direction:column;gap:12px;padding:20px;overflow:auto}
+.wside h2{font-size:19px;overflow-wrap:anywhere}
+.wauth{margin:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
+.wscene .lbl{margin-bottom:6px}.wthumb{height:130px}
+.wact{display:flex;flex-direction:column;gap:8px;margin-top:auto;padding-top:8px}
+.wact>.btn{text-align:center}
+.wrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.wrow .btn{text-align:center;padding:10px 8px;font-size:13px}
+.wlike{display:flex;align-items:center;justify-content:center;gap:6px}.wlike svg{width:16px;height:16px}
+.wlike[aria-pressed="true"]{background:color-mix(in srgb,var(--detail) 28%,transparent);border-color:var(--detail)}
+#wDel{margin:0;align-self:flex-start}
+@media (max-width:980px){.hbtn .hl{display:none}.hbtn{padding:0 10px}}
+@media (max-width:860px){.wcard{grid-template-columns:1fr;overflow:auto}.wimg,.wimg img{max-height:60dvh}.wside{overflow:visible}}
+@media (max-width:700px){.ggrid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:44vw;gap:8px}.gtile.wide{grid-column:span 2}
+  .gal{padding-top:18px}.wwrap{padding:0}.wcard{border-radius:0;max-height:100dvh;height:100dvh}
+  .hpanel{width:100%;border-left:0}.hitem{grid-template-columns:76px minmax(0,1fr);gap:10px}.hitem .hthumb{height:76px}}
+@media (max-width:560px){.brand span{display:none}.brand svg{width:36px;height:36px}.views a{padding:6px 8px;font-size:12.5px}.topbar-in{gap:5px;padding-left:10px}.topbar-in .setwrap{display:none}.topbar-in>.iconbtn{width:36px;height:36px}.topbar-in .ubtn{margin:0}.hbtn{padding:0;width:36px;height:36px;justify-content:center;border-radius:50%}.hbtn .badge{position:absolute;top:-5px;right:-6px;min-width:16px;height:16px;font-size:10px;padding:0 4px}.views a{padding:6px 7px}.views{margin-right:auto}}
+.galhead>div:first-child{flex:1 1 320px}.galhead>.gsort{flex:none}
+body.v-gallery .topbar-in .setwrap{display:none}body.v-gallery .views{margin-right:auto}
+@media (max-width:860px){.wimg{aspect-ratio:auto!important}#wClose{position:fixed;top:max(12px,env(safe-area-inset-top,0px));right:12px;z-index:3;background:var(--panel);box-shadow:0 4px 14px rgba(0,0,0,.25)}}
+
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -406,6 +500,8 @@ body.locked{overflow:hidden}
 .ameta b{font-size:14px}
 .achips{display:flex;flex-wrap:wrap;gap:4px}
 .achips i{font-style:normal;font-size:11.5px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:1px 7px}
+.arate{display:flex;align-items:center;gap:6px}
+.acombo .qthumb .pv{max-width:100%}
 .amk,.aadd{display:flex;gap:8px;flex-wrap:wrap}.amk input,.aadd input{flex:1 1 160px;min-width:0;padding:9px 11px}
 .amk .btn,.aadd .btn{padding:10px 14px;font-size:13.5px}
 .agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
@@ -549,6 +645,7 @@ body.locked{overflow:hidden}
 <div class="topbar">
   <div class="topbar-in">
     <a class="brand" href="#s-ref" id="brandLink"><svg viewBox="0 0 120 120" role="img" aria-label="GENA"><path fill="#FFF6E3" d="M26 50C24 92 42 109 60 109C78 109 96 92 94 50Z"/><g fill="none" stroke="#282F33" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5.5" d="M25 54C25 93 44 109 60 109C76 109 95 93 95 54"/><path stroke-width="4.5" d="M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84"/><path stroke-width="4.5" d="M49 93Q60 100 71 93"/></g><path fill="#282F33" d="M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z"/><path fill="#282F33" d="M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z"/><g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="28" y="59" width="27" height="22" rx="8"/><rect x="65" y="59" width="27" height="22" rx="8"/><path d="M55 67H65"/></g><circle cx="42" cy="70.5" r="3.6" fill="#282F33"/><circle cx="78" cy="70.5" r="3.6" fill="#282F33"/></svg><span><b>GENA</b></span></a>
+    <nav class="views" id="viewNav" aria-label="Разделы" hidden><a href="#" data-view="builder" aria-current="true">Конструктор</a><a href="#gallery" data-view="gallery" aria-current="false">Галерея</a></nav>
     <nav class="steps" id="steps" aria-label="Шаги">
       <button type="button" data-t="s-ref"><span>01</span>Продукт</button>
       <button type="button" data-t="s-style"><span>02</span>Стиль</button>
@@ -570,6 +667,7 @@ body.locked{overflow:hidden}
         <label class="tg"><input type="checkbox" id="hmStill"><span>Остановить движение<small id="hmNote">Показывать статичный кадр</small></span></label>
       </div>
     </div>
+    <button class="hbtn" type="button" id="histBtn" hidden aria-haspopup="dialog" aria-expanded="false" aria-controls="hist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3 4v4.5h4.5"/><path d="M12 7.5V12l3 2"/></svg><span class="hl">Мои промты</span><b class="badge" id="histBadge" hidden aria-label="без оценки">0</b></button>
     <div class="uwrap" id="uwrap" hidden><button class="ubtn" type="button" id="uBtn" aria-haspopup="true" aria-expanded="false" aria-controls="uPop" aria-label="Профиль"><span id="uIni">?</span></button>
       <div class="pop upop" id="uPop" hidden><p class="uwho"><b id="uName"></b><small id="uMail"></small></p><button class="opt uopt" type="button" id="uAdmin" hidden><span>Аналитика и доступ</span></button><button class="opt uopt" type="button" id="uOut"><span>Выйти</span></button></div></div>
     <button class="iconbtn" type="button" id="thBtn" aria-label="Сменить тему"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
@@ -790,7 +888,52 @@ body.locked{overflow:hidden}
   </aside>
 </div>
 
+<section class="gal" id="galPage" hidden aria-labelledby="galTitle">
+  <div class="galhead"><div><h1 id="galTitle">Галерея</h1><p>Лучшие генерации команды. Понравилась сцена — примените её настройки к своему продукту.</p></div>
+    <div class="gsort" id="galSort" role="group" aria-label="Сортировка"><button type="button" data-gs="new" aria-pressed="true">Новые</button><button type="button" data-gs="top" aria-pressed="false">Полезные</button><button type="button" data-gs="mine" aria-pressed="false">Мои</button></div></div>
+  <div class="ggrid" id="galGrid" aria-busy="true"></div>
+</section>
 <div id="toast" role="status" hidden></div>
+<div class="hwrap" id="hist" role="dialog" aria-modal="true" aria-labelledby="histTitle" hidden>
+  <div class="hpanel">
+    <div class="fbhead"><h2 id="histTitle">Мои промты</h2><button class="iconbtn" type="button" id="histClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <p class="hint hsub">Каждый скопированный промт сохраняется сюда с настройками. Хранятся последние 10, а оценённые на 4–5 остаются навсегда. Видны только вам и администратору.</p>
+    <div class="gsort htabs" id="histTabs" role="group" aria-label="Фильтр"><button type="button" data-hf="all" aria-pressed="true">Все</button><button type="button" data-hf="new" aria-pressed="false">Без оценки</button><button type="button" data-hf="best" aria-pressed="false">4–5 звёзд</button></div>
+    <ul class="hlist" id="histList"></ul>
+  </div>
+</div>
+<div class="fbwrap" id="pub" role="dialog" aria-modal="true" aria-labelledby="pubH" hidden>
+  <form class="fbcard" id="pubForm" novalidate>
+    <div class="fbhead"><h2 id="pubH">Публикация в галерею</h2><button class="iconbtn" type="button" id="pubClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="pubscene" id="pubScene"></div>
+    <span class="lbl">Результат генерации</span>
+    <div class="fbdrop pubdrop" id="pubDrop" tabindex="0" role="button" aria-label="Добавить картинку: вставьте из буфера, перетащите или выберите файл">
+      <input type="file" id="pubFile" accept="image/*" hidden>
+      <div class="fbempty" id="pubEmpty"><b>Вставьте Ctrl+V</b> (⌘V на Mac), перетащите сюда или <u>выберите файл</u></div>
+      <div class="fbprev" id="pubPrev" hidden><img id="pubImg" alt="Результат"><button class="tdel" type="button" id="pubRm">Убрать</button></div>
+    </div>
+    <small class="hint" id="pubSize"></small>
+    <label class="lbl" for="pubTitle">Подпись <span class="opt-tag">по желанию</span></label>
+    <input type="text" id="pubTitle" maxlength="80" placeholder="Например: сыры на мраморе, 16:9">
+    <p class="gerr" id="pubErr" role="alert"></p>
+    <div class="fbact"><button class="btn" type="submit" id="pubSend">Опубликовать</button><span class="hint">Картинка сожмётся до 1600 px. Работу увидят все дизайнеры.</span></div>
+  </form>
+</div>
+<div class="fbwrap wwrap" id="work" role="dialog" aria-modal="true" aria-labelledby="wTitle" hidden>
+  <div class="wcard">
+    <div class="wimg" id="wImgBox"><img id="wImg" alt=""></div>
+    <div class="wside">
+      <div class="fbhead"><h2 id="wTitle"></h2><button class="iconbtn" type="button" id="wClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <p class="wauth"><span id="wAuthor"></span><span id="wStars"></span></p>
+      <div class="wscene" id="wScene"><span class="lbl">Схема сцены</span><div class="hthumb wthumb"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div></div>
+      <div class="achips" id="wChips"></div>
+      <div class="wact"><button class="btn" type="button" id="wApply">Применить в конструкторе</button>
+        <div class="wrow"><button class="btn ghost" type="button" id="wCopy">Скопировать промт</button><button class="btn ghost wlike" type="button" id="wLike" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9zM7 11l4-8a2.5 2.5 0 0 1 2.5 3L13 10h5.6a2 2 0 0 1 2 2.4l-1.4 6A2 2 0 0 1 17.3 20H7"/></svg>Полезно <b id="wLikeN">0</b></button></div>
+        <small class="hint">Применяются только настройки сцены: ваш продукт останется на месте.</small>
+        <button class="hdel" type="button" id="wDel" hidden>Удалить</button></div>
+    </div>
+  </div>
+</div>
 <div class="gate" id="gate">
   <div class="gcard">
     <div class="glogo"><svg viewBox="0 0 120 120" role="img" aria-label="GENA"><path fill="#FFF6E3" d="M26 50C24 92 42 109 60 109C78 109 96 92 94 50Z"/><g fill="none" stroke="#282F33" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5.5" d="M25 54C25 93 44 109 60 109C76 109 95 93 95 54"/><path stroke-width="4.5" d="M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84"/><path stroke-width="4.5" d="M49 93Q60 100 71 93"/></g><path fill="#282F33" d="M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z"/><path fill="#282F33" d="M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z"/><g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="28" y="59" width="27" height="22" rx="8"/><rect x="65" y="59" width="27" height="22" rx="8"/><path d="M55 67H65"/></g><circle cx="42" cy="70.5" r="3.6" fill="#282F33"/><circle cx="78" cy="70.5" r="3.6" fill="#282F33"/></svg></div>
@@ -1720,13 +1863,14 @@ $("uOut").addEventListener("click",async()=>{userMenu(false);await Cloud.sb.auth
 $("uAdmin").addEventListener("click",()=>{userMenu(false);openAdmin()});
 async function onSession(session){
   Cloud.user=session?session.user:null;
-  if(!Cloud.user){Cloud.profile=null;Cloud.admin=false;$("uwrap").hidden=true;$("fbOpen").hidden=true;$("tpl").hidden=true;$("tOpen").hidden=true;gateMode(gate.mode);gateShow("form");return}
+  if(!Cloud.user){Cloud.profile=null;Cloud.admin=false;$("uwrap").hidden=true;$("histBtn").hidden=true;$("viewNav").hidden=true;route();$("fbOpen").hidden=true;$("tpl").hidden=true;$("tOpen").hidden=true;gateMode(gate.mode);gateShow("form");return}
   gateShow("off");$("uwrap").hidden=false;$("fbOpen").hidden=false;try{localStorage.setItem("gena-known","1")}catch(e){}
   const [{data:prof},{data:adm}]=await Promise.all([Cloud.sb.from("profiles").select("name,email").eq("id",Cloud.user.id).maybeSingle(),Cloud.sb.rpc("is_admin")]);
   Cloud.profile=prof||{name:"",email:Cloud.user.email};Cloud.admin=adm===true;
   const nm=Cloud.profile.name||Cloud.user.email.split("@")[0];
   $("uName").textContent=nm;$("uMail").textContent=Cloud.user.email;$("uIni").textContent=nm.trim().charAt(0).toUpperCase()||"?";$("uAdmin").hidden=!Cloud.admin;
   $("tpl").hidden=false;$("tOpen").hidden=false;loadTemplates();
+  $("histBtn").hidden=false;$("viewNav").hidden=false;loadHistory();route();
 }
 
 /* ----- team templates ----- */
@@ -1771,16 +1915,19 @@ function sceneChips(sc){const out=[valLabel("style",sc.style),sc.ratio==="auto"?
   out.push("Масштаб "+sc.fill+"%");return out}
 async function openAdmin(){
   $("adm").hidden=false;document.body.classList.add("locked");$("admBody").innerHTML=`<p class="hint">Загружаю…</p>`;$("admClose").focus();
-  const [ev,pr,al]=await Promise.all([
+  const [ev,pr,al,rh]=await Promise.all([
     Cloud.sb.from("scene_events").select("user_id,kind,scene,meta,created_at").order("created_at",{ascending:false}).limit(5000),
     Cloud.sb.from("profiles").select("id,name,email,created_at"),
-    Cloud.sb.from("feedback").select("id,author_name,text,screenshot,resolved,created_at,ua").order("created_at",{ascending:false}).limit(200)]);
+    Cloud.sb.from("feedback").select("id,author_name,text,screenshot,resolved,created_at,ua").order("created_at",{ascending:false}).limit(200),
+    Cloud.sb.from("prompt_history").select("user_id,scene,rating,used_at").not("rating","is",null).order("used_at",{ascending:false}).limit(1000)]);
+  ADM.rated=rh.data||[];
   if(ev.error||pr.error){$("admBody").innerHTML=`<p class="hint">Не удалось загрузить аналитику: ${escA((ev.error||pr.error).message)}</p>`;return}
   renderAdmin(ev.data||[],pr.data||[],[],al.data||[])}
 function closeAdmin(){$("adm").hidden=true;document.body.classList.remove("locked")}
 $("admClose").addEventListener("click",closeAdmin);
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("adm").hidden)closeAdmin()});
-let ADM={combos:[]};
+let ADM={combos:[],rated:[],rc:[]};
+const comboKey=sc=>JSON.stringify(COMBO_KEYS.map(k=>k==="surface"&&sc.bg!=="scene"||k==="gbase"&&sc.bg!=="grad"||k==="color"&&sc.bg!=="solid"?null:sc[k]));
 const plur=(n,a,b,c)=>{const m=n%100,k=n%10;return m>10&&m<20?c:k===1?a:k>1&&k<5?b:c};
 function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
   const copies=events.filter(e=>e.kind==="copy"),names=Object.fromEntries(profiles.map(p=>[p.id,p.name||p.email]));
@@ -1791,6 +1938,9 @@ function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
   copies.forEach(e=>{const sc=e.scene||{},key=JSON.stringify(COMBO_KEYS.map(k=>k==="surface"&&sc.bg!=="scene"||k==="gbase"&&sc.bg!=="grad"||k==="color"&&sc.bg!=="solid"?null:sc[k]));
     const c=combos.get(key)||{n:0,users:new Set(),scene:sc,last:e.created_at};c.n++;c.users.add(e.user_id);combos.set(key,c)});
   ADM.combos=[...combos.values()].sort((a,b)=>b.users.size-a.users.size||b.n-a.n).slice(0,8);
+  // rated scenes
+  const rm=new Map();ADM.rated.forEach(r=>{const sc=r.scene||{},k=comboKey(sc),c=rm.get(k)||{sum:0,n:0,users:new Set(),scene:sc};c.sum+=r.rating;c.n++;c.users.add(r.user_id);rm.set(k,c)});
+  ADM.rc=[...rm.values()].map(c=>Object.assign(c,{avg:c.sum/c.n})).sort((a,b)=>b.avg-a.avg||b.n-a.n).slice(0,8);
   // setting popularity
   const pop=ANA_KEYS.map(([k,t])=>{const m=new Map();copies.forEach(e=>{const v=(e.scene||{})[k];if(v!=null)m.set(v,(m.get(v)||0)+1)});
     const rows=[...m.entries()].sort((a,b)=>b[1]-a[1]).slice(0,5),max=rows.length?rows[0][1]:1;
@@ -1805,6 +1955,10 @@ function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
     <div class="acombos">${ADM.combos.length?ADM.combos.map((c,i)=>`<div class="acombo"><div class="qthumb"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div>
       <div class="ameta"><b>${c.n} ${plur(c.n,"раз","раза","раз")} · ${c.users.size} ${plur(c.users.size,"дизайнер","дизайнера","дизайнеров")}</b><div class="achips">${sceneChips(c.scene).map(x=>`<i>${escA(x)}</i>`).join("")}</div>
       <form class="amk" data-ci="${i}"><input type="text" maxlength="60" required placeholder="Название шаблона" aria-label="Название шаблона"><button class="btn" type="submit">Сделать шаблоном</button></form></div></div>`).join(""):'<p class="tempty">Пока никто не копировал промт. Данные появятся, когда дизайнеры начнут работать.</p>'}</div></section>
+   <section><h3>Оценённые сцены</h3><p class="hint">Как дизайнеры оценили результат генерации. Одинаковые настройки сцены собраны вместе, сверху лучшие по средней оценке.</p>
+    <div class="acombos">${ADM.rc.length?ADM.rc.map((c,i)=>`<div class="acombo arated"><div class="qthumb"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div>
+      <div class="ameta"><b class="arate">${starsHTML(Math.round(c.avg),"",true)} ${c.avg.toFixed(1).replace(".",",")} · ${c.n} ${plur(c.n,"оценка","оценки","оценок")}</b><small class="hint">${[...c.users].map(u=>escA(names[u]||"Коллега")).join(", ")}</small><div class="achips">${sceneChips(c.scene).map(x=>`<i>${escA(x)}</i>`).join("")}</div>
+      <form class="amk" data-ri="${i}"><input type="text" maxlength="60" required placeholder="Название шаблона" aria-label="Название шаблона"><button class="btn" type="submit">Сделать шаблоном</button></form></div></div>`).join(""):'<p class="tempty">Оценок пока нет. Дизайнеры ставят их в «Мои промты» после генерации.</p>'}</div></section>
    <section><h3>Какие настройки выбирают</h3><div class="agrid">${pop}</div></section>
    <section><h3>Дизайнеры</h3><div class="atable"><table><thead><tr><th>Имя</th><th>Почта</th><th class="n">Промтов</th><th>Любимый стиль</th><th>Последний раз</th></tr></thead><tbody>${per.map(r=>`<tr><td>${escA(r.name)}</td><td>${escA(r.email)}</td><td class="n">${r.n}</td><td>${escA(r.fav)}</td><td>${r.last?fmtDate(r.last):"—"}</td></tr>`).join("")||'<tr><td colspan="5">Пока никто не зарегистрировался</td></tr>'}</tbody></table></div></section>
    <section><h3>Пароль команды</h3><p class="hint">С ним регистрируются новые дизайнеры, с любой почтой. Смена пароля не выкидывает тех, кто уже зарегистрирован: они входят со старым.</p>
@@ -1813,9 +1967,10 @@ function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
   const keep=S;
   try{ADM.combos.forEach((c,i)=>{const el=$("admBody").querySelectorAll(".acombo")[i],st=JSON.parse(JSON.stringify(keep));Object.assign(st,JSON.parse(JSON.stringify(c.scene)));S=st;autofix();
     drawPreview({pv:el.querySelector(".pv"),floor:el.querySelector(".pvfloor"),svg:el.querySelector("svg"),leg:null,mw:150,mh:100,px:"a"+i})})}finally{S=keep}
+  $("admBody").querySelectorAll(".arated").forEach((el,i)=>miniPreview(el.querySelector(".qthumb"),ADM.rc[i].scene,"ar"+i,150,100));
 }
 $("admBody").addEventListener("submit",async e=>{e.preventDefault();const f=e.target;
-  if(f.matches(".amk")){const c=ADM.combos[+f.dataset.ci],name=f.querySelector("input").value.trim();if(!c||!name)return;
+  if(f.matches(".amk")){const c=f.dataset.ri!=null?ADM.rc[+f.dataset.ri]:ADM.combos[+f.dataset.ci],name=f.querySelector("input").value.trim();if(!c||!name)return;
     const {error}=await Cloud.sb.from("templates").insert({name,scene:c.scene,from_analytics:true});
     if(error){toast("Не получилось: "+error.message)}else{toast(`Шаблон «${name}» доступен всей команде`);f.querySelector("input").value="";loadTemplates()}}
   if(f.id==="aPw"){const pw=$("aPwNew").value.trim();if(pw.length<8){toast("Пароль должен быть от 8 символов");return}
@@ -1905,12 +2060,163 @@ function update(){
 }
 $("summary").addEventListener("click",e=>{const b=e.target.closest("[data-t]");if(b)$(b.dataset.t).scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"})});
 
+
+/* ===== HISTORY · PUBLISH · GALLERY ===== */
+const HIST={rows:[],filter:"all"},GAL={rows:[],liked:new Set(),sort:"new",mine:false,urls:{}};
+const hashStr=s=>{let h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}h1=Math.imul(h1^h1>>>16,2246822507)^Math.imul(h2^h2>>>13,3266489909);h2=Math.imul(h2^h2>>>16,2246822507)^Math.imul(h1^h1>>>13,3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(36)};
+const stateOf=()=>{const o=JSON.parse(JSON.stringify(S));delete o.preset;delete o.presetSig;return o};
+const fmtWhen=t=>{try{const d=new Date(t),now=new Date(),same=d.toDateString()===now.toDateString();return same?"сегодня, "+d.toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"}):d.toLocaleDateString("ru-RU",{day:"numeric",month:"short"})+", "+d.toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"})}catch(e){return ""}};
+const starsHTML=(v,id,ro)=>`<span class="stars${ro?" ro":""}" role="${ro?"img":"radiogroup"}" aria-label="${ro?`Оценка ${v||0} из 5`:"Оценка результата"}">${[1,2,3,4,5].map(n=>ro?`<i class="${n<=(v||0)?"on":""}"></i>`:`<button type="button" class="${n<=(v||0)?"on":""}" data-rate="${n}" data-h="${escA(id)}" role="radio" aria-checked="${n===v}" aria-label="${n} из 5"></button>`).join("")}</span>`;
+function miniPreview(el,scene,px,mw,mh){const keep=S,st=JSON.parse(JSON.stringify(keep));Object.assign(st,JSON.parse(JSON.stringify(scene||{})));st.sv=Object.assign({},keep.sv,(scene||{}).sv||{});
+  try{S=st;autofix();drawPreview({pv:el.querySelector(".pv"),floor:el.querySelector(".pvfloor"),svg:el.querySelector("svg"),leg:null,mw,mh,px})}catch(e){}finally{S=keep}}
+const pvBox='<div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div>';
+
+function toastAct(t,label,fn){const el=$("toast");el.textContent="";const sp=document.createElement("span");sp.textContent=t;const b=document.createElement("button");b.type="button";b.className="tbtn";b.textContent=label;
+  b.addEventListener("click",()=>{el.hidden=true;fn()});el.append(sp,b);el.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>el.hidden=true,7000)}
+/* ----- 1. history: saved on every copy ----- */
+async function historyTouch(){
+  if(!Cloud.sb||!Cloud.user)return;
+  const state=stateOf(),sig=hashStr(JSON.stringify(state));
+  const {error}=await Cloud.sb.rpc("history_touch",{p_state:state,p_scene:sceneOf(S),p_prompt:plain(),p_sig:sig});
+  if(error)return;await loadHistory();if(!$("hist").hidden)drawHistory();
+  let n=0;try{n=+localStorage.getItem("gena-hist-tip")||0;localStorage.setItem("gena-hist-tip",n+1)}catch(e){}
+  if(n<3)toastAct("Промт сохранён в «Мои промты». После генерации поставьте ему оценку","Открыть",()=>histOpen(true))
+}
+async function loadHistory(){
+  if(!Cloud.sb||!Cloud.user)return;
+  const {data}=await Cloud.sb.from("prompt_history").select("id,state,scene,prompt,rating,used_at").eq("user_id",Cloud.user.id).order("used_at",{ascending:false}).limit(80);
+  HIST.rows=data||[];
+  const {data:pubs}=await Cloud.sb.from("publications").select("history_id").eq("user_id",Cloud.user.id);
+  HIST.published=new Set((pubs||[]).map(p=>p.history_id));
+  const un=HIST.rows.filter(r=>!r.rating).length;$("histBadge").textContent=un;$("histBadge").hidden=!un;
+}
+function histOpen(o){$("hist").hidden=!o;$("histBtn").setAttribute("aria-expanded",String(o));document.body.classList.toggle("locked",o);if(o){drawHistory();$("histClose").focus()}else $("histBtn").focus()}
+function drawHistory(){
+  const f=HIST.filter,rows=HIST.rows.filter(r=>f==="all"||(f==="new"?!r.rating:r.rating>=4));
+  $("histTabs").querySelectorAll("[data-hf]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.hf===f)));
+  const L=$("histList");
+  if(!rows.length){L.innerHTML=`<p class="tempty">${HIST.rows.length?"Здесь пусто.":"Пока пусто. Скопируйте промт: он сохранится здесь вместе с настройками."}</p>`;return}
+  L.innerHTML=rows.map((r,i)=>{const pub=HIST.published&&HIST.published.has(r.id),can=r.rating>=4;
+    return `<li class="hitem" data-hid="${escA(r.id)}"><div class="hthumb">${pvBox}</div><div class="hbody">
+      <div class="hmeta"><small>${fmtWhen(r.used_at)}</small>${r.rating>=4?'<em class="hkeep">сохранён навсегда</em>':""}${pub?'<em class="hpub">опубликован</em>':""}</div>
+      <div class="achips">${sceneChips(r.scene).slice(0,6).map(x=>`<i>${escA(x)}</i>`).join("")}</div>
+      <div class="hrate"><span>${r.rating?"Ваша оценка":"Как получилось?"}</span>${starsHTML(r.rating,r.id)}</div>
+      <div class="hact"><button class="btn sm" type="button" data-hact="apply">Применить</button><button class="btn ghost sm" type="button" data-hact="copy">Скопировать</button>
+      ${pub?"":can?`<button class="btn ghost sm accent" type="button" data-hact="publish">Опубликовать работу</button>`:`<span class="hhint">Поставьте 4–5, чтобы опубликовать</span>`}
+      <button class="hdel" type="button" data-hact="del" aria-label="Удалить из истории">Удалить</button></div></div></li>`}).join("");
+  rows.forEach((r,i)=>miniPreview(L.children[i].querySelector(".hthumb"),r.scene,"h"+i,96,96));
+}
+$("histBtn").addEventListener("click",()=>histOpen(true));
+$("histClose").addEventListener("click",()=>histOpen(false));
+$("hist").addEventListener("click",e=>{if(e.target===$("hist"))histOpen(false)});
+$("histTabs").addEventListener("click",e=>{const b=e.target.closest("[data-hf]");if(!b)return;HIST.filter=b.dataset.hf;drawHistory()});
+$("histList").addEventListener("click",async e=>{
+  const st=e.target.closest("[data-rate]");
+  if(st){const id=st.dataset.h,v=+st.dataset.rate,row=HIST.rows.find(r=>r.id===id);const nv=row&&row.rating===v?null:v;
+    const {error}=await Cloud.sb.from("prompt_history").update({rating:nv}).eq("id",id);if(error){toast("Не получилось сохранить оценку");return}
+    if(row)row.rating=nv;const un=HIST.rows.filter(r=>!r.rating).length;$("histBadge").textContent=un;$("histBadge").hidden=!un;drawHistory();
+    if(nv>=4&&!(HIST.published&&HIST.published.has(id)))toast("Отлично! Теперь можно опубликовать работу в галерее");return}
+  const b=e.target.closest("[data-hact]");if(!b)return;const li=b.closest("[data-hid]"),row=HIST.rows.find(r=>r.id===li.dataset.hid);if(!row)return;
+  if(b.dataset.hact==="apply"){const snap=JSON.stringify(S);S=Object.assign(freshS(),JSON.parse(JSON.stringify(row.state)));migrate();S.preset=null;drawLights();renderProds();update();histOpen(false);go("builder");
+    toastUndo("Настройки из истории применены",()=>{S=JSON.parse(snap);drawLights();renderProds();update()})}
+  if(b.dataset.hact==="copy"){try{await navigator.clipboard.writeText(row.prompt);toast("Промт скопирован")}catch(err){toast("Не получилось скопировать")}}
+  if(b.dataset.hact==="publish")pubOpen(row);
+  if(b.dataset.hact==="del"){if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Точно удалить?";return}
+    const {error}=await Cloud.sb.from("prompt_history").delete().eq("id",row.id);if(error){toast("Не получилось удалить")}else{await loadHistory();drawHistory()}}
+});
+
+/* ----- 2. publish: compress in the browser ----- */
+let PUB={row:null,file:null};
+async function compressImage(file,max,q){
+  let bmp;try{bmp=await createImageBitmap(file,{imageOrientation:"from-image"})}catch(e){throw new Error("FORMAT")}
+  const k=Math.min(1,max/Math.max(bmp.width,bmp.height)),w=Math.max(1,Math.round(bmp.width*k)),h=Math.max(1,Math.round(bmp.height*k));
+  const c=document.createElement("canvas");c.width=w;c.height=h;const g=c.getContext("2d");g.imageSmoothingQuality="high";g.drawImage(bmp,0,0,w,h);
+  let blob=await new Promise(r=>c.toBlob(r,"image/webp",q));if(!blob||blob.type!=="image/webp")blob=await new Promise(r=>c.toBlob(r,"image/jpeg",q));
+  return {blob,w,h}}
+const kb=n=>n>1048576?(n/1048576).toFixed(1)+" МБ":Math.round(n/1024)+" КБ";
+function pubOpen(row){PUB={row,file:null};$("pubErr").textContent="";$("pubTitle").value="";pubClear();
+  $("pubScene").innerHTML=`<div class="hthumb">${pvBox}</div><div><b>Сцена из истории</b><div class="achips">${sceneChips(row.scene).slice(0,6).map(x=>`<i>${escA(x)}</i>`).join("")}</div>${starsHTML(row.rating,"",true)}</div>`;
+  miniPreview($("pubScene").querySelector(".hthumb"),row.scene,"pub",72,72);$("pub").hidden=false;document.body.classList.add("locked");$("pubTitle").focus()}
+function pubClose(){$("pub").hidden=true;document.body.classList.toggle("locked",!$("hist").hidden)}
+function pubClear(){PUB.file=null;$("pubPrev").hidden=true;$("pubEmpty").hidden=false;$("pubImg").removeAttribute("src");$("pubFile").value="";$("pubSize").textContent=""}
+async function pubSet(file){if(!file)return;if(!/^image\//.test(file.type)&&!/\.(heic|heif)$/i.test(file.name)){$("pubErr").textContent="Нужна картинка: JPG, PNG или WEBP.";return}
+  $("pubErr").textContent="";$("pubSize").textContent="Сжимаю…";
+  try{const full=await compressImage(file,1600,.82);PUB.file=file;PUB.full=full;$("pubImg").src=URL.createObjectURL(full.blob);$("pubPrev").hidden=false;$("pubEmpty").hidden=true;
+    $("pubSize").textContent=`${full.w}×${full.h} · ${kb(file.size)} → ${kb(full.blob.size)}`}
+  catch(err){pubClear();$("pubErr").textContent="Этот формат браузер не открывает (часто это HEIC с iPhone). Сохраните картинку как JPG или PNG."}}
+$("pubClose").addEventListener("click",pubClose);
+$("pub").addEventListener("click",e=>{if(e.target===$("pub"))pubClose()});
+$("pubDrop").addEventListener("click",e=>{if(e.target.closest("#pubRm"))return;$("pubFile").click()});
+$("pubDrop").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();$("pubFile").click()}});
+$("pubFile").addEventListener("change",e=>pubSet(e.target.files[0]));
+$("pubRm").addEventListener("click",e=>{e.stopPropagation();pubClear()});
+["dragenter","dragover"].forEach(t=>$("pubDrop").addEventListener(t,e=>{e.preventDefault();$("pubDrop").classList.add("over")}));
+["dragleave","drop"].forEach(t=>$("pubDrop").addEventListener(t,e=>{e.preventDefault();$("pubDrop").classList.remove("over")}));
+$("pubDrop").addEventListener("drop",e=>pubSet(e.dataTransfer.files[0]));
+document.addEventListener("paste",e=>{if($("pub").hidden)return;const it=[...(e.clipboardData||{}).items||[]].find(i=>i.type.startsWith("image/"));if(it){e.preventDefault();pubSet(it.getAsFile())}});
+$("pubForm").addEventListener("submit",async e=>{e.preventDefault();if(!PUB.full){$("pubErr").textContent="Добавьте картинку с результатом.";return}
+  const btn=$("pubSend");btn.disabled=true;btn.textContent="Публикую…";$("pubErr").textContent="";
+  try{const thumb=await compressImage(PUB.file,480,.75),ext=b=>b.type==="image/webp"?"webp":"jpg",base=`${Cloud.user.id}/${Date.now()}`;
+    const ip=`${base}.${ext(PUB.full.blob)}`,tp=`${base}_t.${ext(thumb.blob)}`;
+    let u=await Cloud.sb.storage.from("works").upload(ip,PUB.full.blob,{contentType:PUB.full.blob.type});if(u.error)throw u.error;
+    u=await Cloud.sb.storage.from("works").upload(tp,thumb.blob,{contentType:thumb.blob.type});if(u.error)throw u.error;
+    const {error}=await Cloud.sb.from("publications").insert({history_id:PUB.row.id,title:$("pubTitle").value.trim(),image_path:ip,thumb_path:tp,w:PUB.full.w,h:PUB.full.h});
+    if(error){await Cloud.sb.storage.from("works").remove([ip,tp]);throw error}
+    pubClose();histOpen(false);await loadHistory();toast("Работа опубликована в галерее");go("gallery")}
+  catch(err){$("pubErr").textContent="Не получилось опубликовать: "+(err&&err.message||err)}
+  finally{btn.disabled=false;btn.textContent="Опубликовать"}});
+
+/* ----- 3. gallery ----- */
+function go(v){const want=v==="gallery"?"#gallery":"";if(location.hash!==want){if(want)location.hash=want;else history.pushState("",document.title,location.pathname+location.search);route()}}
+function route(){const g=location.hash==="#gallery"&&Cloud.user;document.body.classList.toggle("v-gallery",!!g);$("galPage").hidden=!g;
+  $("viewNav").querySelectorAll("[data-view]").forEach(a=>a.setAttribute("aria-current",String((a.dataset.view==="gallery")===!!g)));
+  if(g){loadGallery();window.scrollTo(0,0)}}
+window.addEventListener("hashchange",route);
+$("viewNav").addEventListener("click",e=>{const a=e.target.closest("[data-view]");if(!a)return;e.preventDefault();go(a.dataset.view)});
+async function signed(paths){const need=paths.filter(p=>p&&!GAL.urls[p]);if(need.length){const {data}=await Cloud.sb.storage.from("works").createSignedUrls(need,3600);(data||[]).forEach(d=>{if(d.signedUrl)GAL.urls[d.path]=d.signedUrl})}}
+async function loadGallery(){
+  if(!Cloud.sb)return;$("galGrid").setAttribute("aria-busy","true");
+  let q=Cloud.sb.from("publications").select("id,user_id,author_name,title,scene,prompt,rating,image_path,thumb_path,w,h,likes,created_at").order(GAL.sort==="top"?"likes":"created_at",{ascending:false}).limit(120);
+  const [{data},{data:lk}]=await Promise.all([q,Cloud.sb.from("publication_likes").select("publication_id").eq("user_id",Cloud.user.id)]);
+  GAL.rows=data||[];GAL.liked=new Set((lk||[]).map(x=>x.publication_id));
+  await signed(GAL.rows.map(r=>r.thumb_path));drawGallery()}
+function drawGallery(){
+  $("galSort").querySelectorAll("[data-gs]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.gs===(GAL.mine?"mine":GAL.sort))));
+  const rows=GAL.mine?GAL.rows.filter(r=>r.user_id===Cloud.user.id):GAL.rows,G=$("galGrid");G.removeAttribute("aria-busy");
+  if(!rows.length){G.innerHTML=`<div class="gempty"><b>${GAL.mine?"У вас пока нет публикаций":"Здесь появятся лучшие работы команды"}</b><p>Оцените свой промт на 4–5 в «Мои промты» и опубликуйте результат генерации.</p><button class="btn" type="button" id="galToHist">Открыть «Мои промты»</button></div>`;
+    $("galToHist").addEventListener("click",()=>histOpen(true));return}
+  G.innerHTML=rows.map(r=>{const ar=r.w/r.h,cls=ar>=1.55?"wide":ar<=.72?"tall":"";
+    return `<button class="gtile ${cls}" type="button" data-pub="${escA(r.id)}" aria-label="${escA((r.title||"Работа")+", автор "+(r.author_name||"коллега"))}"><img src="${escA(GAL.urls[r.thumb_path]||"")}" alt="" loading="lazy" decoding="async"><span class="gcap"><b>${escA(r.title||r.author_name||"Работа")}</b><small>${escA(r.title?r.author_name:fmtDate(r.created_at))}</small><em class="glike${GAL.liked.has(r.id)?" on":""}">${r.likes}</em></span></button>`}).join("")}
+$("galSort").addEventListener("click",e=>{const b=e.target.closest("[data-gs]");if(!b)return;if(b.dataset.gs==="mine"){GAL.mine=true;drawGallery();return}GAL.mine=false;GAL.sort=b.dataset.gs;loadGallery()});
+$("galGrid").addEventListener("click",e=>{const t=e.target.closest("[data-pub]");if(t)workOpen(t.dataset.pub)});
+async function workOpen(id){const r=GAL.rows.find(x=>x.id===id);if(!r)return;GAL.cur=r;
+  $("work").hidden=false;document.body.classList.add("locked");
+  $("wImg").src=GAL.urls[r.thumb_path]||"";$("wImg").alt=r.title||"Работа";$("wImgBox").style.aspectRatio=`${r.w}/${r.h}`;
+  $("wTitle").textContent=r.title||"Без названия";$("wAuthor").textContent=`${r.author_name||"Коллега"} · ${fmtDate(r.created_at)}`;$("wStars").innerHTML=starsHTML(r.rating,"",true);
+  $("wChips").innerHTML=sceneChips(r.scene).map(x=>`<i>${escA(x)}</i>`).join("");miniPreview($("wScene"),r.scene,"w",150,120);
+  workLike();$("wDel").hidden=!(r.user_id===Cloud.user.id||Cloud.admin);$("wDel").dataset.arm="";$("wDel").textContent="Удалить";$("wApply").focus();
+  await signed([r.image_path]);if(GAL.cur===r&&GAL.urls[r.image_path])$("wImg").src=GAL.urls[r.image_path]}
+function workLike(){const r=GAL.cur,on=GAL.liked.has(r.id);$("wLike").setAttribute("aria-pressed",String(on));$("wLikeN").textContent=r.likes}
+function workClose(){$("work").hidden=true;document.body.classList.remove("locked");GAL.cur=null}
+$("wClose").addEventListener("click",workClose);
+$("work").addEventListener("click",e=>{if(e.target===$("work"))workClose()});
+document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!$("pub").hidden)pubClose();else if(!$("work").hidden)workClose();else if(!$("hist").hidden)histOpen(false)});
+$("wApply").addEventListener("click",()=>{const r=GAL.cur,snap=JSON.stringify(S);Object.assign(S,JSON.parse(JSON.stringify(r.scene||{})));S.sv=Object.assign({},JSON.parse(snap).sv,(r.scene||{}).sv||{});S.preset=null;
+  drawLights();update();workClose();go("builder");logEvent("template",{publication:r.id});toastUndo("Сцена из галереи применена, продукт ваш",()=>{S=JSON.parse(snap);drawLights();renderProds();update()})});
+$("wCopy").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(GAL.cur.prompt);toast("Промт автора скопирован. В нём продукт автора — замените на свой")}catch(e){toast("Не получилось скопировать")}});
+$("wLike").addEventListener("click",async()=>{const r=GAL.cur,on=GAL.liked.has(r.id);
+  const {error}=on?await Cloud.sb.from("publication_likes").delete().eq("publication_id",r.id).eq("user_id",Cloud.user.id):await Cloud.sb.from("publication_likes").insert({publication_id:r.id});
+  if(error){toast("Не получилось");return}if(on){GAL.liked.delete(r.id);r.likes--}else{GAL.liked.add(r.id);r.likes++}workLike();drawGallery()});
+$("wDel").addEventListener("click",async()=>{const b=$("wDel"),r=GAL.cur;if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Точно удалить?";return}
+  const {error}=await Cloud.sb.from("publications").delete().eq("id",r.id);if(error){toast("Не получилось удалить");return}
+  await Cloud.sb.storage.from("works").remove([r.image_path,r.thumb_path]);workClose();toast("Публикация удалена");loadGallery();loadHistory()});
+
 function copy(statusEl){
   const txt=plain();
   const ok=()=>{statusEl.textContent="Скопировано";setTimeout(()=>{statusEl.textContent=statusEl.id==="mstat"?"Промт готов":""},2200)};
   const fb=()=>{const r=document.createRange();r.selectNodeContents($("out"));const s=getSelection();s.removeAllRanges();s.addRange(r);statusEl.textContent="Текст выделен, нажми ⌘C";};
   try{navigator.clipboard.writeText(txt).then(ok,fb)}catch(e){fb()}
-  logEvent("copy");
+  logEvent("copy");historyTouch();
 }
 $("copy").addEventListener("click",()=>copy($("status")));
 $("mcopy").addEventListener("click",()=>copy($("mstat")));
