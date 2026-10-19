@@ -455,6 +455,57 @@ body.v-gallery .topbar-in .setwrap{margin-left:auto}
 body.v-gallery .topbar-in .setwrap{display:none}body.v-gallery .views{margin-right:auto}
 @media (max-width:860px){.wimg{aspect-ratio:auto!important}#wClose{position:fixed;top:max(12px,env(safe-area-inset-top,0px));right:12px;z-index:3;background:var(--panel);box-shadow:0 4px 14px rgba(0,0,0,.25)}}
 
+
+/* v11: compact steps */
+.steps{gap:0;align-items:center}
+.steps button{align-items:center;gap:0;padding:7px 8px;border-radius:9px}
+.steps button span{font-size:12px;opacity:1;font-weight:550;min-width:16px;text-align:center}
+.steps button em{font-style:normal;font-size:13px;font-weight:550;max-width:0;opacity:0;overflow:hidden;transition:max-width .28s cubic-bezier(.2,.7,.2,1),opacity .2s,margin .28s}
+.steps button[aria-current="true"] em{max-width:130px;opacity:1;margin-left:6px}
+.steps button[aria-current="true"] span{color:var(--mark)}
+.steps button:not([aria-current="true"]):hover em{max-width:130px;opacity:1;margin-left:6px}
+.views a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+@media (max-width:1100px){.steps{justify-content:space-between}}
+
+/* v11: after-copy modal + confetti */
+#confetti{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:140}
+.donewrap{z-index:96}
+.donecard{position:relative;width:min(500px,100%);gap:14px;padding:26px 24px 18px;animation:donein .42s cubic-bezier(.2,.9,.25,1.15)}
+@keyframes donein{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
+.donex{position:absolute;top:10px;right:10px}
+.donehero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:4px 18px 0}
+.donebadge{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--detail);color:#272E32;box-shadow:0 0 0 8px color-mix(in srgb,var(--detail) 22%,transparent);animation:pop .5s .12s cubic-bezier(.2,.9,.3,1.5) both}
+.donebadge svg{width:28px;height:28px;stroke-dasharray:24;stroke-dashoffset:24;animation:draw .35s .4s ease-out forwards}
+@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}
+@keyframes draw{to{stroke-dashoffset:0}}
+.donehero h2{font-size:21px;margin:6px 0 0}
+.donehero p{margin:0;color:var(--muted);font-size:14px;line-height:1.5;max-width:40ch}
+.donesteps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;counter-reset:none}
+.donesteps li{display:flex;align-items:center;justify-content:center;gap:7px;font-size:12.5px;color:var(--muted);padding:8px 6px;border-radius:10px;background:var(--sunk);transition:background .2s,color .2s}
+.donesteps b{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:var(--panel);border:1px solid var(--line)}
+.donesteps li.on{color:var(--ink);background:var(--accent-soft)}.donesteps li.on b{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.donesteps li.ok b{background:var(--detail);color:#272E32;border-color:transparent}
+.donerate{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px;border:1px solid var(--line);border-radius:14px}
+.donerate .lbl{margin:0}
+.donerate .stars button{width:38px;height:38px;-webkit-mask-size:34px;mask-size:34px}
+.donerate .stars button:active{transform:scale(.88)}
+.donerate .stars[aria-disabled="true"]{opacity:.45;pointer-events:none}
+#doneMsg{margin:2px 0 0;text-align:center;min-height:1em;font-size:12.5px}
+#doneSlot .pubbody{display:flex;flex-direction:column;gap:6px;animation:donein .35s ease-out}
+#doneSlot .pubdrop{min-height:110px}#doneSlot .pubdrop img{max-height:190px}
+.touchonly{display:none}@media (hover:none){.kbonly{display:none}.touchonly{display:inline}}
+.donecard.rated #doneLead{display:none}.donecard.rated .donebadge{width:40px;height:40px;box-shadow:0 0 0 5px color-mix(in srgb,var(--detail) 22%,transparent)}.donecard.rated .donebadge svg{width:21px;height:21px}.donecard.rated .donehero h2{font-size:18px}
+.donebadge,.donehero h2{transition:width .25s,height .25s,font-size .25s}
+.donefoot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}
+.donefoot .btn{padding:9px 14px;font-size:13.5px}
+.donenot{flex:1;min-width:0;font-size:12.5px;color:var(--muted)}
+.donesnd{width:36px;height:36px;color:var(--muted)}.donesnd svg{width:19px;height:19px}
+.donesnd .off,.donesnd[aria-pressed="false"] .on{display:none}.donesnd[aria-pressed="false"] .off{display:block}
+.utg{margin:2px 4px 4px;padding:8px;font-size:13.5px;font-weight:500}
+@media (max-width:700px){.donewrap{place-items:end center;padding:0}.donecard{width:100%;border-radius:20px 20px 0 0;max-height:92dvh;overflow:auto;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px));animation-name:sheetin}
+  @keyframes sheetin{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}.donesteps li{font-size:12px;padding:7px 4px}}
+@media (prefers-reduced-motion:reduce){.donecard,.donebadge,.donebadge svg{animation:none}.donebadge svg{stroke-dashoffset:0}}
+
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -647,14 +698,14 @@ body.locked{overflow:hidden}
     <a class="brand" href="#s-ref" id="brandLink"><svg viewBox="0 0 120 120" role="img" aria-label="GENA"><path fill="#FFF6E3" d="M26 50C24 92 42 109 60 109C78 109 96 92 94 50Z"/><g fill="none" stroke="#282F33" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5.5" d="M25 54C25 93 44 109 60 109C76 109 95 93 95 54"/><path stroke-width="4.5" d="M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84"/><path stroke-width="4.5" d="M49 93Q60 100 71 93"/></g><path fill="#282F33" d="M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z"/><path fill="#282F33" d="M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z"/><g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="28" y="59" width="27" height="22" rx="8"/><rect x="65" y="59" width="27" height="22" rx="8"/><path d="M55 67H65"/></g><circle cx="42" cy="70.5" r="3.6" fill="#282F33"/><circle cx="78" cy="70.5" r="3.6" fill="#282F33"/></svg><span><b>GENA</b></span></a>
     <nav class="views" id="viewNav" aria-label="Разделы" hidden><a href="#" data-view="builder" aria-current="true">Конструктор</a><a href="#gallery" data-view="gallery" aria-current="false">Галерея</a></nav>
     <nav class="steps" id="steps" aria-label="Шаги">
-      <button type="button" data-t="s-ref"><span>01</span>Продукт</button>
-      <button type="button" data-t="s-style"><span>02</span>Стиль</button>
-      <button type="button" data-t="s-bg"><span>03</span>Фон</button>
-      <button type="button" data-t="s-pod"><span>04</span>Подиум</button>
-      <button type="button" data-t="s-comp"><span>05</span>Композиция</button>
-      <button type="button" data-t="s-cam"><span>06</span>Ракурс</button>
-      <button type="button" data-t="s-light"><span>07</span>Свет</button>
-      <button type="button" data-t="s-fin"><span>08</span>Финиш</button>
+      <button type="button" data-t="s-ref" title="Продукт" aria-label="Шаг 01: Продукт"><span>01</span><em>Продукт</em></button>
+      <button type="button" data-t="s-style" title="Стиль" aria-label="Шаг 02: Стиль"><span>02</span><em>Стиль</em></button>
+      <button type="button" data-t="s-bg" title="Фон" aria-label="Шаг 03: Фон"><span>03</span><em>Фон</em></button>
+      <button type="button" data-t="s-pod" title="Подиум" aria-label="Шаг 04: Подиум"><span>04</span><em>Подиум</em></button>
+      <button type="button" data-t="s-comp" title="Композиция" aria-label="Шаг 05: Композиция"><span>05</span><em>Композиция</em></button>
+      <button type="button" data-t="s-cam" title="Ракурс" aria-label="Шаг 06: Ракурс"><span>06</span><em>Ракурс</em></button>
+      <button type="button" data-t="s-light" title="Свет" aria-label="Шаг 07: Свет"><span>07</span><em>Свет</em></button>
+      <button type="button" data-t="s-fin" title="Финиш" aria-label="Шаг 08: Финиш"><span>08</span><em>Финиш</em></button>
     </nav>
     <div class="setwrap">
       <button class="iconbtn" type="button" id="setBtn" aria-haspopup="true" aria-expanded="false" aria-controls="setPop" aria-label="Анимация в шапке" title="Анимация в шапке"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3.2l7.6 4.4v8.8L12 20.8l-7.6-4.4V7.6z"/><path d="M4.4 7.6L12 12l7.6-4.4M12 12v8.8"/></svg></button>
@@ -669,7 +720,7 @@ body.locked{overflow:hidden}
     </div>
     <button class="hbtn" type="button" id="histBtn" hidden aria-haspopup="dialog" aria-expanded="false" aria-controls="hist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3 4v4.5h4.5"/><path d="M12 7.5V12l3 2"/></svg><span class="hl">Мои промты</span><b class="badge" id="histBadge" hidden aria-label="без оценки">0</b></button>
     <div class="uwrap" id="uwrap" hidden><button class="ubtn" type="button" id="uBtn" aria-haspopup="true" aria-expanded="false" aria-controls="uPop" aria-label="Профиль"><span id="uIni">?</span></button>
-      <div class="pop upop" id="uPop" hidden><p class="uwho"><b id="uName"></b><small id="uMail"></small></p><button class="opt uopt" type="button" id="uAdmin" hidden><span>Аналитика и доступ</span></button><button class="opt uopt" type="button" id="uOut"><span>Выйти</span></button></div></div>
+      <div class="pop upop" id="uPop" hidden><p class="uwho"><b id="uName"></b><small id="uMail"></small></p><button class="opt uopt" type="button" id="uAdmin" hidden><span>Аналитика и доступ</span></button><label class="tg uopt utg"><input type="checkbox" id="uDone"><span>Окно оценки после копирования</span></label><button class="opt uopt" type="button" id="uOut"><span>Выйти</span></button></div></div>
     <button class="iconbtn" type="button" id="thBtn" aria-label="Сменить тему"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
   </div>
 </div>
@@ -906,19 +957,36 @@ body.locked{overflow:hidden}
   <form class="fbcard" id="pubForm" novalidate>
     <div class="fbhead"><h2 id="pubH">Публикация в галерею</h2><button class="iconbtn" type="button" id="pubClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="pubscene" id="pubScene"></div>
+    <div class="pubbody" id="pubBody">
     <span class="lbl">Результат генерации</span>
     <div class="fbdrop pubdrop" id="pubDrop" tabindex="0" role="button" aria-label="Добавить картинку: вставьте из буфера, перетащите или выберите файл">
       <input type="file" id="pubFile" accept="image/*" hidden>
-      <div class="fbempty" id="pubEmpty"><b>Вставьте Ctrl+V</b> (⌘V на Mac), перетащите сюда или <u>выберите файл</u></div>
+      <div class="fbempty" id="pubEmpty"><span class="kbonly"><b>Вставьте Ctrl+V</b> (⌘V на Mac), перетащите сюда или <u>выберите файл</u></span><u class="touchonly">Выберите картинку из галереи</u></div>
       <div class="fbprev" id="pubPrev" hidden><img id="pubImg" alt="Результат"><button class="tdel" type="button" id="pubRm">Убрать</button></div>
     </div>
     <small class="hint" id="pubSize"></small>
     <label class="lbl" for="pubTitle">Подпись <span class="opt-tag">по желанию</span></label>
     <input type="text" id="pubTitle" maxlength="80" placeholder="Например: сыры на мраморе, 16:9">
     <p class="gerr" id="pubErr" role="alert"></p>
-    <div class="fbact"><button class="btn" type="submit" id="pubSend">Опубликовать</button><span class="hint">Картинка сожмётся до 1600 px. Работу увидят все дизайнеры.</span></div>
+    <div class="fbact"><button class="btn" type="submit" form="pubForm" id="pubSend">Опубликовать</button><span class="hint">Картинка сожмётся до 1600 px. Работу увидят все дизайнеры.</span></div>
+    </div>
   </form>
 </div>
+<div class="fbwrap donewrap" id="done" role="dialog" aria-modal="true" aria-labelledby="doneH" hidden>
+  <div class="fbcard donecard">
+    <button class="iconbtn donex" type="button" id="doneClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="donehero"><span class="donebadge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.2 4.2L19 7"/></svg></span>
+      <h2 id="doneH">Промт скопирован. Спасибо!</h2>
+      <p id="doneLead">Вставьте его в нейросеть вместе с фото продукта. Когда будет результат, возвращайтесь: оцените генерацию и поделитесь удачной работой с командой.</p></div>
+    <ol class="donesteps" id="doneSteps"><li class="on"><b>1</b>Сгенерируйте</li><li><b>2</b>Оцените</li><li><b>3</b>Поделитесь</li></ol>
+    <div class="donerate"><span class="lbl" id="doneQ">Как получилось?</span><div id="doneStars"></div><p class="hint" id="doneMsg"></p></div>
+    <div id="doneSlot"></div>
+    <div class="donefoot"><button class="btn ghost" type="button" id="doneLater">Оценю позже</button>
+      <label class="tg donenot"><input type="checkbox" id="doneOff"><span>Не показывать после копирования</span></label>
+      <button class="iconbtn donesnd" type="button" id="doneSnd" aria-pressed="true" aria-label="Звук" title="Звук"><svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg><svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg></button></div>
+  </div>
+</div>
+<canvas id="confetti" aria-hidden="true" hidden></canvas>
 <div class="fbwrap wwrap" id="work" role="dialog" aria-modal="true" aria-labelledby="wTitle" hidden>
   <div class="wcard">
     <div class="wimg" id="wImgBox"><img id="wImg" alt=""></div>
@@ -2075,12 +2143,13 @@ function toastAct(t,label,fn){const el=$("toast");el.textContent="";const sp=doc
   b.addEventListener("click",()=>{el.hidden=true;fn()});el.append(sp,b);el.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>el.hidden=true,7000)}
 /* ----- 1. history: saved on every copy ----- */
 async function historyTouch(){
-  if(!Cloud.sb||!Cloud.user)return;
+  if(!Cloud.sb||!Cloud.user)return null;
   const state=stateOf(),sig=hashStr(JSON.stringify(state));
-  const {error}=await Cloud.sb.rpc("history_touch",{p_state:state,p_scene:sceneOf(S),p_prompt:plain(),p_sig:sig});
-  if(error)return;await loadHistory();if(!$("hist").hidden)drawHistory();
+  const {data,error}=await Cloud.sb.rpc("history_touch",{p_state:state,p_scene:sceneOf(S),p_prompt:plain(),p_sig:sig});
+  if(error)return null;await loadHistory();if(!$("hist").hidden)drawHistory();
+  if(prefGet("gena-done",true))return data;
   let n=0;try{n=+localStorage.getItem("gena-hist-tip")||0;localStorage.setItem("gena-hist-tip",n+1)}catch(e){}
-  if(n<3)toastAct("Промт сохранён в «Мои промты». После генерации поставьте ему оценку","Открыть",()=>histOpen(true))
+  if(n<3)toastAct("Промт сохранён в «Мои промты». После генерации поставьте ему оценку","Открыть",()=>histOpen(true));return data
 }
 async function loadHistory(){
   if(!Cloud.sb||!Cloud.user)return;
@@ -2134,7 +2203,7 @@ async function compressImage(file,max,q){
   let blob=await new Promise(r=>c.toBlob(r,"image/webp",q));if(!blob||blob.type!=="image/webp")blob=await new Promise(r=>c.toBlob(r,"image/jpeg",q));
   return {blob,w,h}}
 const kb=n=>n>1048576?(n/1048576).toFixed(1)+" МБ":Math.round(n/1024)+" КБ";
-function pubOpen(row){PUB={row,file:null};$("pubErr").textContent="";$("pubTitle").value="";pubClear();
+function pubOpen(row){slotPub(false);PUB={row,file:null};$("pubErr").textContent="";$("pubTitle").value="";pubClear();
   $("pubScene").innerHTML=`<div class="hthumb">${pvBox}</div><div><b>Сцена из истории</b><div class="achips">${sceneChips(row.scene).slice(0,6).map(x=>`<i>${escA(x)}</i>`).join("")}</div>${starsHTML(row.rating,"",true)}</div>`;
   miniPreview($("pubScene").querySelector(".hthumb"),row.scene,"pub",72,72);$("pub").hidden=false;document.body.classList.add("locked");$("pubTitle").focus()}
 function pubClose(){$("pub").hidden=true;document.body.classList.toggle("locked",!$("hist").hidden)}
@@ -2153,7 +2222,7 @@ $("pubRm").addEventListener("click",e=>{e.stopPropagation();pubClear()});
 ["dragenter","dragover"].forEach(t=>$("pubDrop").addEventListener(t,e=>{e.preventDefault();$("pubDrop").classList.add("over")}));
 ["dragleave","drop"].forEach(t=>$("pubDrop").addEventListener(t,e=>{e.preventDefault();$("pubDrop").classList.remove("over")}));
 $("pubDrop").addEventListener("drop",e=>pubSet(e.dataTransfer.files[0]));
-document.addEventListener("paste",e=>{if($("pub").hidden)return;const it=[...(e.clipboardData||{}).items||[]].find(i=>i.type.startsWith("image/"));if(it){e.preventDefault();pubSet(it.getAsFile())}});
+document.addEventListener("paste",e=>{if($("pub").hidden&&!$("doneSlot").contains($("pubBody")))return;const it=[...(e.clipboardData||{}).items||[]].find(i=>i.type.startsWith("image/"));if(it){e.preventDefault();pubSet(it.getAsFile())}});
 $("pubForm").addEventListener("submit",async e=>{e.preventDefault();if(!PUB.full){$("pubErr").textContent="Добавьте картинку с результатом.";return}
   const btn=$("pubSend");btn.disabled=true;btn.textContent="Публикую…";$("pubErr").textContent="";
   try{const thumb=await compressImage(PUB.file,480,.75),ext=b=>b.type==="image/webp"?"webp":"jpg",base=`${Cloud.user.id}/${Date.now()}`;
@@ -2162,7 +2231,7 @@ $("pubForm").addEventListener("submit",async e=>{e.preventDefault();if(!PUB.full
     u=await Cloud.sb.storage.from("works").upload(tp,thumb.blob,{contentType:thumb.blob.type});if(u.error)throw u.error;
     const {error}=await Cloud.sb.from("publications").insert({history_id:PUB.row.id,title:$("pubTitle").value.trim(),image_path:ip,thumb_path:tp,w:PUB.full.w,h:PUB.full.h});
     if(error){await Cloud.sb.storage.from("works").remove([ip,tp]);throw error}
-    pubClose();histOpen(false);await loadHistory();toast("Работа опубликована в галерее");go("gallery")}
+    if(!$("done").hidden){$("done").hidden=true;slotPub(false)}pubClose();histOpen(false);await loadHistory();toast("Спасибо! Работа уже в галерее");go("gallery")}
   catch(err){$("pubErr").textContent="Не получилось опубликовать: "+(err&&err.message||err)}
   finally{btn.disabled=false;btn.textContent="Опубликовать"}});
 
@@ -2211,12 +2280,52 @@ $("wDel").addEventListener("click",async()=>{const b=$("wDel"),r=GAL.cur;if(b.da
   const {error}=await Cloud.sb.from("publications").delete().eq("id",r.id);if(error){toast("Не получилось удалить");return}
   await Cloud.sb.storage.from("works").remove([r.image_path,r.thumb_path]);workClose();toast("Публикация удалена");loadGallery();loadHistory()});
 
+
+/* ----- after-copy: confetti, chime, rate & publish ----- */
+const DONE={hid:null,rating:null,wait:null};
+const prefGet=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:v==="1"}catch(e){return d}};
+const prefSet=(k,v)=>{try{localStorage.setItem(k,v?"1":"0")}catch(e){}};
+function chime(){if(!prefGet("gena-sound",true))return;try{const A=window.__ac||(window.__ac=new (window.AudioContext||window.webkitAudioContext)()),t=A.currentTime;
+  [[784,0],[1175,.09],[1568,.18]].forEach(([f,d],i)=>{const o=A.createOscillator(),g=A.createGain();o.type="sine";o.frequency.value=f;
+    g.gain.setValueAtTime(0,t+d);g.gain.linearRampToValueAtTime(i===2?.035:.05,t+d+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d+.55);o.connect(g).connect(A.destination);o.start(t+d);o.stop(t+d+.6)})}catch(e){}}
+function confetti(from){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const cv=$("confetti"),dpr=Math.min(2,devicePixelRatio||1),W=innerWidth,H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cv.hidden=false;const g=cv.getContext("2d");g.scale(dpr,dpr);
+  const r=from?from.getBoundingClientRect():{left:W/2,top:H/2,width:0,height:0},ox=r.left+r.width/2,oy=r.top+r.height/2;
+  const C=["#F0B92A","#F5C842","#49613D","#C4D9AE","#FFF6E3","#E58A5B","#8A97FF"],P=[];
+  for(let i=0;i<140;i++){const a=-Math.PI/2+(Math.random()-.5)*Math.PI*1.25,v=6+Math.random()*9;
+    P.push({x:ox,y:oy,vx:Math.cos(a)*v,vy:Math.sin(a)*v-2,r:Math.random()*Math.PI,vr:(Math.random()-.5)*.35,w:5+Math.random()*6,h:3+Math.random()*5,c:C[i%C.length],sh:Math.random()<.3?1:0,sw:Math.random()*6})}
+  const t0=performance.now();(function f(t){const k=(t-t0)/1700;g.clearRect(0,0,W,H);
+    P.forEach(p=>{p.vx*=.985;p.vy=p.vy*.985+.28;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.sw+=.2;g.save();g.globalAlpha=Math.max(0,1-Math.max(0,k-.6)/.4);g.translate(p.x,p.y);g.rotate(p.r);g.scale(1,Math.cos(p.sw));g.fillStyle=p.c;
+      if(p.sh){g.beginPath();g.arc(0,0,p.w/2.4,0,7);g.fill()}else g.fillRect(-p.w/2,-p.h/2,p.w,p.h);g.restore()});
+    if(k<1)requestAnimationFrame(f);else{g.clearRect(0,0,W,H);cv.hidden=true}})(t0)}
+function doneSteps(n){[...$("doneSteps").children].forEach((li,i)=>{li.className=i<n?"ok":i===n?"on":""})}
+function doneStars(){$("doneStars").innerHTML=starsHTML(DONE.rating,DONE.hid||"",false).replace('class="stars"',`class="stars"${DONE.hid?"":' aria-disabled="true"'}`)}
+function slotPub(on){const body=$("pubBody");if(on){$("doneSlot").appendChild(body)}else if(body.parentElement!==$("pubForm"))$("pubForm").appendChild(body)}
+function doneOpen(copied,hidP){$("doneH").textContent=copied?"Промт скопирован. Спасибо!":"Промт выделен: нажмите ⌘C";DONE.hid=null;DONE.rating=null;slotPub(false);$("doneMsg").textContent="";$("doneQ").textContent="Как получилось?";doneSteps(0);doneStars();
+  $("doneOff").checked=false;$("doneSnd").setAttribute("aria-pressed",String(prefGet("gena-sound",true)));
+  $("done").hidden=false;$("done").querySelector(".donecard").classList.remove("rated");document.body.classList.add("locked");requestAnimationFrame(()=>confetti($("done").querySelector(".donebadge")));chime();$("doneLater").focus();
+  hidP.then(id=>{if(!id){$("doneMsg").textContent="История сейчас недоступна, оценку можно поставить позже в «Мои промты».";return}DONE.hid=id;doneStars()})}
+function doneClose(){if($("doneOff").checked){prefSet("gena-done",false);$("uDone").checked=false;toast("Хорошо. Вернуть окно можно в меню профиля")}
+  $("done").hidden=true;slotPub(false);document.body.classList.toggle("locked",!$("hist").hidden||!$("pub").hidden)}
+$("doneClose").addEventListener("click",doneClose);$("doneLater").addEventListener("click",doneClose);
+$("done").addEventListener("click",e=>{if(e.target===$("done"))doneClose()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("done").hidden)doneClose()});
+$("doneSnd").addEventListener("click",()=>{const on=!prefGet("gena-sound",true);prefSet("gena-sound",on);$("doneSnd").setAttribute("aria-pressed",String(on));if(on)chime()});
+$("uDone").checked=prefGet("gena-done",true);$("uDone").addEventListener("change",e=>prefSet("gena-done",e.target.checked));
+$("doneStars").addEventListener("click",async e=>{const b=e.target.closest("[data-rate]");if(!b||!DONE.hid)return;const v=+b.dataset.rate;
+  const {error}=await Cloud.sb.from("prompt_history").update({rating:v}).eq("id",DONE.hid);if(error){$("doneMsg").textContent="Не получилось сохранить оценку, попробуйте ещё раз";return}
+  DONE.rating=v;doneStars();loadHistory();
+  $("done").querySelector(".donecard").classList.toggle("rated",v>=4);if(v>=4){$("doneQ").textContent="Отличный результат!";$("doneMsg").textContent="Промт сохранён навсегда. Добавьте картинку, и коллеги увидят её в галерее.";doneSteps(2);
+    const row={id:DONE.hid,rating:v,scene:sceneOf(S)};PUB={row,file:null};pubClear();$("pubErr").textContent="";$("pubTitle").value="";slotPub(true)}
+  else{$("doneQ").textContent="Спасибо за честную оценку";$("doneMsg").textContent=v<=2?"Попробуйте другой ракурс или свет: схема справа покажет, что поменяется.":"Промт останется среди последних 10 в «Мои промты».";doneSteps(2);$("doneSteps").lastElementChild.className="";slotPub(false)}});
+
 function copy(statusEl){
   const txt=plain();
-  const ok=()=>{statusEl.textContent="Скопировано";setTimeout(()=>{statusEl.textContent=statusEl.id==="mstat"?"Промт готов":""},2200)};
-  const fb=()=>{const r=document.createRange();r.selectNodeContents($("out"));const s=getSelection();s.removeAllRanges();s.addRange(r);statusEl.textContent="Текст выделен, нажми ⌘C";};
+  const wantDone=Cloud.user&&prefGet("gena-done",true);let hp=null;const showDone=c=>{if(!wantDone)return;if(document.body.classList.contains("sheet"))sheet(false);doneOpen(c,hp||Promise.resolve(null))};
+  const ok=()=>{showDone(true);statusEl.textContent="Скопировано";setTimeout(()=>{statusEl.textContent=statusEl.id==="mstat"?"Промт готов":""},2200)};
+  const fb=()=>{const r=document.createRange();r.selectNodeContents($("out"));const s=getSelection();s.removeAllRanges();s.addRange(r);statusEl.textContent="Текст выделен, нажми ⌘C";showDone(false)};
+  logEvent("copy");hp=historyTouch();
   try{navigator.clipboard.writeText(txt).then(ok,fb)}catch(e){fb()}
-  logEvent("copy");historyTouch();
 }
 $("copy").addEventListener("click",()=>copy($("status")));
 $("mcopy").addEventListener("click",()=>copy($("mstat")));
