@@ -803,6 +803,44 @@ main .grid .surf,main .grid .sfw{max-height:110px}
 .gwhy b{font-weight:600;color:var(--ink)}
 .gwhy+.more{margin-top:4px}
 
+
+/* v24: iOS radii, accent-tinted background, footer logo, admin lab (glass, fonts) */
+:root{--r:22px;--r-sm:16px}
+.card svg.fig,.surf,.sfw,.qthumb,.hthumb{border-radius:12px}
+.btn{border-radius:14px}.btn.sm{border-radius:12px}
+.pop,.apop,.upop{border-radius:18px}
+.fbcard,.donecard{border-radius:24px}.wcard{border-radius:26px}
+.panel,.tiltbox{border-radius:18px}
+input[type=text],input[type=email],input[type=password],textarea{border-radius:12px}
+/* accent tints the page background, lightly */
+:root{--glow1:color-mix(in srgb,var(--accent) 18%,transparent);--glow3:color-mix(in srgb,var(--accent) 9%,transparent)}
+:root[data-theme="dark"]{--glow1:color-mix(in srgb,var(--accent) 14%,transparent);--glow3:color-mix(in srgb,var(--accent) 7%,transparent)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--glow1:color-mix(in srgb,var(--accent) 14%,transparent);--glow3:color-mix(in srgb,var(--accent) 7%,transparent)}}
+.glow{background:radial-gradient(60vw 50vh at 0% 0%,var(--glow1),transparent 70%),radial-gradient(50vw 60vh at 100% 20%,var(--glow2),transparent 70%),radial-gradient(70vw 60vh at 40% 110%,var(--glow3),transparent 70%),
+  radial-gradient(circle,color-mix(in srgb,var(--ink) 7%,transparent) 1px,transparent 1.4px) 0 0/22px 22px}
+/* footer logo */
+.flogo{margin-right:-8px}.flogo svg{width:40px;height:40px;border-radius:50%;background:var(--logo-bg);display:block}
+/* admin lab UI */
+.ulab{margin:0 6px 6px;padding:10px 4px 8px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.uapph em{font-style:normal;font-weight:500;color:var(--muted);opacity:.8;margin-left:4px}
+.ulabtg{padding:2px 2px;font-size:14px;font-weight:500}
+.ufonts{display:grid;grid-template-columns:1fr;gap:4px}
+.ufonts button{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:12px;border:1px solid var(--line);font-size:12px;min-width:0}
+.ufonts button b{font-size:17px;font-weight:600;line-height:1}.ufonts button span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}
+.ufonts button[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}.ufonts button[aria-checked="true"] span{color:var(--ink)}
+.ufonts button:focus-visible{outline:2px solid var(--accent)}
+.upop{width:300px}
+/* glass (admin preview) */
+body.glass{--glass:color-mix(in srgb,var(--panel) 62%,transparent);--glass-2:color-mix(in srgb,var(--panel) 48%,transparent);--glass-line:rgba(255,255,255,.6);--glass-hi:inset 0 1px 0 rgba(255,255,255,.7)}
+:root[data-theme="dark"] body.glass{--glass:color-mix(in srgb,var(--panel) 58%,transparent);--glass-2:color-mix(in srgb,var(--panel) 42%,transparent);--glass-line:rgba(255,255,255,.08);--glass-hi:inset 0 1px 0 rgba(255,255,255,.06)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body.glass{--glass:color-mix(in srgb,var(--panel) 58%,transparent);--glass-2:color-mix(in srgb,var(--panel) 42%,transparent);--glass-line:rgba(255,255,255,.08);--glass-hi:inset 0 1px 0 rgba(255,255,255,.06)}}
+body.glass .glow{background:radial-gradient(55vw 55vh at 5% 5%,color-mix(in srgb,var(--accent) 30%,transparent),transparent 70%),radial-gradient(45vw 55vh at 95% 15%,color-mix(in srgb,var(--detail) 26%,transparent),transparent 70%),radial-gradient(60vw 60vh at 50% 105%,color-mix(in srgb,var(--accent) 18%,transparent),transparent 70%),radial-gradient(40vw 40vh at 80% 70%,rgba(160,170,240,.18),transparent 70%)}
+body.glass .block,body.glass aside,body.glass .quick,body.glass .topbar-in,body.glass .pop,body.glass .hpanel,body.glass .fbcard,body.glass .wside,body.glass .gempty,body.glass .mbar{background:var(--glass)!important;-webkit-backdrop-filter:blur(24px) saturate(170%);backdrop-filter:blur(24px) saturate(170%);border:1px solid var(--glass-line)!important;box-shadow:var(--glass-hi),0 10px 40px rgba(20,30,40,.08)!important}
+body.glass .card,body.glass .qcard,body.glass .panel,body.glass .tiltbox,body.glass .chip,body.glass .summary button,body.glass pre#out,body.glass .pvw,body.glass .gsort,body.glass .views{background:var(--glass-2)!important;border-color:var(--glass-line)!important}
+body.glass .card[aria-pressed="true"],body.glass .qcard[aria-pressed="true"]{border-color:var(--accent)!important;background:color-mix(in srgb,var(--panel) 72%,transparent)!important}
+body.glass .chip[aria-pressed="true"]{background:var(--accent)!important}
+body.glass .card svg.fig{background:color-mix(in srgb,var(--well) 70%,transparent)}
+
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -1022,6 +1060,9 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
       <div class="pop upop" id="uPop" hidden><p class="uwho"><b id="uName"></b><small id="uMail"></small></p><button class="opt uopt" type="button" id="uAdmin" hidden><span>Аналитика и доступ</span></button><div class="uapp"><p class="uapph">Оформление</p>
         <div class="gsort uthm" id="uThm" role="radiogroup" aria-label="Тема"><button type="button" role="radio" data-th="light" aria-checked="false">Светлая</button><button type="button" role="radio" data-th="dark" aria-checked="false">Тёмная</button><button type="button" role="radio" data-th="auto" aria-checked="false">Авто</button></div>
         <div class="uacc" id="uAcc" role="radiogroup" aria-label="Акцентный цвет"><button type="button" role="radio" data-ac="sage" title="Шалфей" aria-label="Шалфей"></button><button type="button" role="radio" data-ac="graphite" title="Графит" aria-label="Графит"></button><button type="button" role="radio" data-ac="ocean" title="Океан" aria-label="Океан"></button><button type="button" role="radio" data-ac="terra" title="Терракота" aria-label="Терракота"></button><button type="button" role="radio" data-ac="plum" title="Слива" aria-label="Слива"></button><span class="uaccn" id="uAccN"></span></div></div>
+        <div class="ulab" id="uLab" hidden><p class="uapph">Лаборатория <em>видно только вам</em></p>
+        <label class="tg ulabtg"><input type="checkbox" id="labGlass"><span>Стекло</span></label>
+        <div class="ufonts" id="labFonts" role="radiogroup" aria-label="Шрифтовая пара"></div></div>
         <label class="tg uopt utg"><input type="checkbox" id="uDone"><span>Окно оценки после копирования</span></label><button class="opt uopt" type="button" id="uOut"><span>Выйти</span></button></div></div>
     <button class="iconbtn" type="button" id="thBtn" aria-label="Сменить тему"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
   </div>
@@ -1257,7 +1298,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   <div class="gfilt" id="galFilt" role="group" aria-label="Стиль"></div>
   <div class="ggrid" id="galGrid" aria-busy="true"></div>
 </section>
-<footer class="foot"><div class="foot-in"><b class="fmark">GENA</b><span class="fwords"><span><i>G</i>enerative <i>E</i>ngine for <i>N</i>eural <i>A</i>rt</span><small>Генеративный движок для нейро-арта</small></span><span class="fside">Для дизайнеров КуулКлевер</span></div></footer>
+<footer class="foot"><div class="foot-in"><span class="flogo"><svg viewBox="0 0 120 120" aria-hidden="true"><path fill="#FFF6E3" d="M26 50C24 92 42 109 60 109C78 109 96 92 94 50Z"/><g fill="none" stroke="#282F33" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5.5" d="M25 54C25 93 44 109 60 109C76 109 95 93 95 54"/><path stroke-width="4.5" d="M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84"/><path stroke-width="4.5" d="M49 93Q60 100 71 93"/></g><path fill="#282F33" d="M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z"/><path fill="#282F33" d="M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z"/><g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="28" y="59" width="27" height="22" rx="8"/><rect x="65" y="59" width="27" height="22" rx="8"/><path d="M55 67H65"/></g><circle cx="42" cy="70.5" r="3.6" fill="#282F33"/><circle cx="78" cy="70.5" r="3.6" fill="#282F33"/></svg></span><b class="fmark">GENA</b><span class="fwords"><span><i>G</i>enerative <i>E</i>ngine for <i>N</i>eural <i>A</i>rt</span><small>Генеративный движок для нейро-арта</small></span><span class="fside">Для дизайнеров КуулКлевер</span></div></footer>
 <div id="toast" role="status" hidden></div>
 <div class="hwrap" id="hist" role="dialog" aria-modal="true" aria-labelledby="histTitle" hidden>
   <div class="hpanel">
@@ -2160,6 +2201,24 @@ document.addEventListener("keydown",e=>{if(e.key!=="Tab")return;
   const f=[...d.querySelectorAll('button,a[href],input,textarea,select,summary,[tabindex]:not([tabindex="-1"])')].filter(x=>!x.disabled&&!x.hidden&&x.getClientRects().length&&getComputedStyle(x).visibility!=="hidden");if(!f.length)return;
   const a=f[0],z=f[f.length-1];if(!d.contains(document.activeElement)){e.preventDefault();a.focus();return}
   if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});
+
+/* ----- admin lab: glass + font pairs (applied only for admin) ----- */
+const FONTS={inter:{t:"Inter Tight",d:'"Inter Tight"',b:'"Inter Tight"',q:null},
+  sf:{t:"Системный · SF",d:'-apple-system,"SF Pro Display",system-ui',b:'-apple-system,"SF Pro Text",system-ui',q:null},
+  onest:{t:"Onest",d:'"Onest"',b:'"Onest"',q:"Onest:wght@400..700"},
+  manrope:{t:"Manrope + Inter",d:'"Manrope"',b:'"Inter"',q:"Manrope:wght@500..800&family=Inter:wght@400..700"},
+  golos:{t:"Geologica + Golos",d:'"Geologica"',b:'"Golos Text"',q:"Geologica:wght@400..700&family=Golos+Text:wght@400..700"}};
+const LAB={glass:false,font:"inter"};try{Object.assign(LAB,JSON.parse(localStorage.getItem("gena-lab")||"{}"))}catch(e){}
+function labApply(){const on=!!(Cloud&&Cloud.admin);document.body.classList.toggle("glass",on&&LAB.glass);
+  const f=FONTS[on?LAB.font:"inter"]||FONTS.inter;
+  if(f.q&&!document.getElementById("lf-"+(on?LAB.font:""))){const l=document.createElement("link");l.rel="stylesheet";l.id="lf-"+LAB.font;l.href="https://fonts.googleapis.com/css2?family="+f.q+"&display=swap";document.head.appendChild(l)}
+  root.style.setProperty("--f-display",f.d+',Arial,system-ui,sans-serif');root.style.setProperty("--f-body",f.b+',Arial,system-ui,sans-serif');
+  $("uLab").hidden=!on;$("labGlass").checked=LAB.glass;
+  $("labFonts").innerHTML=Object.entries(FONTS).map(([k,v])=>`<button type="button" role="radio" data-lf="${k}" aria-checked="${k===LAB.font}" style="font-family:${v.d.replace(/"/g,"'")},system-ui"><b>Аа</b><span>${v.t}</span></button>`).join("");
+  if(window.Hero)Hero.refresh()}
+function labSave(){try{localStorage.setItem("gena-lab",JSON.stringify(LAB))}catch(e){}labApply()}
+$("labGlass").addEventListener("change",e=>{LAB.glass=e.target.checked;labSave()});
+$("labFonts").addEventListener("click",e=>{const b=e.target.closest("[data-lf]");if(!b)return;e.stopPropagation();LAB.font=b.dataset.lf;labSave()});
 /* ----- quick start tabs + row scroll ----- */
 function qTab(t){$("quick").dataset.qt=t;$("quick").querySelectorAll("[data-qt]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.qt===t)));
   $("qSub").textContent=t==="team"?"Удачные настройки коллег. Сохраните свои кнопкой «В шаблоны» под промтом.":"Один клик настраивает все шаги, продукт остаётся вашим.";qEdges()}
@@ -2294,12 +2353,12 @@ $("uOut").addEventListener("click",async()=>{userMenu(false);await Cloud.sb.auth
 $("uAdmin").addEventListener("click",()=>{userMenu(false);openAdmin()});
 async function onSession(session){
   Cloud.user=session?session.user:null;
-  if(!Cloud.user){Cloud.profile=null;Cloud.admin=false;$("uwrap").hidden=true;$("histBtn").hidden=true;$("viewNav").hidden=true;$("qtTeam").hidden=true;qTab("kk");route();$("fbOpen").hidden=true;$("tpl").hidden=true;$("tOpen").hidden=true;gateMode(gate.mode);gateShow("form");return}
+  if(!Cloud.user){Cloud.profile=null;Cloud.admin=false;labApply();$("uwrap").hidden=true;$("histBtn").hidden=true;$("viewNav").hidden=true;$("qtTeam").hidden=true;qTab("kk");route();$("fbOpen").hidden=true;$("tpl").hidden=true;$("tOpen").hidden=true;gateMode(gate.mode);gateShow("form");return}
   gateShow("off");$("uwrap").hidden=false;$("fbOpen").hidden=false;try{localStorage.setItem("gena-known","1")}catch(e){}
   const [{data:prof},{data:adm}]=await Promise.all([Cloud.sb.from("profiles").select("name,email").eq("id",Cloud.user.id).maybeSingle(),Cloud.sb.rpc("is_admin")]);
   Cloud.profile=prof||{name:"",email:Cloud.user.email};Cloud.admin=adm===true;
   const nm=Cloud.profile.name||Cloud.user.email.split("@")[0];
-  $("uName").textContent=nm;$("uMail").textContent=Cloud.user.email;$("uIni").textContent=nm.trim().charAt(0).toUpperCase()||"?";$("uAdmin").hidden=!Cloud.admin;
+  labApply();$("uName").textContent=nm;$("uMail").textContent=Cloud.user.email;$("uIni").textContent=nm.trim().charAt(0).toUpperCase()||"?";$("uAdmin").hidden=!Cloud.admin;
   $("tpl").hidden=false;$("qtTeam").hidden=false;$("tOpen").hidden=false;loadTemplates();
   $("histBtn").hidden=false;$("viewNav").hidden=false;loadHistory();route();
 }
