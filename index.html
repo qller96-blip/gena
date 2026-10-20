@@ -609,6 +609,29 @@ body.v-gallery .foot{display:block}
 .bgideas{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.bgideas .hint{margin:0 2px 0 0}
 .chip.sm{font-size:12.5px;padding:5px 10px}
 
+
+/* v15: work viewer — darker backdrop, preloaded full image, prev/next */
+.wwrap{background:rgba(6,8,7,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:opacity .22s ease}
+.wwrap .wcard{transition:transform .26s cubic-bezier(.2,.8,.2,1),opacity .22s ease}
+.wwrap.opening,.wwrap.closing{opacity:0}.wwrap.opening .wcard{transform:translateY(14px) scale(.985)}.wwrap.closing .wcard{transform:scale(.985)}
+.wimg{position:relative;overflow:hidden}
+.wimg img{transition:opacity .16s ease,transform .22s cubic-bezier(.2,.8,.2,1)}
+.wcard.swap .wimg img{opacity:0;transform:translateX(-18px)}.wcard.swap[data-dir="prev"] .wimg img{transform:translateX(18px)}
+.wcard .wside{transition:opacity .16s ease}.wcard.swap .wside{opacity:.35}
+.wnav{all:unset;cursor:pointer;position:absolute;top:50%;width:44px;height:44px;margin-top:-22px;border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(18,22,20,.42);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;transition:opacity .18s,background .18s,transform .18s;z-index:2}
+.wnav svg{width:22px;height:22px}.wnav.prev{left:14px}.wnav.next{right:14px}
+.wnav:hover{background:rgba(18,22,20,.68)}.wnav.prev:hover{transform:translateX(-2px)}.wnav.next:hover{transform:translateX(2px)}
+.wnav:focus-visible{opacity:1;outline:2px solid #fff;outline-offset:2px}
+.wimg:hover .wnav{opacity:1}
+@media (hover:none){.wnav{opacity:.9;width:38px;height:38px;margin-top:-19px}}
+.wcount{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);font-size:12px;font-weight:600;color:#fff;background:rgba(18,22,20,.42);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-radius:999px;padding:3px 10px;font-variant-numeric:tabular-nums;pointer-events:none}
+.wcount:empty{display:none}
+.wspin,.gtile.loading::after{content:"";position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;animation:spin .7s linear infinite;opacity:0;pointer-events:none;z-index:3}
+.wimg.busy .wspin,.gtile.loading::after{opacity:1}
+.gtile.loading img{filter:brightness(.8)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.wwrap,.wwrap .wcard,.wimg img,.wnav{transition:none}.wwrap.opening .wcard,.wcard.swap .wimg img{transform:none}}
+
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -1100,7 +1123,7 @@ body.locked{overflow:hidden}
 <canvas id="confetti" aria-hidden="true" hidden></canvas>
 <div class="fbwrap wwrap" id="work" role="dialog" aria-modal="true" aria-labelledby="wTitle" hidden>
   <div class="wcard">
-    <div class="wimg" id="wImgBox"><img id="wImg" alt=""></div>
+    <div class="wimg" id="wImgBox"><img id="wImg" alt=""><button class="wnav prev" type="button" id="wPrev" aria-label="Предыдущая работа"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="wnav next" type="button" id="wNext" aria-label="Следующая работа"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button><span class="wcount" id="wCount"></span><span class="wspin" aria-hidden="true"></span></div>
     <div class="wside">
       <div class="fbhead"><h2 id="wTitle"></h2><button class="iconbtn" type="button" id="wClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
       <p class="wauth"><span id="wAuthor"></span><span id="wStars"></span></p>
@@ -2177,7 +2200,7 @@ function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
   $("admBody").querySelectorAll(".arated").forEach((el,i)=>miniPreview(el.querySelector(".qthumb"),ADM.rc[i].scene,"ar"+i,ADM.rc[i].pubs.length?60:150,ADM.rc[i].pubs.length?44:100));
   const tps=[...$("admBody").querySelectorAll("img[data-tp]")];if(tps.length)signed(tps.map(x=>x.dataset.tp)).then(()=>tps.forEach(x=>{x.src=GAL.urls[x.dataset.tp]||""}));
 }
-$("admBody").addEventListener("click",e=>{const b=e.target.closest("[data-wk]");if(b){e.preventDefault();workOpen(b.dataset.wk)}});
+$("admBody").addEventListener("click",e=>{const b=e.target.closest("[data-wk]");if(b){e.preventDefault();workOpen(b.dataset.wk,0,[...new Set([...$("admBody").querySelectorAll("[data-wk]")].map(x=>x.dataset.wk))])}});
 $("admBody").addEventListener("submit",async e=>{e.preventDefault();const f=e.target;
   if(f.matches(".amk")){const c=f.dataset.ri!=null?ADM.rc[+f.dataset.ri]:ADM.combos[+f.dataset.ci],name=f.querySelector("input").value.trim();if(!c||!name)return;
     const {error}=await Cloud.sb.from("templates").insert({name,scene:c.scene,from_analytics:true});
@@ -2404,15 +2427,37 @@ $("galSort").addEventListener("click",e=>{const b=e.target.closest("[data-gs]");
 $("galGrid").addEventListener("click",e=>{const t=e.target.closest("[data-pub]");if(!t)return;const a=e.target.closest("[data-ga]"),r=GAL.rows.find(x=>x.id===t.dataset.pub);
   if(a&&r){e.stopPropagation();if(a.dataset.ga==="apply")applyPub(r);if(a.dataset.ga==="copy")copyPub(r);if(a.dataset.ga==="like")likePub(r);return}workOpen(t.dataset.pub)});
 $("galGrid").addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches(".gtile")){e.preventDefault();workOpen(e.target.dataset.pub)}});
-async function workOpen(id){const r=GAL.rows.find(x=>x.id===id);if(!r)return;GAL.cur=r;
-  $("work").hidden=false;document.body.classList.add("locked");
-  $("wImg").src=GAL.urls[r.thumb_path]||"";$("wImg").alt=r.title||"Работа";$("wImgBox").style.aspectRatio=`${r.w}/${r.h}`;
-  $("wTitle").textContent=r.title||"Без названия";$("wAuthor").textContent=`${r.author_name||"Коллега"} · ${fmtDate(r.created_at)}`;$("wStars").innerHTML=starsHTML(r.rating,"",true);
-  $("wChips").innerHTML=sceneChips(r.scene).map(x=>`<i>${escA(x)}</i>`).join("");miniPreview($("wScene"),r.scene,"w",150,120);
-  workLike();$("wDel").hidden=!(r.user_id===Cloud.user.id||Cloud.admin);$("wDel").dataset.arm="";$("wDel").textContent="Удалить";$("wApply").focus();
-  await signed([r.image_path]);if(GAL.cur===r&&GAL.urls[r.image_path])$("wImg").src=GAL.urls[r.image_path]}
+/* full image preloading + prev/next */
+const imgCache={};
+function preload(src,ms){if(!src)return Promise.resolve(false);if(imgCache[src]==="ok")return Promise.resolve(true);
+  const p=imgCache[src]instanceof Promise?imgCache[src]:(imgCache[src]=new Promise(res=>{const im=new Image();im.decoding="async";im.onload=()=>{(im.decode?im.decode():Promise.resolve()).catch(()=>{}).then(()=>{imgCache[src]="ok";res(true)})};im.onerror=()=>{delete imgCache[src];res(false)};im.src=src}));
+  return ms?Promise.race([p,new Promise(r=>setTimeout(()=>r(false),ms))]):p}
+async function prefetchPub(r){if(!r)return;await signed([r.image_path]);preload(GAL.urls[r.image_path])}
+function navIds(){return GAL.navIds&&GAL.navIds.length?GAL.navIds:(GAL.mine?GAL.rows.filter(r=>r.user_id===Cloud.user.id):GAL.rows).map(r=>r.id)}
+let workSeq=0;
+async function workOpen(id,dir=0,ids){const r=GAL.rows.find(x=>x.id===id);if(!r)return;if(ids)GAL.navIds=ids;else if(!dir&&$("work").hidden)GAL.navIds=null;
+  const seq=++workSeq,tile=document.querySelector(`.gtile[data-pub="${CSS.escape(id)}"]`),open=!$("work").hidden&&!$("work").classList.contains("closing");
+  const busy=setTimeout(()=>{if(tile)tile.classList.add("loading");$("wImgBox").classList.add("busy")},160);
+  await signed([r.image_path]);const full=GAL.urls[r.image_path],ok=await preload(full,4000);
+  clearTimeout(busy);if(tile)tile.classList.remove("loading");$("wImgBox").classList.remove("busy");if(seq!==workSeq)return;
+  GAL.cur=r;const img=$("wImg"),src=ok?full:(GAL.urls[r.thumb_path]||full);
+  const fill=()=>{img.src=src;img.alt=r.title||"Работа";$("wImgBox").style.aspectRatio=`${r.w}/${r.h}`;
+    $("wTitle").textContent=r.title||"Без названия";$("wAuthor").textContent=`${r.author_name||"Коллега"} · ${fmtDate(r.created_at)}`;$("wStars").innerHTML=starsHTML(r.rating,"",true);
+    $("wChips").innerHTML=sceneChips(r.scene).map(x=>`<i>${escA(x)}</i>`).join("");miniPreview($("wScene"),r.scene,"w",150,120);
+    workLike();$("wDel").hidden=!(r.user_id===Cloud.user.id||Cloud.admin);$("wDel").dataset.arm="";$("wDel").textContent="Удалить";
+    const L=navIds(),k=L.indexOf(r.id);$("wPrev").hidden=k<=0;$("wNext").hidden=k<0||k>=L.length-1;$("wCount").textContent=L.length>1&&k>=0?`${k+1} / ${L.length}`:"";
+    [L[k-1],L[k+1]].forEach(n=>prefetchPub(GAL.rows.find(x=>x.id===n)))};
+  if(!open){fill();const w=$("work");clearTimeout(window.__wct);w.classList.remove("closing");w.hidden=false;w.classList.add("opening");document.body.classList.add("locked");requestAnimationFrame(()=>requestAnimationFrame(()=>w.classList.remove("opening")));$("wApply").focus({preventScroll:true})}
+  else{const c=$("work").querySelector(".wcard");c.dataset.dir=dir>0?"next":"prev";c.classList.add("swap");await new Promise(t=>setTimeout(t,140));if(seq!==workSeq)return;fill();requestAnimationFrame(()=>c.classList.remove("swap"))}
+  if(!ok)preload(full).then(d=>{if(d&&GAL.cur===r)img.src=full})}
+function workStep(d){if($("work").hidden||!GAL.cur)return;const L=navIds(),k=L.indexOf(GAL.cur.id),n=L[k+d];if(n)workOpen(n,d)}
+$("wPrev").addEventListener("click",e=>{e.stopPropagation();workStep(-1)});$("wNext").addEventListener("click",e=>{e.stopPropagation();workStep(1)});
+document.addEventListener("keydown",e=>{if($("work").hidden||e.target.matches("input,textarea"))return;if(e.key==="ArrowLeft"){e.preventDefault();workStep(-1)}if(e.key==="ArrowRight"){e.preventDefault();workStep(1)}});
+{let sx=null,sy=0;$("wImgBox").addEventListener("touchstart",e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+ $("wImgBox").addEventListener("touchend",e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;sx=null;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.4)workStep(dx<0?1:-1)},{passive:true})}
+$("galGrid").addEventListener("pointerover",e=>{const t=e.target.closest(".gtile");if(t&&!t.dataset.pf){t.dataset.pf="1";prefetchPub(GAL.rows.find(x=>x.id===t.dataset.pub))}});
 function workLike(){const r=GAL.cur,on=GAL.liked.has(r.id);$("wLike").setAttribute("aria-pressed",String(on));$("wLikeN").textContent=r.likes}
-function workClose(){$("work").hidden=true;document.body.classList.toggle("locked",!$("adm").hidden);GAL.cur=null}
+function workClose(){workSeq++;const w=$("work");w.classList.add("closing");clearTimeout(window.__wct);window.__wct=setTimeout(()=>{w.hidden=true;w.classList.remove("closing")},180);document.body.classList.toggle("locked",!$("adm").hidden);GAL.cur=null;GAL.navIds=null}
 $("wClose").addEventListener("click",workClose);
 $("work").addEventListener("click",e=>{if(e.target===$("work"))workClose()});
 document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!$("pub").hidden)pubClose();else if(!$("work").hidden)workClose();else if(!$("hist").hidden)histOpen(false)});
