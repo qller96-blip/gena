@@ -724,6 +724,29 @@ svg[viewBox="0 0 24 24"][stroke]{stroke-width:1.8;stroke-linecap:round;stroke-li
 /* option cards: equal rhythm */
 .card .meta .d{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
+
+main .card .meta .t{overflow-wrap:normal;word-break:normal}
+/* v21: balanced option rows + clearer hierarchy */
+@media (min-width:701px){
+  main .grid,main .grid.sm{grid-template-columns:repeat(var(--n,5),minmax(0,1fr))}
+  main .grid.wide{grid-template-columns:repeat(var(--n,3),minmax(0,1fr))}
+  /* compact secondary choices: icon left, label right */
+  main .grid[data-compact] .card{flex-direction:row;align-items:center;gap:12px;padding:8px 12px 8px 8px;min-height:64px}
+  main .grid[data-compact] .card svg.fig{width:76px;flex:none}
+  main .grid[data-compact] .card .meta{padding:0;gap:2px}
+  main .grid[data-compact] .card .meta .d{-webkit-line-clamp:2}
+  main .grid[data-compact] .card .ok,main .grid[data-compact] .card .chk{top:6px;right:6px}
+}
+/* wide-few cards don't blow up their pictures */
+main .grid .card svg.fig{max-height:110px}
+main .grid .surf,main .grid .sfw{max-height:110px}
+/* subsection hierarchy: H3 for a group, dependent options sit in a tinted panel */
+.subh h3,.bh~* h3{font-size:15px;font-weight:650}
+.tiltbox{background:var(--sunk);border-radius:var(--r-sm);padding:12px 12px 14px;margin-top:12px}
+.tiltbox .subh{margin-bottom:10px}
+.subt{margin:0;font-size:13px;font-weight:600;color:var(--ink)}.subt small{font-weight:400;color:var(--muted);margin-left:4px;font-size:12px}
+.tiltbox .card{background:var(--panel)}
+
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -1077,8 +1100,8 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
         <div class="subh"><h3>Расстановка</h3>
           <details class="info"><summary aria-label="Подробнее">i</summary><div><p><b>Стоят</b>: на поверхности. <b>Парят</b>: в воздухе, как в рекламе приложений.</p><p><b>Группа парит</b>: близко, одной композицией. <b>Парят врозь</b>: у каждого продукта свой воздух.</p></div></details></div>
         <div class="grid" id="arr"></div>
-        <div id="tiltBox" class="subgap">
-          <div class="subh" style="margin-bottom:8px"><span class="lbl" style="margin:0">Наклон</span><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Для парящих продуктов. <b>Все влево</b> или <b>вправо</b>: вся группа наклонена в одну сторону, получается единое движение.</p></div></details></div>
+        <div id="tiltBox" class="subgap tiltbox">
+          <div class="subh" style="margin-bottom:8px"><h4 class="subt">Наклон <small>для парящих</small></h4><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Для парящих продуктов. <b>Все влево</b> или <b>вправо</b>: вся группа наклонена в одну сторону, получается единое движение.</p></div></details></div>
           <div class="grid sm" id="tilt"></div>
         </div>
         <details class="adv subgap"><summary>Расставить объекты вручную <span>эксперимент</span></summary><p class="hint">По строке на объект: что это и где стоит. Например: «сыр в белой пиале — главный, спереди по центру».</p><textarea id="objList" rows="3" placeholder="сыр в белой пиале — главный, спереди по центру&#10;банка мёда — справа, чуть сзади&#10;бокал вина — сзади слева, высокий акцент"></textarea></details>
@@ -1087,13 +1110,13 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
       <div class="sub">
         <div class="subh"><h3>Место в кадре</h3>
           <details class="info"><summary aria-label="Подробнее">i</summary><div><p>Штриховка на миниатюре — пустое место под текст баннера. Там не будет ни предметов, ни деталей.</p></div></details></div>
-        <div class="grid sm" id="place"></div>
+        <div class="grid sm" id="place" data-compact="1"></div>
       </div>
       <hr class="divider">
       <div class="sub">
         <div class="subh"><h3>Масштаб</h3>
           <details class="info"><summary aria-label="Подробнее">i</summary><div><p>Сколько места занимают продукты. 90% — крупно, почти до краёв. 30% — маленькие, вокруг много пустого фона.</p></div></details></div>
-        <div class="grid sm" id="fill"></div>
+        <div class="grid sm" id="fill" data-compact="1"></div>
         <div class="toggles subgap">
           <label class="tg"><input type="checkbox" id="noCrop"><span>Не обрезать краями кадра<small>Объекты целиком в кадре, с ровными полями.</small></span></label>
         </div>
@@ -1102,7 +1125,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
       <div class="sub">
         <div class="subh"><h3>Схема</h3>
           <details class="info"><summary aria-label="Подробнее">i</summary><div><p>Подсказка, как красиво расставить продукты.</p><p><b>Золотое сечение</b>: главный продукт чуть в стороне от центра, остальные вокруг по спирали. <b>Правило третей</b>: главный стоит на пересечении линий, которые делят кадр на три части. <b>Без схемы</b>: нейросеть решает сама.</p></div></details></div>
-        <div class="grid sm" id="grids"></div>
+        <div class="grid sm" id="grids" data-compact="1"></div>
       </div>
     </section>
 
@@ -1142,7 +1165,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
       <div class="sub">
         <div class="subh"><h3>Резкость</h3>
           <details class="info"><summary aria-label="Подробнее">i</summary><div><p><b>Всё резко</b>: каждый предмет в фокусе. <b>Фон размыт</b>: резкий только главный продукт, остальное мягко размыто, как на хорошей камере.</p></div></details></div>
-        <div class="grid sm" id="dof"></div>
+        <div class="grid sm" id="dof" data-compact="1"></div>
       </div>
     </section>
   </main>
@@ -1371,11 +1394,11 @@ const ANGLES=[
   svg:`<line class="gl" x1="14" y1="62" x2="106" y2="62"/><polygon class="ft" points="42,20 78,20 84,28 36,28"/><rect class="fl" x="36" y="28" width="48" height="34"/><rect class="lb" x="45" y="38" width="30" height="13" rx="2"/>`},
  {id:"e45",t:"Сверху 45°",d:"Видны верх и фасад",p:"Camera elevated about 45° above the product, three-quarter overhead view showing both the top and the front face, 50–70mm lens.",
   svg:`<polygon class="ft" points="45,12 75,12 84,32 36,32"/><rect class="fl" x="36" y="32" width="48" height="30"/><rect class="lb" x="45" y="40" width="30" height="12" rx="2"/>`},
- {id:"front",t:"Фронтально",d:"Ровно на уровне продукта",p:"Camera at product eye level, straight-on 0° front view, label facing the camera, 85mm lens with no perspective distortion.",
+ {id:"front",t:"Фронтально",d:"На уровне продукта",p:"Camera at product eye level, straight-on 0° front view, label facing the camera, 85mm lens with no perspective distortion.",
   svg:`<line class="gl" x1="14" y1="62" x2="106" y2="62"/><rect class="fl" x="38" y="16" width="44" height="46"/><rect class="lb" x="46" y="30" width="28" height="16" rx="2"/>`},
  {id:"side",t:"Три четверти",d:"Видны перед и бок",p:"Three-quarter view at eye level, product turned about 30° away from the camera, revealing the front and one side, 70mm lens.",
   svg:`<line class="gl" x1="14" y1="64" x2="106" y2="64"/><polygon class="fl" points="30,22 64,18 64,64 30,60"/><polygon class="fr" points="64,18 88,22 88,60 64,64"/><polygon class="lb" points="37,33 57,30.6 57,47 37,48.7"/>`},
- {id:"hq",t:"3/4 сверху",d:"Верх, перед и бок в перспективе",p:"Elevated three-quarter view with natural perspective: camera about 30–35° above the product and turned about 35–45° to the side, so the top, the front and one side are all visible at once. Real lens perspective, not isometric: parallel edges converge slightly with distance and verticals taper gently downward (three-point perspective), 35–50mm lens.",
+ {id:"hq",t:"3/4 сверху",d:"Верх, перед и бок",p:"Elevated three-quarter view with natural perspective: camera about 30–35° above the product and turned about 35–45° to the side, so the top, the front and one side are all visible at once. Real lens perspective, not isometric: parallel edges converge slightly with distance and verticals taper gently downward (three-point perspective), 35–50mm lens.",
   svg:`<polygon class="ft" points="60,9 83,19 60,31 37,19"/><polygon class="fl" points="37,19 60,31 60,64 40,50"/><polygon class="fr" points="60,31 83,19 80,50 60,64"/><polygon class="lb" points="42,32 56,39.5 56,50 43.5,43"/>`},
  {id:"top",t:"Сверху",d:"Строго сверху, как раскладка",p:"Camera directly overhead, 90° top-down flat lay view, near-orthographic perspective with minimal lens distortion.",
   svg:`<rect class="ft" x="38" y="14" width="44" height="44" rx="2"/><circle cx="60" cy="36" r="11" fill="var(--fig-l)"/>`},
@@ -1626,10 +1649,10 @@ const LIGHTS=[
  {id:"back",x:true,t:"Контровой",d:"Свет сзади, светится контур",n:1,sym:true,L:[{a:180,r:27,role:"rim"}],p:"A single light from directly behind the product: glowing edges, translucent materials and liquids light up from within, a bright rim outlines the silhouette, the front stays softer and darker."},
  {id:"top",t:"Верхний",d:"Ровно сверху, для раскладок",n:1,sym:true,L:[{top:true}],p:"A large overhead softbox directly above the product, even top-down illumination with soft shadows directly beneath."},
  {id:"window",t:"Окно",d:"Естественный дневной",n:1,L:[{window:true}],p:"Large soft natural window light from the {K} side, with gentle gradual falloff across the scene."},
- {id:"keyfill",t:"Объём",d:"Свет и мягкая подсветка теней",n:2,L:[{a:-45,r:27,role:"key"},{a:60,r:27,role:"fill"}],p:"Two-light setup: a large softbox key at 45° to the {K}, and a weaker fill light or white bounce card on the {F} side opening up the shadows (about a 1:3 ratio)."},
+ {id:"keyfill",t:"Объём",d:"Мягко подсвечены тени",n:2,L:[{a:-45,r:27,role:"key"},{a:60,r:27,role:"fill"}],p:"Two-light setup: a large softbox key at 45° to the {K}, and a weaker fill light or white bounce card on the {F} side opening up the shadows (about a 1:3 ratio)."},
  {id:"keyrim",x:true,t:"Контур",d:"Свет и светлый контур",n:2,L:[{a:-45,r:27,role:"key"},{a:150,r:27,role:"rim"}],p:"Two-light setup: a soft key light at 45° to the {K}, plus a rim light from behind on the {F} side that outlines the silhouette and separates the product from the background."},
  {id:"strips",x:true,t:"Стрипы",d:"Блики по краям бутылок",n:2,sym:true,L:[{a:-112,r:26,role:"strip"},{a:112,r:26,role:"strip"}],p:"Two tall strip softboxes on both sides, slightly behind the product, creating clean vertical highlights along both edges, classic lighting for bottles and packaging."},
- {id:"three",t:"Трёхточечная",d:"Классика студийной съёмки",n:3,L:[{a:-45,r:27,role:"key"},{a:60,r:27,role:"fill"},{a:150,r:27,role:"rim"}],p:"Classic three-point lighting: a soft key at 45° to the {K}, a weaker fill on the {F} side, and a rim light behind the product outlining its silhouette."},
+ {id:"three",t:"Три точки",d:"Студийная классика",n:3,L:[{a:-45,r:27,role:"key"},{a:60,r:27,role:"fill"},{a:150,r:27,role:"rim"}],p:"Classic three-point lighting: a soft key at 45° to the {K}, a weaker fill on the {F} side, and a rim light behind the product outlining its silhouette."},
  {id:"keyrimbg",x:true,t:"Свечение фона",d:"Плюс подсветка фона",n:3,L:[{a:-45,r:27,role:"key"},{a:150,r:27,role:"rim"},{bg:true}],p:"Three-light setup: a soft key at 45° to the {K}, a rim light from behind on the {F} side, and a separate background light creating a soft glow on the backdrop right behind the product."},
  {id:"tent",x:true,t:"Тент",d:"Почти без теней",n:4,sym:true,L:[{tent:true}],p:"Shadowless light-tent setup: the product is surrounded by diffused light from all sides, almost no shadows, perfectly even exposure."}
 ];
@@ -2391,6 +2414,11 @@ const STEP_KEYS={"s-ref":["src","cat","product","items","isolate","scale","food"
 const stepRel=k=>({surface:S.bg==="scene",sv:S.bg==="scene",color:S.bg==="solid",g1:S.bg==="grad",g2:S.bg==="grad",gbase:S.bg==="grad",gdir:S.bg==="grad",gmode:S.bg==="grad",bgText:S.bg==="text",podShape:S.pod!=="none",podTiers:S.pod!=="none",podCol:S.pod!=="none"})[k]??true;
 function stepDirty(){$("steps").querySelectorAll("[data-t]").forEach(b=>{const ks=(STEP_KEYS[b.dataset.t]||[]).filter(stepRel),d=ks.some(k=>JSON.stringify(S[k]??null)!==JSON.stringify(DEF[k]??null));
   b.classList.toggle("dirty",d);b.title=b.title.replace(/ · изменено$/,"")+(d?" · изменено":"")})}
+
+/* fit option rows: as many columns as cards (max 6), no half-empty rows */
+function fitGrids(){if(innerWidth<=700)return;document.querySelectorAll("main .grid").forEach(g=>{const n=[...g.children].filter(c=>c.offsetParent!==null||getComputedStyle(c).display!=="none").length;if(!n)return;
+  const w=g.clientWidth||g.parentElement.clientWidth,min=g.classList.contains("wide")?220:g.dataset.compact?150:112,cap=Math.max(2,Math.min(g.classList.contains("wide")?3:6,Math.floor((w+12)/(min+12)))),rows=Math.ceil(n/cap);g.style.setProperty("--n",Math.ceil(n/rows))})}
+addEventListener("resize",fitGrids);document.addEventListener("click",e=>{if(e.target.closest(".more,.adv summary,[data-v]"))requestAnimationFrame(fitGrids)});
 function update(){
   S.food=S.cat!=="none";
   const notes=autofix(),cr=rules();
@@ -2422,7 +2450,7 @@ function update(){
     return `<span class="sec${chg?" chg":""}">${h?`<b>${h}:</b> `:""}${esc(t)}</span>`}).join("\n\n");
   window.__secPrev=cur;
   if(prev){first=$("out").querySelector(".sec.chg");if(first){const o=$("out"),top=first.getBoundingClientRect().top-o.getBoundingClientRect().top+o.scrollTop,vis=top>=o.scrollTop&&top+20<=o.scrollTop+o.clientHeight;if(!vis&&o.scrollHeight>o.clientHeight)o.scrollTo({top:Math.max(0,top-12),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})}}
-  stepDirty();
+  stepDirty();requestAnimationFrame(fitGrids);
   const n=plain().length;$("count").textContent=n+" симв.";
   const bgL=S.bg==="text"?"Фон: свой текст":S.bg==="solid"?"Фон "+((pinfo(S.color)||[S.color])[0]):S.bg==="grad"?"Градиент "+(S.gmode==="pal"?(pinfo(S.gbase)||[""])[0]:"свой"):sfLabel();
   const chips=[...(S.cat!=="none"?[[find(CATS,S.cat)[1],"s-ref"]]:[]),...(S.src==="text"?[[S.items.length===1?"Продукт: описание":`Продуктов: ${S.items.length}`,"s-ref"]]:[]),[find(STYLES,S.style).t,"s-style"],["Свет: "+find(LIGHTS,S.light).t.toLowerCase(),"s-light"],[find(ANGLES,S.angle).t,"s-cam"],[ar.t,"s-comp"],...(ar.float?[[find(TILT,S.tilt).t,"s-comp"]]:[]),[find(PLACE,S.place).t,"s-comp"],[find(GRIDS,S.grid).t,"s-comp"],[bgL,"s-bg"],...(S.pod!=="none"?[["Подиум: "+find(PODS,S.pod).t.toLowerCase(),"s-pod"]]:[]),["Декор: "+find(DECOR,S.decor).t.toLowerCase(),"s-bg"],["Масштаб "+S.fill+"%","s-comp"],["Тень: "+shd.t.toLowerCase(),"s-fin"],[S.ratio==="auto"?"Формат авто":S.ratio,"pvbox"]];
