@@ -566,7 +566,7 @@ body.v-gallery .topbar-in .setwrap{display:none}body.v-gallery .views{margin-rig
 @media (max-width:980px){.wrap>aside{z-index:55}}
 @media (min-width:701px){
   .hero .stage{position:absolute;z-index:0;pointer-events:none;top:-120px;bottom:-150px;height:auto;left:44%;right:-40px;
-    -webkit-mask-image:radial-gradient(52% 56% at 48% 46%,#000 50%,transparent 100%);mask-image:radial-gradient(52% 56% at 48% 46%,#000 50%,transparent 100%)}
+    }
   .hero .stage::before{display:none}
   .hero .stagecap{display:none}
 }
@@ -894,6 +894,31 @@ body.glass .pop,body.glass .upop,body.glass .apop,body.glass .info>div,body.glas
 body.glass{--glass:color-mix(in srgb,var(--panel) 46%,transparent);--glass-2:color-mix(in srgb,var(--panel) 34%,transparent)}
 :root[data-theme="dark"] body.glass{--glass:color-mix(in srgb,var(--panel) 44%,transparent);--glass-2:color-mix(in srgb,var(--panel) 30%,transparent)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body.glass{--glass:color-mix(in srgb,var(--panel) 44%,transparent);--glass-2:color-mix(in srgb,var(--panel) 30%,transparent)}}
+
+
+/* v26: performance — compositor-only background, lighter glass */
+.glow{contain:strict}
+.blob{filter:none;opacity:.6;transform:translateZ(0);backface-visibility:hidden}
+.b1{background:radial-gradient(circle,color-mix(in srgb,var(--accent) 22%,transparent),transparent 62%)}
+.hero .stage{contain:layout paint;will-change:auto}
+body.glass .block::before,body.glass aside::before,body.glass .quick::before,body.glass .topbar-in::before{-webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%)}
+body.glass .pop,body.glass .upop,body.glass .apop,body.glass .info>div,body.glass .rpop{-webkit-backdrop-filter:blur(20px) saturate(160%)!important;backdrop-filter:blur(20px) saturate(160%)!important}
+
+
+/* hero orbs: GPU layers */
+.orbs{position:absolute;inset:0;pointer-events:none;contain:strict}
+@media (min-width:701px){.hero .stage{-webkit-mask-image:radial-gradient(52% 56% at 48% 46%,#000 50%,transparent 100%);mask-image:radial-gradient(52% 56% at 48% 46%,#000 50%,transparent 100%)}}
+.hob{position:absolute;will-change:translate;animation:orbx 14.3s ease-in-out var(--d1) infinite alternate}
+.hobi{position:absolute;inset:0;will-change:translate,scale;animation:orby 17.5s ease-in-out var(--d2) infinite alternate,orbs 6.3s ease-in-out var(--d3) infinite alternate}
+.stage .orbb{position:absolute;inset:0;width:100%;height:100%;display:block}
+.stage .orbf{position:absolute;inset:auto;left:50%;top:50%;margin:0;display:block;translate:-50% -50%;border-radius:50%;mix-blend-mode:soft-light;opacity:.3;will-change:rotate;animation:orbr 18s linear var(--d4) infinite}
+.stage .orbf.dk{mix-blend-mode:screen;opacity:.14;animation-duration:21s}
+@keyframes orbx{from{translate:calc(var(--dx) * -1) 0}to{translate:var(--dx) 0}}
+@keyframes orby{from{translate:0 calc(var(--dy) * -1)}to{translate:0 var(--dy)}}
+@keyframes orbs{from{scale:.965}to{scale:1.035}}
+@keyframes orbr{to{rotate:360deg}}
+.orbs.still *,.orbs.off *{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){.orbs *{animation:none!important}}
 
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
@@ -2268,7 +2293,7 @@ const FONTS={inter:{s:"Inter Tight",t:"Inter Tight",d:'"Inter Tight"',b:'"Inter 
   rubik:{s:"Rubik",t:"Rubik",d:'"Rubik"',b:'"Rubik"',q:"Rubik:wght@400..700"},
   unb:{s:"Unbounded",t:"Unbounded + Onest",d:'"Unbounded"',b:'"Onest"',q:"Unbounded:wght@400..700&family=Onest:wght@400..700"},
   mont:{s:"Montserrat",t:"Montserrat + Golos",d:'"Montserrat"',b:'"Golos Text"',q:"Montserrat:wght@500..700&family=Golos+Text:wght@400..700"}};
-const CROC='<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(59 63) scale(1.02) translate(-63 -60)">  <g stroke="#282F33" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round">    <path fill="#B9D89A" d="M16 74C14 54 26 42 44 41L76 44C94 46 106 51 108 61C110 71 102 78 90 79L60 82C44 94 18 92 16 74Z"/>    <circle cx="45" cy="37" r="12" fill="#B9D89A"/>    <circle cx="71" cy="35" r="9" fill="#B9D89A"/>  </g>  <path fill="#B9D89A" d="M34 44H82V50H34Z"/>  <path fill="none" stroke="#282F33" stroke-width="4" stroke-linecap="round" d="M48 71Q76 75 101 66"/>  <g fill="#FFFFFF" stroke="#282F33" stroke-width="2" stroke-linejoin="round"><path d="M64 73.4l3 5 3-4.6z"/><path d="M80 72.6l3 4.8 2.8-5z"/></g>  <g fill="#282F33"><ellipse cx="98" cy="54" rx="2.2" ry="1.6"/><ellipse cx="103.5" cy="56.5" rx="1.9" ry="1.4"/></g>  <g fill="#8FB873"><circle cx="28" cy="58" r="2.6"/><circle cx="35" cy="52" r="2"/><circle cx="24" cy="66" r="1.8"/></g>  <ellipse cx="36" cy="72" rx="6" ry="3.6" fill="#F2A79A" opacity=".75"/>  <g fill="none" stroke="#F0B92A" stroke-width="5" stroke-linejoin="round"><rect x="32" y="29" width="26" height="18" rx="7.5"/><rect x="63" y="28" width="18" height="15" rx="6"/><path d="M58 37H63"/></g>  <circle cx="48" cy="38.5" r="3.6" fill="#282F33"/><circle cx="73" cy="36" r="3" fill="#282F33"/>  <circle cx="49.3" cy="37.2" r="1.1" fill="#fff"/><circle cx="74" cy="35" r=".9" fill="#fff"/></g><path fill="none" stroke="#282F33" stroke-width="4" stroke-linecap="round" d="M101.5 66.5q3 -1 4 -4" transform="translate(59 63) scale(1.02) translate(-63 -60)"/></svg>';let GUY=null;
+const CROC='<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(60 61) scale(1.08) translate(-62 -60)">  <path fill="#E4F0D4" stroke="#282F33" stroke-width="5.5" stroke-linejoin="round" d="M16 76C13 61 19 51 29 47C28 35 37 28 46 30C51 31 54 35 55 40C57 33 64 29 71 32C75 34 77 38 77 43L94 46C105 48 110 55 109 63C108 71 101 76 91 77L58 80C42 92 19 91 16 76Z"/>  <path fill="none" stroke="#282F33" stroke-width="4.5" stroke-linecap="round" d="M44 71Q74 76 101 67"/>  <g fill="#282F33"><circle cx="99" cy="55" r="2.4"/><circle cx="104.5" cy="58.5" r="2"/></g>  <g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="30" y="38" width="27" height="21" rx="8"/><rect x="62" y="36" width="21" height="18" rx="7"/><path d="M57 46.5H62"/></g>  <circle cx="44.5" cy="48.5" r="3.6" fill="#282F33"/><circle cx="72" cy="45.5" r="3.2" fill="#282F33"/></g></svg>';let GUY=null;
 const LAB={glass:false,font:"inter",logo:"guy"};try{Object.assign(LAB,JSON.parse(localStorage.getItem("gena-lab")||"{}"))}catch(e){}
 function labApply(){const on=!!(Cloud&&Cloud.admin);document.body.classList.toggle("glass",on&&LAB.glass);
   const f=FONTS[on?LAB.font:"inter"]||FONTS.inter;
@@ -3151,7 +3176,7 @@ function drawPreview(T){
 
 /* ---------- HERO: animated isometric cube scenes ---------- */
 const Hero=(()=>{
-  const cv=$("heroCv"),g=cv.getContext("2d"),stage=$("stage"),cap=$("stageCap");
+  const cv=$("heroCv");let g=cv.getContext("2d");const stage=$("stage"),cap=$("stageCap");
   const RM=matchMedia("(prefers-reduced-motion: reduce)");
   const C30=Math.cos(Math.PI/6),TAU=Math.PI*2;
   const LG=(()=>{const v=[.35,.7,1],l=Math.hypot(...v);return v.map(x=>x/l)})();
@@ -3162,7 +3187,7 @@ const Hero=(()=>{
   const hex=h=>{h=String(h).trim().replace("#","");if(h.length===3)h=h.split("").map(c=>c+c).join("");const n=parseInt(h||"888888",16);return [n>>16&255,n>>8&255,n&255]};
   const mix=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];
   const rgba=(c,a=1)=>`rgba(${c[0]|0},${c[1]|0},${c[2]|0},${a})`;
-  function readCols(){
+  function readCols(){if(typeof SPR!=="undefined")SPR.clear();
     const cs=getComputedStyle(document.documentElement),v=k=>hex(cs.getPropertyValue(k));
     const dark=eff()==="dark";
     col={dark,panel:v("--panel"),ink:v("--ink"),line:v("--line"),muted:v("--muted"),
@@ -3345,7 +3370,7 @@ const Hero=(()=>{
     gr=g.createRadialGradient(x-r*.3,y-r*.35,r*.1,x,y,r);
     gr.addColorStop(0,hx(a,.10));gr.addColorStop(.62,hx(a,.14));gr.addColorStop(.9,hx(b,.32));gr.addColorStop(1,hx(b,.5));
     g.fillStyle=gr;g.fillRect(x-r,y-r,r*2,r*2);
-    if(g.createConicGradient){const cg=g.createConicGradient(t*.3+ph,x,y);["#7A6CC9","#4F8FA8","#6E9A5E","#A8894A","#8A5E9A","#7A6CC9"].forEach((c,i,arr)=>cg.addColorStop(i/(arr.length-1),c));
+    if(!NOCON&&g.createConicGradient){const cg=g.createConicGradient(t*.3+ph,x,y);["#7A6CC9","#4F8FA8","#6E9A5E","#A8894A","#8A5E9A","#7A6CC9"].forEach((c,i,arr)=>cg.addColorStop(i/(arr.length-1),c));
       g.globalAlpha=.14;g.globalCompositeOperation="screen";g.fillStyle=cg;g.fillRect(x-r,y-r,r*2,r*2);g.globalCompositeOperation="source-over";g.globalAlpha=1}
     g.restore();
     gr=g.createLinearGradient(x-r,y-r,x+r,y+r);gr.addColorStop(0,"rgba(220,232,255,.42)");gr.addColorStop(.5,"rgba(220,232,255,.05)");gr.addColorStop(1,hx(b,.55));
@@ -3359,7 +3384,7 @@ const Hero=(()=>{
     gr=g.createRadialGradient(x-r*.38,y-r*.42,r*.04,x,y,r*1.02);
     gr.addColorStop(0,`rgba(255,255,255,${dk?.55:.9})`);gr.addColorStop(.38,hx(c1,dk?.28:.34));gr.addColorStop(.82,hx(c2,dk?.36:.42));gr.addColorStop(1,hx(c2,dk?.62:.66));
     g.fillStyle=gr;g.fillRect(x-r,y-r,r*2,r*2);
-    if(g.createConicGradient){const cg=g.createConicGradient(t*.35+ph,x,y);["#FFC9EC","#BDEBFF","#D6FFC9","#FFF0B0","#E3CCFF","#FFC9EC"].forEach((c,i,a)=>cg.addColorStop(i/(a.length-1),c));
+    if(!NOCON&&g.createConicGradient){const cg=g.createConicGradient(t*.35+ph,x,y);["#FFC9EC","#BDEBFF","#D6FFC9","#FFF0B0","#E3CCFF","#FFC9EC"].forEach((c,i,a)=>cg.addColorStop(i/(a.length-1),c));
       g.globalAlpha=dk?.22:.3;g.globalCompositeOperation="soft-light";g.fillStyle=cg;g.fillRect(x-r,y-r,r*2,r*2);g.globalCompositeOperation="source-over";g.globalAlpha=1}
     gr=g.createRadialGradient(x+r*.28,y+r*.5,0,x+r*.28,y+r*.5,r*.7);gr.addColorStop(0,"rgba(255,255,255,.38)");gr.addColorStop(1,"rgba(255,255,255,0)");g.fillStyle=gr;g.fillRect(x-r,y-r,r*2,r*2);
     g.restore();
@@ -3367,26 +3392,52 @@ const Hero=(()=>{
     g.strokeStyle=gr;g.lineWidth=Math.max(1,r*.025);g.beginPath();g.arc(x,y,r-g.lineWidth/2,0,TAU);g.stroke();
     g.save();g.translate(x-r*.4,y-r*.46);g.rotate(-.65);gr=g.createRadialGradient(0,0,0,0,0,r*.24);gr.addColorStop(0,"rgba(255,255,255,.95)");gr.addColorStop(1,"rgba(255,255,255,0)");
     g.fillStyle=gr;g.scale(1,.5);g.beginPath();g.arc(0,0,r*.24,0,TAU);g.fill();g.restore()}
-  function orbsFrame(t){const m=Math.min(W,H*1.25);
-    const list=ORBS.map(([fx,fy,fr,c1,c2,ph])=>{const s=1+.035*Math.sin(t*.5+ph);
-      return {x:fx*W+Math.sin(t*.22+ph)*W*.018,y:fy*H+Math.cos(t*.18+ph*1.3)*H*.03,r:fr*m*.62*s,c1,c2,ph}}).sort((a,b)=>a.r-b.r);
-    for(const o of list)orb(o.x,o.y,o.r,o.c1,o.c2,t,o.ph);
+  /* sprites: each orb is painted once into an offscreen canvas; frames only blit + rotate the iridescent film */
+  var NOCON=false,SPR=new Map();
+  const IRI_L=["#FFC9EC","#BDEBFF","#D6FFC9","#FFF0B0","#E3CCFF","#FFC9EC"],IRI_D=["#7A6CC9","#4F8FA8","#6E9A5E","#A8894A","#8A5E9A","#7A6CC9"];
+  function mkCanvas(w,h){const c=document.createElement("canvas");c.width=Math.max(1,Math.ceil(w));c.height=Math.max(1,Math.ceil(h));return c}
+  function sprite(i,R){const dk=col.dark,key=dk+"|"+i+"|"+Math.round(R);let sp=SPR.get(key);if(sp)return sp;
+    const [,,,c1,c2]=ORBS[i],pad=R*2.15,S=pad*2*DPR,body=mkCanvas(S,S),keep=g;
+    g=body.getContext("2d");g.setTransform(DPR,0,0,DPR,0,0);NOCON=true;try{orb(pad,pad,R,c1,c2,0,0)}finally{NOCON=false;g=keep}
+    let film=null;if(keep.createConicGradient){const F=R*2*DPR;film=mkCanvas(F,F);const f=film.getContext("2d"),cg=f.createConicGradient(0,F/2,F/2);
+      (dk?IRI_D:IRI_L).forEach((c,k,a)=>cg.addColorStop(k/(a.length-1),c));f.fillStyle=cg;f.beginPath();f.arc(F/2,F/2,F/2,0,TAU);f.fill()}
+    sp={body,film,pad,R};SPR.set(key,sp);if(SPR.size>40)SPR.delete(SPR.keys().next().value);return sp}
+  function orbsFrame(t){const m=Math.min(W,H*1.25),dk=col.dark;
+    const list=ORBS.map(([fx,fy,fr,c1,c2,ph],i)=>{const s=1+.035*Math.sin(t*.5+ph);
+      return {i,x:fx*W+Math.sin(t*.22+ph)*W*.018,y:fy*H+Math.cos(t*.18+ph*1.3)*H*.03,R:fr*m*.62,s,ph}}).sort((a,b)=>a.R-b.R);
+    for(const o of list){const sp=sprite(o.i,o.R),k=o.s,d=sp.pad*2*k;
+      g.drawImage(sp.body,o.x-sp.pad*k,o.y-sp.pad*k,d,d);
+      if(sp.film){const r=o.R*k;g.save();g.globalAlpha=dk?.14:.3;g.globalCompositeOperation=dk?"screen":"soft-light";g.translate(o.x,o.y);g.rotate(t*(dk?.3:.35)+o.ph);g.drawImage(sp.film,-r,-r,r*2,r*2);g.restore()}}
+    if(false){g.save();g.globalCompositeOperation="destination-in";g.translate(W*.48,H*.46);g.scale(W*.52,H*.56);
+      const mg=g.createRadialGradient(0,0,0,0,0,1);mg.addColorStop(0,"#000");mg.addColorStop(.5,"#000");mg.addColorStop(1,"rgba(0,0,0,0)");g.fillStyle=mg;g.fillRect(-3,-3,6,6);g.restore()}
     capSet("",null)}
   const FR={orbs:orbsFrame,build:buildFrame,array:arrayFrame,chips:chipsFrame};
   const STILL_T={orbs:3,build:BUILD_T*.55,array:SEG*2+1,chips:()=>chipsCycle().end+1.2};
+  /* orbs live as compositor-animated DOM layers: painted once, moved by the GPU, zero JS per frame */
+  const layer=document.createElement("div");layer.className="orbs";layer.setAttribute("aria-hidden","true");stage.appendChild(layer);let orbKey="";
+  function buildOrbs(){const key=W+"x"+H+"|"+col.dark+"|"+DPR;if(key===orbKey)return;orbKey=key;layer.textContent="";
+    const m=Math.min(W,H*1.25),dk=col.dark,
+      list=ORBS.map((o,i)=>({o,i,R:o[2]*m*.62})).sort((a,b)=>a.R-b.R);
+    list.forEach(({o,i,R},z)=>{const [fx,fy,,,,ph]=o,sp=sprite(i,R),S=sp.pad*2;
+      const a=document.createElement("div");a.className="hob";a.style.cssText=`left:${(fx*W-sp.pad).toFixed(1)}px;top:${(fy*H-sp.pad).toFixed(1)}px;width:${S.toFixed(1)}px;height:${S.toFixed(1)}px;z-index:${z+1};--dx:${(W*.018).toFixed(1)}px;--dy:${(H*.03).toFixed(1)}px;--d1:${(-ph*4.6).toFixed(2)}s;--d2:${(-ph*5.9).toFixed(2)}s;--d3:${(-ph*2.1).toFixed(2)}s`;
+      const b=document.createElement("div");b.className="hobi";sp.body.className="orbb";b.appendChild(sp.body);
+      if(sp.film){sp.film.className="orbf"+(dk?" dk":"");sp.film.style.cssText=`width:${(R*2).toFixed(1)}px;height:${(R*2).toFixed(1)}px;--d4:${(-ph*3).toFixed(2)}s`;b.appendChild(sp.film)}
+      a.appendChild(b);layer.appendChild(a)})}
   function render(t){
     if(!W||!col)return;
+    layer.hidden=mode!=="orbs";layer.classList.toggle("still",isStill());
     g.setTransform(DPR,0,0,DPR,0,0);g.clearRect(0,0,W,H);
+    if(mode==="orbs"){buildOrbs();lastT=t;return}
     FR[mode](t);lastT=t;
   }
   const isStill=()=>still||RM.matches;
-  function frame(now){raf=0;render((now-t0)/1000);loop()}
-  function loop(){if(!raf&&!isStill()&&onScreen&&!document.hidden)raf=requestAnimationFrame(frame)}
+  let lastPaint=0;function frame(now){raf=0;if(mode!=="orbs"||now-lastPaint>=48){lastPaint=now;render((now-t0)/1000)}loop()}
+  function loop(){layer.classList.toggle("off",!onScreen||document.hidden);if(mode==="orbs")return;if(!raf&&!isStill()&&onScreen&&!document.hidden)raf=requestAnimationFrame(frame)}
   function redraw(){
     if(isStill()){const s=STILL_T[mode];render(typeof s==="function"?s():s)}
     else{render((performance.now()-t0)/1000);loop()}
   }
-  function resize(){const r=stage.getBoundingClientRect();DPR=Math.min(2,window.devicePixelRatio||1);W=r.width;H=r.height;
+  function resize(){const r=stage.getBoundingClientRect();DPR=Math.min(mode==="orbs"?1.5:2,window.devicePixelRatio||1);if(typeof SPR!=="undefined")SPR.clear();W=r.width;H=r.height;
     cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);redraw()}
   if("ResizeObserver" in window)new ResizeObserver(resize).observe(stage);else addEventListener("resize",resize);
   if("IntersectionObserver" in window)new IntersectionObserver(es=>{onScreen=es[0].isIntersecting;loop()}).observe(stage);
