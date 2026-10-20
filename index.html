@@ -791,6 +791,18 @@ main .grid .surf,main .grid .sfw{max-height:110px}
 .uaccn{margin-left:auto;font-size:12px;color:var(--muted)}
 .upop{width:280px}
 
+
+/* v23: unavailable options — dim the card, explain once under the group */
+.card .why{display:none!important}
+.card.off .meta .d{display:-webkit-box}
+.card.off>svg,.card.off>.fig,.card.off>.surf,.card.off>.sfw,.card.off .meta{opacity:.38}
+.card.off{border-style:dashed}
+.gwhy{display:flex;flex-direction:column;gap:2px;margin:8px 2px 0;font-size:12px;line-height:1.4;color:var(--muted)}
+.gwhy span{display:block;padding-left:18px;position:relative}
+.gwhy span::before{content:"";position:absolute;left:0;top:2px;width:12px;height:12px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 11v5M12 7.5v.5'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 11v5M12 7.5v.5'/%3E%3C/svg%3E") center/contain no-repeat}
+.gwhy b{font-weight:600;color:var(--ink)}
+.gwhy+.more{margin-top:4px}
+
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -1326,7 +1338,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 <div class="adm" id="adm" role="dialog" aria-modal="true" aria-labelledby="admTitle" hidden>
   <div class="admin-in"><div class="admhead"><h2 id="admTitle">Аналитика</h2><span class="hint">видна только администратору</span><button class="iconbtn" type="button" id="admClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div id="admBody"></div></div>
 </div>
-<button class="fbfab" type="button" id="fbOpen" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M12 8v4M12 15.5v.5"/></svg><span>Нашли проблему?</span></button>
+<button class="fbfab" type="button" id="fbOpen" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4.5h12a2.5 2.5 0 0 1 2.5 2.5v7.5a2.5 2.5 0 0 1-2.5 2.5h-5.2L8.5 20v-3H6a2.5 2.5 0 0 1-2.5-2.5V7A2.5 2.5 0 0 1 6 4.5z"/><path d="M12 8v3.6"/><circle cx="12" cy="14" r="1" fill="currentColor" stroke="none"/></svg><span>Нашли проблему?</span></button>
 <div class="fbwrap" id="fb" role="dialog" aria-modal="true" aria-labelledby="fbTitle" hidden>
   <form class="fbcard" id="fbForm" novalidate>
     <div class="fbhead"><h2 id="fbTitle">Что неудобно?</h2><button class="iconbtn" type="button" id="fbClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
@@ -1970,8 +1982,12 @@ function applyRules(c){
   for(const [el,k] of Object.entries(PICK))$(el).querySelectorAll("[data-v]").forEach(b=>{
     const why=(c.R[k]&&c.R[k][b.dataset.v])||c.G[k]||"";
     b.classList.toggle("off",!!why);b.setAttribute("aria-disabled",String(!!why));b.title=why;b.dataset.why=why;
-    const m=b.querySelector(".meta");if(m){let w=m.querySelector(".why");if(why){if(!w){w=document.createElement("span");w.className="why";m.appendChild(w)}w.textContent=why}else if(w)w.remove()}
   });
+  /* one quiet footnote per group instead of text inside cards */
+  for(const el of Object.keys(PICK)){const g=$(el);if(!g)continue;const by=new Map();
+    g.querySelectorAll(".card.off").forEach(b=>{if(getComputedStyle(b).display==="none")return;const w=b.dataset.why,t=(b.querySelector(".meta .t")||b).textContent.trim();if(!by.has(w))by.set(w,[]);by.get(w).push(t)});
+    let n=g.nextElementSibling;if(!n||!n.classList.contains("gwhy")){n=document.createElement("p");n.className="gwhy";n.setAttribute("aria-live","polite");g.after(n)}
+    n.hidden=!by.size;n.innerHTML=[...by].map(([w,ts])=>`<span><b>${escA(ts.join(", "))}</b> — ${escA(w.charAt(0).toLowerCase()+w.slice(1))}</span>`).join("")}
   ["noCrop","decorAuto","rebuild","isolate","keepProduct"].forEach(id=>{const inp=$(id),lab=inp.closest(".tg"),why=c.C[id]||"";inp.disabled=!!why;lab.classList.toggle("off",!!why);lab.title=why;
     let w=lab.querySelector(".why");if(!w){w=document.createElement("em");w.className="why";lab.querySelector("span").appendChild(w)}w.textContent=why?"Недоступно: "+why.toLowerCase():""});
   $("props").disabled=!!c.C.props;$("props").title=c.C.props||"";
