@@ -9,7 +9,7 @@
 /* Layout: Clara-style workspace — floating top bar with GENA mark and step nav, compact hero, six step cards left, sticky prompt panel right */
 :root{
   --bg:#F3F4F4; --panel:#FFFFFF; --sunk:#F6F7F6; --hover:#F9F9F9; --ink:#272E32; --muted:#626E67; --line:#DCE2DF;
-  --accent:#49613D; --accent-hover:#354B2C; --accent-ink:#FFFFFF; --accent-soft:#E8EDE6; --detail:#F0B92A; --mark:#9A6A08;
+  --accent:#49613D; --accent-hover:#354B2C; --accent-ink:#FFFFFF; --accent-soft:#E8EDE6; --detail:#F0B92A; --mark:#875B05;
   --logo-ink:#282F33; --logo-bg:transparent; --glow1:rgba(186,176,236,.35); --glow2:rgba(244,214,170,.38);
   --warn-bg:#FBEFD6; --warn-ink:#6E4A05;
   --fig-obj:#8C958F; --fig-top:#D3DAD5; --fig-l:#A6B1AA; --fig-r:#76837B; --thumb-dim:none;
@@ -711,6 +711,19 @@ body.v-gallery .foot{display:block}
 :root[data-theme="dark"] .card:not([aria-pressed="true"]):hover,:root[data-theme="dark"] .qcard:not([aria-pressed="true"]):hover{background:#252C30}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .card:not([aria-pressed="true"]):hover,:root:not([data-theme="light"]) .qcard:not([aria-pressed="true"]):hover{background:#252C30}}
 
+
+/* v20: accessibility + icon system (HIG) */
+.num{color:color-mix(in srgb,var(--muted) 80%,transparent)}
+.stx{color:var(--ink);opacity:.72}.stx:hover{opacity:1}
+button:focus-visible,a:focus-visible,summary:focus-visible,[role="button"]:focus-visible,[tabindex]:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* one icon language: 24-grid, round caps, weight matched to text */
+svg[viewBox="0 0 24 24"][stroke]{stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.more svg[stroke],.rbtn svg[stroke],.gbtn svg[stroke],.wnav svg[stroke],.qnav svg[stroke],.cliptip svg[stroke],.mitem svg[stroke]{stroke-width:2}
+.donebadge svg[stroke]{stroke-width:2.6}
+.iconbtn svg,.hbtn svg{width:20px;height:20px}
+/* option cards: equal rhythm */
+.card .meta .d{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -1328,7 +1341,7 @@ function toneGrad(id,c3,dir=1){return `<linearGradient id="${id}" x1="${dir>0?0:
 
 /* ---------- DATA ---------- */
 const STYLES=[
- {id:"fintech",t:"3D-рендер",d:"Глянцевая 3D-графика для промо и приложений",kind:"3D-рендер",lightRu:"Мягкий ключ сверху слева + контровой, окружение в цвет фона",mat:"Истинная фактура каждого материала, без пересветов",use:"Баннеры, приложение, промо",
+ {id:"fintech",t:"3D-рендер",d:"Глянцевая графика для промо",kind:"3D-рендер",lightRu:"Мягкий ключ сверху слева + контровой, окружение в цвет фона",mat:"Истинная фактура каждого материала, без пересветов",use:"Баннеры, приложение, промо",
   open:"A photorealistic 3D product render",
   look:"Premium fintech and delivery-app promo aesthetic. Lit by an environment matching {ENV}: white and light surfaces pick up a very slight tint of the background color in their shadows, and highlights are soft and reflect the environment instead of blown-out pure white spots. Balanced exposure with no clipped whites: light products keep full tonal detail. Physically based materials, each rendered with its true finish: silky gloss, dusty matte, delicate translucency, natural fat or wet sheen, glowing liquids, crisp glass reflections, refraction and soft caustics. Crisp, clean, well-defined outer silhouette. Premium minimalist advertising render, 8k.",light:"Bright, soft and fresh light: soft diffused key light from the top left with a gentle rim light that outlines the silhouette of the whole group.",
   v:{bg:["#E9EBFF","#C3CDFF"],body:["#2E3CC0","#8A97FF","#4D5DEB","#222C96"],lid:"#1C2477",gloss:.85,float:true,sph:["#FFFFFF","#FF9EC6","#D9478C"],sh:"rgba(40,50,140,.28)",blur:5,extra:"orb"}},
@@ -1362,7 +1375,7 @@ const ANGLES=[
   svg:`<line class="gl" x1="14" y1="62" x2="106" y2="62"/><rect class="fl" x="38" y="16" width="44" height="46"/><rect class="lb" x="46" y="30" width="28" height="16" rx="2"/>`},
  {id:"side",t:"Три четверти",d:"Видны перед и бок",p:"Three-quarter view at eye level, product turned about 30° away from the camera, revealing the front and one side, 70mm lens.",
   svg:`<line class="gl" x1="14" y1="64" x2="106" y2="64"/><polygon class="fl" points="30,22 64,18 64,64 30,60"/><polygon class="fr" points="64,18 88,22 88,60 64,64"/><polygon class="lb" points="37,33 57,30.6 57,47 37,48.7"/>`},
- {id:"hq",t:"3/4 сверху",d:"Верх, перед и бок, с перспективой",p:"Elevated three-quarter view with natural perspective: camera about 30–35° above the product and turned about 35–45° to the side, so the top, the front and one side are all visible at once. Real lens perspective, not isometric: parallel edges converge slightly with distance and verticals taper gently downward (three-point perspective), 35–50mm lens.",
+ {id:"hq",t:"3/4 сверху",d:"Верх, перед и бок в перспективе",p:"Elevated three-quarter view with natural perspective: camera about 30–35° above the product and turned about 35–45° to the side, so the top, the front and one side are all visible at once. Real lens perspective, not isometric: parallel edges converge slightly with distance and verticals taper gently downward (three-point perspective), 35–50mm lens.",
   svg:`<polygon class="ft" points="60,9 83,19 60,31 37,19"/><polygon class="fl" points="37,19 60,31 60,64 40,50"/><polygon class="fr" points="60,31 83,19 80,50 60,64"/><polygon class="lb" points="42,32 56,39.5 56,50 43.5,43"/>`},
  {id:"top",t:"Сверху",d:"Строго сверху, как раскладка",p:"Camera directly overhead, 90° top-down flat lay view, near-orthographic perspective with minimal lens distortion.",
   svg:`<rect class="ft" x="38" y="14" width="44" height="44" rx="2"/><circle cx="60" cy="36" r="11" fill="var(--fig-l)"/>`},
@@ -2061,6 +2074,14 @@ function sheetSwipe(panel,close){let y0=null,dy=0;const mq=matchMedia("(max-widt
   panel.addEventListener("touchend",()=>{if(y0==null)return;y0=null;panel.style.transition="transform .25s var(--ease)";if(dy>90){panel.style.transform="translateY(100%)";setTimeout(()=>{close();panel.style.transform="";panel.style.transition=""},220)}else panel.style.transform=""})}
 document.querySelectorAll(".hpanel,.donecard").forEach(el=>{const g=document.createElement("span");g.className="grab";g.setAttribute("aria-hidden","true");el.prepend(g)});
 sheetSwipe(document.querySelector(".hpanel"),()=>histOpen(false));sheetSwipe(document.querySelector(".donecard"),()=>doneClose());
+
+/* a11y: keep keyboard focus inside the topmost open dialog */
+document.addEventListener("keydown",e=>{if(e.key!=="Tab")return;
+  const ds=[...document.querySelectorAll('[role="dialog"][aria-modal="true"]')].filter(d=>!d.hidden&&d.offsetParent!==null||(!d.hidden&&getComputedStyle(d).position==="fixed"));if(!ds.length)return;
+  const d=ds.sort((a,b)=>(+getComputedStyle(b).zIndex||0)-(+getComputedStyle(a).zIndex||0))[0];
+  const f=[...d.querySelectorAll('button,a[href],input,textarea,select,summary,[tabindex]:not([tabindex="-1"])')].filter(x=>!x.disabled&&!x.hidden&&x.getClientRects().length&&getComputedStyle(x).visibility!=="hidden");if(!f.length)return;
+  const a=f[0],z=f[f.length-1];if(!d.contains(document.activeElement)){e.preventDefault();a.focus();return}
+  if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});
 /* ----- quick start tabs + row scroll ----- */
 function qTab(t){$("quick").dataset.qt=t;$("quick").querySelectorAll("[data-qt]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.qt===t)));
   $("qSub").textContent=t==="team"?"Удачные настройки коллег. Сохраните свои кнопкой «В шаблоны» под промтом.":"Один клик настраивает все шаги, продукт остаётся вашим.";qEdges()}
