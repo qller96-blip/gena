@@ -920,6 +920,44 @@ body.glass .pop,body.glass .upop,body.glass .apop,body.glass .info>div,body.glas
 .orbs.still *,.orbs.off *{animation-play-state:paused}
 @media (prefers-reduced-motion:reduce){.orbs *{animation:none!important}}
 
+
+/* v27: readable glass with thickness, bg modes, logo picker, layout fixes */
+:root[data-bg="still"] .blob,:root[data-bg="clean"] .blob{animation:none!important}
+:root[data-bg="clean"] .blob{display:none}
+:root[data-bg="clean"] .glow{background:radial-gradient(circle,color-mix(in srgb,var(--ink) 6%,transparent) 1px,transparent 1.4px) 0 0/22px 22px!important}
+.ubg button{font-size:12.5px;padding:6px 2px}
+.upop{max-height:calc(100dvh - 90px);overflow:auto;overscroll-behavior:contain}
+.ulogo{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.ulogo button{all:unset;cursor:pointer;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:var(--logo-bg,transparent);box-shadow:inset 0 0 0 1px var(--line);transition:box-shadow var(--t-fast)}
+.ulogo button svg{width:86%;height:86%}
+.ulogo button[aria-checked="true"]{box-shadow:0 0 0 2px var(--panel),0 0 0 4px var(--accent)}
+.ulogo button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.flogo svg,.brand svg{background:var(--logo-bg)}
+/* glass: lighter (readable) in light theme, with edge thickness */
+body.glass{--glass:color-mix(in srgb,var(--panel) 80%,transparent);--glass-2:color-mix(in srgb,var(--panel) 66%,transparent);
+  --glass-edge:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.55),inset 0 -1px 0 rgba(20,30,40,.06);--glass-drop:0 1px 2px rgba(20,30,40,.06),0 14px 38px rgba(20,30,40,.10)}
+:root[data-theme="dark"] body.glass{--glass:color-mix(in srgb,var(--panel) 66%,transparent);--glass-2:color-mix(in srgb,var(--panel) 52%,transparent);
+  --glass-edge:inset 0 1px 0 rgba(255,255,255,.12),inset 0 0 0 1px rgba(255,255,255,.06),inset 0 -1px 0 rgba(0,0,0,.35);--glass-drop:0 1px 2px rgba(0,0,0,.3),0 16px 40px rgba(0,0,0,.35)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body.glass{--glass:color-mix(in srgb,var(--panel) 66%,transparent);--glass-2:color-mix(in srgb,var(--panel) 52%,transparent);
+  --glass-edge:inset 0 1px 0 rgba(255,255,255,.12),inset 0 0 0 1px rgba(255,255,255,.06),inset 0 -1px 0 rgba(0,0,0,.35);--glass-drop:0 1px 2px rgba(0,0,0,.3),0 16px 40px rgba(0,0,0,.35)}}
+body.glass .block,body.glass aside,body.glass .quick,body.glass .topbar-in{box-shadow:var(--glass-drop)!important;border-color:transparent!important}
+body.glass .block::before,body.glass aside::before,body.glass .quick::before,body.glass .topbar-in::before{box-shadow:var(--glass-edge)}
+body.glass .hpanel,body.glass .fbcard,body.glass .wside,body.glass .gempty,body.glass .mbar{background:var(--glass)!important;box-shadow:var(--glass-edge),var(--glass-drop)!important;border-color:transparent!important}
+body.glass .card,body.glass .qcard,body.glass .chip,body.glass .summary button,body.glass .gsort,body.glass .views{box-shadow:inset 0 1px 0 rgba(255,255,255,.6)}
+:root[data-theme="dark"] body.glass .card,:root[data-theme="dark"] body.glass .qcard,:root[data-theme="dark"] body.glass .chip,:root[data-theme="dark"] body.glass .gsort{box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+body.glass pre#out{background:color-mix(in srgb,var(--sunk) 82%,transparent)!important}
+/* mobile prompt sheet: the glass layer must cover the whole scrolling sheet */
+@media (max-width:980px){
+  body.glass aside{background:color-mix(in srgb,var(--panel) 90%,transparent)!important;-webkit-backdrop-filter:blur(18px) saturate(160%)!important;backdrop-filter:blur(18px) saturate(160%)!important}
+  body.glass aside::before{display:none}
+  body.glass .ah{background:transparent}
+  body.glass .mbar{z-index:50}
+  body.sheet .mbar{visibility:hidden}
+}
+/* history item: rating row wraps instead of overflowing */
+.hrate{flex-wrap:wrap;row-gap:2px}.hrate>span:first-child{white-space:nowrap}
+@media (max-width:700px){.hrate .stars button{width:32px;height:32px;-webkit-mask-size:24px;mask-size:24px}}
+
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -1137,11 +1175,12 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
     <button class="hbtn" type="button" id="histBtn" hidden aria-haspopup="dialog" aria-expanded="false" aria-controls="hist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3 4v4.5h4.5"/><path d="M12 7.5V12l3 2"/></svg><span class="hl">Мои промты</span><b class="badge" id="histBadge" hidden aria-label="без оценки">0</b></button>
     <div class="uwrap" id="uwrap" hidden><button class="ubtn" type="button" id="uBtn" aria-haspopup="true" aria-expanded="false" aria-controls="uPop" aria-label="Профиль"><span id="uIni">?</span></button>
       <div class="pop upop" id="uPop" hidden><p class="uwho"><b id="uName"></b><small id="uMail"></small></p><button class="opt uopt" type="button" id="uAdmin" hidden><span>Аналитика и доступ</span></button><div class="uapp"><p class="uapph">Оформление</p>
+        <div class="gsort uthm ubg" id="uBg" role="radiogroup" aria-label="Фон"><button type="button" role="radio" data-bg="live" title="Градиенты плавно двигаются">Живой</button><button type="button" role="radio" data-bg="still" title="Градиенты и сферы стоят на месте">Статичный</button><button type="button" role="radio" data-bg="clean" title="Без цветных градиентов">Чистый</button></div>
         <div class="gsort uthm" id="uThm" role="radiogroup" aria-label="Тема"><button type="button" role="radio" data-th="light" aria-checked="false">Светлая</button><button type="button" role="radio" data-th="dark" aria-checked="false">Тёмная</button><button type="button" role="radio" data-th="auto" aria-checked="false">Авто</button></div>
         <div class="uaccw"><div class="uacc" id="uAcc" role="radiogroup" aria-label="Акцентный цвет"><button type="button" role="radio" data-ac="sage" title="Шалфей" aria-label="Шалфей"></button><button type="button" role="radio" data-ac="graphite" title="Графит" aria-label="Графит"></button><button type="button" role="radio" data-ac="ocean" title="Океан" aria-label="Океан"></button><button type="button" role="radio" data-ac="terra" title="Терракота" aria-label="Терракота"></button><button type="button" role="radio" data-ac="plum" title="Слива" aria-label="Слива"></button><button type="button" role="radio" data-ac="mint" title="Мята" aria-label="Мята"></button><button type="button" role="radio" data-ac="indigo" title="Индиго" aria-label="Индиго"></button><button type="button" role="radio" data-ac="rose" title="Роза" aria-label="Роза"></button><button type="button" role="radio" data-ac="ochre" title="Охра" aria-label="Охра"></button><button type="button" role="radio" data-ac="slate" title="Сланец" aria-label="Сланец"></button></div><span class="uaccn" id="uAccN"></span></div></div>
         <div class="ulab" id="uLab" hidden><p class="uapph">Лаборатория <em>видно только вам</em></p>
         <label class="tg ulabtg"><input type="checkbox" id="labGlass"><span>Стекло</span></label>
-        <div class="gsort ulogo" id="labLogo" role="radiogroup" aria-label="Логотип"><button type="button" role="radio" data-lg="guy">Парень</button><button type="button" role="radio" data-lg="croc">Крокодил</button></div>
+        <div class="ulogo" id="labLogo" role="radiogroup" aria-label="Логотип"></div>
         <div class="ufonts" id="labFonts" role="radiogroup" aria-label="Шрифтовая пара"></div></div>
         <label class="tg uopt utg"><input type="checkbox" id="uDone"><span>Окно оценки после копирования</span></label><button class="opt uopt" type="button" id="uOut"><span>Выйти</span></button></div></div>
     <button class="iconbtn" type="button" id="thBtn" aria-label="Сменить тему"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
@@ -2293,22 +2332,28 @@ const FONTS={inter:{s:"Inter Tight",t:"Inter Tight",d:'"Inter Tight"',b:'"Inter 
   rubik:{s:"Rubik",t:"Rubik",d:'"Rubik"',b:'"Rubik"',q:"Rubik:wght@400..700"},
   unb:{s:"Unbounded",t:"Unbounded + Onest",d:'"Unbounded"',b:'"Onest"',q:"Unbounded:wght@400..700&family=Onest:wght@400..700"},
   mont:{s:"Montserrat",t:"Montserrat + Golos",d:'"Montserrat"',b:'"Golos Text"',q:"Montserrat:wght@500..700&family=Golos+Text:wght@400..700"}};
-const CROC='<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">  <defs><g id="gcf2">    <path d="M24 56C24 45 34 40 60 40C86 40 96 45 96 56C96 63 91 67 84 69L83 93C90 96 93 102 92 108C90 115 79 118 60 118C41 118 30 115 28 108C27 102 30 96 37 93L36 69C29 67 24 63 24 56Z"/>    <circle cx="39" cy="37" r="14"/><circle cx="81" cy="37" r="14"/>  </g></defs>  <g transform="translate(60 61) scale(.88) translate(-60 -76)">  <use href="#gcf2" fill="#282F33" stroke="#282F33" stroke-width="11" stroke-linejoin="round"/>  <use href="#gcf2" fill="#C9E0A9"/>  <g fill="#282F33"><ellipse cx="52" cy="98" rx="2.6" ry="2"/><ellipse cx="68" cy="98" rx="2.6" ry="2"/></g>  <g fill="#FFFFFF" stroke="#282F33" stroke-width="2.4" stroke-linejoin="round">    <path d="M43 106.6l3.6 6 3.6-4.3z"/><path d="M56.4 108.6l3.6 6 3.6-6z"/><path d="M69.8 108.3l3.6 4.3 3.6-6z"/>  </g>  <path d="M36 104Q60 116 84 104" fill="none" stroke="#282F33" stroke-width="4.5" stroke-linecap="round"/>  <g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="26" y="27" width="27" height="21" rx="8"/><rect x="67" y="27" width="27" height="21" rx="8"/><path d="M53 37H67"/></g>  <circle cx="40" cy="37.5" r="3.6" fill="#282F33"/><circle cx="80" cy="37.5" r="3.6" fill="#282F33"/>  </g></svg>';let GUY=null;
+const LOGOS={"line": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"#282F33\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M27 56C27 92 44 106 60 106C76 106 93 92 93 56\"/><path d=\"M27 58C22 30 40 16 60 16C82 16 99 30 93 58C86 49 72 46 60 48C46 46 33 49 27 58Z\"/><path d=\"M50 90Q60 96 70 90\"/></g><g fill=\"none\" stroke=\"#F0B92A\" stroke-width=\"5\" stroke-linejoin=\"round\"><rect x=\"30\" y=\"61\" width=\"25\" height=\"20\" rx=\"8\"/><rect x=\"65\" y=\"61\" width=\"25\" height=\"20\" rx=\"8\"/><path d=\"M55 69H65\"/></g><circle cx=\"43\" cy=\"71\" r=\"3.2\" fill=\"#282F33\"/><circle cx=\"77\" cy=\"71\" r=\"3.2\" fill=\"#282F33\"/></svg>", "mark": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><path d=\"M58 24C62 15 74 14 78 21\" fill=\"none\" stroke=\"#282F33\" stroke-width=\"6\" stroke-linecap=\"round\"/><g fill=\"none\" stroke=\"#F0B92A\" stroke-width=\"7.5\" stroke-linejoin=\"round\"><rect x=\"16\" y=\"42\" width=\"38\" height=\"30\" rx=\"12\"/><rect x=\"66\" y=\"42\" width=\"38\" height=\"30\" rx=\"12\"/><path d=\"M54 54H66\"/></g><circle cx=\"36\" cy=\"57\" r=\"5\" fill=\"#282F33\"/><circle cx=\"86\" cy=\"57\" r=\"5\" fill=\"#282F33\"/><path d=\"M44 90Q60 101 76 90\" fill=\"none\" stroke=\"#282F33\" stroke-width=\"6\" stroke-linecap=\"round\"/></svg>", "pro": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><path fill=\"#49613D\" d=\"M30 104C38 96 48 93 60 93C72 93 82 96 90 104C82 112 71 116 60 116C49 116 38 112 30 104Z\"/><path d=\"M48 96L60 106L72 96\" fill=\"#FFFFFF\" stroke=\"#282F33\" stroke-width=\"3.5\" stroke-linejoin=\"round\"/><path fill=\"#FFF6E3\" d=\"M26 50C24 90 42 104 60 104C78 104 96 90 94 50Z\"/><g fill=\"none\" stroke=\"#282F33\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke-width=\"5.5\" d=\"M25 54C25 90 44 104 60 104C76 104 95 90 95 54\"/><path stroke-width=\"4.5\" d=\"M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84\"/><path stroke-width=\"3\" d=\"M22 72C20 76 21 79 24 80M98 72C100 76 99 79 96 80\"/><path stroke-width=\"4.5\" d=\"M48 89Q60 97 72 89\"/><path stroke-width=\"4\" d=\"M32 55Q40 51 48 54M72 54Q80 51 88 55\"/></g><path fill=\"#282F33\" d=\"M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z\"/><path fill=\"#282F33\" d=\"M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z\"/><ellipse cx=\"36\" cy=\"85\" rx=\"5\" ry=\"3\" fill=\"#F2A79A\" opacity=\".7\"/><ellipse cx=\"84\" cy=\"85\" rx=\"5\" ry=\"3\" fill=\"#F2A79A\" opacity=\".7\"/><g fill=\"none\" stroke=\"#F0B92A\" stroke-width=\"5.5\" stroke-linejoin=\"round\"><rect x=\"28\" y=\"59\" width=\"27\" height=\"22\" rx=\"8\"/><rect x=\"65\" y=\"59\" width=\"27\" height=\"22\" rx=\"8\"/><path d=\"M55 67H65\"/></g><path d=\"M33 64L38 61M70 64L75 61\" stroke=\"#FFFFFF\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><circle cx=\"42\" cy=\"70.5\" r=\"3.6\" fill=\"#282F33\"/><circle cx=\"78\" cy=\"70.5\" r=\"3.6\" fill=\"#282F33\"/></svg>", "frame": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"#282F33\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 40V30A10 10 0 0 1 30 20H40M80 20H90A10 10 0 0 1 100 30V40M100 80V90A10 10 0 0 1 90 100H80M40 100H30A10 10 0 0 1 20 90V80\"/></g><ellipse cx=\"58\" cy=\"86\" rx=\"22\" ry=\"4.5\" fill=\"#282F33\" opacity=\".14\"/><circle cx=\"58\" cy=\"63\" r=\"20\" fill=\"#FFF6E3\" stroke=\"#282F33\" stroke-width=\"5.5\"/><path d=\"M50 56A10 10 0 0 1 58 51\" fill=\"none\" stroke=\"#282F33\" stroke-width=\"3.5\" stroke-linecap=\"round\" opacity=\".5\"/><path fill=\"#F0B92A\" d=\"M84 28C85.5 36 87 37.5 95 39C87 40.5 85.5 42 84 50C82.5 42 81 40.5 73 39C81 37.5 82.5 36 84 28Z\"/></svg>"};const LOGO_T={guy:"Классика",line:"Линия",mark:"Очки",pro:"Детальный",frame:"Кадр"};let GUY=null;
 const LAB={glass:false,font:"inter",logo:"guy"};try{Object.assign(LAB,JSON.parse(localStorage.getItem("gena-lab")||"{}"))}catch(e){}
 function labApply(){const on=!!(Cloud&&Cloud.admin);document.body.classList.toggle("glass",on&&LAB.glass);
   const f=FONTS[on?LAB.font:"inter"]||FONTS.inter;
   if(f.q&&!document.getElementById("lf-"+(on?LAB.font:""))){const l=document.createElement("link");l.rel="stylesheet";l.id="lf-"+LAB.font;l.href="https://fonts.googleapis.com/css2?family="+f.q+"&display=swap";document.head.appendChild(l)}
   root.style.setProperty("--f-display",f.d+',Arial,system-ui,sans-serif');root.style.setProperty("--f-body",f.b+',Arial,system-ui,sans-serif');
   $("uLab").hidden=!on;$("labGlass").checked=LAB.glass;
-  const lg=on?LAB.logo:"guy",bs=document.querySelector(".brand svg");if(!GUY&&bs)GUY=bs.outerHTML;
-  document.querySelectorAll(".brand svg,.flogo svg").forEach(el=>{const want=lg==="croc"?CROC:GUY;if(want&&el.dataset.lg!==lg){const t=document.createElement("div");t.innerHTML=want;const n=t.firstElementChild;n.dataset.lg=lg;if(el.closest(".brand"))n.setAttribute("aria-hidden","true");el.replaceWith(n)}});
-  $("labLogo").querySelectorAll("[data-lg]").forEach(b=>b.setAttribute("aria-checked",String(b.dataset.lg===lg)));
+  if(!LOGO_T[LAB.logo])LAB.logo="guy";const lg=on?LAB.logo:"guy",bs=document.querySelector(".brand svg");if(!GUY&&bs)GUY=bs.outerHTML;
+  document.querySelectorAll(".brand svg,.flogo svg").forEach(el=>{const want=lg==="guy"?GUY:LOGOS[lg]||GUY;if(want&&el.dataset.lg!==lg){const t=document.createElement("div");t.innerHTML=want;const n=t.firstElementChild;n.dataset.lg=lg;if(el.closest(".brand"))n.setAttribute("aria-hidden","true");el.replaceWith(n)}});
+  if(!GUY&&bs)GUY=bs.outerHTML;$("labLogo").innerHTML=Object.entries(LOGO_T).map(([k,t])=>`<button type="button" role="radio" data-lg="${k}" title="${t}" aria-label="${t}" aria-checked="${k===lg}">${k==="guy"?(GUY||"").replace(/role="img"[^>]*?aria-label="GENA"/,'aria-hidden="true"'):LOGOS[k]}</button>`).join("");
   $("labFonts").innerHTML=Object.entries(FONTS).map(([k,v])=>`<button type="button" role="radio" data-lf="${k}" title="${v.t}" aria-checked="${k===LAB.font}" style="font-family:${v.d.replace(/"/g,"'")},system-ui"><b>Аа</b><span>${v.s||v.t}</span></button>`).join("");
   if(window.Hero)Hero.refresh()}
 function labSave(){try{localStorage.setItem("gena-lab",JSON.stringify(LAB))}catch(e){}labApply()}
 $("labGlass").addEventListener("change",e=>{LAB.glass=e.target.checked;labSave()});
 $("labLogo").addEventListener("click",e=>{const b=e.target.closest("[data-lg]");if(!b)return;e.stopPropagation();LAB.logo=b.dataset.lg;labSave()});
 $("labFonts").addEventListener("click",e=>{const b=e.target.closest("[data-lf]");if(!b)return;e.stopPropagation();LAB.font=b.dataset.lf;labSave()});
+
+/* background mode: live / still / clean (for everyone) */
+function setBg(m){if(m==="live")delete root.dataset.bg;else root.dataset.bg=m;try{localStorage.setItem("gena-bg",m)}catch(e){}
+  $("uBg").querySelectorAll("[data-bg]").forEach(b=>b.setAttribute("aria-checked",String(b.dataset.bg===m)));const st=$("hmStill");if(st){st.checked=m!=="live";st.dispatchEvent(new Event("change"))}}
+{let m="live";try{m=localStorage.getItem("gena-bg")||"live"}catch(e){}setTimeout(()=>setBg(m),0)}
+$("uBg").addEventListener("click",e=>{const b=e.target.closest("[data-bg]");if(b){e.stopPropagation();setBg(b.dataset.bg)}});
 /* ----- quick start tabs + row scroll ----- */
 function qTab(t){$("quick").dataset.qt=t;$("quick").querySelectorAll("[data-qt]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.qt===t)));
   $("qSub").textContent=t==="team"?"Удачные настройки коллег. Сохраните свои кнопкой «В шаблоны» под промтом.":"Один клик настраивает все шаги, продукт остаётся вашим.";qEdges()}
