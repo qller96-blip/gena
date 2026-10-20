@@ -688,6 +688,29 @@ body.v-gallery .foot{display:block}
   .donecard .grab{margin-top:-14px}
 }
 
+
+/* v19: gallery filter, work panel order, dark layers */
+.gfilt{display:flex;gap:6px;flex-wrap:wrap;margin-top:-6px}
+.gfilt .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.whow{border-top:1px solid var(--line);padding-top:10px}
+.whow summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:8px;font-size:14px;font-weight:600;padding:4px 0}
+.whow summary::-webkit-details-marker{display:none}
+.whow summary::before{content:"";width:7px;height:7px;border-right:1.8px solid var(--muted);border-bottom:1.8px solid var(--muted);transform:rotate(-45deg);transition:transform var(--t-fast) var(--ease);margin-right:2px;align-self:center}
+.whow[open] summary::before{transform:rotate(45deg)}
+.whow summary .hint{margin:0;font-weight:400}
+.whow>.wscene{margin-top:8px}.whow>.achips{margin-top:10px}
+.wside .wact{margin-top:6px;padding-top:0}
+.wside #wDel{margin-top:auto}
+/* dark theme: elevation by tone, not by borders */
+:root[data-theme="dark"]{--bg:#0F1214;--sunk:#14181B;--panel:#1A1F22;--hover:#232A2E;--line:#262D31;--accent:#AFC79A;--accent-hover:#C2D6AF;--accent-soft:#232D1E}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1214;--sunk:#14181B;--panel:#1A1F22;--hover:#232A2E;--line:#262D31;--accent:#AFC79A;--accent-hover:#C2D6AF;--accent-soft:#232D1E}}
+:root[data-theme="dark"] .block,:root[data-theme="dark"] aside,:root[data-theme="dark"] .quick,:root[data-theme="dark"] .topbar-in{border-color:transparent;box-shadow:0 0 0 1px rgba(255,255,255,.035)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .block,:root:not([data-theme="light"]) aside,:root:not([data-theme="light"]) .quick,:root:not([data-theme="light"]) .topbar-in{border-color:transparent;box-shadow:0 0 0 1px rgba(255,255,255,.035)}}
+:root[data-theme="dark"] .card:not([aria-pressed="true"]),:root[data-theme="dark"] .qcard:not([aria-pressed="true"]){border-color:transparent;background:#20262A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .card:not([aria-pressed="true"]),:root:not([data-theme="light"]) .qcard:not([aria-pressed="true"]){border-color:transparent;background:#20262A}}
+:root[data-theme="dark"] .card:not([aria-pressed="true"]):hover,:root[data-theme="dark"] .qcard:not([aria-pressed="true"]):hover{background:#252C30}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .card:not([aria-pressed="true"]):hover,:root:not([data-theme="light"]) .qcard:not([aria-pressed="true"]):hover{background:#252C30}}
+
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -1144,6 +1167,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 <section class="gal" id="galPage" hidden aria-labelledby="galTitle">
   <div class="galhead"><div><h1 id="galTitle">Галерея</h1><p>Лучшие генерации команды. Понравилась сцена — примените её настройки к своему продукту.</p></div><div class="galtools"><button class="btn ghost gshare" type="button" id="galShare"><span aria-hidden="true">+</span> Поделиться своей работой</button>
     <div class="gsort" id="galSort" role="group" aria-label="Сортировка"><button type="button" data-gs="new" aria-pressed="true">Новые</button><button type="button" data-gs="top" aria-pressed="false">Полезные</button><button type="button" data-gs="mine" aria-pressed="false">Мои</button></div></div></div>
+  <div class="gfilt" id="galFilt" role="group" aria-label="Стиль"></div>
   <div class="ggrid" id="galGrid" aria-busy="true"></div>
 </section>
 <footer class="foot"><div class="foot-in"><b class="fmark">GENA</b><span class="fwords"><span><i>G</i>enerative <i>E</i>ngine for <i>N</i>eural <i>A</i>rt</span><small>Генеративный движок для нейро-арта</small></span><span class="fside">Для дизайнеров КуулКлевер</span></div></footer>
@@ -1196,12 +1220,15 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
     <div class="wside">
       <div class="fbhead"><h2 id="wTitle"></h2><button class="iconbtn" type="button" id="wClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
       <p class="wauth"><span id="wAuthor"></span><span id="wStars"></span></p>
-      <div class="wscene" id="wScene"><span class="lbl">Схема сцены</span><div class="hthumb wthumb"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div></div>
-      <div class="achips" id="wChips"></div>
       <div class="wact"><button class="btn" type="button" id="wApply">Применить в конструкторе</button>
         <div class="wrow"><button class="btn ghost" type="button" id="wCopy">Скопировать промт</button><button class="btn ghost wlike" type="button" id="wLike" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9zM7 11l4-8a2.5 2.5 0 0 1 2.5 3L13 10h5.6a2 2 0 0 1 2 2.4l-1.4 6A2 2 0 0 1 17.3 20H7"/></svg>Полезно <b id="wLikeN">0</b></button></div>
         <small class="hint">Применяются только настройки сцены: ваш продукт останется на месте.</small>
-        <button class="hdel" type="button" id="wDel" hidden>Удалить</button></div>
+        </div>
+      <details class="whow" id="wHow"><summary>Как сделано <span class="hint">схема и настройки сцены</span></summary>
+      <div class="wscene" id="wScene"><div class="hthumb wthumb"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div></div>
+      <div class="achips" id="wChips"></div>
+      </details>
+      <button class="hdel" type="button" id="wDel" hidden>Удалить</button>
     </div>
   </div>
 </div>
@@ -2517,9 +2544,13 @@ async function loadGallery(){
   const [{data},{data:lk}]=await Promise.all([q,Cloud.sb.from("publication_likes").select("publication_id").eq("user_id",Cloud.user.id)]);
   GAL.rows=data||[];GAL.liked=new Set((lk||[]).map(x=>x.publication_id));
   await signed(GAL.rows.map(r=>r.thumb_path));drawGallery()}
-function drawGallery(){
+function drawGalFilt(){const used=[...new Set(GAL.rows.map(r=>(r.scene||{}).style).filter(Boolean))];const F=$("galFilt");
+  if(used.length<2){F.hidden=true;GAL.style=null;return}F.hidden=false;if(GAL.style&&!used.includes(GAL.style))GAL.style=null;
+  F.innerHTML=[["","Все"],...used.map(v=>[v,valLabel("style",v)])].map(([v,t])=>`<button type="button" class="chip sm" data-gst="${escA(v)}" aria-pressed="${(GAL.style||"")===v}">${escA(t)}</button>`).join("")}
+$("galFilt").addEventListener("click",e=>{const b=e.target.closest("[data-gst]");if(!b)return;GAL.style=b.dataset.gst||null;drawGallery()});
+function drawGallery(){drawGalFilt();
   $("galSort").querySelectorAll("[data-gs]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.gs===(GAL.mine?"mine":GAL.sort))));
-  const rows=GAL.mine?GAL.rows.filter(r=>r.user_id===Cloud.user.id):GAL.rows,G=$("galGrid");G.removeAttribute("aria-busy");
+  const rows=(GAL.mine?GAL.rows.filter(r=>r.user_id===Cloud.user.id):GAL.rows).filter(r=>!GAL.style||(r.scene||{}).style===GAL.style),G=$("galGrid");G.removeAttribute("aria-busy");
   if(!rows.length){G.innerHTML=`<div class="gempty"><b>${GAL.mine?"У вас пока нет публикаций":"Здесь появятся лучшие работы команды"}</b><p>Оцените свой промт на 4–5 в «Мои промты» и опубликуйте результат генерации.</p><button class="btn" type="button" id="galToHist">Открыть «Мои промты»</button></div>`;
     $("galToHist").addEventListener("click",()=>histOpen(true));return}
   G.innerHTML=rows.map(r=>{const ar=r.w/r.h,cls=ar>=1.55?"wide":ar<=.72?"tall":"";
@@ -2537,7 +2568,7 @@ function preload(src,ms){if(!src)return Promise.resolve(false);if(imgCache[src]=
   const p=imgCache[src]instanceof Promise?imgCache[src]:(imgCache[src]=new Promise(res=>{const im=new Image();im.decoding="async";im.onload=()=>{(im.decode?im.decode():Promise.resolve()).catch(()=>{}).then(()=>{imgCache[src]="ok";res(true)})};im.onerror=()=>{delete imgCache[src];res(false)};im.src=src}));
   return ms?Promise.race([p,new Promise(r=>setTimeout(()=>r(false),ms))]):p}
 async function prefetchPub(r){if(!r)return;await signed([r.image_path]);preload(GAL.urls[r.image_path])}
-function navIds(){return GAL.navIds&&GAL.navIds.length?GAL.navIds:(GAL.mine?GAL.rows.filter(r=>r.user_id===Cloud.user.id):GAL.rows).map(r=>r.id)}
+function navIds(){return GAL.navIds&&GAL.navIds.length?GAL.navIds:(GAL.mine?GAL.rows.filter(r=>r.user_id===Cloud.user.id):GAL.rows).filter(r=>!GAL.style||(r.scene||{}).style===GAL.style).map(r=>r.id)}
 let workSeq=0;
 async function workOpen(id,dir=0,ids){const r=GAL.rows.find(x=>x.id===id);if(!r)return;if(ids)GAL.navIds=ids;else if(!dir&&$("work").hidden)GAL.navIds=null;
   const seq=++workSeq,tile=document.querySelector(`.gtile[data-pub="${CSS.escape(id)}"]`),open=!$("work").hidden&&!$("work").classList.contains("closing");
