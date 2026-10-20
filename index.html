@@ -824,7 +824,7 @@ input[type=text],input[type=email],input[type=password],textarea{border-radius:1
 .ulab{margin:0 6px 6px;padding:10px 4px 8px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
 .uapph em{font-style:normal;font-weight:500;color:var(--muted);opacity:.8;margin-left:4px}
 .ulabtg{padding:2px 2px;font-size:14px;font-weight:500}
-.ufonts{display:grid;grid-template-columns:1fr;gap:4px}
+.ufonts{display:grid;grid-template-columns:1fr 1fr;gap:4px}
 .ufonts button{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:12px;border:1px solid var(--line);font-size:12px;min-width:0}
 .ufonts button b{font-size:17px;font-weight:600;line-height:1}.ufonts button span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}
 .ufonts button[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}.ufonts button[aria-checked="true"] span{color:var(--ink)}
@@ -840,6 +840,58 @@ body.glass .card,body.glass .qcard,body.glass .panel,body.glass .tiltbox,body.gl
 body.glass .card[aria-pressed="true"],body.glass .qcard[aria-pressed="true"]{border-color:var(--accent)!important;background:color-mix(in srgb,var(--panel) 72%,transparent)!important}
 body.glass .chip[aria-pressed="true"]{background:var(--accent)!important}
 body.glass .card svg.fig{background:color-mix(in srgb,var(--well) 70%,transparent)}
+
+
+/* v25: more accents, drifting accent glows, clearer glass */
+:root[data-accent="mint"]{--accent:#2B7A6C;--accent-hover:#22665A;--accent-soft:#E3F0ED;--accent-ink:#FFFFFF;--accent-text:#2B7A6C}
+:root[data-theme="dark"][data-accent="mint"]{--accent:#2E8A79;--accent-hover:#3B9A88;--accent-soft:#1C2E2A;--accent-ink:#FFFFFF;--accent-text:#8FD0C2}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"])[data-accent="mint"]{--accent:#2E8A79;--accent-hover:#3B9A88;--accent-soft:#1C2E2A;--accent-ink:#FFFFFF;--accent-text:#8FD0C2}}
+.uacc [data-ac="mint"]{background:#2B7A6C}
+:root[data-accent="indigo"]{--accent:#4A55A2;--accent-hover:#3B4588;--accent-soft:#E8E9F5;--accent-ink:#FFFFFF;--accent-text:#4A55A2}
+:root[data-theme="dark"][data-accent="indigo"]{--accent:#5A66B8;--accent-hover:#6874C6;--accent-soft:#23263A;--accent-ink:#FFFFFF;--accent-text:#AEB5EC}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"])[data-accent="indigo"]{--accent:#5A66B8;--accent-hover:#6874C6;--accent-soft:#23263A;--accent-ink:#FFFFFF;--accent-text:#AEB5EC}}
+.uacc [data-ac="indigo"]{background:#4A55A2}
+:root[data-accent="rose"]{--accent:#A94566;--accent-hover:#8E3754;--accent-soft:#F6E6EC;--accent-ink:#FFFFFF;--accent-text:#A94566}
+:root[data-theme="dark"][data-accent="rose"]{--accent:#B8577A;--accent-hover:#C66688;--accent-soft:#38222B;--accent-ink:#FFFFFF;--accent-text:#EBA6BE}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"])[data-accent="rose"]{--accent:#B8577A;--accent-hover:#C66688;--accent-soft:#38222B;--accent-ink:#FFFFFF;--accent-text:#EBA6BE}}
+.uacc [data-ac="rose"]{background:#A94566}
+:root[data-accent="ochre"]{--accent:#94680F;--accent-hover:#7A560B;--accent-soft:#F5ECDA;--accent-ink:#FFFFFF;--accent-text:#94680F}
+:root[data-theme="dark"][data-accent="ochre"]{--accent:#A47A22;--accent-hover:#B48A30;--accent-soft:#33291A;--accent-ink:#FFFFFF;--accent-text:#E3C27E}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"])[data-accent="ochre"]{--accent:#A47A22;--accent-hover:#B48A30;--accent-soft:#33291A;--accent-ink:#FFFFFF;--accent-text:#E3C27E}}
+.uacc [data-ac="ochre"]{background:#94680F}
+:root[data-accent="slate"]{--accent:#4F6475;--accent-hover:#3F5160;--accent-soft:#E7ECEF;--accent-ink:#FFFFFF;--accent-text:#4F6475}
+:root[data-theme="dark"][data-accent="slate"]{--accent:#647A8C;--accent-hover:#72889A;--accent-soft:#232A30;--accent-ink:#FFFFFF;--accent-text:#A9BDCC}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"])[data-accent="slate"]{--accent:#647A8C;--accent-hover:#72889A;--accent-soft:#232A30;--accent-ink:#FFFFFF;--accent-text:#A9BDCC}}
+.uacc [data-ac="slate"]{background:#4F6475}
+
+.uaccw{display:flex;flex-direction:column;gap:6px}
+.uacc{display:grid;grid-template-columns:repeat(5,24px);gap:10px 12px;justify-content:start;padding:0 2px}
+.uaccn{margin:0 2px;font-size:12px;color:var(--muted)}
+/* slow drifting accent glows */
+.glow{overflow:hidden}
+.blob{position:absolute;display:block;border-radius:50%;filter:blur(90px);opacity:.55;will-change:transform}
+.b1{width:70vw;height:70vw;left:-25vw;top:-30vw;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 22%,transparent),transparent 65%);animation:drift1 70s ease-in-out infinite alternate}
+.b2{width:60vw;height:60vw;right:-20vw;top:10vh;background:radial-gradient(circle,color-mix(in srgb,color-mix(in srgb,var(--accent) 60%,#7A8CF0) 18%,transparent),transparent 65%);animation:drift2 90s ease-in-out infinite alternate}
+.b3{width:80vw;height:60vw;left:10vw;bottom:-35vw;background:radial-gradient(circle,color-mix(in srgb,color-mix(in srgb,var(--accent) 55%,var(--detail)) 16%,transparent),transparent 65%);animation:drift3 110s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(18vw,14vh) scale(1.12)}}
+@keyframes drift2{to{transform:translate(-22vw,22vh) scale(.92)}}
+@keyframes drift3{to{transform:translate(-12vw,-16vh) scale(1.1)}}
+:root[data-theme="dark"] .blob{opacity:.42}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .blob{opacity:.42}}
+body.glass .blob{opacity:.9}
+@media (prefers-reduced-motion:reduce){.blob{animation:none}}
+/* glass: more see-through */
+/* glass on a pseudo-layer so the container isn't a "backdrop root": popovers inside can blur the real page */
+body.glass .block,body.glass aside,body.glass .quick,body.glass .topbar-in{background:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;isolation:auto}
+body.glass .block::before,body.glass aside::before,body.glass .quick::before,body.glass .topbar-in::before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--glass);-webkit-backdrop-filter:blur(24px) saturate(170%);backdrop-filter:blur(24px) saturate(170%);z-index:-1;pointer-events:none}
+body.glass .block,body.glass .quick,body.glass .topbar-in{position:relative;z-index:0}
+@media (min-width:981px){body.glass aside{z-index:1}}
+@media (max-width:980px){body.glass aside{z-index:55}body.glass aside::before{background:color-mix(in srgb,var(--panel) 80%,transparent)}}
+@media (min-width:981px){body.glass aside{position:sticky}}
+body.glass .pop,body.glass .upop,body.glass .apop,body.glass .info>div,body.glass .rpop{background:color-mix(in srgb,var(--panel) 70%,transparent)!important;-webkit-backdrop-filter:blur(30px) saturate(180%)!important;backdrop-filter:blur(30px) saturate(180%)!important;border:1px solid var(--glass-line)!important;box-shadow:var(--glass-hi),0 18px 50px rgba(0,0,0,.16)!important}
+body.glass{--glass:color-mix(in srgb,var(--panel) 46%,transparent);--glass-2:color-mix(in srgb,var(--panel) 34%,transparent)}
+:root[data-theme="dark"] body.glass{--glass:color-mix(in srgb,var(--panel) 44%,transparent);--glass-2:color-mix(in srgb,var(--panel) 30%,transparent)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body.glass{--glass:color-mix(in srgb,var(--panel) 44%,transparent);--glass-2:color-mix(in srgb,var(--panel) 30%,transparent)}}
 
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
@@ -1028,7 +1080,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 }
 </style>
 
-<div class="glow" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
 <div class="topbar">
   <div class="topbar-in">
     <a class="brand" href="#s-ref" id="brandLink" title="GENA — Generative Engine for Neural Art"><svg viewBox="0 0 120 120" role="img" aria-label="GENA"><path fill="#FFF6E3" d="M26 50C24 92 42 109 60 109C78 109 96 92 94 50Z"/><g fill="none" stroke="#282F33" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5.5" d="M25 54C25 93 44 109 60 109C76 109 95 93 95 54"/><path stroke-width="4.5" d="M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84"/><path stroke-width="4.5" d="M49 93Q60 100 71 93"/></g><path fill="#282F33" d="M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z"/><path fill="#282F33" d="M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z"/><g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="28" y="59" width="27" height="22" rx="8"/><rect x="65" y="59" width="27" height="22" rx="8"/><path d="M55 67H65"/></g><circle cx="42" cy="70.5" r="3.6" fill="#282F33"/><circle cx="78" cy="70.5" r="3.6" fill="#282F33"/></svg><span><b>GENA</b></span></a>
@@ -1059,7 +1111,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
     <div class="uwrap" id="uwrap" hidden><button class="ubtn" type="button" id="uBtn" aria-haspopup="true" aria-expanded="false" aria-controls="uPop" aria-label="Профиль"><span id="uIni">?</span></button>
       <div class="pop upop" id="uPop" hidden><p class="uwho"><b id="uName"></b><small id="uMail"></small></p><button class="opt uopt" type="button" id="uAdmin" hidden><span>Аналитика и доступ</span></button><div class="uapp"><p class="uapph">Оформление</p>
         <div class="gsort uthm" id="uThm" role="radiogroup" aria-label="Тема"><button type="button" role="radio" data-th="light" aria-checked="false">Светлая</button><button type="button" role="radio" data-th="dark" aria-checked="false">Тёмная</button><button type="button" role="radio" data-th="auto" aria-checked="false">Авто</button></div>
-        <div class="uacc" id="uAcc" role="radiogroup" aria-label="Акцентный цвет"><button type="button" role="radio" data-ac="sage" title="Шалфей" aria-label="Шалфей"></button><button type="button" role="radio" data-ac="graphite" title="Графит" aria-label="Графит"></button><button type="button" role="radio" data-ac="ocean" title="Океан" aria-label="Океан"></button><button type="button" role="radio" data-ac="terra" title="Терракота" aria-label="Терракота"></button><button type="button" role="radio" data-ac="plum" title="Слива" aria-label="Слива"></button><span class="uaccn" id="uAccN"></span></div></div>
+        <div class="uaccw"><div class="uacc" id="uAcc" role="radiogroup" aria-label="Акцентный цвет"><button type="button" role="radio" data-ac="sage" title="Шалфей" aria-label="Шалфей"></button><button type="button" role="radio" data-ac="graphite" title="Графит" aria-label="Графит"></button><button type="button" role="radio" data-ac="ocean" title="Океан" aria-label="Океан"></button><button type="button" role="radio" data-ac="terra" title="Терракота" aria-label="Терракота"></button><button type="button" role="radio" data-ac="plum" title="Слива" aria-label="Слива"></button><button type="button" role="radio" data-ac="mint" title="Мята" aria-label="Мята"></button><button type="button" role="radio" data-ac="indigo" title="Индиго" aria-label="Индиго"></button><button type="button" role="radio" data-ac="rose" title="Роза" aria-label="Роза"></button><button type="button" role="radio" data-ac="ochre" title="Охра" aria-label="Охра"></button><button type="button" role="radio" data-ac="slate" title="Сланец" aria-label="Сланец"></button></div><span class="uaccn" id="uAccN"></span></div></div>
         <div class="ulab" id="uLab" hidden><p class="uapph">Лаборатория <em>видно только вам</em></p>
         <label class="tg ulabtg"><input type="checkbox" id="labGlass"><span>Стекло</span></label>
         <div class="ufonts" id="labFonts" role="radiogroup" aria-label="Шрифтовая пара"></div></div>
@@ -2203,18 +2255,23 @@ document.addEventListener("keydown",e=>{if(e.key!=="Tab")return;
   if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});
 
 /* ----- admin lab: glass + font pairs (applied only for admin) ----- */
-const FONTS={inter:{t:"Inter Tight",d:'"Inter Tight"',b:'"Inter Tight"',q:null},
-  sf:{t:"Системный · SF",d:'-apple-system,"SF Pro Display",system-ui',b:'-apple-system,"SF Pro Text",system-ui',q:null},
-  onest:{t:"Onest",d:'"Onest"',b:'"Onest"',q:"Onest:wght@400..700"},
-  manrope:{t:"Manrope + Inter",d:'"Manrope"',b:'"Inter"',q:"Manrope:wght@500..800&family=Inter:wght@400..700"},
-  golos:{t:"Geologica + Golos",d:'"Geologica"',b:'"Golos Text"',q:"Geologica:wght@400..700&family=Golos+Text:wght@400..700"}};
+const FONTS={inter:{s:"Inter Tight",t:"Inter Tight",d:'"Inter Tight"',b:'"Inter Tight"',q:null},
+  sf:{s:"SF",t:"Системный · SF",d:'-apple-system,"SF Pro Display",system-ui',b:'-apple-system,"SF Pro Text",system-ui',q:null},
+  onest:{s:"Onest",t:"Onest",d:'"Onest"',b:'"Onest"',q:"Onest:wght@400..700"},
+  manrope:{s:"Manrope",t:"Manrope + Inter",d:'"Manrope"',b:'"Inter"',q:"Manrope:wght@500..800&family=Inter:wght@400..700"},
+  golos:{s:"Geologica",t:"Geologica + Golos",d:'"Geologica"',b:'"Golos Text"',q:"Geologica:wght@400..700&family=Golos+Text:wght@400..700"},
+  plex:{s:"Plex Sans",t:"IBM Plex Sans",d:'"IBM Plex Sans"',b:'"IBM Plex Sans"',q:"IBM+Plex+Sans:wght@400;500;600;700"},
+  jost:{s:"Jost",t:"Jost + Inter",d:'"Jost"',b:'"Inter"',q:"Jost:wght@400..700&family=Inter:wght@400..700"},
+  rubik:{s:"Rubik",t:"Rubik",d:'"Rubik"',b:'"Rubik"',q:"Rubik:wght@400..700"},
+  unb:{s:"Unbounded",t:"Unbounded + Onest",d:'"Unbounded"',b:'"Onest"',q:"Unbounded:wght@400..700&family=Onest:wght@400..700"},
+  mont:{s:"Montserrat",t:"Montserrat + Golos",d:'"Montserrat"',b:'"Golos Text"',q:"Montserrat:wght@500..700&family=Golos+Text:wght@400..700"}};
 const LAB={glass:false,font:"inter"};try{Object.assign(LAB,JSON.parse(localStorage.getItem("gena-lab")||"{}"))}catch(e){}
 function labApply(){const on=!!(Cloud&&Cloud.admin);document.body.classList.toggle("glass",on&&LAB.glass);
   const f=FONTS[on?LAB.font:"inter"]||FONTS.inter;
   if(f.q&&!document.getElementById("lf-"+(on?LAB.font:""))){const l=document.createElement("link");l.rel="stylesheet";l.id="lf-"+LAB.font;l.href="https://fonts.googleapis.com/css2?family="+f.q+"&display=swap";document.head.appendChild(l)}
   root.style.setProperty("--f-display",f.d+',Arial,system-ui,sans-serif');root.style.setProperty("--f-body",f.b+',Arial,system-ui,sans-serif');
   $("uLab").hidden=!on;$("labGlass").checked=LAB.glass;
-  $("labFonts").innerHTML=Object.entries(FONTS).map(([k,v])=>`<button type="button" role="radio" data-lf="${k}" aria-checked="${k===LAB.font}" style="font-family:${v.d.replace(/"/g,"'")},system-ui"><b>Аа</b><span>${v.t}</span></button>`).join("");
+  $("labFonts").innerHTML=Object.entries(FONTS).map(([k,v])=>`<button type="button" role="radio" data-lf="${k}" title="${v.t}" aria-checked="${k===LAB.font}" style="font-family:${v.d.replace(/"/g,"'")},system-ui"><b>Аа</b><span>${v.s||v.t}</span></button>`).join("");
   if(window.Hero)Hero.refresh()}
 function labSave(){try{localStorage.setItem("gena-lab",JSON.stringify(LAB))}catch(e){}labApply()}
 $("labGlass").addEventListener("change",e=>{LAB.glass=e.target.checked;labSave()});
@@ -2845,7 +2902,7 @@ function eff(){return root.dataset.theme||(mq.matches?"dark":"light")}
 function paintTheme(){const t=eff();$("thBtn").dataset.mode=t;$("thBtn").setAttribute("aria-label",t==="dark"?"Включить светлую тему":"Включить тёмную тему");$("thBtn").title=t==="dark"?"Светлая тема":"Тёмная тема"}
 try{const t=localStorage.getItem("ppc-theme");if(t)root.dataset.theme=t}catch(e){}
 $("thBtn").addEventListener("click",()=>{setTheme(eff()==="dark"?"light":"dark")});
-const ACC={sage:"Шалфей",graphite:"Графит",ocean:"Океан",terra:"Терракота",plum:"Слива"};
+const ACC={sage:"Шалфей",graphite:"Графит",ocean:"Океан",terra:"Терракота",plum:"Слива",mint:"Мята",indigo:"Индиго",rose:"Роза",ochre:"Охра",slate:"Сланец"};
 function setTheme(t){if(t==="auto"){delete root.dataset.theme;try{localStorage.removeItem("ppc-theme")}catch(e){}}else{root.dataset.theme=t;try{localStorage.setItem("ppc-theme",t)}catch(e){}}paintTheme();if(window.Hero)Hero.refresh();syncApp()}
 function setAccent(a){if(a==="sage")delete root.dataset.accent;else root.dataset.accent=a;try{localStorage.setItem("gena-accent",a)}catch(e){}if(window.Hero)Hero.refresh();syncApp()}
 function syncApp(){const t=root.dataset.theme||"auto",a=root.dataset.accent||"sage";
