@@ -549,7 +549,8 @@ body.v-gallery .topbar-in .setwrap{display:none}body.v-gallery .views{margin-rig
   aside pre#out,aside.haspv pre#out{flex:1 1 auto;min-height:96px;max-height:none;overflow:auto}
   aside .actions{position:relative;padding-top:2px}
   aside .tsave{flex:none}
-  @media (max-height:820px){aside .summary{max-height:62px;overflow:auto}}
+  @media (max-height:900px){aside .summary{max-height:62px;overflow:auto}}
+  @media (max-height:780px){aside .pvleg{display:none}}
 }
 @media (max-width:980px){.quick,.wrap>main,.wrap>aside{grid-column:1;grid-row:auto}}
 @media (max-width:700px){.quick{padding:14px 12px 10px}.qrow{margin:0 -12px}.qrow .qgrid{padding:2px 12px 6px;grid-auto-columns:160px}.qnav{display:none}.qhead p{display:none}}
@@ -638,13 +639,34 @@ body.v-gallery .foot{display:block}
 .hbtn.nudge:hover{background:color-mix(in srgb,var(--detail) 22%,var(--panel))}
 .hbtn.pulse::after{content:"";position:absolute;inset:-1px;border-radius:inherit;box-shadow:0 0 0 0 color-mix(in srgb,var(--detail) 55%,transparent);animation:nudge 1.6s ease-out 2;pointer-events:none}
 @keyframes nudge{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--detail) 55%,transparent)}100%{box-shadow:0 0 0 10px color-mix(in srgb,var(--detail) 0%,transparent)}}
-.sharetip{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;align-items:start;padding:12px;border-radius:12px;background:color-mix(in srgb,var(--detail) 13%,var(--panel));border:1px solid color-mix(in srgb,var(--detail) 35%,var(--line));animation:donein .3s ease-out}
+.sharetip{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 10px;align-items:center;padding:8px 8px 8px 10px;border-radius:12px;background:color-mix(in srgb,var(--detail) 13%,var(--panel));border:1px solid color-mix(in srgb,var(--detail) 35%,var(--line));animation:donein .3s ease-out}
 .sharetip p{margin:0;font-size:13px;line-height:1.45;color:var(--ink)}
-.stico{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--detail);color:#272E32;font-size:13px;grid-row:span 2}
-.stact{display:flex;align-items:center;gap:6px}
+.stico{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--detail);color:#272E32;font-size:12px}
+.sharetip p{font-size:12.5px!important;line-height:1.35!important}
+.stact{display:flex;align-items:center;gap:2px}.stact .btn.sm{padding:7px 11px}
 .stx{all:unset;cursor:pointer;font-size:12.5px;color:var(--muted);padding:6px 8px;border-radius:8px}.stx:hover{color:var(--ink)}.stx:focus-visible{outline:2px solid var(--accent)}
 .galtools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.galtools .gsort{align-self:auto}.gshare{padding:9px 14px;font-size:13.5px;display:inline-flex;gap:6px;align-items:center}.gshare span{font-size:17px;line-height:1;color:var(--mark)}
 @media (prefers-reduced-motion:reduce){.hbtn.pulse::after{animation:none}}
+
+
+/* v17: one primary action, step dots, changed prompt parts */
+.actions.atop #copy{flex:1 1 auto}
+.amenu{position:relative;flex:none}
+.amorebtn{width:46px;height:46px;border:1px solid var(--line);border-radius:12px;color:var(--ink)}.amorebtn svg{width:20px;height:20px}
+.amorebtn[aria-expanded="true"]{background:var(--accent-soft)}
+.apop{right:0;left:auto;top:calc(100% + 6px);width:270px;padding:6px}
+.mitem{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;padding:10px;border-radius:10px}
+.mitem[hidden]{display:none}
+.mitem svg{width:20px;height:20px;margin-top:1px;color:var(--muted)}
+.mitem b{display:block;font-size:14px;font-weight:600}.mitem small{display:block;font-size:12px;color:var(--muted);margin-top:1px}
+.mitem:hover,.mitem:focus-visible{background:var(--hover)}.mitem:focus-visible{outline:2px solid var(--accent)}
+#reset[data-arm="1"] b{color:#B3261E}:root[data-theme="dark"] #reset[data-arm="1"] b{color:#FF9C8F}
+.steps button{position:relative}
+.steps button.dirty span::after{content:"";position:absolute;top:5px;right:4px;width:5px;height:5px;border-radius:50%;background:var(--detail)}
+.sec{border-radius:4px;transition:background-color 1.4s ease}
+.sec.chg{animation:secflash 1.6s ease-out}
+@keyframes secflash{0%{background:color-mix(in srgb,var(--detail) 38%,transparent)}100%{background:transparent}}
+@media (prefers-reduced-motion:reduce){.sec.chg{animation:none}}
 
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
@@ -1069,12 +1091,15 @@ body.locked{overflow:hidden}
       </div></details></div>
         <div class="actions atop">
       <button class="btn" id="copy" type="button">Скопировать промт</button>
-      <button class="btn ghost" id="reset" type="button">Сбросить</button>
-      <button class="btn ghost" id="tOpen" type="button" hidden>В шаблоны</button>
+      <div class="amenu"><button class="iconbtn amorebtn" type="button" id="actMore" aria-haspopup="menu" aria-expanded="false" aria-controls="actPop" aria-label="Ещё действия" title="Ещё действия"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5.5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18.5" cy="12" r="1.8"/></svg></button>
+        <div class="pop apop" id="actPop" role="menu" hidden>
+          <button class="mitem" id="tOpen" type="button" role="menuitem" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg><span><b>В шаблоны команды</b><small>Сохранить настройки сцены для всех</small></span></button>
+          <button class="mitem" id="reset" type="button" role="menuitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></svg><span><b id="resetT">Сбросить</b><small>Вернуть все шаги к исходным</small></span></button>
+        </div></div>
       <span class="status" id="status"></span>
       <span class="count" id="count"></span>
     </div>
-    <div class="sharetip" id="shareTip" hidden><span class="stico" aria-hidden="true">★</span><p><b>Получилось удачно?</b> Оцените генерацию в «Мои промты» и поделитесь в галерее: коллеги смогут взять вашу сцену за основу.</p><div class="stact"><button class="btn sm" type="button" id="stOpen">Оценить</button><button class="stx" type="button" id="stX" aria-label="Скрыть подсказку">Позже</button></div></div>
+    <div class="sharetip" id="shareTip" hidden><span class="stico" aria-hidden="true">★</span><p><b>Удачно вышло?</b> Оцените и поделитесь — коллеги возьмут сцену за основу.</p><div class="stact"><button class="btn sm" type="button" id="stOpen">Оценить</button><button class="stx" type="button" id="stX" aria-label="Скрыть подсказку">Позже</button></div></div>
     <form class="tsave" id="tSave" hidden><label class="lbl" for="tName">Название шаблона</label><div class="trow"><input type="text" id="tName" maxlength="48" placeholder="Например: баннер 21:9, мясо на доске" required><button class="btn" type="submit">Сохранить</button><button class="btn ghost" type="button" id="tCancel">Отмена</button></div><small class="hint">Сохраняются настройки сцены, без продукта.</small></form>
     <div class="summary" id="summary"></div>
     <div class="pvbox" id="pvbox">
@@ -2138,8 +2163,12 @@ $("tgrid").addEventListener("click",async e=>{const d=e.target.closest("[data-de
     const {error}=await Cloud.sb.from("templates").delete().eq("id",d.dataset.del);if(error){toast("Не получилось удалить шаблон")}else{toast("Шаблон удалён");loadTemplates()}return}
   const c=e.target.closest("[data-tp]");if(c)applyTemplate(c.dataset.tp)});
 $("tgrid").addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches("[data-tp]")){e.preventDefault();applyTemplate(e.target.dataset.tp)}});
-$("tOpen").addEventListener("click",()=>{$("tSave").hidden=false;$("tOpen").hidden=true;$("tName").focus()});
-$("tCancel").addEventListener("click",()=>{$("tSave").hidden=true;$("tOpen").hidden=false});
+function actMenu(o){$("actPop").hidden=!o;$("actMore").setAttribute("aria-expanded",String(o));if(o)($("actPop").querySelector(".mitem:not([hidden])")||$("actMore")).focus();else{const b=$("reset");b.dataset.arm="";$("resetT").textContent="Сбросить"}}
+$("actMore").addEventListener("click",e=>{e.stopPropagation();actMenu($("actPop").hidden)});
+document.addEventListener("click",e=>{if(!$("actPop").hidden&&!e.target.closest(".amenu"))actMenu(false)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("actPop").hidden){actMenu(false);$("actMore").focus()}});
+$("tOpen").addEventListener("click",()=>{actMenu(false);$("tSave").hidden=false;$("tName").focus()});
+$("tCancel").addEventListener("click",()=>{$("tSave").hidden=true});
 $("tSave").addEventListener("submit",async e=>{e.preventDefault();const name=$("tName").value.trim();if(!name||!Cloud.sb)return;
   const btn=$("tSave").querySelector('button[type=submit]');btn.disabled=true;
   const {error}=await Cloud.sb.from("templates").insert({name,scene:sceneOf(S)});btn.disabled=false;
@@ -2270,6 +2299,12 @@ function syncPod(){
 }
 /* ---------- UPDATE ---------- */
 function mark(el,v){el.querySelectorAll("[data-v]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===v)))}
+
+/* step dots: which steps differ from the defaults */
+const STEP_KEYS={"s-ref":["src","cat","product","items","isolate","scale","food","rebuild","keepProduct","keepText","avoid"],"s-style":["style"],"s-bg":["bg","color","g1","g2","gbase","gdir","gmode","surface","sv","decor","decorAuto","props","bgText"],"s-pod":["pod","podShape","podTiers","podCol"],"s-comp":["arr","place","grid","fill","tilt","objList","noCrop"],"s-cam":["angle"],"s-light":["light","lcount","lside","lsoft","ltemp"],"s-fin":["shadow","dof"]};
+const stepRel=k=>({surface:S.bg==="scene",sv:S.bg==="scene",color:S.bg==="solid",g1:S.bg==="grad",g2:S.bg==="grad",gbase:S.bg==="grad",gdir:S.bg==="grad",gmode:S.bg==="grad",bgText:S.bg==="text",podShape:S.pod!=="none",podTiers:S.pod!=="none",podCol:S.pod!=="none"})[k]??true;
+function stepDirty(){$("steps").querySelectorAll("[data-t]").forEach(b=>{const ks=(STEP_KEYS[b.dataset.t]||[]).filter(stepRel),d=ks.some(k=>JSON.stringify(S[k]??null)!==JSON.stringify(DEF[k]??null));
+  b.classList.toggle("dirty",d);b.title=b.title.replace(/ · изменено$/,"")+(d?" · изменено":"")})}
 function update(){
   S.food=S.cat!=="none";
   const notes=autofix(),cr=rules();
@@ -2296,7 +2331,12 @@ function update(){
   $("tiltBox").hidden=!find(ARR,S.arr).float;
   ["rebuild","keepProduct","keepText","avoid","decorAuto","isolate","scale","food","noCrop"].forEach(k=>$(k).checked=S[k]);
   const ar=find(ARR,S.arr),shd=find(SHADOWS,S.shadow);
-  $("out").innerHTML=sections().map(([h,t])=>h?`<b>${h}:</b> ${esc(t)}`:esc(t)).join("\n\n");
+  const secs=sections(),prev=window.__secPrev,cur={};let first=null;
+  $("out").innerHTML=secs.map(([h,t],i)=>{const k=h||"#"+i;cur[k]=t;const chg=prev&&prev[k]!==t;
+    return `<span class="sec${chg?" chg":""}">${h?`<b>${h}:</b> `:""}${esc(t)}</span>`}).join("\n\n");
+  window.__secPrev=cur;
+  if(prev){first=$("out").querySelector(".sec.chg");if(first){const o=$("out"),top=first.getBoundingClientRect().top-o.getBoundingClientRect().top+o.scrollTop,vis=top>=o.scrollTop&&top+20<=o.scrollTop+o.clientHeight;if(!vis&&o.scrollHeight>o.clientHeight)o.scrollTo({top:Math.max(0,top-12),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})}}
+  stepDirty();
   const n=plain().length;$("count").textContent=n+" симв.";
   const bgL=S.bg==="text"?"Фон: свой текст":S.bg==="solid"?"Фон "+((pinfo(S.color)||[S.color])[0]):S.bg==="grad"?"Градиент "+(S.gmode==="pal"?(pinfo(S.gbase)||[""])[0]:"свой"):sfLabel();
   const chips=[...(S.cat!=="none"?[[find(CATS,S.cat)[1],"s-ref"]]:[]),...(S.src==="text"?[[S.items.length===1?"Продукт: описание":`Продуктов: ${S.items.length}`,"s-ref"]]:[]),[find(STYLES,S.style).t,"s-style"],["Свет: "+find(LIGHTS,S.light).t.toLowerCase(),"s-light"],[find(ANGLES,S.angle).t,"s-cam"],[ar.t,"s-comp"],...(ar.float?[[find(TILT,S.tilt).t,"s-comp"]]:[]),[find(PLACE,S.place).t,"s-comp"],[find(GRIDS,S.grid).t,"s-comp"],[bgL,"s-bg"],...(S.pod!=="none"?[["Подиум: "+find(PODS,S.pod).t.toLowerCase(),"s-pod"]]:[]),["Декор: "+find(DECOR,S.decor).t.toLowerCase(),"s-bg"],["Масштаб "+S.fill+"%","s-comp"],["Тень: "+shd.t.toLowerCase(),"s-fin"],[S.ratio==="auto"?"Формат авто":S.ratio,"pvbox"]];
@@ -2549,9 +2589,9 @@ function copy(statusEl){
 }
 $("copy").addEventListener("click",()=>copy($("status")));
 $("mcopy").addEventListener("click",()=>copy($("mstat")));
-let rstT;$("reset").addEventListener("click",()=>{const b=$("reset");
-  if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Точно сбросить?";clearTimeout(rstT);rstT=setTimeout(()=>{b.dataset.arm="";b.textContent="Сбросить"},3500);return}
-  clearTimeout(rstT);b.dataset.arm="";b.textContent="Сбросить";const snap=JSON.stringify(S);S=freshS();drawLights();renderProds();update();
+let rstT;$("reset").addEventListener("click",()=>{const b=$("reset"),t=$("resetT");
+  if(b.dataset.arm!=="1"){b.dataset.arm="1";t.textContent="Точно сбросить? Нажмите ещё раз";clearTimeout(rstT);rstT=setTimeout(()=>{b.dataset.arm="";t.textContent="Сбросить"},3500);return}
+  clearTimeout(rstT);b.dataset.arm="";t.textContent="Сбросить";actMenu(false);const snap=JSON.stringify(S);S=freshS();drawLights();renderProds();update();
   toastUndo("Все настройки сброшены",()=>{S=JSON.parse(snap);drawLights();renderProds();update()})});
 
 /* info popovers: one open at a time, close on outside click */
@@ -2592,7 +2632,7 @@ const LTEMP_C={neutral:"#FFFFFF",warm:"#FFD58A",cool:"#BFDFFF"};
 function pvRng(seed){return ()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646}}
 function drawPreview(T){
   if(!T){const box=$("pvbox");if(!box||box.dataset.hidden==="1")return;
-    T={pv:$("pv"),floor:$("pvFloor"),svg:$("pvSvg"),leg:$("pvLeg"),mw:Math.max(160,$("pvw").clientWidth-22),mh:186,px:"pv"}}
+    T={pv:$("pv"),floor:$("pvFloor"),svg:$("pvSvg"),leg:$("pvLeg"),mw:Math.max(160,$("pvw").clientWidth-22),mh:innerWidth>980&&innerHeight<900?140:186,px:"pv"}}
   const st=find(STYLES,S.style),an=find(ANGLES,S.angle),arr=find(ARR,S.arr),dc=find(DECOR,S.decor),shd=find(SHADOWS,S.shadow),li=find(LIGHTS,S.light);
   const rr=S.ratio==="auto"?[1,1]:(find(RATIOS,S.ratio)||["",1,1]).slice(1);
   const ar=rr[0]/rr[1],mw=T.mw,mh=T.mh;
