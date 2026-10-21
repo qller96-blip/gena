@@ -1948,6 +1948,7 @@ const LSOFT_P={soft:"All light sources are large and diffused: soft shadow edges
 const LTEMP_P={neutral:"Neutral daylight color temperature, about 5500K.",warm:"Warm color temperature, about 3500–4000K, golden tone.",cool:"Cool color temperature, about 6500–7000K, fresh bluish tone."};
 const DOF=[
  {id:"all",t:"Всё резко",d:"Всё в фокусе",p:"Ultra-detailed, sharp focus on all objects, no depth-of-field blur, no motion blur."},
+ {id:"group",t:"Группа в фокусе",d:"Размыт только фон",p:"Selective focus on the whole product group: every product is tack sharp and fully legible, while the background and distant decor behind the group fall into soft, creamy natural blur (bokeh); smooth focus falloff behind the products."},
  {id:"shallow",t:"Фон размыт",d:"Резко только главное",p:"Shallow depth of field: the hero product is tack sharp, farther elements fall into soft natural blur."}];
 const RATIOS=[["21:9",21,9],["1:1",1,1],["4:5",4,5],["3:4",3,4],["2:3",2,3],["9:16",9,16],["16:9",16,9],["3:2",3,2]];
 
@@ -2107,10 +2108,10 @@ function tiltSVG(o){
   return `<svg class="fig" viewBox="0 0 120 74" aria-hidden="true">${d}</svg>`;
 }
 function dofSVG(o){
-  const sh=o.id==="shallow";let d=`<defs><filter id="db1${o.id}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="${sh?2.2:0.01}"/></filter><filter id="db2${o.id}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="${sh?1.1:0.01}"/></filter></defs>`;
+  const sh=o.id==="shallow",gr=o.id==="group";let d=gr?`<defs><filter id="dbg" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter></defs><g filter="url(#dbg)" opacity=".55"><circle cx="20" cy="22" r="9" fill="var(--fig-l)"/><circle cx="100" cy="18" r="11" fill="var(--fig-top)"/><circle cx="60" cy="12" r="6" fill="var(--detail)"/></g>`:"";d+=`<defs><filter id="db1${o.id}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="${sh?2.2:0.01}"/></filter><filter id="db2${o.id}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="${sh?1.1:0.01}"/></filter></defs>`;
   d+=`<line x1="0" y1="62" x2="120" y2="62" stroke="var(--line)" stroke-width="1.5"/>`;
   d+=`<g filter="url(#db1${o.id})">${jar(26,40,0.8)}</g><g filter="url(#db2${o.id})">${jar(50,44,1.05)}</g>${jar(82,46,1.5)}`;
-  d+=`<g fill="none" stroke="var(--detail)" stroke-width="2" stroke-linecap="round">${sh?`<path d="M66 22h-4v4M98 22h4v4M66 66h-4v-4M98 66h4v-4"/>`:`<path d="M12 22h-4v4M110 22h4v4M12 66h-4v-4M110 66h4v-4"/>`}</g>`;
+  d+=`<g fill="none" stroke="var(--detail)" stroke-width="2" stroke-linecap="round">${gr?`<path d="M18 26h-4v4M98 26h4v4M18 66h-4v-4M98 66h4v-4"/>`:sh?`<path d="M66 22h-4v4M98 22h4v4M66 66h-4v-4M98 66h4v-4"/>`:`<path d="M12 22h-4v4M110 22h4v4M12 66h-4v-4M110 66h4v-4"/>`}</g>`;
   return `<svg class="fig" viewBox="0 0 120 74" aria-hidden="true">${d}</svg>`;
 }
 /* ---------- RENDER CONTROLS ---------- */
@@ -2192,7 +2193,7 @@ function rules(){
   if(S.place!=="center"){dis("grid","sym","Симметрия работает только при положении «По центру»");dis("fill","90","Группа на 90% не оставит места под свободную зону");dis("angle","macro","Макро заполняет кадр и не оставляет свободной зоны")}
   if(S.grid==="sym")dis("place",side,"Выбрана симметрия: композиция должна стоять по центру");
   if(S.fill==="90")dis("place",side,"Группа занимает 90%: свободной зоне не хватит места");
-  if(S.angle==="macro"){dis("fill",["70","60","30"],"Макро — всегда крупный план");dis("dof","all","Макро снимается с малой глубиной резкости");dis("place",side,"Макро заполняет кадр и не оставляет свободной зоны");C.noCrop="Макро кадрирует объект краями"}
+  if(S.angle==="macro"){dis("fill",["70","60","30"],"Макро — всегда крупный план");dis("dof",["all","group"],"Макро снимается с малой глубиной резкости");dis("place",side,"Макро заполняет кадр и не оставляет свободной зоны");C.noCrop="Макро кадрирует объект краями"}
   if(S.angle==="top")dis("light","back","Сверху контровой свет не читается: он прячется за продуктом");
   if(S.style==="dark")dis("light",["tent","top"],"Тёмный стиль строится на глубоких тенях и направленном свете");
   if(S.style==="sun"){dis("light",["keyfill","strips","three","keyrimbg","tent","window"],"Солнечный стиль — один жёсткий источник, солнце");dis("lsoft","soft","Солнце даёт жёсткий свет")}
@@ -3297,7 +3298,7 @@ function drawPreview(T){
     else y=by+(R()-.35)*h0*.16;
     const r=(1+R()*1.4)*Math.max(.8,h0/30),edge=dc.id==="rich"&&i>=n-2;
     if(edge){x=i%2?W*.06:W*.94;y=i%2?H*.86:H*.14}
-    dec.push({x,y,r:edge?r*2.4:r,blur:edge||(S.dof==="shallow"&&y<by-h0*.4),back:y<by-h0*.15&&!edge,edge});
+    dec.push({x,y,r:edge?r*2.4:r,blur:edge||((S.dof==="shallow"||S.dof==="group")&&y<by-h0*.4),back:y<by-h0*.15&&!edge,edge});
   }
   const decSvg=d=>`<circle cx="${d.x}" cy="${d.y}" r="${d.r}" fill="url(#pvS)" ${d.blur?`filter="url(#pvDf)"`:""}/>`;
 
