@@ -996,6 +996,14 @@ body.glass pre#out{background:color-mix(in srgb,var(--sunk) 82%,transparent)!imp
 @media (max-width:700px){.trow3{grid-template-columns:1fr}}
 .tpanel .seg .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 
+
+/* v30: pose segment, spacing, mirror */
+.poseseg{margin:0 0 12px}.poseseg .chip[aria-pressed="true"],#gapSeg .chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.gaprow{margin-top:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}.gaprow .lbl{margin:0}
+.mirseg{margin-left:auto}.mirseg button{display:inline-flex;align-items:center;gap:6px}.mirseg svg{width:16px;height:16px}
+.mirseg button[aria-checked="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+#grids.mir .card svg.fig{transform:scaleX(-1)}
+
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -1360,7 +1368,9 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
       <div class="sub">
         <div class="subh"><h3>Расстановка</h3>
           <details class="info"><summary aria-label="Подробнее">i</summary><div><p><b>Стоят</b>: на поверхности. <b>Парят</b>: в воздухе, как в рекламе приложений.</p><p><b>Группа парит</b>: близко, одной композицией. <b>Парят врозь</b>: у каждого продукта свой воздух.</p></div></details></div>
+        <div class="seg poseseg" id="poseSeg" role="radiogroup" aria-label="Как расположены"><button class="chip" type="button" data-pose="stand">Стоят</button><button class="chip" type="button" data-pose="float">Парят</button><button class="chip" type="button" data-pose="lie">Лежат</button></div>
         <div class="grid" id="arr"></div>
+        <div class="gaprow" id="gapRow"><span class="lbl">Воздух между объектами</span><div class="seg" id="gapSeg"></div></div>
         <div id="tiltBox" class="subgap tiltbox">
           <div class="subh" style="margin-bottom:8px"><h4 class="subt">Наклон <small>для парящих</small></h4><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Для парящих продуктов. <b>Все влево</b> или <b>вправо</b>: вся группа наклонена в одну сторону, получается единое движение.</p></div></details></div>
           <div class="grid sm" id="tilt"></div>
@@ -1384,7 +1394,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
       </div>
       <hr class="divider">
       <div class="sub">
-        <div class="subh"><h3>Схема</h3>
+        <div class="subh"><h3>Схема</h3><div class="gsort mirseg" id="mirSeg" role="radiogroup" aria-label="Главный акцент"><button type="button" role="radio" data-mir="0" title="Главный акцент слева"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="3"/><circle cx="9" cy="12" r="2.4" fill="currentColor" stroke="none"/></svg>Слева</button><button type="button" role="radio" data-mir="1" title="Главный акцент справа"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="3"/><circle cx="15" cy="12" r="2.4" fill="currentColor" stroke="none"/></svg>Справа</button></div>
           <details class="info"><summary aria-label="Подробнее">i</summary><div><p>Подсказка, как красиво расставить продукты.</p><p><b>Золотое сечение</b>: главный продукт чуть в стороне от центра, остальные вокруг по спирали. <b>Правило третей</b>: главный стоит на пересечении линий, которые делят кадр на три части. <b>Без схемы</b>: нейросеть решает сама.</p></div></details></div>
         <div class="grid sm" id="grids" data-compact="1"></div>
       </div>
@@ -1676,11 +1686,15 @@ const ANGLES=[
   svg:`<polygon class="ft" points="60,38 132,-4 60,-46 -12,-4"/><polygon class="fl" points="-12,-4 60,38 60,120 -12,78"/><polygon class="fr" points="60,38 132,-4 132,78 60,120"/>`}
 ];
 const ARR=[
- {id:"one",t:"Один стоит",d:"На поверхности",multi:false,float:false,p:"A single product standing naturally on the surface."},
- {id:"group",t:"Группа стоит",d:"Вместе, разной высоты",multi:true,float:false,p:"The products stand together as ONE unified, cohesive arrangement, not separate products scattered around: layered in depth, nestling into each other and partially overlapping, with varied heights for rhythm and a clear overall silhouette."},
- {id:"onefly",t:"Один парит",d:"Левитация",multi:false,float:true,p:"The product levitates in mid-air, weightless, as if frozen in a moment of motion."},
- {id:"cluster",t:"Группа парит",d:"Близко, одной группой",multi:true,float:true,p:"The whole scene is ONE unified, cohesive arrangement floating in mid-air as a single compact group, not separate products scattered around. Objects are layered in depth, nestle into each other and partially overlap, forming one harmonious sculptural cluster with a clear silhouette."},
- {id:"apart",x:true,t:"Парят врозь",d:"У каждого свой воздух",multi:true,float:true,p:"The products levitate in mid-air separately, evenly spaced, never touching or intersecting, each fully visible with clear air between them, at slightly different heights."}
+ {id:"one",t:"Один стоит",c:"Один",d:"На поверхности",multi:false,float:false,p:"A single product standing naturally on the surface."},
+ {id:"group",t:"Группа стоит",c:"Группой",d:"Вместе, разной высоты",multi:true,float:false,p:"The products stand together as ONE unified, cohesive arrangement, not separate products scattered around: layered in depth, nestling into each other and partially overlapping, with varied heights for rhythm and a clear overall silhouette."},
+ {id:"onefly",t:"Один парит",c:"Один",d:"Левитация",multi:false,float:true,p:"The product levitates in mid-air, weightless, as if frozen in a moment of motion."},
+ {id:"cluster",t:"Группа парит",c:"Группой",d:"Близко, одной группой",multi:true,float:true,p:"The whole scene is ONE unified, cohesive arrangement floating in mid-air as a single compact group, not separate products scattered around. Objects are layered in depth, nestle into each other and partially overlap, forming one harmonious sculptural cluster with a clear silhouette."},
+ {id:"sapart",t:"Стоят врозь",c:"Врозь",d:"Ровный шаг, не касаются",multi:true,float:false,spread:true,p:"The products stand separately on the surface in a calm row, evenly spaced, never touching or overlapping, each fully visible."},
+ {id:"lone",t:"Один лежит",c:"Один",d:"Плашмя, как в раскладке",multi:false,float:false,lie:true,p:"The product lies flat on the surface, resting on its back or side as in a flat lay, label facing up toward the camera."},
+ {id:"lgroup",t:"Лежат группой",c:"Группой",d:"Раскладка внахлёст",multi:true,float:false,lie:true,p:"The products lie flat on the surface as ONE cohesive flat-lay arrangement: neatly composed, slightly overlapping, labels facing up toward the camera, with a clear hero product."},
+ {id:"lapart",t:"Лежат врозь",c:"Врозь",d:"Раскладка с шагом",multi:true,float:false,lie:true,spread:true,p:"The products lie flat on the surface as a tidy flat-lay grid, evenly spaced, never touching, labels facing up toward the camera."},
+ {id:"apart",t:"Парят врозь",c:"Врозь",d:"У каждого свой воздух",multi:true,float:true,spread:true,p:"The products levitate in mid-air separately, evenly spaced, never touching or intersecting, each fully visible with clear air between them, at slightly different heights."}
 ];
 const PLACE=[
  {id:"center",t:"По центру",p:"Place the product composition in the center of the frame with balanced breathing room on all sides."},
@@ -1919,6 +1933,10 @@ const TILT=[
  {id:"fan",t:"Веером",d:"Мягкая дуга",rot:[-14,0,14],p:"The objects fan out in one gentle arc, like a spread hand of cards: the central object stays upright and sits slightly higher, the objects on each side tilt outward about 10–15° and sit a little lower, all following one smooth symmetrical curve with even spacing."},
  {id:"varied",x:true,t:"Каждый по-своему",d:"Динамика",rot:[-22,14,-6],p:"Each object is rotated at its own angle for a dynamic, playful feel."}];
 const CATS=[["none","Без категории"],["meat","Мясо и гриль"],["dairy","Молочное"],["ready","Готовая еда"],["bakery","Выпечка и десерты"],["produce","Овощи и фрукты"],["alcohol","Вино и алкоголь"],["drinks","Напитки"],["other","Другой предмет"]];
+const GAP=[["tight","Вплотную","Spacing: the objects are packed tightly, touching and overlapping, almost no air between them."],["close","Близко","Spacing: the objects sit close together with small, even gaps."],["airy","Свободно","Spacing: generous, even air between the objects; they never touch."],["wide","Много воздуха","Spacing: wide, airy gaps between the objects, each one isolated by clear empty space."]];
+const MIRRORABLE=["thirds","golden","diag","tri"];
+const POSE={stand:["one","group","sapart"],float:["onefly","cluster","apart"],lie:["lone","lgroup","lapart"]};
+const poseOf=id=>Object.keys(POSE).find(k=>POSE[k].includes(id))||"stand";
 const ENH=[["sharp","Чёткость деталей","Crisp micro-detail on the hero object: sharp edges, fine surface texture and clean, readable small details."],
  ["gloss","Блики и глянец","Beautiful controlled specular highlights: clean glossy reflections and bright rim highlights that define the object's form, no blown-out areas."],
  ["vivid","Сочность цвета","Rich, saturated, true-to-life colors with deep contrast, vibrant but natural, never oversaturated or neon."],
@@ -1959,7 +1977,7 @@ const DOF=[
 const RATIOS=[["21:9",21,9],["1:1",1,1],["4:5",4,5],["3:4",3,4],["2:3",2,3],["9:16",9,16],["16:9",16,9],["3:2",3,2]];
 
 /* ---------- STATE ---------- */
-const DEF={cats:[],enh:[],table:false,tOcc:"plain",tShape:"round",tSize:"dining",tMat:"oak",tCloth:"none",bgText:"",style:"fintech",angle:"e45",arr:"cluster",place:"center",grid:"golden",tilt:"left",fill:"70",light:"auto",lcount:"all",lside:"left",lsoft:"soft",ltemp:"neutral",noCrop:true,dof:"all",objList:"",isolate:true,scale:true,food:false,bg:"grad",color:"#F3D9E4",g1:"#F4F6FB",g2:"#E2E8F5",gbase:"#E2E8F5",gdir:"radial",gmode:"pal",surface:"lwood",decor:"few",decorAuto:true,shadow:"ao",ratio:"1:1",cat:"none",product:"",props:"",src:"photo",items:[{type:"cup",mat:"matte",color:"#F5F5F2",what:"",label:"",details:""}],sv:{},pod:"none",podShape:"cyl",podTiers:"2",podCol:"bg",rebuild:true,keepProduct:true,keepText:true,avoid:true};
+const DEF={gap:"close",mirror:false,cats:[],enh:[],table:false,tOcc:"plain",tShape:"round",tSize:"dining",tMat:"oak",tCloth:"none",bgText:"",style:"fintech",angle:"e45",arr:"cluster",place:"center",grid:"golden",tilt:"left",fill:"70",light:"auto",lcount:"all",lside:"left",lsoft:"soft",ltemp:"neutral",noCrop:true,dof:"all",objList:"",isolate:true,scale:true,food:false,bg:"grad",color:"#F3D9E4",g1:"#F4F6FB",g2:"#E2E8F5",gbase:"#E2E8F5",gdir:"radial",gmode:"pal",surface:"lwood",decor:"few",decorAuto:true,shadow:"ao",ratio:"1:1",cat:"none",product:"",props:"",src:"photo",items:[{type:"cup",mat:"matte",color:"#F5F5F2",what:"",label:"",details:""}],sv:{},pod:"none",podShape:"cyl",podTiers:"2",podCol:"bg",rebuild:true,keepProduct:true,keepText:true,avoid:true};
 const freshS=()=>JSON.parse(JSON.stringify(DEF));
 let S=freshS();
 try{const s=JSON.parse(localStorage.getItem("ppc-v7")||"null");if(s)S=Object.assign(freshS(),s)}catch(e){}
@@ -2025,6 +2043,10 @@ function arrSVG(a){
   if(a.id==="group") d+=sh(60,32,.3,2,id)+box(44,52,16,24)+jar(62,54,1.4)+ball(78,57,7);
   if(a.id==="onefly") d+=sh(60,9,.15,3,id)+jar(60,30,1.4,-14);
   if(a.id==="cluster") d+=sh(60,22,.14,3,id)+box(48,30,15,22,-12)+jar(62,32,1.3,10)+ball(74,22,7);
+  if(a.id==="sapart") d+=sh(28,9,.25,2,id)+sh(60,9,.25,2,id)+sh(92,7,.25,2,id)+box(28,48,14,22)+jar(60,54,1.25)+ball(92,57,7);
+  if(a.id==="lone") d+=sh(60,22,.25,2,id)+`<g transform="rotate(-90 60 52)">${jar(60,58,1.35)}</g>`;
+  if(a.id==="lgroup") d+=sh(60,34,.25,2,id)+`<g transform="rotate(-90 46 56)">${box(46,48,12,22)}</g><g transform="rotate(-80 66 54)">${jar(66,60,1.1)}</g>`+ball(84,58,6);
+  if(a.id==="lapart") d+=sh(60,40,.2,2,id)+`<g transform="rotate(-90 28 56)">${box(28,48,12,20)}</g><g transform="rotate(-90 62 54)">${jar(62,60,1)}</g>`+ball(94,58,6);
   if(a.id==="apart") d+=sh(26,7,.12,3,id)+sh(60,8,.12,3,id)+sh(94,6,.12,3,id)+box(26,36,14,20,-10)+jar(60,24,1.25,8)+ball(94,34,7)+`<g stroke="var(--accent)" stroke-width="1" stroke-dasharray="2 2"><line x1="38" y1="30" x2="47" y2="30"/><line x1="73" y1="30" x2="83" y2="30"/></g>`;
   return `<svg class="fig" viewBox="0 0 120 74" aria-hidden="true">${d}</svg>`;
 }
@@ -2131,7 +2153,9 @@ function cardsHTML(list,fig,extra=()=>""){return list.map(o=>`<button class="car
 $("styles").innerHTML=cardsHTML(STYLES,styleSVG,o=>`<span class="tag">${o.kind}</span>`);
 $("angles").innerHTML=cardsHTML(ANGLES.filter(x=>!x.x),angleSVG);$("anglesX").innerHTML=cardsHTML(ANGLES.filter(x=>x.x),angleSVG);
 ["anglesX","lightsX"].forEach(id=>$(id).classList.add("showx"));$("amore").hidden=!ANGLES.some(x=>x.x);$("lmore").hidden=!LIGHTS.some(x=>x.x);
-$("arr").innerHTML=cardsHTML(ARR,arrSVG);
+$("arr").innerHTML=cardsHTML(ARR.map(o=>({...o,t:o.c||o.t,x:false})),arrSVG);
+$("poseSeg").addEventListener("click",e=>{const b=e.target.closest("[data-pose]");if(!b)return;const cur=POSE[poseOf(S.arr)].indexOf(S.arr);S.arr=POSE[b.dataset.pose][Math.max(0,cur)];update()});
+$("mirSeg").addEventListener("click",e=>{const b=e.target.closest("[data-mir]");if(!b)return;S.mirror=b.dataset.mir==="1";update()});
 $("place").innerHTML=cardsHTML(PLACE,placeSVG);
 $("grids").innerHTML=cardsHTML(GRIDS,gridSVG);
 $("shadows").innerHTML=cardsHTML(SHADOWS,shadowSVG);
@@ -2146,7 +2170,7 @@ void PAL.map(g=>({g:g.g,c:g.c.filter(x=>!["#FFFFFF","#F7F7F7"].includes(x[1]))})
 $("gdir").innerHTML=GDIR.map(([v,l])=>`<button class="chip" type="button" data-v="${v}" aria-pressed="false">${l}</button>`).join("");
 $("decor").innerHTML=cardsHTML(DECOR,decorSVG);
 const chipHTML=list=>list.map(([v,l])=>`<button class="chip" type="button" data-v="${v}" aria-pressed="false">${l}</button>`).join("");
-$("cats").innerHTML=chipHTML(CATS);$("enh").innerHTML=chipHTML(ENH);
+$("cats").innerHTML=chipHTML(CATS);$("gapSeg").innerHTML=chipHTML(GAP);bindPick($("gapSeg"),"gap");$("enh").innerHTML=chipHTML(ENH);
 $("cats").addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(!b)return;const v=b.dataset.v;
   if(v==="none")S.cats=[];else S.cats=S.cats.includes(v)?S.cats.filter(x=>x!==v):[...S.cats,v];update()});
 $("enh").addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(!b)return;const v=b.dataset.v;S.enh=S.enh.includes(v)?S.enh.filter(x=>x!==v):[...S.enh,v];update()});
@@ -2216,8 +2240,8 @@ function rules(){
   else if(lt.sym)G.lside="Схема симметричная, стороны ключевого света у неё нет";
   if(S.decor==="none"){C.decorAuto="Декор выключен";C.props="Декор выключен"}
   if(S.src==="text"){const n=S.items.length;C.rebuild=C.isolate=C.keepProduct="Нужно только при работе с фото";
-    if(n>1)dis("arr",["one","onefly"],`Описано продуктов: ${n}, нужна групповая расстановка`);
-    else dis("arr",["group","cluster","apart"],"Описан один продукт: групповая расстановка не нужна")}
+    if(n>1)dis("arr",["one","onefly","lone"],`Описано продуктов: ${n}, нужна групповая расстановка`);
+    else dis("arr",["group","cluster","apart","sapart","lgroup","lapart"],"Описан один продукт: групповая расстановка не нужна")}
   return {R,G,C};
 }
 function autofix(){
@@ -2226,7 +2250,7 @@ function autofix(){
     const {R}=rules();let changed=false;
     for(const k of Object.keys(OPTS)){
       const bad=R[k];if(!bad||!bad[S[k]])continue;
-      const pair={one:"group",onefly:"cluster",group:"one",cluster:"onefly",apart:"onefly"}[S[k]];
+      const pair={one:"group",onefly:"cluster",lone:"lgroup",group:"one",cluster:"onefly",apart:"onefly",sapart:"one",lgroup:"lone",lapart:"lone"}[S[k]];
       const nv=k==="arr"&&pair&&!bad[pair]?pair:OPTS[k].find(v=>!bad[v]);if(!nv)continue;
       notes.push(`${NAMES[k]} → «${label(k,nv)}». ${bad[S[k]]}.`);S[k]=nv;changed=true;
     }
@@ -2285,12 +2309,13 @@ function sections(){
   if(ar.float){o+=" "+find(TILT,S.tilt).p;if(S.food)o+=" Any liquid surface stays physically level relative to gravity.";if(S.bg==="scene")o+=" They float above the surface, not resting on it.";}
   const ol=S.objList.split("\n").map(x=>x.trim()).filter(Boolean);
   if(ol.length)o+="\nObjects within the group:\n"+ol.map((x,i)=>`${i+1}. ${x}`).join("\n");
+  if(ar.multi){if(S.gap==="airy"||S.gap==="wide")o=o.replace(/,? ?(slightly overlapping|nestle into each other and partially overlap|nestling into each other and partially overlapping)/g,"");o+=" "+GAP.find(x=>x[0]===S.gap)[2]}
   out.push(["OBJECTS",o]);
   {const fp=S.cats.map(c=>CATP[c]).filter(Boolean);if(fp.length)out.push(["FOOD",fp.join(" ")])}
   if(S.enh.length)out.push(["DETAIL",S.enh.map(k=>ENH.find(x=>x[0]===k)[2]).join(" ")]);
   out.push(["CAMERA",an.p]);
 
-  let c=pl.p; if(gr.p)c+=" "+gr.p;
+  let c=pl.p; if(gr.p){c+=" "+(S.mirror&&MIRRORABLE.includes(S.grid)?gr.p.replace(/about 38% from the edge/g,"about 38% from the right edge").replace(/about 38% across/g,"about 62% across"):gr.p);if(MIRRORABLE.includes(S.grid))c+=S.mirror?" Mirrored orientation: the main accent and the hero product sit on the RIGHT side of the frame (about 62% across); the composition flows from right to left.":" Orientation: the main accent and the hero product sit on the LEFT side of the frame (about 38% across); the composition flows from left to right."}
   const side=S.place!=="center";
   c+=side?{"70":" The group is compact and fills about 70% of its side of the frame, fully visible with a little breathing room around it.","60":" The group sits comfortably within its side of the frame, with air around it.","30":" The camera is pulled far back: the group is small within its side, surrounded by open space."}[S.fill]||""
     :{"90":" Tight close framing: the camera is close and the group fills about 90% of the frame, with minimal space around it.","70":" The group is dense, rich and compact, filling about 70% of the frame with comfortable margins.","60":" Medium framing: the camera is pulled back and the group fills about 60% of the frame, with noticeable space around it.","30":" Wide framing: the camera is far from the scene and the group fills only about 30% of the frame, surrounded by lots of calm, open space."}[S.fill];
@@ -2338,7 +2363,7 @@ function sections(){
   out.push(["FORMAT",`${S.ratio==="auto"?"":`Aspect ratio ${S.ratio}. `}${find(DOF,S.dof).p} High resolution, accurate materials.`]);
   if(S.avoid)out.push(["AVOID",(txt?"collage look, added text":"collage look, pasted or cut-out reference, added text")+" or captions, watermarks, extra or duplicated products, distorted or misspelled labels, plastic AI sheen, warped geometry"+(noCrop?", cropped objects":"")+"."]);
 
-  const key=[{one:"a single product",group:"one cohesive standing group",onefly:"a single levitating product",cluster:"one cohesive floating group",apart:"separately floating products that never touch"}[ar.id]];
+  const key=[{one:"a single product",group:"one cohesive standing group",onefly:"a single levitating product",cluster:"one cohesive floating group",apart:"separately floating products that never touch",sapart:"evenly spaced standing products",lone:"a single product lying flat",lgroup:"one cohesive flat-lay group",lapart:"evenly spaced flat-lay products"}[ar.id]];
   if(ar.float&&S.tilt==="left")key.push("all objects leaning left in one direction");
   if(ar.float&&S.tilt==="right")key.push("all objects leaning right in one direction");
   if(ar.float&&S.tilt==="fan")key.push("objects fanned out in one gentle symmetrical arc");
@@ -2380,7 +2405,7 @@ const PRESETS=[
  {id:"social11",t:"Соцсети 1:1",d:"Солнце, тени листвы, лён и немного декора",tags:["1:1","Солнце"],kind:"stand",
   set:{style:"sun",angle:"slight",place:"center",grid:"diag",tilt:"none",fill:"70",noCrop:true,light:"key45",lside:"left",lsoft:"hard",ltemp:"warm",dof:"all",bg:"scene",surface:"linen",sv:{linen:"#F4F1EA"},decor:"bal",shadow:"hard",ratio:"1:1",pod:"none"}}
 ];
-const SCENE_KEYS=["table","tOcc","tShape","tSize","tMat","tCloth","bgText","style","angle","arr","place","grid","tilt","fill","light","lside","lsoft","ltemp","dof","bg","color","gbase","gdir","gmode","g1","g2","surface","sv","decor","shadow","ratio","pod","podShape","podTiers","podCol","noCrop"];
+const SCENE_KEYS=["gap","mirror","table","tOcc","tShape","tSize","tMat","tCloth","bgText","style","angle","arr","place","grid","tilt","fill","light","lside","lsoft","ltemp","dof","bg","color","gbase","gdir","gmode","g1","g2","surface","sv","decor","shadow","ratio","pod","podShape","podTiers","podCol","noCrop"];
 const sceneSig=st=>JSON.stringify(SCENE_KEYS.map(k=>k==="sv"?Object.entries(st.sv||{}).sort():st[k]));
 function presetState(pr,base){
   const st=JSON.parse(JSON.stringify(base));Object.assign(st,JSON.parse(JSON.stringify(pr.set)));st.sv=Object.assign({},base.sv,pr.set.sv||{});
@@ -2779,7 +2804,7 @@ function syncPod(){
 function mark(el,v){el.querySelectorAll("[data-v]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===v)))}
 
 /* step dots: which steps differ from the defaults */
-const STEP_KEYS={"s-ref":["src","cats","enh","product","items","isolate","scale","food","rebuild","keepProduct","keepText","avoid"],"s-style":["style"],"s-bg":["bg","color","g1","g2","gbase","gdir","gmode","surface","sv","decor","decorAuto","props","bgText"],"s-pod":["pod","podShape","podTiers","podCol","table","tOcc","tShape","tSize","tMat","tCloth"],"s-comp":["arr","place","grid","fill","tilt","objList","noCrop"],"s-cam":["angle"],"s-light":["light","lcount","lside","lsoft","ltemp"],"s-fin":["shadow","dof"]};
+const STEP_KEYS={"s-ref":["src","cats","enh","product","items","isolate","scale","food","rebuild","keepProduct","keepText","avoid"],"s-style":["style"],"s-bg":["bg","color","g1","g2","gbase","gdir","gmode","surface","sv","decor","decorAuto","props","bgText"],"s-pod":["pod","podShape","podTiers","podCol","table","tOcc","tShape","tSize","tMat","tCloth"],"s-comp":["gap","mirror","arr","place","grid","fill","tilt","objList","noCrop"],"s-cam":["angle"],"s-light":["light","lcount","lside","lsoft","ltemp"],"s-fin":["shadow","dof"]};
 const stepRel=k=>({surface:S.bg==="scene",sv:S.bg==="scene",color:S.bg==="solid",g1:S.bg==="grad",g2:S.bg==="grad",gbase:S.bg==="grad",gdir:S.bg==="grad",gmode:S.bg==="grad",bgText:S.bg==="text",podShape:S.pod!=="none",podTiers:S.pod!=="none",podCol:S.pod!=="none"})[k]??true;
 function stepDirty(){$("steps").querySelectorAll("[data-t]").forEach(b=>{const ks=(STEP_KEYS[b.dataset.t]||[]).filter(stepRel),d=ks.some(k=>JSON.stringify(S[k]??null)!==JSON.stringify(DEF[k]??null));
   b.classList.toggle("dirty",d);b.title=b.title.replace(/ · изменено$/,"")+(d?" · изменено":"")})}
@@ -2795,7 +2820,9 @@ addEventListener("resize",fitGrids);document.addEventListener("click",e=>{if(e.t
 function update(){
   S.cat=S.cats[0]||"none";S.food=S.cats.some(c=>c!=="other");
   const notes=autofix(),cr=rules();
-  mark($("styles"),S.style);mark($("angles"),S.angle);mark($("arr"),S.arr);mark($("place"),S.place);mark($("grids"),S.grid);
+  mark($("styles"),S.style);mark($("angles"),S.angle);mark($("arr"),S.arr);{const ps=poseOf(S.arr);$("poseSeg").querySelectorAll("[data-pose]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.pose===ps)));
+  $("arr").querySelectorAll("[data-v]").forEach(b=>{b.style.display=POSE[ps].includes(b.dataset.v)?"":"none"});mark($("gapSeg"),S.gap);$("gapRow").hidden=!find(ARR,S.arr).multi;
+  const mo=MIRRORABLE.includes(S.grid)&&S.place==="center";$("mirSeg").hidden=!mo;$("mirSeg").querySelectorAll("[data-mir]").forEach(b=>b.setAttribute("aria-checked",String((b.dataset.mir==="1")===!!S.mirror)));$("grids").classList.toggle("mir",!!S.mirror)}mark($("place"),S.place);mark($("grids"),S.grid);
   mark($("shadows"),S.shadow);mark($("bgmode"),S.bg);mark($("surfaces"),S.surface);mark($("decor"),S.decor);mark($("ratios"),S.ratio);
   renderPal("pals");
   renderPal("gpals");
@@ -3160,7 +3187,7 @@ function drawPreview(T){
   const multi=arr.multi,float=arr.float,f=S.fill/100,place=S.place,grid=S.grid,top=an.id==="top";
   let it;
   if(!multi)it=[{dx:0,dy:0,k:1}];
-  else if(S.arr==="apart")it=[{dx:-1.45,dy:-.08,k:.78},{dx:0,dy:-.2,k:1},{dx:1.45,dy:.02,k:.66}];
+  else if(arr.spread)it=[{dx:-1.45,dy:-.08,k:.78},{dx:0,dy:-.2,k:1},{dx:1.45,dy:.02,k:.66}];
   else it=({golden:[{dx:-.6,dy:0,k:1},{dx:.2,dy:.06,k:.74},{dx:.85,dy:.11,k:.58}],
             thirds:[{dx:-.55,dy:0,k:1},{dx:.25,dy:.06,k:.72},{dx:.9,dy:.1,k:.6}],
             sym:[{dx:-.78,dy:.07,k:.68},{dx:0,dy:0,k:1},{dx:.78,dy:.07,k:.68}],
@@ -3169,7 +3196,7 @@ function drawPreview(T){
   const txt=S.src==="text",items=txt?S.items:null,nP=txt?items.length:(multi?3:1);
   if(txt&&nP!==it.length){
     if(nP===1)it=[{dx:0,dy:0,k:1}];
-    else if(S.arr==="apart"){const ks=[1,.78,.66,.72,.6],dys=[-.2,-.08,.02,-.14,0],ord=[...Array(nP).keys()].sort((a,b)=>Math.abs(a-(nP-1)/2)-Math.abs(b-(nP-1)/2));
+    else if(arr.spread){const ks=[1,.78,.66,.72,.6],dys=[-.2,-.08,.02,-.14,0],ord=[...Array(nP).keys()].sort((a,b)=>Math.abs(a-(nP-1)/2)-Math.abs(b-(nP-1)/2));
       it=Array(nP);ord.forEach((slot,j)=>{it[j]={dx:(slot-(nP-1)/2)*1.3,dy:dys[j],k:ks[j]}})}
     else{it=it.slice(0,Math.min(3,nP));if(nP===2)it=[{dx:-.32,dy:0,k:1},{dx:.42,dy:.08,k:.74}];
       const ex=[{dx:1.2,dy:.14,k:.55},{dx:-1.22,dy:.16,k:.5}];for(let j=3;j<nP;j++)it.push(ex[j-3]);
@@ -3177,6 +3204,8 @@ function drawPreview(T){
   }
   if(multi&&S.arr==="cluster")it=it.map((o,i)=>({...o,dy:o.dy*1.6+(i%2?.12:-.06)}));
   if(place==="right"&&(grid==="golden"||grid==="thirds"))it=it.map(o=>({...o,dx:-o.dx}));
+  if(place==="center"&&S.mirror&&MIRRORABLE.includes(grid))it=it.map(o=>({...o,dx:-o.dx}));
+  if(multi){const gf={tight:.72,close:1,airy:1.25,wide:1.55}[S.gap]||1;it=it.map(o=>({...o,dx:o.dx*gf}))}
   const wr=an.id==="profile"?.3:an.id==="top"?.56:.46;
   const dxs=it.map(o=>o.dx),span=Math.max(...dxs)-Math.min(...dxs)+1;
   let h0=Math.min(H*f*.84,W*f*.95/(span*wr));
@@ -3184,8 +3213,8 @@ function drawPreview(T){
   if(S.pod!=="none"&&an.id!=="macro")h0*=.8;
   const w0=h0*wr;
   let cx={center:W/2,left:W*.24,right:W*.76,top:W/2,bottom:W/2}[place];
-  if(place==="center"&&grid==="golden")cx=W*.382-it[0].dx*w0;
-  if(place==="center"&&grid==="thirds")cx=W/3-it[0].dx*w0;
+  if(place==="center"&&grid==="golden")cx=(S.mirror?W*.618:W*.382)-it[0].dx*w0;
+  if(place==="center"&&grid==="thirds")cx=(S.mirror?W*2/3:W/3)-it[0].dx*w0;
   let by=place==="bottom"?H*.9:place==="top"?Math.min(H*.54,H*.12+h0*(float?1.2:1.05)):H*.5+h0*.5;
   if(float&&place!=="top")by-=h0*.12;
   by=Math.min(by,H*.95);
