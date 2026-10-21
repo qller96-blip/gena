@@ -1691,9 +1691,13 @@ const ARR=[
  {id:"onefly",t:"Один парит",c:"Один",d:"Левитация",multi:false,float:true,p:"The product levitates in mid-air, weightless, as if frozen in a moment of motion."},
  {id:"cluster",t:"Группа парит",c:"Группой",d:"Близко, одной группой",multi:true,float:true,p:"The whole scene is ONE unified, cohesive arrangement floating in mid-air as a single compact group, not separate products scattered around. Objects are layered in depth, nestle into each other and partially overlap, forming one harmonious sculptural cluster with a clear silhouette."},
  {id:"sapart",t:"Стоят врозь",c:"Врозь",d:"Ровный шаг, не касаются",multi:true,float:false,spread:true,p:"The products stand separately on the surface in a calm row, evenly spaced, never touching or overlapping, each fully visible."},
- {id:"lone",t:"Один лежит",c:"Один",d:"Плашмя, как в раскладке",multi:false,float:false,lie:true,p:"The product lies flat on the surface, resting on its back or side as in a flat lay, label facing up toward the camera."},
- {id:"lgroup",t:"Лежат группой",c:"Группой",d:"Раскладка внахлёст",multi:true,float:false,lie:true,p:"The products lie flat on the surface as ONE cohesive flat-lay arrangement: neatly composed, slightly overlapping, labels facing up toward the camera, with a clear hero product."},
- {id:"lapart",t:"Лежат врозь",c:"Врозь",d:"Раскладка с шагом",multi:true,float:false,lie:true,spread:true,p:"The products lie flat on the surface as a tidy flat-lay grid, evenly spaced, never touching, labels facing up toward the camera."},
+ {id:"lone",t:"Один сверху",c:"Один",d:"По центру кадра",multi:false,float:false,lie:true,lay:[[0,0,1]],p:"Seen strictly from directly above (top-down flat lay), a single product lies flat on the surface, label facing straight up toward the camera, centered with calm empty space around it."},
+ {id:"lgroup",t:"Сверху в разнобой",c:"Разнобой",d:"Аккуратно, разные углы",multi:true,float:false,lie:true,lay:[[-.75,-.32,1],[.45,-.45,.74],[.9,.28,.62],[-.15,.42,.7]],p:"Seen strictly from directly above (top-down flat lay), the products lie flat in a deliberate, natural-looking scatter: each rotated at its own gentle angle, no two aligned, balanced spacing, labels facing up, nothing overlapping."},
+ {id:"lapart",t:"Сверху сеткой",c:"Сетка",d:"Ровные ряды",multi:true,float:false,lie:true,spread:true,lay:[[-.9,-.42,.8],[.9,-.42,.8],[-.9,.42,.8],[.9,.42,.8]],p:"Seen strictly from directly above (top-down flat lay), the products lie flat in a precise grid: equal rows and columns, identical spacing, all aligned square to the frame, labels facing up."},
+ {id:"lcheck",t:"Сверху шахматкой",c:"Шахматка",d:"Через одну клетку",multi:true,float:false,lie:true,lay:[[-1.1,-.5,.72],[1.1,-.5,.72],[0,0,.8],[-1.1,.5,.72],[1.1,.5,.72]],p:"Seen strictly from directly above (top-down flat lay), the products lie flat in a checkerboard pattern: they occupy alternating cells of an invisible grid with empty cells between them, perfectly even rhythm, labels facing up."},
+ {id:"lknoll",t:"Сверху кнолинг",c:"Кнолинг",d:"Под 90°, плотно",multi:true,float:false,lie:true,lay:[[-1,-.42,.76],[0,-.42,.76],[1,-.42,.76],[-1,.42,.76],[0,.42,.76],[1,.42,.76]],p:"Seen strictly from directly above (top-down flat lay), knolling arrangement: the products lie flat, organized at strict 90° angles, parallel to each other and to the frame edges, tight even gaps, tidy and satisfying, labels facing up."},
+ {id:"lrow",t:"Сверху диагональю",c:"Диагональ",d:"Ряд наискосок",multi:true,float:false,lie:true,lay:[[-1.3,-.48,.72],[-.43,-.16,.8],[.43,.16,.8],[1.3,.48,.72]],p:"Seen strictly from directly above (top-down flat lay), the products lie flat in one clean diagonal line from the top-left to the bottom-right corner, evenly spaced, all rotated to follow the line, labels facing up."},
+ {id:"lring",t:"Сверху по кругу",c:"По кругу",d:"Хоровод вокруг центра",multi:true,float:false,lie:true,lay:[[0,0,.95],[1.25,0,.66],[.62,.5,.66],[-.62,.5,.66],[-1.25,0,.66],[-.62,-.5,.66],[.62,-.5,.66]],p:"Seen strictly from directly above (top-down flat lay), the hero product lies flat in the center and the other products form an even circle around it, each rotated to face the center, labels facing up."},
  {id:"apart",t:"Парят врозь",c:"Врозь",d:"У каждого свой воздух",multi:true,float:true,spread:true,p:"The products levitate in mid-air separately, evenly spaced, never touching or intersecting, each fully visible with clear air between them, at slightly different heights."}
 ];
 const PLACE=[
@@ -1935,7 +1939,7 @@ const TILT=[
 const CATS=[["none","Без категории"],["meat","Мясо и гриль"],["dairy","Молочное"],["ready","Готовая еда"],["bakery","Выпечка и десерты"],["produce","Овощи и фрукты"],["alcohol","Вино и алкоголь"],["drinks","Напитки"],["other","Другой предмет"]];
 const GAP=[["tight","Вплотную","Spacing: the objects are packed tightly, touching and overlapping, almost no air between them."],["close","Близко","Spacing: the objects sit close together with small, even gaps."],["airy","Свободно","Spacing: generous, even air between the objects; they never touch."],["wide","Много воздуха","Spacing: wide, airy gaps between the objects, each one isolated by clear empty space."]];
 const MIRRORABLE=["thirds","golden","diag","tri"];
-const POSE={stand:["one","group","sapart"],float:["onefly","cluster","apart"],lie:["lone","lgroup","lapart"]};
+const POSE={stand:["one","group","sapart"],float:["onefly","cluster","apart"],lie:["lone","lgroup","lapart","lcheck","lknoll","lrow","lring"]};
 const poseOf=id=>Object.keys(POSE).find(k=>POSE[k].includes(id))||"stand";
 const ENH=[["sharp","Чёткость деталей","Crisp micro-detail on the hero object: sharp edges, fine surface texture and clean, readable small details."],
  ["gloss","Блики и глянец","Beautiful controlled specular highlights: clean glossy reflections and bright rim highlights that define the object's form, no blown-out areas."],
@@ -2044,6 +2048,17 @@ function arrSVG(a){
   if(a.id==="onefly") d+=sh(60,9,.15,3,id)+jar(60,30,1.4,-14);
   if(a.id==="cluster") d+=sh(60,22,.14,3,id)+box(48,30,15,22,-12)+jar(62,32,1.3,10)+ball(74,22,7);
   if(a.id==="sapart") d+=sh(28,9,.25,2,id)+sh(60,9,.25,2,id)+sh(92,7,.25,2,id)+box(28,48,14,22)+jar(60,54,1.25)+ball(92,57,7);
+  if(a.lie){const T=(x,y,r,rot=0)=>`<g transform="rotate(${rot} ${x} ${y})"><rect x="${x-r}" y="${y-r*.8}" width="${r*2}" height="${r*1.6}" rx="${r*.25}" fill="var(--fig-l)"/><rect x="${x-r*.55}" y="${y-r*.35}" width="${r*1.1}" height="${r*.7}" rx="1" fill="var(--panel)" opacity=".85"/></g>`,
+      C=(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="var(--fig-top)"/><circle cx="${x}" cy="${y}" r="${r*.62}" fill="var(--fig-r)"/>`,
+      bg=`<rect x="4" y="4" width="112" height="66" rx="5" fill="var(--sunk)"/>`;let q=bg;
+    if(a.id==="lone")q+=T(60,37,13);
+    if(a.id==="lgroup")q+=T(40,30,10,-14)+C(70,24,7)+T(82,49,8,18)+C(52,52,6);
+    if(a.id==="lapart")q+=T(42,22,8)+C(78,22,7)+C(42,52,7)+T(78,52,8);
+    if(a.id==="lcheck")q+=C(30,18,6)+C(90,18,6)+T(60,37,8)+C(30,56,6)+C(90,56,6);
+    if(a.id==="lknoll")q+=[30,60,90].map((x,k)=>T(x,22,8)).join("")+[30,60,90].map(x=>C(x,52,7)).join("");
+    if(a.id==="lrow")q+=T(24,16,7,28)+C(48,30,6)+T(72,44,7,28)+C(96,58,6);
+    if(a.id==="lring")q+=T(60,37,9)+[0,60,120,180,240,300].map(g=>C(60+30*Math.cos(g*Math.PI/180),37+21*Math.sin(g*Math.PI/180),5)).join("");
+    return `<svg class="fig" viewBox="0 0 120 74" aria-hidden="true">${q}</svg>`}
   if(a.id==="lone") d+=sh(60,22,.25,2,id)+`<g transform="rotate(-90 60 52)">${jar(60,58,1.35)}</g>`;
   if(a.id==="lgroup") d+=sh(60,34,.25,2,id)+`<g transform="rotate(-90 46 56)">${box(46,48,12,22)}</g><g transform="rotate(-80 66 54)">${jar(66,60,1.1)}</g>`+ball(84,58,6);
   if(a.id==="lapart") d+=sh(60,40,.2,2,id)+`<g transform="rotate(-90 28 56)">${box(28,48,12,20)}</g><g transform="rotate(-90 62 54)">${jar(62,60,1)}</g>`+ball(94,58,6);
@@ -2154,7 +2169,8 @@ $("styles").innerHTML=cardsHTML(STYLES,styleSVG,o=>`<span class="tag">${o.kind}<
 $("angles").innerHTML=cardsHTML(ANGLES.filter(x=>!x.x),angleSVG);$("anglesX").innerHTML=cardsHTML(ANGLES.filter(x=>x.x),angleSVG);
 ["anglesX","lightsX"].forEach(id=>$(id).classList.add("showx"));$("amore").hidden=!ANGLES.some(x=>x.x);$("lmore").hidden=!LIGHTS.some(x=>x.x);
 $("arr").innerHTML=cardsHTML(ARR.map(o=>({...o,t:o.c||o.t,x:false})),arrSVG);
-$("poseSeg").addEventListener("click",e=>{const b=e.target.closest("[data-pose]");if(!b)return;const cur=POSE[poseOf(S.arr)].indexOf(S.arr);S.arr=POSE[b.dataset.pose][Math.max(0,cur)];update()});
+$("poseSeg").addEventListener("click",e=>{const b=e.target.closest("[data-pose]");if(!b)return;const ps=b.dataset.pose,was=poseOf(S.arr),cur0=POSE[was].indexOf(S.arr),cur=cur0>2?1:Math.max(0,cur0);
+  S.arr=POSE[ps][cur];if(ps==="lie"){S.angleBeforeLie=S.angle==="top"?S.angleBeforeLie:S.angle;S.angle="top"}else if(was==="lie"&&S.angleBeforeLie){S.angle=S.angleBeforeLie}update()});
 $("mirSeg").addEventListener("click",e=>{const b=e.target.closest("[data-mir]");if(!b)return;S.mirror=b.dataset.mir==="1";update()});
 $("place").innerHTML=cardsHTML(PLACE,placeSVG);
 $("grids").innerHTML=cardsHTML(GRIDS,gridSVG);
@@ -2226,6 +2242,8 @@ function rules(){
   if(S.place!=="center"){dis("grid","sym","Симметрия работает только при положении «По центру»");dis("fill","90","Группа на 90% не оставит места под свободную зону");dis("angle","macro","Макро заполняет кадр и не оставляет свободной зоны")}
   if(S.grid==="sym")dis("place",side,"Выбрана симметрия: композиция должна стоять по центру");
   if(S.fill==="90")dis("place",side,"Группа занимает 90%: свободной зоне не хватит места");
+  {const A=find(ARR,S.arr);if(A.lay&&!["lone","lgroup"].includes(A.id))dis("grid",GRIDS.map(g=>g.id).filter(g=>g!=="free"),"Узор раскладки задан самой расстановкой")}
+  if(find(ARR,S.arr).lie)dis("angle",ANGLES.map(a=>a.id).filter(a=>a!=="top"),"Лежат — снимается строго сверху");
   if(S.angle==="macro"){dis("fill",["70","60","30"],"Макро — всегда крупный план");dis("dof",["all","group"],"Макро снимается с малой глубиной резкости");dis("place",side,"Макро заполняет кадр и не оставляет свободной зоны");C.noCrop="Макро кадрирует объект краями"}
   if(S.angle==="top")dis("light","back","Сверху контровой свет не читается: он прячется за продуктом");
   if(S.style==="dark")dis("light",["tent","top"],"Тёмный стиль строится на глубоких тенях и направленном свете");
@@ -2241,7 +2259,7 @@ function rules(){
   if(S.decor==="none"){C.decorAuto="Декор выключен";C.props="Декор выключен"}
   if(S.src==="text"){const n=S.items.length;C.rebuild=C.isolate=C.keepProduct="Нужно только при работе с фото";
     if(n>1)dis("arr",["one","onefly","lone"],`Описано продуктов: ${n}, нужна групповая расстановка`);
-    else dis("arr",["group","cluster","apart","sapart","lgroup","lapart"],"Описан один продукт: групповая расстановка не нужна")}
+    else dis("arr",["group","cluster","apart","sapart","lgroup","lapart","lcheck","lknoll","lrow","lring"],"Описан один продукт: групповая расстановка не нужна")}
   return {R,G,C};
 }
 function autofix(){
@@ -2250,7 +2268,7 @@ function autofix(){
     const {R}=rules();let changed=false;
     for(const k of Object.keys(OPTS)){
       const bad=R[k];if(!bad||!bad[S[k]])continue;
-      const pair={one:"group",onefly:"cluster",lone:"lgroup",group:"one",cluster:"onefly",apart:"onefly",sapart:"one",lgroup:"lone",lapart:"lone"}[S[k]];
+      const pair={one:"group",onefly:"cluster",lone:"lgroup",group:"one",cluster:"onefly",apart:"onefly",sapart:"one",lgroup:"lone",lapart:"lone",lcheck:"lone",lknoll:"lone",lrow:"lone",lring:"lone"}[S[k]];
       const nv=k==="arr"&&pair&&!bad[pair]?pair:OPTS[k].find(v=>!bad[v]);if(!nv)continue;
       notes.push(`${NAMES[k]} → «${label(k,nv)}». ${bad[S[k]]}.`);S[k]=nv;changed=true;
     }
@@ -2305,7 +2323,8 @@ function sections(){
   if(!txt&&ref.length)out.push(["REFERENCE",ref.join(" ")]);
 
   let o=ar.p;
-  if(ar.multi)o+=" One hero product sits in front as the clear focal point; the other items support it from behind and the sides, each still clearly recognizable.";
+  const pat=ar.lay&&!["lone","lgroup"].includes(ar.id);
+  if(ar.multi&&!pat)o+=" One hero product sits in front as the clear focal point; the other items support it from behind and the sides, each still clearly recognizable.";
   if(ar.float){o+=" "+find(TILT,S.tilt).p;if(S.food)o+=" Any liquid surface stays physically level relative to gravity.";if(S.bg==="scene")o+=" They float above the surface, not resting on it.";}
   const ol=S.objList.split("\n").map(x=>x.trim()).filter(Boolean);
   if(ol.length)o+="\nObjects within the group:\n"+ol.map((x,i)=>`${i+1}. ${x}`).join("\n");
@@ -2315,7 +2334,7 @@ function sections(){
   if(S.enh.length)out.push(["DETAIL",S.enh.map(k=>ENH.find(x=>x[0]===k)[2]).join(" ")]);
   out.push(["CAMERA",an.p]);
 
-  let c=pl.p; if(gr.p){c+=" "+(S.mirror&&MIRRORABLE.includes(S.grid)?gr.p.replace(/about 38% from the edge/g,"about 38% from the right edge").replace(/about 38% across/g,"about 62% across"):gr.p);if(MIRRORABLE.includes(S.grid))c+=S.mirror?" Mirrored orientation: the main accent and the hero product sit on the RIGHT side of the frame (about 62% across); the composition flows from right to left.":" Orientation: the main accent and the hero product sit on the LEFT side of the frame (about 38% across); the composition flows from left to right."}
+  let c=pl.p; if(gr.p&&!pat){c+=" "+(S.mirror&&MIRRORABLE.includes(S.grid)?gr.p.replace(/about 38% from the edge/g,"about 38% from the right edge").replace(/about 38% across/g,"about 62% across"):gr.p);if(MIRRORABLE.includes(S.grid))c+=S.mirror?" Mirrored orientation: the main accent and the hero product sit on the RIGHT side of the frame (about 62% across); the composition flows from right to left.":" Orientation: the main accent and the hero product sit on the LEFT side of the frame (about 38% across); the composition flows from left to right."}
   const side=S.place!=="center";
   c+=side?{"70":" The group is compact and fills about 70% of its side of the frame, fully visible with a little breathing room around it.","60":" The group sits comfortably within its side of the frame, with air around it.","30":" The camera is pulled far back: the group is small within its side, surrounded by open space."}[S.fill]||""
     :{"90":" Tight close framing: the camera is close and the group fills about 90% of the frame, with minimal space around it.","70":" The group is dense, rich and compact, filling about 70% of the frame with comfortable margins.","60":" Medium framing: the camera is pulled back and the group fills about 60% of the frame, with noticeable space around it.","30":" Wide framing: the camera is far from the scene and the group fills only about 30% of the frame, surrounded by lots of calm, open space."}[S.fill];
@@ -2363,11 +2382,11 @@ function sections(){
   out.push(["FORMAT",`${S.ratio==="auto"?"":`Aspect ratio ${S.ratio}. `}${find(DOF,S.dof).p} High resolution, accurate materials.`]);
   if(S.avoid)out.push(["AVOID",(txt?"collage look, added text":"collage look, pasted or cut-out reference, added text")+" or captions, watermarks, extra or duplicated products, distorted or misspelled labels, plastic AI sheen, warped geometry"+(noCrop?", cropped objects":"")+"."]);
 
-  const key=[{one:"a single product",group:"one cohesive standing group",onefly:"a single levitating product",cluster:"one cohesive floating group",apart:"separately floating products that never touch",sapart:"evenly spaced standing products",lone:"a single product lying flat",lgroup:"one cohesive flat-lay group",lapart:"evenly spaced flat-lay products"}[ar.id]];
+  const key=[{one:"a single product",group:"one cohesive standing group",onefly:"a single levitating product",cluster:"one cohesive floating group",apart:"separately floating products that never touch",sapart:"evenly spaced standing products",lone:"a single product lying flat",lgroup:"a neat top-down scatter",lapart:"a precise top-down grid",lcheck:"a top-down checkerboard pattern",lknoll:"a top-down knolling arrangement",lrow:"a top-down diagonal line",lring:"a top-down ring around the hero"}[ar.id]];
   if(ar.float&&S.tilt==="left")key.push("all objects leaning left in one direction");
   if(ar.float&&S.tilt==="right")key.push("all objects leaning right in one direction");
   if(ar.float&&S.tilt==="fan")key.push("objects fanned out in one gentle symmetrical arc");
-  if(gr.p)key.push({thirds:"rule of thirds",golden:"golden-ratio balance",sym:"strict symmetry",diag:"diagonal flow",tri:"triangular build"}[gr.id]);
+  if(gr.p&&!pat)key.push({thirds:"rule of thirds",golden:"golden-ratio balance",sym:"strict symmetry",diag:"diagonal flow",tri:"triangular build"}[gr.id]);
   if(noCrop)key.push("fully inside the frame, nothing cropped");
   if(S.pod!=="none")key.push(find(PODS,S.pod).t==="Мягкие"?"soft rounded podiums":"display podiums");
   key.push(S.bg==="scene"?sfEn():S.bg==="solid"?`plain ${S.color} background`:S.bg==="text"?"background as described":"plain gradient background");
@@ -3186,15 +3205,17 @@ function drawPreview(T){
   /* layout of products (units of product height h0 / width w0) */
   const multi=arr.multi,float=arr.float,f=S.fill/100,place=S.place,grid=S.grid,top=an.id==="top";
   let it;
-  if(!multi)it=[{dx:0,dy:0,k:1}];
+  if(arr.lay)it=arr.lay.map(([dx,dy,k])=>({dx,dy,k}));
+  else if(!multi)it=[{dx:0,dy:0,k:1}];
   else if(arr.spread)it=[{dx:-1.45,dy:-.08,k:.78},{dx:0,dy:-.2,k:1},{dx:1.45,dy:.02,k:.66}];
   else it=({golden:[{dx:-.6,dy:0,k:1},{dx:.2,dy:.06,k:.74},{dx:.85,dy:.11,k:.58}],
             thirds:[{dx:-.55,dy:0,k:1},{dx:.25,dy:.06,k:.72},{dx:.9,dy:.1,k:.6}],
             sym:[{dx:-.78,dy:.07,k:.68},{dx:0,dy:0,k:1},{dx:.78,dy:.07,k:.68}],
             diag:[{dx:-.75,dy:-.22,k:1},{dx:0,dy:0,k:.8},{dx:.75,dy:.22,k:.62}],
             tri:[{dx:-.66,dy:.08,k:.62},{dx:0,dy:-.08,k:1},{dx:.66,dy:.08,k:.62}]}[grid])||[{dx:0,dy:0,k:1},{dx:.64,dy:.06,k:.74},{dx:-.62,dy:.1,k:.58}];
-  const txt=S.src==="text",items=txt?S.items:null,nP=txt?items.length:(multi?3:1);
-  if(txt&&nP!==it.length){
+  const txt=S.src==="text",items=txt?S.items:null,nP=txt?items.length:(arr.lay?arr.lay.length:multi?3:1);
+  if(txt&&arr.lay&&nP>1){const L=arr.lay;it=Array.from({length:nP},(_,j)=>{const o=L[j%L.length];return {dx:o[0]+(j>=L.length?.3:0),dy:o[1]+(j>=L.length?.2:0),k:o[2]}})}
+  else if(txt&&nP!==it.length){
     if(nP===1)it=[{dx:0,dy:0,k:1}];
     else if(arr.spread){const ks=[1,.78,.66,.72,.6],dys=[-.2,-.08,.02,-.14,0],ord=[...Array(nP).keys()].sort((a,b)=>Math.abs(a-(nP-1)/2)-Math.abs(b-(nP-1)/2));
       it=Array(nP);ord.forEach((slot,j)=>{it[j]={dx:(slot-(nP-1)/2)*1.3,dy:dys[j],k:ks[j]}})}
@@ -3203,9 +3224,9 @@ function drawPreview(T){
       if(place==="right")it=it.map((o,j)=>j>=3?{...o,dx:-o.dx}:o)}
   }
   if(multi&&S.arr==="cluster")it=it.map((o,i)=>({...o,dy:o.dy*1.6+(i%2?.12:-.06)}));
-  if(place==="right"&&(grid==="golden"||grid==="thirds"))it=it.map(o=>({...o,dx:-o.dx}));
-  if(place==="center"&&S.mirror&&MIRRORABLE.includes(grid))it=it.map(o=>({...o,dx:-o.dx}));
-  if(multi){const gf={tight:.72,close:1,airy:1.25,wide:1.55}[S.gap]||1;it=it.map(o=>({...o,dx:o.dx*gf}))}
+  if(!arr.lay&&place==="right"&&(grid==="golden"||grid==="thirds"))it=it.map(o=>({...o,dx:-o.dx}));
+  if(!(arr.lay&&!["lone","lgroup"].includes(arr.id))&&place==="center"&&S.mirror&&MIRRORABLE.includes(grid))it=it.map(o=>({...o,dx:-o.dx}));
+  if(multi){const gf={tight:.72,close:1,airy:1.25,wide:1.55}[S.gap]||1;it=it.map(o=>({...o,dx:o.dx*gf,dy:arr.lie?o.dy*gf:o.dy}))}
   const wr=an.id==="profile"?.3:an.id==="top"?.56:.46;
   const dxs=it.map(o=>o.dx),span=Math.max(...dxs)-Math.min(...dxs)+1;
   let h0=Math.min(H*f*.84,W*f*.95/(span*wr));
@@ -3213,8 +3234,9 @@ function drawPreview(T){
   if(S.pod!=="none"&&an.id!=="macro")h0*=.8;
   const w0=h0*wr;
   let cx={center:W/2,left:W*.24,right:W*.76,top:W/2,bottom:W/2}[place];
-  if(place==="center"&&grid==="golden")cx=(S.mirror?W*.618:W*.382)-it[0].dx*w0;
-  if(place==="center"&&grid==="thirds")cx=(S.mirror?W*2/3:W/3)-it[0].dx*w0;
+  const patL=arr.lay&&!["lone","lgroup"].includes(arr.id);
+  if(place==="center"&&grid==="golden"&&!patL)cx=(S.mirror?W*.618:W*.382)-it[0].dx*w0;
+  if(place==="center"&&grid==="thirds"&&!patL)cx=(S.mirror?W*2/3:W/3)-it[0].dx*w0;
   let by=place==="bottom"?H*.9:place==="top"?Math.min(H*.54,H*.12+h0*(float?1.2:1.05)):H*.5+h0*.5;
   if(float&&place!=="top")by-=h0*.12;
   by=Math.min(by,H*.95);
