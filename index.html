@@ -964,6 +964,7 @@ body.glass pre#out{background:color-mix(in srgb,var(--sunk) 82%,transparent)!imp
 .ulg{grid-column:1/-1;margin:6px 0 0;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .ulg:first-child{margin-top:0}
 
+@media (min-width:701px){#place.grid[data-compact] .card svg.fig{width:56px}#place.grid[data-compact] .card{gap:10px;padding-right:10px}}
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -1641,6 +1642,7 @@ const PLACE=[
  {id:"center",t:"По центру",p:"Place the product composition in the center of the frame with balanced breathing room on all sides."},
  {id:"left",t:"Слева",p:"Place the product composition in the left part of the frame, within the left 40%. Keep the right side open: a calm, uncluttered continuation of the background with no props or details, usable as space for text."},
  {id:"right",t:"Справа",p:"Place the product composition in the right part of the frame, within the right 40%. Keep the left side open: a calm, uncluttered continuation of the background with no props or details, usable as space for text."},
+ {id:"top",t:"Сверху",p:"Place the product composition in the upper part of the frame. Keep the lower 45% open: a calm, uncluttered continuation of the background with no props or details, usable as space for text."},
  {id:"bottom",t:"Снизу",p:"Place the product composition in the lower part of the frame. Keep the upper 45% open: a calm, uncluttered continuation of the background with no props or details, usable as space for a headline."}
 ];
 const GRIDS=[
@@ -1960,6 +1962,7 @@ function placeSVG(p){
   if(p.id==="center") d+=`<rect x="34" y="18" width="52" height="38" rx="2" fill="none" stroke="var(--accent)" stroke-dasharray="3 3" opacity=".6"/>`+cl(60,37);
   if(p.id==="left") d+=`<rect x="54" y="6" width="60" height="62" fill="url(#${id})"/>`+cl(28,40);
   if(p.id==="right") d+=`<rect x="6" y="6" width="60" height="62" fill="url(#${id})"/>`+cl(88,40);
+  if(p.id==="top") d+=`<rect x="6" y="38" width="108" height="30" fill="url(#${id})"/>`+cl(60,16);
   if(p.id==="bottom") d+=`<rect x="6" y="6" width="108" height="30" fill="url(#${id})"/>`+cl(60,52);
   return `<svg class="fig" viewBox="0 0 120 74" aria-hidden="true">${d}</svg>`;
 }
@@ -2104,7 +2107,7 @@ const NAMES={arr:"Расстановка",angle:"Ракурс",place:"Полож
 function label(key,v){const L={arr:ARR,angle:ANGLES,place:PLACE,grid:GRIDS,fill:FILL,shadow:SHADOWS,light:LIGHTS,dof:DOF}[key];if(L)return find(L,v).t;return (LSOFT.find(x=>x[0]===v)||[])[1]}
 function rules(){
   const R={},G={},C={};const dis=(k,vs,why)=>[].concat(vs).forEach(v=>{(R[k]??={})[v]??=why});
-  const ar=find(ARR,S.arr),side=["left","right","bottom"];
+  const ar=find(ARR,S.arr),side=["left","right","top","bottom"];
   if(ar.float)dis("shadow",["soft","hard","long","cut"],"Объекты парят: контактная тень с поверхностью невозможна");
   else dis("shadow","float","Объекты стоят: парящая тень нужна только для левитации");
   if(!ar.multi&&S.decor==="none")dis("shadow","ao","Один объект без декора: нечего затенять между объектами");
@@ -3066,11 +3069,11 @@ function drawPreview(T){
   if(an.id==="macro")h0*=2.3;
   if(S.pod!=="none"&&an.id!=="macro")h0*=.8;
   const w0=h0*wr;
-  let cx={center:W/2,left:W*.24,right:W*.76,bottom:W/2}[place];
+  let cx={center:W/2,left:W*.24,right:W*.76,top:W/2,bottom:W/2}[place];
   if(place==="center"&&grid==="golden")cx=W*.382-it[0].dx*w0;
   if(place==="center"&&grid==="thirds")cx=W/3-it[0].dx*w0;
-  let by=place==="bottom"?H*.9:H*.5+h0*.5;
-  if(float)by-=h0*.12;
+  let by=place==="bottom"?H*.9:place==="top"?Math.min(H*.54,H*.12+h0*(float?1.2:1.05)):H*.5+h0*.5;
+  if(float&&place!=="top")by-=h0*.12;
   by=Math.min(by,H*.95);
   const groundY=by+h0*.2;
   const TD={cup:.62,bottle:.95,wine:1.12,jar:.8,box:.9,tray:.42,none:.55},PHOTO_T=["jar","bottle","cup","box","wine"];
@@ -3111,7 +3114,7 @@ function drawPreview(T){
   defs.push(`<pattern id="pvH2" width="3" height="3" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="3" stroke="${ovl}" stroke-opacity=".2" stroke-width="1"/></pattern>`);
   /* free zone for text */
   if(place!=="center"){
-    const z=place==="left"?[W*.47,H*.08,W*.47,H*.84]:place==="right"?[W*.06,H*.08,W*.47,H*.84]:[W*.08,H*.06,W*.84,H*.38];
+    const z=place==="left"?[W*.47,H*.08,W*.47,H*.84]:place==="right"?[W*.06,H*.08,W*.47,H*.84]:place==="top"?[W*.08,H*.56,W*.84,H*.38]:[W*.08,H*.06,W*.84,H*.38];
     back.push(`<rect x="${z[0]}" y="${z[1]}" width="${z[2]}" height="${z[3]}" rx="2" fill="url(#pvH2)" stroke="${ovl}" stroke-opacity=".25" stroke-width=".35" stroke-dasharray="1.6 1.2"/>`,
       `<text x="${z[0]+z[2]/2}" y="${z[1]+z[3]/2}" font-size="${Math.min(5,W*.045)}" text-anchor="middle" dominant-baseline="middle" fill="${ovl}" fill-opacity=".45" font-family="Inter Tight,sans-serif" font-weight="600" letter-spacing=".3">ТЕКСТ</text>`);
   }
