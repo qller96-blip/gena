@@ -965,6 +965,28 @@ body.glass pre#out{background:color-mix(in srgb,var(--sunk) 82%,transparent)!imp
 .ulg:first-child{margin-top:0}
 
 @media (min-width:701px){#place.grid[data-compact] .card svg.fig{width:56px}#place.grid[data-compact] .card{gap:10px;padding-right:10px}}
+
+/* roles */
+.roleset{display:flex;flex-wrap:wrap;gap:6px}
+.roleset button{all:unset;cursor:pointer;font-size:13px;font-weight:550;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel)}
+.roleset button[aria-checked="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.roleset button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.roleother{margin-top:8px;width:100%;box-sizing:border-box}
+.rolecard{gap:10px;width:min(440px,100%)}.rolecard h2{font-size:20px;margin:0}
+.aroles{display:flex;flex-wrap:wrap;gap:8px}.aroles span{font-size:13px;padding:6px 10px;border-radius:10px;background:var(--sunk);border:1px solid var(--line)}
+
+
+/* bento: odd sets ≥5 — the chosen card spans two columns */
+@media (min-width:701px){
+  main .grid.bento>.card.bwide{grid-column:span 2}
+  main .grid.bento:not([data-compact])>.card.bwide{flex-direction:row;align-items:center;gap:14px}
+  main .grid.bento:not([data-compact])>.card.bwide svg.fig,main .grid.bento:not([data-compact])>.card.bwide .sfw{width:auto;height:100%;max-height:130px;aspect-ratio:120/74;flex:none}
+  main .grid.bento:not([data-compact])>.card.bwide .meta{flex:1}
+  main .grid.bento[data-compact] .card svg.fig{width:84px}
+  #place.grid.bento[data-compact] .card svg.fig{width:84px}
+  main .grid.bento[data-compact]>.card.bwide svg.fig{width:120px}
+}
+
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -1425,6 +1447,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   <div class="ggrid" id="galGrid" aria-busy="true"></div>
 </section>
 <footer class="foot"><div class="foot-in"><span class="flogo"><svg viewBox="0 0 120 120" aria-hidden="true"><path fill="#FFF6E3" d="M26 50C24 92 42 109 60 109C78 109 96 92 94 50Z"/><g fill="none" stroke="#282F33" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5.5" d="M25 54C25 93 44 109 60 109C76 109 95 93 95 54"/><path stroke-width="4.5" d="M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84"/><path stroke-width="4.5" d="M49 93Q60 100 71 93"/></g><path fill="#282F33" d="M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z"/><path fill="#282F33" d="M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z"/><g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="28" y="59" width="27" height="22" rx="8"/><rect x="65" y="59" width="27" height="22" rx="8"/><path d="M55 67H65"/></g><circle cx="42" cy="70.5" r="3.6" fill="#282F33"/><circle cx="78" cy="70.5" r="3.6" fill="#282F33"/></svg></span><b class="fmark">GENA</b><span class="fwords"><span><i>G</i>enerative <i>E</i>ngine for <i>N</i>eural <i>A</i>rt</span><small>Генеративный движок для нейро-арта</small></span><span class="fside">Для дизайнеров КуулКлевер</span></div></footer>
+<div class="fbwrap" id="roleAsk" role="dialog" aria-modal="true" aria-labelledby="roleH" hidden><div class="fbcard rolecard"><h2 id="roleH">Кто вы в команде?</h2><p class="hint">Один вопрос: так мы поймём, кому и для каких задач нужен GENA.</p><div class="rolebox" id="rRole"><div class="roleset" role="radiogroup" aria-label="Кто вы"><button type="button" role="radio" data-role="Дизайнер">Дизайнер</button><button type="button" role="radio" data-role="Маркетолог">Маркетолог</button><button type="button" role="radio" data-role="Бренд-менеджер">Бренд-менеджер</button><button type="button" role="radio" data-role="other">Другое</button></div><input type="text" class="roleother" maxlength="40" placeholder="Ваша роль" hidden aria-label="Ваша роль"></div><p class="gerr" id="rErr" role="alert"></p><div class="fbact"><button class="btn" type="button" id="rSave">Готово</button></div></div></div>
 <div id="toast" role="status" hidden></div>
 <div class="hwrap" id="hist" role="dialog" aria-modal="true" aria-labelledby="histTitle" hidden>
   <div class="hpanel">
@@ -1494,7 +1517,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
     <form id="gForm" hidden novalidate>
       <div class="gtabs" role="tablist"><button type="button" role="tab" id="gTabUp" aria-selected="true">Регистрация</button><button type="button" role="tab" id="gTabIn" aria-selected="false">Вход</button></div>
       <label class="lbl" for="gEmail">Почта</label><input type="email" id="gEmail" autocomplete="email" required placeholder="Любая ваша почта">
-      <div id="gNameRow" hidden><label class="lbl" for="gName">Имя для команды</label><input type="text" id="gName" autocomplete="name" maxlength="40" placeholder="Например: Аня Петрова"></div>
+      <div id="gNameRow" hidden><label class="lbl" for="gName">Имя для команды</label><input type="text" id="gName" autocomplete="name" maxlength="40" placeholder="Например: Аня Петрова"><span class="lbl" style="margin-top:12px">Кто вы</span><div class="rolebox" id="gRole"><div class="roleset" role="radiogroup" aria-label="Кто вы"><button type="button" role="radio" data-role="Дизайнер">Дизайнер</button><button type="button" role="radio" data-role="Маркетолог">Маркетолог</button><button type="button" role="radio" data-role="Бренд-менеджер">Бренд-менеджер</button><button type="button" role="radio" data-role="other">Другое</button></div><input type="text" class="roleother" maxlength="40" placeholder="Ваша роль" hidden aria-label="Ваша роль"></div></div>
       <label class="lbl" for="gPass">Пароль команды</label><input type="password" id="gPass" autocomplete="current-password" required placeholder="Из письма-приглашения">
       <p class="gnote" id="gNote" hidden>Пароль у всей команды один, он в письме-приглашении.</p>
       <p class="gerr" id="gErr" role="alert"></p>
@@ -2423,12 +2446,20 @@ const Cloud={sb:null,user:null,profile:null,admin:false};
 let TPL=[],__tplDraw=null;
 const sceneOf=st=>{const o={};SCENE_KEYS.forEach(k=>o[k]=JSON.parse(JSON.stringify(st[k]??null)));return o};
 const fmtDate=t=>{try{return new Date(t).toLocaleDateString("ru-RU",{day:"numeric",month:"short"})}catch(e){return ""}};
+
+/* role picker (sign-up + one-time ask) */
+function roleVal(box){const b=box.querySelector('[aria-checked="true"]');if(!b)return "";if(b.dataset.role!=="other")return b.dataset.role;return box.querySelector(".roleother").value.trim()}
+document.querySelectorAll(".rolebox").forEach(box=>box.addEventListener("click",e=>{const b=e.target.closest("[data-role]");if(!b)return;
+  box.querySelectorAll("[data-role]").forEach(x=>x.setAttribute("aria-checked",String(x===b)));$("gErr").textContent="";$("rErr").textContent="";const o=box.querySelector(".roleother");o.hidden=b.dataset.role!=="other";if(!o.hidden)o.focus()}));
+$("rSave").addEventListener("click",async()=>{const r=roleVal($("rRole"));if(!r){$("rErr").textContent="Выберите вариант или напишите свою роль.";return}
+  const {error}=await Cloud.sb.rpc("set_my_role",{r});if(error){$("rErr").textContent="Не получилось сохранить: "+error.message;return}
+  Cloud.profile.role=r;$("roleAsk").hidden=true;document.body.classList.remove("locked");toast("Спасибо!")});
 function logEvent(kind,meta){
   if(!Cloud.sb||!Cloud.user)return;
   const scene=sceneOf(S),sig=kind+JSON.stringify(scene);
   if(kind==="copy"&&logEvent.last===sig&&Date.now()-logEvent.at<60000)return;
   logEvent.last=sig;logEvent.at=Date.now();
-  Cloud.sb.from("scene_events").insert({kind,scene,meta:Object.assign({preset:S.preset||null,src:S.src,cat:S.cat,items:S.src==="text"?S.items.map(i=>i.type):null},meta||{})}).then(()=>{},()=>{});
+  Cloud.sb.from("scene_events").insert({kind,scene,meta:Object.assign({role:(Cloud.profile&&Cloud.profile.role)||null,preset:S.preset||null,src:S.src,cat:S.cat,items:S.src==="text"?S.items.map(i=>i.type):null},meta||{})}).then(()=>{},()=>{});
 }
 
 /* ----- sign-in gate ----- */
@@ -2451,10 +2482,11 @@ const errRu=e=>{const m=String(e&&e.message||e||"");
 $("gTabIn").addEventListener("click",()=>gateMode("in"));
 $("gTabUp").addEventListener("click",()=>gateMode("up"));
 $("gForm").addEventListener("submit",async e=>{e.preventDefault();if(!Cloud.sb)return;
-  const email=$("gEmail").value.trim().toLowerCase(),password=$("gPass").value,name=$("gName").value.trim(),btn=$("gSubmit");
+  const email=$("gEmail").value.trim().toLowerCase(),password=$("gPass").value,name=$("gName").value.trim(),btn=$("gSubmit"),role=roleVal($("gRole"));
+  if(gate.mode==="up"&&!role){$("gErr").textContent="Укажите, кто вы: дизайнер, маркетолог, бренд-менеджер или другое.";return}
   $("gErr").textContent="";btn.disabled=true;
   try{
-    if(gate.mode==="up"){const {data,error}=await Cloud.sb.auth.signUp({email,password,options:{data:{name}}});if(error)throw error;
+    if(gate.mode==="up"){const {data,error}=await Cloud.sb.auth.signUp({email,password,options:{data:{name,role}}});if(error)throw error;
       if(!data.session){$("gErr").textContent="Почти готово: подтвердите почту по ссылке из письма и войдите.";gateMode("in");return}}
     else{const {error}=await Cloud.sb.auth.signInWithPassword({email,password});if(error)throw error}
   }catch(err){$("gErr").textContent=errRu(err)}finally{btn.disabled=false}});
@@ -2500,12 +2532,13 @@ async function onSession(session){
   Cloud.user=session?session.user:null;
   if(!Cloud.user){Cloud.profile=null;Cloud.admin=false;labApply();$("uwrap").hidden=true;$("histBtn").hidden=true;$("viewNav").hidden=true;$("qtTeam").hidden=true;qTab("kk");route();$("fbOpen").hidden=true;$("tpl").hidden=true;$("tOpen").hidden=true;gateMode(gate.mode);gateShow("form");return}
   gateShow("off");$("uwrap").hidden=false;$("fbOpen").hidden=false;try{localStorage.setItem("gena-known","1")}catch(e){}
-  const [{data:prof},{data:adm}]=await Promise.all([Cloud.sb.from("profiles").select("name,email").eq("id",Cloud.user.id).maybeSingle(),Cloud.sb.rpc("is_admin")]);
+  const [{data:prof},{data:adm}]=await Promise.all([Cloud.sb.from("profiles").select("name,email,role").eq("id",Cloud.user.id).maybeSingle(),Cloud.sb.rpc("is_admin")]);
   Cloud.profile=prof||{name:"",email:Cloud.user.email};Cloud.admin=adm===true;
   const nm=Cloud.profile.name||Cloud.user.email.split("@")[0];
   labApply();$("uName").textContent=nm;$("uMail").textContent=Cloud.user.email;$("uIni").textContent=nm.trim().charAt(0).toUpperCase()||"?";$("uAdmin").hidden=!Cloud.admin;
   $("tpl").hidden=false;$("qtTeam").hidden=false;$("tOpen").hidden=false;loadTemplates();
   $("histBtn").hidden=false;$("viewNav").hidden=false;loadHistory();route();
+  if(prof&&!prof.role)setTimeout(()=>{if(!Cloud.profile.role){$("roleAsk").hidden=false;document.body.classList.add("locked")}},1200);
 }
 
 /* ----- team templates ----- */
@@ -2556,7 +2589,7 @@ async function openAdmin(){
   $("adm").hidden=false;document.body.classList.add("locked");$("admBody").innerHTML=`<p class="hint">Загружаю…</p>`;$("admClose").focus();
   const [ev,pr,al,rh]=await Promise.all([
     Cloud.sb.from("scene_events").select("user_id,kind,scene,meta,created_at").order("created_at",{ascending:false}).limit(5000),
-    Cloud.sb.from("profiles").select("id,name,email,created_at"),
+    Cloud.sb.from("profiles").select("id,name,email,role,created_at"),
     Cloud.sb.from("feedback").select("id,author_name,text,screenshot,resolved,created_at,ua").order("created_at",{ascending:false}).limit(200),
     Cloud.sb.from("prompt_history").select("id,user_id,scene,rating,used_at").not("rating","is",null).order("used_at",{ascending:false}).limit(1000)]);
   ADM.rated=rh.data||[];
@@ -2589,7 +2622,7 @@ function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
     return `<div class="abox"><h4>${t}</h4>${rows.length?rows.map(([v,n])=>`<div class="abar"><span>${escA(valLabel(k,v))}</span><i style="--w:${(n/max*100).toFixed(1)}%"></i><b>${n}</b></div>`).join(""):'<p class="hint">Нет данных</p>'}</div>`}).join("");
   // per designer
   const per=profiles.map(p=>{const mine=copies.filter(e=>e.user_id===p.id),st=new Map();mine.forEach(e=>{const v=(e.scene||{}).style;st.set(v,(st.get(v)||0)+1)});
-    const fav=[...st.entries()].sort((a,b)=>b[1]-a[1])[0];return {name:p.name||p.email,email:p.email,n:mine.length,last:mine[0]?mine[0].created_at:null,fav:fav?valLabel("style",fav[0]):"—"}}).sort((a,b)=>b.n-a.n);
+    const fav=[...st.entries()].sort((a,b)=>b[1]-a[1])[0];return {name:p.name||p.email,email:p.email,role:p.role||"—",n:mine.length,last:mine[0]?mine[0].created_at:null,fav:fav?valLabel("style",fav[0]):"—"}}).sort((a,b)=>b.n-a.n);
   $("admBody").innerHTML=`
    <section><h3>Обратная связь${fbs.filter(f=>!f.resolved).length?` · новых ${fbs.filter(f=>!f.resolved).length}`:""}</h3>${fbs.length?`<ul class="afb">${fbs.map(f=>`<li class="${f.resolved?"done":""}">${f.screenshot?`<a class="shot" data-shot="${escA(f.screenshot)}" href="#" target="_blank" rel="noopener">скриншот</a>`:'<span class="shot">без скриншота</span>'}<div><p>${escA(f.text)}</p><small>${escA(f.author_name||"Коллега")} · ${fmtDate(f.created_at)} ${/Mobi/.test(f.ua||"")?"· телефон":""}</small></div><button class="fres" type="button" data-fres="${escA(f.id)}" data-v="${f.resolved?"0":"1"}">${f.resolved?"Вернуть":"Решено"}</button></li>`).join("")}</ul>`:'<p class="tempty">Пока отзывов нет.</p>'}</section>
    <div class="atiles">${tiles.map(([t,v])=>`<div><b>${v}</b><span>${t}</span></div>`).join("")}</div>
@@ -2602,7 +2635,7 @@ function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
       <div class="ameta"><b class="arate">${starsHTML(Math.round(c.avg),"",true)} ${c.avg.toFixed(1).replace(".",",")} · ${c.n} ${plur(c.n,"оценка","оценки","оценок")}</b><small class="hint">${[...c.users].map(u=>escA(names[u]||"Коллега")).join(", ")}</small><div class="achips">${sceneChips(c.scene).map(x=>`<i>${escA(x)}</i>`).join("")}</div>
       <form class="amk" data-ri="${i}"><input type="text" maxlength="60" required placeholder="Название шаблона" aria-label="Название шаблона"><button class="btn" type="submit">Сделать шаблоном</button></form></div></div>`).join(""):'<p class="tempty">Оценок пока нет. Дизайнеры ставят их в «Мои промты» после генерации.</p>'}</div></section>
    <section><h3>Какие настройки выбирают</h3><div class="agrid">${pop}</div></section>
-   <section><h3>Дизайнеры</h3><div class="atable"><table><thead><tr><th>Имя</th><th>Почта</th><th class="n">Промтов</th><th>Любимый стиль</th><th>Последний раз</th></tr></thead><tbody>${per.map(r=>`<tr><td>${escA(r.name)}</td><td>${escA(r.email)}</td><td class="n">${r.n}</td><td>${escA(r.fav)}</td><td>${r.last?fmtDate(r.last):"—"}</td></tr>`).join("")||'<tr><td colspan="5">Пока никто не зарегистрировался</td></tr>'}</tbody></table></div></section>
+   <section><h3>Команда</h3>${(()=>{const m=new Map();profiles.forEach(p=>{const r=p.role||"Не указано";m.set(r,(m.get(r)||0)+1)});const cu=new Map();copies.forEach(e=>{const pr=profiles.find(x=>x.id===e.user_id),r=(pr&&pr.role)||"Не указано";cu.set(r,(cu.get(r)||0)+1)});return `<div class="aroles">${[...m].sort((a,b)=>b[1]-a[1]).map(([r,n])=>`<span><b>${escA(r)}</b> ${n} ${plur(n,"человек","человека","человек")} · ${cu.get(r)||0} промтов</span>`).join("")}</div>`})()}<div class="atable"><table><thead><tr><th>Имя</th><th>Роль</th><th>Почта</th><th class="n">Промтов</th><th>Любимый стиль</th><th>Последний раз</th></tr></thead><tbody>${per.map(r=>`<tr><td>${escA(r.name)}</td><td>${escA(r.role)}</td><td>${escA(r.email)}</td><td class="n">${r.n}</td><td>${escA(r.fav)}</td><td>${r.last?fmtDate(r.last):"—"}</td></tr>`).join("")||'<tr><td colspan="6">Пока никто не зарегистрировался</td></tr>'}</tbody></table></div></section>
    <section><h3>Пароль команды</h3><p class="hint">С ним регистрируются новые дизайнеры, с любой почтой. Смена пароля не выкидывает тех, кто уже зарегистрирован: они входят со старым.</p>
     <form class="aadd" id="aPw"><input type="text" id="aPwNew" minlength="8" required placeholder="Новый пароль, от 8 символов" aria-label="Новый пароль команды" autocomplete="off"><button class="btn" type="submit">Сменить</button></form></section>`;
   $("admBody").querySelectorAll("[data-shot]").forEach(async a=>{const {data}=await Cloud.sb.storage.from("feedback").createSignedUrl(a.dataset.shot,3600);if(data&&data.signedUrl){a.href=data.signedUrl;a.style.backgroundImage=`url("${data.signedUrl}")`;a.textContent=""}});
@@ -2676,7 +2709,11 @@ function stepDirty(){$("steps").querySelectorAll("[data-t]").forEach(b=>{const k
 
 /* fit option rows: as many columns as cards (max 6), no half-empty rows */
 function fitGrids(){if(innerWidth<=700)return;document.querySelectorAll("main .grid").forEach(g=>{const n=[...g.children].filter(c=>c.offsetParent!==null||getComputedStyle(c).display!=="none").length;if(!n)return;
-  const w=g.clientWidth||g.parentElement.clientWidth,min=g.classList.contains("wide")?220:g.dataset.compact?150:112,cap=Math.max(2,Math.min(g.classList.contains("wide")?3:6,Math.floor((w+12)/(min+12)))),rows=Math.ceil(n/cap);g.style.setProperty("--n",Math.ceil(n/rows))})}
+  const vis=[...g.children].filter(c=>c.classList.contains("card")&&getComputedStyle(c).display!=="none");vis.forEach(c=>{c.classList.remove("bwide");c.style.gridColumn=""});g.classList.remove("bento");
+  const w=g.clientWidth||g.parentElement.clientWidth,min=g.classList.contains("wide")?220:g.dataset.compact?150:112,cap=Math.max(2,Math.min(g.classList.contains("wide")?3:6,Math.floor((w+12)/(min+12)))),rows=Math.ceil(n/cap);
+  if(n>=5&&n%2===1&&(n+1)/2<=cap&&!g.classList.contains("wide")){const cols=(n+1)/2;g.style.setProperty("--n",cols);g.classList.add("bento");vis[0].classList.add("bwide");return}
+  const c=Math.ceil(n/rows),rem=n%c;g.style.setProperty("--n",c);
+  if(rem&&c>1&&n>=3&&!g.classList.contains("wide")){g.classList.add("bento");vis[0].classList.add("bwide");vis[0].style.gridColumn=`span ${c-rem+1}`}})}
 addEventListener("resize",fitGrids);document.addEventListener("click",e=>{if(e.target.closest(".more,.adv summary,[data-v]"))requestAnimationFrame(fitGrids)});
 function update(){
   S.food=S.cat!=="none";
