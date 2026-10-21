@@ -1269,7 +1269,8 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
         <label class="tg"><input type="checkbox" id="avoid"><span>Список запретов<small>Без водяных знаков, лишнего текста и дублей.</small></span></label>
       </div>
       <button class="more" type="button" id="tgMore" aria-expanded="false" aria-controls="refToggles"><span>Как обращаться с фото</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-      <div class="sub"><div class="subh"><h3>Категория</h3><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Подсказывает нейросети, как сделать продукт аппетитным: мясо — сочным, молочное — свежим, выпечку — румяной. Для алкоголя подача сдержанная, без людей.</p></div></details></div><div class="seg" id="cats"></div></div>
+      <div class="sub"><div class="subh"><h3>Категория</h3><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Подсказывает нейросети, как сделать продукт аппетитным: мясо — сочным, молочное — свежим, выпечку — румяной. Для алкоголя подача сдержанная, без людей.</p></div></details></div><div class="seg" id="cats" role="group" aria-label="Категории, можно несколько"></div><small class="hint">Можно выбрать несколько. «Другой предмет» — если в кадре не еда и не упаковка (техника, косметика, посуда…): в промте он станет «объектом».</small></div>
+      <div class="sub"><div class="subh"><h3>Усилить</h3><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Дополнительные указания к главному объекту. Можно включить несколько. Работают с любой категорией.</p></div></details></div><div class="seg" id="enh" role="group" aria-label="Усилить, можно несколько"></div></div>
     </section>
 
     <section class="block" id="s-style">
@@ -1661,7 +1662,7 @@ const ANGLES=[
   svg:`<line class="gl" x1="14" y1="64" x2="106" y2="64"/><polygon class="fl" points="30,22 64,18 64,64 30,60"/><polygon class="fr" points="64,18 88,22 88,60 64,64"/><polygon class="lb" points="37,33 57,30.6 57,47 37,48.7"/>`},
  {id:"hq",t:"3/4 сверху",d:"Верх, перед и бок",p:"Elevated three-quarter view with natural perspective: camera about 30–35° above the product and turned about 35–45° to the side, so the top, the front and one side are all visible at once. Real lens perspective, not isometric: parallel edges converge slightly with distance and verticals taper gently downward (three-point perspective), 35–50mm lens.",
   svg:`<polygon class="ft" points="60,9 83,19 60,31 37,19"/><polygon class="fl" points="37,19 60,31 60,64 40,50"/><polygon class="fr" points="60,31 83,19 80,50 60,64"/><polygon class="lb" points="42,32 56,39.5 56,50 43.5,43"/>`},
- {id:"top",t:"Сверху",d:"Строго сверху, как раскладка",p:"Camera directly overhead, 90° top-down flat lay view, near-orthographic perspective with minimal lens distortion.",
+ {id:"top",t:"Сверху",d:"Строго сверху, как раскладка",p:"Strict top-down flat lay: the camera is directly above, pointing straight down at exactly 90°, the image plane parallel to the surface. Only the top faces of the objects are visible, no front or side faces, no horizon, no perspective tilt; near-orthographic, minimal lens distortion. Objects lie or stand on the surface as seen from above, shadows fall directly beneath and slightly to one side.",
   svg:`<rect class="ft" x="38" y="14" width="44" height="44" rx="2"/><circle cx="60" cy="36" r="11" fill="var(--fig-l)"/>`},
  {id:"iso",x:true,t:"Изометрия",d:"Как чертёж, без перспективы",p:"Isometric three-quarter view from about 35° above, orthographic projection with parallel lines and no perspective convergence, top and two sides equally visible.",
   svg:`<polygon class="ft" points="60,10 81,22 60,34 39,22"/><polygon class="fl" points="39,22 60,34 60,60 39,48"/><polygon class="fr" points="60,34 81,22 81,48 60,60"/><polygon class="lb" points="43,33 56,40.5 56,51 43,43.5"/>`},
@@ -1917,7 +1918,12 @@ const TILT=[
  {id:"right",t:"Все вправо",d:"Единый поток",rot:[16,16,16],p:"All objects share the same orientation: every object is rotated and tilted in the same direction, leaning about 10–20° to the right, as if the whole arrangement is gently turning to the right together, creating one smooth unified flow from left to right."},
  {id:"fan",t:"Веером",d:"Мягкая дуга",rot:[-14,0,14],p:"The objects fan out in one gentle arc, like a spread hand of cards: the central object stays upright and sits slightly higher, the objects on each side tilt outward about 10–15° and sit a little lower, all following one smooth symmetrical curve with even spacing."},
  {id:"varied",x:true,t:"Каждый по-своему",d:"Динамика",rot:[-22,14,-6],p:"Each object is rotated at its own angle for a dynamic, playful feel."}];
-const CATS=[["none","Без категории"],["meat","Мясо и гриль"],["dairy","Молочное"],["ready","Готовая еда"],["bakery","Выпечка и десерты"],["produce","Овощи и фрукты"],["alcohol","Вино и алкоголь"],["drinks","Напитки"]];
+const CATS=[["none","Без категории"],["meat","Мясо и гриль"],["dairy","Молочное"],["ready","Готовая еда"],["bakery","Выпечка и десерты"],["produce","Овощи и фрукты"],["alcohol","Вино и алкоголь"],["drinks","Напитки"],["other","Другой предмет"]];
+const ENH=[["sharp","Чёткость деталей","Crisp micro-detail on the hero object: sharp edges, fine surface texture and clean, readable small details."],
+ ["gloss","Блики и глянец","Beautiful controlled specular highlights: clean glossy reflections and bright rim highlights that define the object's form, no blown-out areas."],
+ ["vivid","Сочность цвета","Rich, saturated, true-to-life colors with deep contrast, vibrant but natural, never oversaturated or neon."],
+ ["texture","Фактура материала","Tactile material rendering: visible grain, weave, brushed or matte finishes exactly as the real material looks."],
+ ["hero","Премиальная подача","Hero-object treatment: immaculate, flawless surfaces, no dust, scratches or fingerprints, polished commercial finish."]];
 const CATP={meat:"Meat looks fresh and juicy: natural marbling, moist surface, deep natural red and appetizing seared crust where cooked; never grey, dry or plastic.",
  dairy:"Dairy looks clean and fresh: creamy texture, pure milky whites, light natural condensation on chilled packaging.",
  ready:"Ready meals look freshly cooked and homemade: warm, appetizing, visible natural textures, gentle steam where appropriate.",
@@ -1953,7 +1959,7 @@ const DOF=[
 const RATIOS=[["21:9",21,9],["1:1",1,1],["4:5",4,5],["3:4",3,4],["2:3",2,3],["9:16",9,16],["16:9",16,9],["3:2",3,2]];
 
 /* ---------- STATE ---------- */
-const DEF={table:false,tOcc:"plain",tShape:"round",tSize:"dining",tMat:"oak",tCloth:"none",bgText:"",style:"fintech",angle:"e45",arr:"cluster",place:"center",grid:"golden",tilt:"left",fill:"70",light:"auto",lcount:"all",lside:"left",lsoft:"soft",ltemp:"neutral",noCrop:true,dof:"all",objList:"",isolate:true,scale:true,food:false,bg:"grad",color:"#F3D9E4",g1:"#F4F6FB",g2:"#E2E8F5",gbase:"#E2E8F5",gdir:"radial",gmode:"pal",surface:"lwood",decor:"few",decorAuto:true,shadow:"ao",ratio:"1:1",cat:"none",product:"",props:"",src:"photo",items:[{type:"cup",mat:"matte",color:"#F5F5F2",what:"",label:"",details:""}],sv:{},pod:"none",podShape:"cyl",podTiers:"2",podCol:"bg",rebuild:true,keepProduct:true,keepText:true,avoid:true};
+const DEF={cats:[],enh:[],table:false,tOcc:"plain",tShape:"round",tSize:"dining",tMat:"oak",tCloth:"none",bgText:"",style:"fintech",angle:"e45",arr:"cluster",place:"center",grid:"golden",tilt:"left",fill:"70",light:"auto",lcount:"all",lside:"left",lsoft:"soft",ltemp:"neutral",noCrop:true,dof:"all",objList:"",isolate:true,scale:true,food:false,bg:"grad",color:"#F3D9E4",g1:"#F4F6FB",g2:"#E2E8F5",gbase:"#E2E8F5",gdir:"radial",gmode:"pal",surface:"lwood",decor:"few",decorAuto:true,shadow:"ao",ratio:"1:1",cat:"none",product:"",props:"",src:"photo",items:[{type:"cup",mat:"matte",color:"#F5F5F2",what:"",label:"",details:""}],sv:{},pod:"none",podShape:"cyl",podTiers:"2",podCol:"bg",rebuild:true,keepProduct:true,keepText:true,avoid:true};
 const freshS=()=>JSON.parse(JSON.stringify(DEF));
 let S=freshS();
 try{const s=JSON.parse(localStorage.getItem("ppc-v7")||"null");if(s)S=Object.assign(freshS(),s)}catch(e){}
@@ -1963,7 +1969,7 @@ function migrate(){
   if(m[S.surface]){S.sv[m[S.surface][0]]=m[S.surface][1];S.surface=m[S.surface][0]}
   if(S.surface==="podium"){S.surface="wood";if(S.pod==="none")S.pod="soft"}
   if(!SURF.some(x=>x.id===S.surface))S.surface="wood";
-  if(S.fill==="75")S.fill="70";if(!S.cat)S.cat="none";
+  if(S.fill==="75")S.fill="70";if(!S.cat)S.cat="none";if(!Array.isArray(S.cats))S.cats=S.cat&&S.cat!=="none"?[S.cat]:[];if(!Array.isArray(S.enh))S.enh=[];
   const tmap={can:"jar",pouch:"box",tube:"cup"};S.items.forEach(it=>{if(tmap[it.type])it.type=tmap[it.type];if(!ICONS[it.type])it.type="cup"});
 }
 migrate();
@@ -2140,7 +2146,10 @@ void PAL.map(g=>({g:g.g,c:g.c.filter(x=>!["#FFFFFF","#F7F7F7"].includes(x[1]))})
 $("gdir").innerHTML=GDIR.map(([v,l])=>`<button class="chip" type="button" data-v="${v}" aria-pressed="false">${l}</button>`).join("");
 $("decor").innerHTML=cardsHTML(DECOR,decorSVG);
 const chipHTML=list=>list.map(([v,l])=>`<button class="chip" type="button" data-v="${v}" aria-pressed="false">${l}</button>`).join("");
-$("cats").innerHTML=chipHTML(CATS);
+$("cats").innerHTML=chipHTML(CATS);$("enh").innerHTML=chipHTML(ENH);
+$("cats").addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(!b)return;const v=b.dataset.v;
+  if(v==="none")S.cats=[];else S.cats=S.cats.includes(v)?S.cats.filter(x=>x!==v):[...S.cats,v];update()});
+$("enh").addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(!b)return;const v=b.dataset.v;S.enh=S.enh.includes(v)?S.enh.filter(x=>x!==v):[...S.enh,v];update()});
 $("tOcc").innerHTML=cardsHTML(TOCC,occSVG);$("tShape").innerHTML=chipHTML(TSHAPE);$("tSize").innerHTML=chipHTML(TSIZE);$("tMat").innerHTML=chipHTML(TMAT);$("tCloth").innerHTML=chipHTML(TCLOTH);
 $("standSeg").addEventListener("click",e=>{const b=e.target.closest("[data-st]");if(!b)return;const v=b.dataset.st;
   if(v==="none"){S.table=false;S.pod="none"}else if(v==="pod"){S.table=false;if(S.pod==="none")S.pod="soft"}else{S.table=true;S.pod="none"}update()});
@@ -2155,7 +2164,7 @@ const RORDER=["auto","1:1","4:5","3:4","2:3","9:16","3:2","16:9","21:9"];
 const rIcon=(r,box=22)=>{if(r==="auto")return `<i class="ri auto" style="width:${box*.7}px;height:${box*.7}px"></i>`;const [,w,h]=find(RATIOS,r),k=box/Math.max(w,h);return `<i class="ri" style="width:${Math.round(w*k)}px;height:${Math.round(h*k)}px"></i>`};
 $("ratios").innerHTML=RORDER.map(r=>`<button class="ropt" type="button" role="option" data-v="${r}" aria-pressed="false"><span class="rshape">${rIcon(r)}</span><b>${r==="auto"?"Авто":r}</b><small>${RHINT[r]}</small></button>`).join("");
 
-[["styles","style"],["angles","angle"],["arr","arr"],["place","place"],["grids","grid"],["shadows","shadow"],["bgmode","bg"],["surfaces","surface"],["cats","cat"],["srcSeg","src"],["pods","pod"],["podShape","podShape"],["podTiers","podTiers"],["decor","decor"],["tilt","tilt"],["fill","fill"],["dof","dof"],["lights","light"],["lightsX","light"],["anglesX","angle"],["lside","lside"],["lsoft","lsoft"],["ltemp","ltemp"],["ratios","ratio"]].forEach(([el,k])=>bindPick($(el),k));
+[["styles","style"],["angles","angle"],["arr","arr"],["place","place"],["grids","grid"],["shadows","shadow"],["bgmode","bg"],["surfaces","surface"],["srcSeg","src"],["pods","pod"],["podShape","podShape"],["podTiers","podTiers"],["decor","decor"],["tilt","tilt"],["fill","fill"],["dof","dof"],["lights","light"],["lightsX","light"],["anglesX","angle"],["lside","lside"],["lsoft","lsoft"],["ltemp","ltemp"],["ratios","ratio"]].forEach(([el,k])=>bindPick($(el),k));
 $("pals").addEventListener("click",e=>{const b=e.target.closest("[data-c]");if(!b)return;S.color=b.dataset.c;update()});
 $("custom").addEventListener("input",e=>{S.color=e.target.value.toUpperCase();update()});
 $("gpals").addEventListener("click",e=>{const b=e.target.closest("[data-gb]");if(!b)return;S.gbase=b.dataset.gb;S.gmode="pal";S.g1=lighten(S.gbase,.38);S.g2=S.gbase;update()});
@@ -2277,7 +2286,8 @@ function sections(){
   const ol=S.objList.split("\n").map(x=>x.trim()).filter(Boolean);
   if(ol.length)o+="\nObjects within the group:\n"+ol.map((x,i)=>`${i+1}. ${x}`).join("\n");
   out.push(["OBJECTS",o]);
-  if(CATP[S.cat])out.push(["FOOD",CATP[S.cat]]);
+  {const fp=S.cats.map(c=>CATP[c]).filter(Boolean);if(fp.length)out.push(["FOOD",fp.join(" ")])}
+  if(S.enh.length)out.push(["DETAIL",S.enh.map(k=>ENH.find(x=>x[0]===k)[2]).join(" ")]);
   out.push(["CAMERA",an.p]);
 
   let c=pl.p; if(gr.p)c+=" "+gr.p;
@@ -2336,7 +2346,16 @@ function sections(){
   if(noCrop)key.push("fully inside the frame, nothing cropped");
   if(S.pod!=="none")key.push(find(PODS,S.pod).t==="Мягкие"?"soft rounded podiums":"display podiums");
   key.push(S.bg==="scene"?sfEn():S.bg==="solid"?`plain ${S.color} background`:S.bg==="text"?"background as described":"plain gradient background");
+  if(an.id==="top"){key.unshift("STRICT 90° TOP-DOWN VIEW, camera pointing straight down");
+    const ci=out.findIndex(x=>x[0]==="CAMERA");if(ci>1){const c=out.splice(ci,1)[0];out.splice(1,0,c)}
+    out[0][1]="Strict overhead flat lay: the camera looks straight down at exactly 90°. "+out[0][1];
+    const av=out.find(x=>x[0]==="AVOID"),ban="front view, side view, three-quarter or eye-level angle, tilted or angled perspective, visible horizon line, visible table edge or front faces of objects";
+    if(av)av[1]=av[1].replace(/\.$/,", "+ban+".");else out.push(["AVOID",ban+"."])}
   out.push(["KEY",key.join(", ")+"."]);
+  if(S.cats.includes("other")){const w=t=>t.replace(/premium retail packaging that matches/g,"a clean, realistic object that matches").replace(/as if it were a real product from a shop shelf/g,"as if it were a real, carefully made object")
+      .replace(/\bProducts\b/g,"Objects").replace(/\bproducts\b/g,"objects").replace(/\bProduct\b/g,"Object").replace(/\bproduct\b/g,"object").replace(/\bproduct's\b/g,"object's").replace(/\bPRODUCTS\b/g,"OBJECTS").replace(/\bPRODUCT\b/g,"OBJECT")
+      .replace(/ The food and drinks look fresh, juicy, appetizing and natural, rich in texture and color, never plastic or artificial\./,S.cats.some(c=>c!=="other")?" The food and drinks look fresh, juicy, appetizing and natural, rich in texture and color, never plastic or artificial.":"");
+    return out.map(([h,t])=>[w(h),w(t)])}
   return out;
 }
 const esc=t=>t.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
@@ -2516,7 +2535,7 @@ function logEvent(kind,meta){
   const scene=sceneOf(S),sig=kind+JSON.stringify(scene);
   if(kind==="copy"&&logEvent.last===sig&&Date.now()-logEvent.at<60000)return;
   logEvent.last=sig;logEvent.at=Date.now();
-  Cloud.sb.from("scene_events").insert({kind,scene,meta:Object.assign({role:(Cloud.profile&&Cloud.profile.role)||null,preset:S.preset||null,src:S.src,cat:S.cat,items:S.src==="text"?S.items.map(i=>i.type):null},meta||{})}).then(()=>{},()=>{});
+  Cloud.sb.from("scene_events").insert({kind,scene,meta:Object.assign({role:(Cloud.profile&&Cloud.profile.role)||null,preset:S.preset||null,src:S.src,cat:S.cat,cats:S.cats,enh:S.enh,items:S.src==="text"?S.items.map(i=>i.type):null},meta||{})}).then(()=>{},()=>{});
 }
 
 /* ----- sign-in gate ----- */
@@ -2760,7 +2779,7 @@ function syncPod(){
 function mark(el,v){el.querySelectorAll("[data-v]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===v)))}
 
 /* step dots: which steps differ from the defaults */
-const STEP_KEYS={"s-ref":["src","cat","product","items","isolate","scale","food","rebuild","keepProduct","keepText","avoid"],"s-style":["style"],"s-bg":["bg","color","g1","g2","gbase","gdir","gmode","surface","sv","decor","decorAuto","props","bgText"],"s-pod":["pod","podShape","podTiers","podCol","table","tOcc","tShape","tSize","tMat","tCloth"],"s-comp":["arr","place","grid","fill","tilt","objList","noCrop"],"s-cam":["angle"],"s-light":["light","lcount","lside","lsoft","ltemp"],"s-fin":["shadow","dof"]};
+const STEP_KEYS={"s-ref":["src","cats","enh","product","items","isolate","scale","food","rebuild","keepProduct","keepText","avoid"],"s-style":["style"],"s-bg":["bg","color","g1","g2","gbase","gdir","gmode","surface","sv","decor","decorAuto","props","bgText"],"s-pod":["pod","podShape","podTiers","podCol","table","tOcc","tShape","tSize","tMat","tCloth"],"s-comp":["arr","place","grid","fill","tilt","objList","noCrop"],"s-cam":["angle"],"s-light":["light","lcount","lside","lsoft","ltemp"],"s-fin":["shadow","dof"]};
 const stepRel=k=>({surface:S.bg==="scene",sv:S.bg==="scene",color:S.bg==="solid",g1:S.bg==="grad",g2:S.bg==="grad",gbase:S.bg==="grad",gdir:S.bg==="grad",gmode:S.bg==="grad",bgText:S.bg==="text",podShape:S.pod!=="none",podTiers:S.pod!=="none",podCol:S.pod!=="none"})[k]??true;
 function stepDirty(){$("steps").querySelectorAll("[data-t]").forEach(b=>{const ks=(STEP_KEYS[b.dataset.t]||[]).filter(stepRel),d=ks.some(k=>JSON.stringify(S[k]??null)!==JSON.stringify(DEF[k]??null));
   b.classList.toggle("dirty",d);b.title=b.title.replace(/ · изменено$/,"")+(d?" · изменено":"")})}
@@ -2774,7 +2793,7 @@ function fitGrids(){if(innerWidth<=700)return;document.querySelectorAll("main .g
   if(rem&&c>1&&n>=3&&!g.classList.contains("wide")){g.classList.add("bento");vis[0].classList.add("bwide");vis[0].style.gridColumn=`span ${c-rem+1}`}})}
 addEventListener("resize",fitGrids);document.addEventListener("click",e=>{if(e.target.closest(".more,.adv summary,[data-v]"))requestAnimationFrame(fitGrids)});
 function update(){
-  S.food=S.cat!=="none";
+  S.cat=S.cats[0]||"none";S.food=S.cats.some(c=>c!=="other");
   const notes=autofix(),cr=rules();
   mark($("styles"),S.style);mark($("angles"),S.angle);mark($("arr"),S.arr);mark($("place"),S.place);mark($("grids"),S.grid);
   mark($("shadows"),S.shadow);mark($("bgmode"),S.bg);mark($("surfaces"),S.surface);mark($("decor"),S.decor);mark($("ratios"),S.ratio);
@@ -2785,7 +2804,7 @@ function update(){
   {const pi=pinfo(S.color);$("solidRead").innerHTML=`<i style="background:${S.color}"></i><span>${pi?`<b>${pi[0]}</b>`:"Свой цвет"}</span><code>${S.color}</code>`;
    const ga=S.gmode==="pal"?lighten(S.gbase,.38):S.g1,gb=S.gmode==="pal"?S.gbase:S.g2,gi=S.gmode==="pal"?pinfo(S.gbase):null;
    $("gradRead").innerHTML=`<i style="background:${gradCss(ga,gb,S.gdir)}"></i><span>${gi?`<b>${gi[0]}</b>`:"Свои цвета"}</span><code>${ga} → ${gb}</code>`;}
-  mark($("srcSeg"),S.src);mark($("cats"),S.cat);["rebuild","isolate","keepProduct"].forEach(id=>{$(id).closest(".tg").hidden=S.src==="text"});$("srcText").hidden=S.src!=="text";$("srcPhoto").hidden=S.src==="text";syncProds();
+  mark($("srcSeg"),S.src);$("cats").querySelectorAll("[data-v]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v==="none"?!S.cats.length:S.cats.includes(b.dataset.v))));$("enh").querySelectorAll("[data-v]").forEach(b=>b.setAttribute("aria-pressed",String(S.enh.includes(b.dataset.v))));["rebuild","isolate","keepProduct"].forEach(id=>{$(id).closest(".tg").hidden=S.src==="text"});$("srcText").hidden=S.src!=="text";$("srcPhoto").hidden=S.src==="text";syncProds();
   mark($("pods"),S.pod);mark($("podShape"),S.podShape);mark($("podTiers"),S.podTiers);syncPod();syncTable();syncSurf();
   $("bgText").hidden=S.bg!=="text";if($("bgTextIn").value!==(S.bgText||""))$("bgTextIn").value=S.bgText||"";$("bgSolid").hidden=S.bg!=="solid";$("bgGrad").hidden=S.bg!=="grad";$("bgScene").hidden=S.bg!=="scene";
   if($("product").value!==S.product)$("product").value=S.product;
@@ -2807,7 +2826,7 @@ function update(){
   stepDirty();requestAnimationFrame(fitGrids);
   const n=plain().length;$("count").textContent=n+" симв.";
   const bgL=S.bg==="text"?"Фон: свой текст":S.bg==="solid"?"Фон "+((pinfo(S.color)||[S.color])[0]):S.bg==="grad"?"Градиент "+(S.gmode==="pal"?(pinfo(S.gbase)||[""])[0]:"свой"):sfLabel();
-  const chips=[...(S.cat!=="none"?[[find(CATS,S.cat)[1],"s-ref"]]:[]),...(S.src==="text"?[[S.items.length===1?"Продукт: описание":`Продуктов: ${S.items.length}`,"s-ref"]]:[]),[find(STYLES,S.style).t,"s-style"],["Свет: "+find(LIGHTS,S.light).t.toLowerCase(),"s-light"],[find(ANGLES,S.angle).t,"s-cam"],[ar.t,"s-comp"],...(ar.float?[[find(TILT,S.tilt).t,"s-comp"]]:[]),[find(PLACE,S.place).t,"s-comp"],[find(GRIDS,S.grid).t,"s-comp"],[bgL,"s-bg"],...(S.pod!=="none"?[["Подиум: "+find(PODS,S.pod).t.toLowerCase(),"s-pod"]]:[]),...(S.table?[["Стол: "+find(TOCC,S.tOcc).t.toLowerCase(),"s-pod"]]:[]),["Декор: "+find(DECOR,S.decor).t.toLowerCase(),"s-bg"],["Масштаб "+S.fill+"%","s-comp"],["Тень: "+shd.t.toLowerCase(),"s-fin"],[S.ratio==="auto"?"Формат авто":S.ratio,"pvbox"]];
+  const chips=[...S.cats.map(c=>[find(CATS,c)[1],"s-ref"]),...S.enh.map(k=>[ENH.find(x=>x[0]===k)[1],"s-ref"]),...(S.src==="text"?[[S.items.length===1?"Продукт: описание":`Продуктов: ${S.items.length}`,"s-ref"]]:[]),[find(STYLES,S.style).t,"s-style"],["Свет: "+find(LIGHTS,S.light).t.toLowerCase(),"s-light"],[find(ANGLES,S.angle).t,"s-cam"],[ar.t,"s-comp"],...(ar.float?[[find(TILT,S.tilt).t,"s-comp"]]:[]),[find(PLACE,S.place).t,"s-comp"],[find(GRIDS,S.grid).t,"s-comp"],[bgL,"s-bg"],...(S.pod!=="none"?[["Подиум: "+find(PODS,S.pod).t.toLowerCase(),"s-pod"]]:[]),...(S.table?[["Стол: "+find(TOCC,S.tOcc).t.toLowerCase(),"s-pod"]]:[]),["Декор: "+find(DECOR,S.decor).t.toLowerCase(),"s-bg"],["Масштаб "+S.fill+"%","s-comp"],["Тень: "+shd.t.toLowerCase(),"s-fin"],[S.ratio==="auto"?"Формат авто":S.ratio,"pvbox"]];
   $("summary").innerHTML=chips.map(([l,t])=>`<button type="button" data-t="${t}">${esc(l)}</button>`).join("");
   syncRatio();syncTg();drawPreview();if($("qgrid").childElementCount)syncPresets();if(window.Hero)Hero.setLabels(chips.map(c=>c[0]));
   $("mstat").textContent=find(STYLES,S.style).t+" · "+find(ANGLES,S.angle).t+" · "+(S.ratio==="auto"?"формат авто":S.ratio);
