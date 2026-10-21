@@ -1289,7 +1289,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
     </div>
     <button class="hbtn" type="button" id="histBtn" hidden aria-haspopup="dialog" aria-expanded="false" aria-controls="hist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3 4v4.5h4.5"/><path d="M12 7.5V12l3 2"/></svg><span class="hl">Мои промты</span><b class="badge" id="histBadge" hidden aria-label="без оценки">0</b></button>
     <div class="uwrap" id="uwrap" hidden><button class="ubtn" type="button" id="uBtn" aria-haspopup="true" aria-expanded="false" aria-controls="uPop" aria-label="Профиль"><span id="uIni">?</span></button>
-      <div class="pop upop" id="uPop" hidden><p class="uwho"><b id="uName"></b><small id="uMail"></small></p><button class="opt uopt" type="button" id="uAdmin" hidden><span>Аналитика и доступ</span></button><button class="opt uopt" type="button" id="uOnb" hidden><span>Как работать</span></button><div class="uapp"><p class="uapph">Оформление</p>
+      <div class="pop upop" id="uPop" hidden><p class="uwho"><b id="uName"></b><small id="uMail"></small></p><button class="opt uopt" type="button" id="uAdmin" hidden><span>Аналитика и доступ</span></button><button class="opt uopt" type="button" id="uOnb"><span>Как работать</span></button><div class="uapp"><p class="uapph">Оформление</p>
         
         <div class="gsort uthm" id="uThm" role="radiogroup" aria-label="Тема"><button type="button" role="radio" data-th="light" aria-checked="false">Светлая</button><button type="button" role="radio" data-th="dark" aria-checked="false">Тёмная</button><button type="button" role="radio" data-th="auto" aria-checked="false">Авто</button></div>
         <div class="uaccw"><div class="uacc" id="uAcc" role="radiogroup" aria-label="Акцентный цвет"><button type="button" role="radio" data-ac="sage" title="Шалфей" aria-label="Шалфей"></button><button type="button" role="radio" data-ac="graphite" title="Графит" aria-label="Графит"></button><button type="button" role="radio" data-ac="ocean" title="Океан" aria-label="Океан"></button><button type="button" role="radio" data-ac="terra" title="Терракота" aria-label="Терракота"></button><button type="button" role="radio" data-ac="plum" title="Слива" aria-label="Слива"></button><button type="button" role="radio" data-ac="mint" title="Мята" aria-label="Мята"></button><button type="button" role="radio" data-ac="indigo" title="Индиго" aria-label="Индиго"></button><button type="button" role="radio" data-ac="rose" title="Роза" aria-label="Роза"></button><button type="button" role="radio" data-ac="ochre" title="Охра" aria-label="Охра"></button><button type="button" role="radio" data-ac="slate" title="Сланец" aria-label="Сланец"></button></div><span class="uaccn" id="uAccN"></span></div><div class="ubgt" id="uBg"><label class="tg"><input type="checkbox" id="bgColor"><span>Цветной фон</span></label><label class="tg"><input type="checkbox" id="bgMove"><span>Движение фона и сфер</span></label></div></div>
@@ -2584,6 +2584,9 @@ const ONB={i:0};
 function onbGo(i){ONB.i=Math.max(0,Math.min(3,i));document.querySelectorAll("#onb .ob-slide").forEach(sl=>{const on=+sl.dataset.i===ONB.i;sl.hidden=!on;if(on){const st=sl.querySelector(".ob-stage"),c=st.firstElementChild;st.replaceChild(c.cloneNode(true),c)}});
   $("onbDots").querySelectorAll("[data-go]").forEach(b=>b.setAttribute("aria-current",String(+b.dataset.go===ONB.i)));$("onbPrev").style.visibility=ONB.i?"visible":"hidden";$("onbNext").textContent=ONB.i===3?"Начать":"Дальше"}
 function onbOpen(){$("onb").hidden=false;document.body.classList.add("locked");onbGo(0);$("onbNext").focus()}
+/* shown once per browser on the next visit, new sign-ups included */
+function onbAuto(){let seen=null;try{seen=localStorage.getItem("gena-onb-v1")}catch(e){}if(seen||!$("roleAsk").hidden||!$("onb").hidden||!$("gate").hidden)return;
+  try{localStorage.setItem("gena-onb-v1",new Date().toISOString())}catch(e){}onbOpen()}
 function onbClose(){$("onb").hidden=true;document.body.classList.remove("locked")}
 $("uOnb").addEventListener("click",()=>{userMenu(false);onbOpen()});
 $("onbX").addEventListener("click",onbClose);$("onb").addEventListener("click",e=>{if(e.target===$("onb"))onbClose()});
@@ -2656,7 +2659,7 @@ document.querySelectorAll(".rolebox").forEach(box=>box.addEventListener("click",
   box.querySelectorAll("[data-role]").forEach(x=>x.setAttribute("aria-checked",String(x===b)));$("gErr").textContent="";$("rErr").textContent="";const o=box.querySelector(".roleother");o.hidden=b.dataset.role!=="other";if(!o.hidden)o.focus()}));
 $("rSave").addEventListener("click",async()=>{const r=roleVal($("rRole"));if(!r){$("rErr").textContent="Выберите вариант или напишите свою роль.";return}
   const {error}=await Cloud.sb.rpc("set_my_role",{r});if(error){$("rErr").textContent="Не получилось сохранить: "+error.message;return}
-  Cloud.profile.role=r;$("roleAsk").hidden=true;document.body.classList.remove("locked");toast("Спасибо!")});
+  Cloud.profile.role=r;$("roleAsk").hidden=true;document.body.classList.remove("locked");toast("Спасибо!");setTimeout(onbAuto,600)});
 function logEvent(kind,meta){
   if(!Cloud.sb||!Cloud.user)return;
   const scene=sceneOf(S),sig=kind+JSON.stringify(scene);
@@ -2738,10 +2741,10 @@ async function onSession(session){
   const [{data:prof},{data:adm}]=await Promise.all([Cloud.sb.from("profiles").select("name,email,role").eq("id",Cloud.user.id).maybeSingle(),Cloud.sb.rpc("is_admin")]);
   Cloud.profile=prof||{name:"",email:Cloud.user.email};Cloud.admin=adm===true;
   const nm=Cloud.profile.name||Cloud.user.email.split("@")[0];
-  labApply();$("uName").textContent=nm;$("uMail").textContent=Cloud.user.email;$("uIni").textContent=nm.trim().charAt(0).toUpperCase()||"?";$("uAdmin").hidden=!Cloud.admin;$("uOnb").hidden=!Cloud.admin;
+  labApply();$("uName").textContent=nm;$("uMail").textContent=Cloud.user.email;$("uIni").textContent=nm.trim().charAt(0).toUpperCase()||"?";$("uAdmin").hidden=!Cloud.admin;$("uOnb").hidden=false;
   $("tpl").hidden=false;$("qtTeam").hidden=false;$("tOpen").hidden=false;loadTemplates();
   $("histBtn").hidden=false;$("viewNav").hidden=false;loadHistory();route();
-  if(prof&&!prof.role)setTimeout(()=>{if(!Cloud.profile.role){$("roleAsk").hidden=false;document.body.classList.add("locked")}},1200);
+  if(prof&&!prof.role)setTimeout(()=>{if(!Cloud.profile.role){$("roleAsk").hidden=false;document.body.classList.add("locked")}},1200);setTimeout(onbAuto,1500);
 }
 
 /* ----- team templates ----- */
