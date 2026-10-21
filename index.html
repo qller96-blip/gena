@@ -1004,6 +1004,75 @@ body.glass pre#out{background:color-mix(in srgb,var(--sunk) 82%,transparent)!imp
 .mirseg button[aria-checked="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
 #grids.mir .card svg.fig{transform:scaleX(-1)}
 
+
+/* v32: onboarding tour */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.obwrap{z-index:97}
+.obcard{position:relative;width:min(460px,100%);padding:20px 22px 18px;gap:0;text-align:center;animation:donein .35s var(--ease)}
+.obx{position:absolute;top:10px;right:10px;width:36px;height:36px}
+.ob-slide{display:flex;flex-direction:column;align-items:center;gap:6px;animation:obin .35s var(--ease)}
+@keyframes obin{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.ob-slide h2{font-size:22px;margin:14px 0 0;letter-spacing:-.01em}
+.ob-slide p{margin:0;color:var(--muted);font-size:14px}
+.ob-stage{width:100%;height:210px;border-radius:18px;background:var(--sunk);border:1px solid var(--line);position:relative;overflow:hidden;margin-top:18px}
+.ob-stage>div{position:absolute;inset:0}
+.ob-foot{display:flex;align-items:center;gap:8px;margin-top:20px}
+.ob-dots{display:flex;gap:6px;margin-right:auto}
+.ob-dots button{all:unset;cursor:pointer;width:8px;height:8px;border-radius:4px;background:var(--line);transition:width var(--t-fast) var(--ease),background var(--t-fast)}
+.ob-dots button[aria-current="true"]{width:22px;background:var(--accent)}
+.ob-dots button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ob-cur{position:absolute;width:26px;height:26px;z-index:3;filter:drop-shadow(0 2px 3px rgba(0,0,0,.2))}
+/* 1: tiles get tapped */
+.ob-tiles{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;grid-template-columns:repeat(3,78px);gap:10px}
+.ob-tiles i{height:64px;border-radius:12px;background:var(--panel);border:1.5px solid var(--line);position:relative}
+.ob-tiles i::after{content:"";position:absolute;left:10px;right:24px;bottom:10px;height:6px;border-radius:3px;background:var(--line)}
+.ob-tiles .t1{animation:obpick 4.4s var(--ease) infinite}.ob-tiles .t5{animation:obpick 4.4s var(--ease) infinite;animation-delay:1.6s}
+@keyframes obpick{0%,28%{border-color:var(--line);box-shadow:none}34%,100%{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}}
+.ob-s1 .ob-cur{animation:obc1 4.4s var(--ease) infinite}
+@keyframes obc1{0%{left:72%;top:84%}26%{left:52%;top:40%;transform:scale(1)}30%{transform:scale(.82)}34%{transform:scale(1)}58%{left:72%;top:74%;transform:scale(1)}63%{transform:scale(.82)}67%,100%{left:72%;top:74%;transform:scale(1)}}
+/* 2: copy + confetti */
+.ob-lines{position:absolute;left:50%;top:34px;transform:translateX(-50%);width:220px;display:flex;flex-direction:column;gap:8px}
+.ob-lines i{height:8px;border-radius:4px;background:var(--line)}.ob-lines i:nth-child(2){width:86%}.ob-lines i:nth-child(3){width:62%}
+.ob-btn{position:absolute;left:50%;top:104px;transform:translateX(-50%);width:200px;height:44px;border-radius:14px;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;gap:10px;animation:obpress 3.6s var(--ease) infinite}
+.ob-btn svg{width:18px;height:18px}.ob-btn span{width:90px;height:7px;border-radius:4px;background:color-mix(in srgb,var(--accent-ink) 65%,transparent)}
+@keyframes obpress{0%,36%{transform:translateX(-50%) scale(1)}40%{transform:translateX(-50%) scale(.94)}46%,100%{transform:translateX(-50%) scale(1)}}
+.ob-s2 .ob-cur{animation:obc2 3.6s var(--ease) infinite}
+@keyframes obc2{0%{left:78%;top:86%}34%{left:56%;top:124px}40%{transform:scale(.82)}46%{transform:scale(1)}100%{left:56%;top:124px}}
+.ob-conf i{position:absolute;left:50%;top:126px;width:7px;height:7px;border-radius:2px;opacity:0;animation:obconf 3.6s cubic-bezier(.15,.7,.3,1) infinite}
+.ob-conf i:nth-child(odd){background:var(--detail)}.ob-conf i:nth-child(even){background:var(--accent)}.ob-conf i:nth-child(3n){border-radius:50%;background:var(--fig-l)}
+@keyframes obconf{0%,40%{opacity:0;transform:translate(0,0) rotate(0)}44%{opacity:1}90%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(260deg)}}
+.ob-conf i:nth-child(1){--x:-120px;--y:-80px}.ob-conf i:nth-child(2){--x:-80px;--y:-110px}.ob-conf i:nth-child(3){--x:-30px;--y:-120px}.ob-conf i:nth-child(4){--x:30px;--y:-118px}.ob-conf i:nth-child(5){--x:84px;--y:-104px}
+.ob-conf i:nth-child(6){--x:126px;--y:-70px}.ob-conf i:nth-child(7){--x:-140px;--y:-20px}.ob-conf i:nth-child(8){--x:140px;--y:-16px}.ob-conf i:nth-child(9){--x:-60px;--y:40px}.ob-conf i:nth-child(10){--x:70px;--y:44px}
+/* 3: drag into AI window */
+.ob-s3{left:50%!important;width:340px;margin-left:-170px}
+.ob-ai{position:absolute;left:150px;top:28px;width:180px;height:150px;border-radius:16px;background:var(--panel);border:1.5px solid var(--line)}
+.ob-ai-h{position:absolute;left:14px;top:14px;width:60px;height:8px;border-radius:4px;background:var(--line)}
+.ob-ai-b{position:absolute;left:14px;right:14px;top:32px;height:58px;border-radius:10px;background:var(--sunk)}
+.ob-ai-in{position:absolute;left:10px;right:10px;bottom:10px;height:36px;border-radius:12px;border:1.5px solid var(--line);display:flex;align-items:center;gap:6px;padding:0 8px}
+.ob-ai-in b,.ob-drag{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;color:var(--accent)}
+.ob-ai-in b{background:var(--accent-soft);opacity:0}
+.ob-ai-in b svg,.ob-drag svg{width:16px;height:16px}
+.ob-ai-in .d1{animation:obland 5s var(--ease) infinite;animation-delay:0s}.ob-ai-in .d2{animation:obland 5s var(--ease) infinite;animation-delay:1.2s}.ob-ai-in .d3{animation:obland 5s var(--ease) infinite;animation-delay:2.4s}
+@keyframes obland{0%,22%{opacity:0;transform:scale(.6)}26%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
+.ob-drag{position:absolute;background:var(--panel);border:1.5px solid var(--line);box-shadow:0 6px 14px rgba(0,0,0,.12);left:40px;top:var(--t);animation:obdrag 5s var(--ease) infinite;animation-delay:var(--d)}
+.ob-drag.g1{--t:44px;--d:0s}.ob-drag.g2{--t:92px;--d:1.2s;color:var(--mark)}.ob-drag.g3{--t:140px;--d:2.4s;color:var(--mark)}
+@keyframes obdrag{0%,4%{transform:none;opacity:1}20%{transform:translate(var(--tx),var(--ty)) scale(1.06);opacity:1}24%,100%{opacity:0;transform:translate(var(--tx),var(--ty))}}
+.ob-drag{left:20px}.ob-drag.g1{--tx:148px;--ty:93px}.ob-drag.g2{--tx:180px;--ty:45px}.ob-drag.g3{--tx:212px;--ty:-3px}
+.ob-s3 .ob-cur{left:36px;top:60px;animation:obc3 5s var(--ease) infinite}
+@keyframes obc3{0%,4%{transform:none}20%{transform:translate(148px,93px)}23%{transform:translate(160px,96px);opacity:1}26%{transform:translate(-2px,47px)}28%{transform:translate(0,48px)}44%{transform:translate(180px,93px)}47%{transform:translate(190px,96px)}50%{transform:translate(-2px,95px)}52%{transform:translate(0,96px)}68%{transform:translate(212px,93px)}74%,100%{transform:translate(240px,110px)}}
+.ob-ai-in .d2,.ob-ai-in .d3{color:var(--mark)}
+/* 4: stars + bento gallery */
+.ob-stars{position:absolute;left:50%;top:26px;transform:translateX(-50%);display:flex;gap:6px}
+.ob-star{width:26px;height:26px;background:var(--line);-webkit-mask:var(--star) center/24px no-repeat;mask:var(--star) center/24px no-repeat;animation:obstar 5s var(--ease) infinite}
+.ob-star:nth-child(2){animation-delay:.18s}.ob-star:nth-child(3){animation-delay:.36s}.ob-star:nth-child(4){animation-delay:.54s}.ob-star:nth-child(5){animation-delay:.72s}
+@keyframes obstar{0%,8%{background:var(--line);transform:scale(1)}14%{background:var(--detail);transform:scale(1.25)}20%,88%{background:var(--detail);transform:scale(1)}96%,100%{background:var(--line)}}
+.ob-bento{position:absolute;left:50%;top:70px;transform:translateX(-50%);width:250px;height:118px;display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:8px}
+.ob-bento i{border-radius:10px;background:linear-gradient(135deg,var(--accent-soft),color-mix(in srgb,var(--detail) 30%,var(--panel)));opacity:0;animation:obtile 5s var(--ease) infinite}
+.ob-bento .k1{grid-row:span 2;animation-delay:1.3s}.ob-bento .k2{animation-delay:1.55s}.ob-bento .k3{grid-row:span 2;animation-delay:1.8s}.ob-bento .k4{animation-delay:2.05s}
+@keyframes obtile{0%{opacity:0;transform:translateY(10px) scale(.92)}10%,86%{opacity:1;transform:none}96%,100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.ob-stage *{animation:none!important}.ob-bento i,.ob-ai-in b{opacity:1}.ob-star{background:var(--detail)}.ob-tiles .t1{border-color:var(--accent)}}
+@media (max-width:480px){.ob-tiles{grid-template-columns:repeat(3,64px)}.ob-s3{transform:scale(.88)}}
+
 /* v7: sign-in gate, user menu, admin analytics */
 body.locked{overflow:hidden}
 .gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);overflow:auto}
@@ -1220,7 +1289,7 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
     </div>
     <button class="hbtn" type="button" id="histBtn" hidden aria-haspopup="dialog" aria-expanded="false" aria-controls="hist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3 4v4.5h4.5"/><path d="M12 7.5V12l3 2"/></svg><span class="hl">Мои промты</span><b class="badge" id="histBadge" hidden aria-label="без оценки">0</b></button>
     <div class="uwrap" id="uwrap" hidden><button class="ubtn" type="button" id="uBtn" aria-haspopup="true" aria-expanded="false" aria-controls="uPop" aria-label="Профиль"><span id="uIni">?</span></button>
-      <div class="pop upop" id="uPop" hidden><p class="uwho"><b id="uName"></b><small id="uMail"></small></p><button class="opt uopt" type="button" id="uAdmin" hidden><span>Аналитика и доступ</span></button><div class="uapp"><p class="uapph">Оформление</p>
+      <div class="pop upop" id="uPop" hidden><p class="uwho"><b id="uName"></b><small id="uMail"></small></p><button class="opt uopt" type="button" id="uAdmin" hidden><span>Аналитика и доступ</span></button><button class="opt uopt" type="button" id="uOnb" hidden><span>Как работать</span></button><div class="uapp"><p class="uapph">Оформление</p>
         
         <div class="gsort uthm" id="uThm" role="radiogroup" aria-label="Тема"><button type="button" role="radio" data-th="light" aria-checked="false">Светлая</button><button type="button" role="radio" data-th="dark" aria-checked="false">Тёмная</button><button type="button" role="radio" data-th="auto" aria-checked="false">Авто</button></div>
         <div class="uaccw"><div class="uacc" id="uAcc" role="radiogroup" aria-label="Акцентный цвет"><button type="button" role="radio" data-ac="sage" title="Шалфей" aria-label="Шалфей"></button><button type="button" role="radio" data-ac="graphite" title="Графит" aria-label="Графит"></button><button type="button" role="radio" data-ac="ocean" title="Океан" aria-label="Океан"></button><button type="button" role="radio" data-ac="terra" title="Терракота" aria-label="Терракота"></button><button type="button" role="radio" data-ac="plum" title="Слива" aria-label="Слива"></button><button type="button" role="radio" data-ac="mint" title="Мята" aria-label="Мята"></button><button type="button" role="radio" data-ac="indigo" title="Индиго" aria-label="Индиго"></button><button type="button" role="radio" data-ac="rose" title="Роза" aria-label="Роза"></button><button type="button" role="radio" data-ac="ochre" title="Охра" aria-label="Охра"></button><button type="button" role="radio" data-ac="slate" title="Сланец" aria-label="Сланец"></button></div><span class="uaccn" id="uAccN"></span></div><div class="ubgt" id="uBg"><label class="tg"><input type="checkbox" id="bgColor"><span>Цветной фон</span></label><label class="tg"><input type="checkbox" id="bgMove"><span>Движение фона и сфер</span></label></div></div>
@@ -1479,6 +1548,8 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 </section>
 <footer class="foot"><div class="foot-in"><span class="flogo"><svg viewBox="0 0 120 120" aria-hidden="true"><path fill="#FFF6E3" d="M26 50C24 92 42 109 60 109C78 109 96 92 94 50Z"/><g fill="none" stroke="#282F33" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5.5" d="M25 54C25 93 44 109 60 109C76 109 95 93 95 54"/><path stroke-width="4.5" d="M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84"/><path stroke-width="4.5" d="M49 93Q60 100 71 93"/></g><path fill="#282F33" d="M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z"/><path fill="#282F33" d="M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z"/><g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="28" y="59" width="27" height="22" rx="8"/><rect x="65" y="59" width="27" height="22" rx="8"/><path d="M55 67H65"/></g><circle cx="42" cy="70.5" r="3.6" fill="#282F33"/><circle cx="78" cy="70.5" r="3.6" fill="#282F33"/></svg></span><b class="fmark">GENA</b><span class="fwords"><span><i>G</i>enerative <i>E</i>ngine for <i>N</i>eural <i>A</i>rt</span><small>Генеративный движок для нейро-арта</small></span><span class="fside">Для дизайнеров КуулКлевер</span></div></footer>
 <div class="fbwrap" id="roleAsk" role="dialog" aria-modal="true" aria-labelledby="roleH" hidden><div class="fbcard rolecard"><h2 id="roleH">Кто вы в команде?</h2><p class="hint">Один вопрос: так мы поймём, кому и для каких задач нужен GENA.</p><div class="rolebox" id="rRole"><div class="roleset" role="radiogroup" aria-label="Кто вы"><button type="button" role="radio" data-role="Дизайнер">Дизайнер</button><button type="button" role="radio" data-role="Маркетолог">Маркетолог</button><button type="button" role="radio" data-role="Бренд-менеджер">Бренд-менеджер</button><button type="button" role="radio" data-role="other">Другое</button></div><input type="text" class="roleother" maxlength="40" placeholder="Ваша роль" hidden aria-label="Ваша роль"></div><p class="gerr" id="rErr" role="alert"></p><div class="fbact"><button class="btn" type="button" id="rSave">Готово</button></div></div></div>
+<div class="fbwrap obwrap" id="onb" role="dialog" aria-modal="true" aria-labelledby="onbH" hidden><div class="fbcard obcard"><h2 id="onbH" class="sr">Как работать с GENA</h2><button class="iconbtn obx" type="button" id="onbX" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button><section class="ob-slide" data-i="0" ><div class="ob-stage"><div class="ob-s1"><div class="ob-tiles"><i class=t0></i><i class=t1></i><i class=t2></i><i class=t3></i><i class=t4></i><i class=t5></i></div><svg class="ob-cur" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 1.6L10 19z" fill="var(--ink)" stroke="var(--panel)" stroke-width="1.5" stroke-linejoin="round"/></svg></div></div><h2>Соберите сцену</h2><p>Готовый сценарий или по шагам</p></section><section class="ob-slide" data-i="1" hidden><div class="ob-stage"><div class="ob-s2"><div class="ob-lines"><i></i><i></i><i></i></div><div class="ob-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span></span></div><div class="ob-conf"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><svg class="ob-cur" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 1.6L10 19z" fill="var(--ink)" stroke="var(--panel)" stroke-width="1.5" stroke-linejoin="round"/></svg></div></div><h2>Скопируйте промт</h2><p>Одна кнопка — и промт готов</p></section><section class="ob-slide" data-i="2" hidden><div class="ob-stage"><div class="ob-s3"><div class="ob-ai"><i class="ob-ai-h"></i><i class="ob-ai-b"></i><div class="ob-ai-in"><b class="d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h9"/></svg></b><b class="d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M5 17l5-5 4 4 2-2 3 3"/></svg></b><b class="d3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M5 17l5-5 4 4 2-2 3 3"/></svg></b></div></div><b class="ob-drag g1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h9"/></svg></b><b class="ob-drag g2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M5 17l5-5 4 4 2-2 3 3"/></svg></b><b class="ob-drag g3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M5 17l5-5 4 4 2-2 3 3"/></svg></b><svg class="ob-cur" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 1.6L10 19z" fill="var(--ink)" stroke="var(--panel)" stroke-width="1.5" stroke-linejoin="round"/></svg></div></div><h2>Вставьте в нейросеть</h2><p>GPT Image или Nano Banana и фото продукта</p></section><section class="ob-slide" data-i="3" hidden><div class="ob-stage"><div class="ob-s4"><div class="ob-stars"><i class="ob-star"></i><i class="ob-star"></i><i class="ob-star"></i><i class="ob-star"></i><i class="ob-star"></i></div><div class="ob-bento"><i class="k1"></i><i class="k2"></i><i class="k3"></i><i class="k4"></i></div></div></div><h2>Оцените и поделитесь</h2><p>Лучшие работы — в галерею команды</p></section>
+<div class="ob-foot"><div class="ob-dots" id="onbDots"><button type="button" data-go="0" aria-label="Шаг 1"></button><button type="button" data-go="1" aria-label="Шаг 2"></button><button type="button" data-go="2" aria-label="Шаг 3"></button><button type="button" data-go="3" aria-label="Шаг 4"></button></div><button class="btn ghost sm" type="button" id="onbPrev">Назад</button><button class="btn sm" type="button" id="onbNext">Дальше</button></div></div></div>
 <div id="toast" role="status" hidden></div>
 <div class="hwrap" id="hist" role="dialog" aria-modal="true" aria-labelledby="histTitle" hidden>
   <div class="hpanel">
@@ -2507,6 +2578,18 @@ function setBg(m){if(m==="live")delete root.dataset.bg;else root.dataset.bg=m;tr
 {let m="live";try{m=localStorage.getItem("gena-bg")||"live"}catch(e){}setTimeout(()=>setBg(m),0)}
 $("uBg").addEventListener("click",e=>e.stopPropagation());
 $("uBg").addEventListener("change",()=>setBg(!$("bgColor").checked?"clean":$("bgMove").checked?"live":"still"));
+
+/* onboarding tour (admin preview) */
+const ONB={i:0};
+function onbGo(i){ONB.i=Math.max(0,Math.min(3,i));document.querySelectorAll("#onb .ob-slide").forEach(sl=>{const on=+sl.dataset.i===ONB.i;sl.hidden=!on;if(on){const st=sl.querySelector(".ob-stage"),c=st.firstElementChild;st.replaceChild(c.cloneNode(true),c)}});
+  $("onbDots").querySelectorAll("[data-go]").forEach(b=>b.setAttribute("aria-current",String(+b.dataset.go===ONB.i)));$("onbPrev").style.visibility=ONB.i?"visible":"hidden";$("onbNext").textContent=ONB.i===3?"Начать":"Дальше"}
+function onbOpen(){$("onb").hidden=false;document.body.classList.add("locked");onbGo(0);$("onbNext").focus()}
+function onbClose(){$("onb").hidden=true;document.body.classList.remove("locked")}
+$("uOnb").addEventListener("click",()=>{userMenu(false);onbOpen()});
+$("onbX").addEventListener("click",onbClose);$("onb").addEventListener("click",e=>{if(e.target===$("onb"))onbClose()});
+$("onbPrev").addEventListener("click",()=>onbGo(ONB.i-1));$("onbNext").addEventListener("click",()=>ONB.i===3?onbClose():onbGo(ONB.i+1));
+$("onbDots").addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b)onbGo(+b.dataset.go)});
+document.addEventListener("keydown",e=>{if($("onb").hidden)return;if(e.key==="Escape")onbClose();if(e.key==="ArrowRight")onbGo(ONB.i+1);if(e.key==="ArrowLeft")onbGo(ONB.i-1)});
 /* ----- quick start tabs + row scroll ----- */
 function qTab(t){$("quick").dataset.qt=t;$("quick").querySelectorAll("[data-qt]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.qt===t)));
   $("qSub").textContent=t==="team"?"Удачные настройки коллег. Сохраните свои кнопкой «В шаблоны» под промтом.":"Один клик настраивает все шаги, продукт остаётся вашим.";qEdges()}
@@ -2655,7 +2738,7 @@ async function onSession(session){
   const [{data:prof},{data:adm}]=await Promise.all([Cloud.sb.from("profiles").select("name,email,role").eq("id",Cloud.user.id).maybeSingle(),Cloud.sb.rpc("is_admin")]);
   Cloud.profile=prof||{name:"",email:Cloud.user.email};Cloud.admin=adm===true;
   const nm=Cloud.profile.name||Cloud.user.email.split("@")[0];
-  labApply();$("uName").textContent=nm;$("uMail").textContent=Cloud.user.email;$("uIni").textContent=nm.trim().charAt(0).toUpperCase()||"?";$("uAdmin").hidden=!Cloud.admin;
+  labApply();$("uName").textContent=nm;$("uMail").textContent=Cloud.user.email;$("uIni").textContent=nm.trim().charAt(0).toUpperCase()||"?";$("uAdmin").hidden=!Cloud.admin;$("uOnb").hidden=!Cloud.admin;
   $("tpl").hidden=false;$("qtTeam").hidden=false;$("tOpen").hidden=false;loadTemplates();
   $("histBtn").hidden=false;$("viewNav").hidden=false;loadHistory();route();
   if(prof&&!prof.role)setTimeout(()=>{if(!Cloud.profile.role){$("roleAsk").hidden=false;document.body.classList.add("locked")}},1200);
