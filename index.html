@@ -4,7 +4,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20120%20120%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20fill%3D%22%23FFF6E3%22%20d%3D%22M26%2050C24%2092%2042%20109%2060%20109C78%20109%2096%2092%2094%2050Z%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23282F33%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20stroke-width%3D%225.5%22%20d%3D%22M25%2054C25%2093%2044%20109%2060%20109C76%20109%2095%2093%2095%2054%22/%3E%3Cpath%20stroke-width%3D%224.5%22%20d%3D%22M25%2067C16%2065%2015%2082%2026%2084M95%2067C104%2065%20105%2082%2094%2084%22/%3E%3Cpath%20stroke-width%3D%224.5%22%20d%3D%22M49%2093Q60%20100%2071%2093%22/%3E%3C/g%3E%3Cpath%20fill%3D%22%23282F33%22%20d%3D%22M22%2061C15%2028%2038%2010%2061%2010C87%2010%20106%2027%2098%2061C96%2054%2091%2049%2085%2046C72%2050%2048%2050%2034%2047C28%2050%2024%2055%2022%2061Z%22/%3E%3Cpath%20fill%3D%22%23282F33%22%20d%3D%22M92%2019C98%2016%20104%2020%20102%2026C101%2029%2098%2030%2095%2029Z%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23F0B92A%22%20stroke-width%3D%225.5%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%2228%22%20y%3D%2259%22%20width%3D%2227%22%20height%3D%2222%22%20rx%3D%228%22/%3E%3Crect%20x%3D%2265%22%20y%3D%2259%22%20width%3D%2227%22%20height%3D%2222%22%20rx%3D%228%22/%3E%3Cpath%20d%3D%22M55%2067H65%22/%3E%3C/g%3E%3Ccircle%20cx%3D%2242%22%20cy%3D%2270.5%22%20r%3D%223.6%22%20fill%3D%22%23282F33%22/%3E%3Ccircle%20cx%3D%2278%22%20cy%3D%2270.5%22%20r%3D%223.6%22%20fill%3D%22%23282F33%22/%3E%3C/svg%3E">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400..700;1,400..600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400..700&family=Onest:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: Clara-style workspace — floating top bar with GENA mark and step nav, compact hero, six step cards left, sticky prompt panel right */
 :root{
@@ -13,7 +13,7 @@
   --logo-ink:#282F33; --logo-bg:transparent; --glow1:rgba(186,176,236,.35); --glow2:rgba(244,214,170,.38);
   --warn-bg:#FBEFD6; --warn-ink:#6E4A05;
   --fig-obj:#8C958F; --fig-top:#D3DAD5; --fig-l:#A6B1AA; --fig-r:#76837B; --thumb-dim:none;
-  --f-display:"Inter Tight",Arial,system-ui,sans-serif; --f-body:"Inter Tight",Arial,system-ui,sans-serif;
+  --f-display:"Unbounded",Arial,system-ui,sans-serif; --f-body:"Onest",Arial,system-ui,sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
   --r:16px; --r-sm:12px;
 }
@@ -409,7 +409,7 @@ body.v-gallery .topbar-in .setwrap{margin-left:auto}
 .pubscene .hthumb{height:72px;background:var(--panel)}.pubscene b{font-size:14px;display:block;margin-bottom:6px}
 .pubscene .achips{margin-bottom:6px}
 .pubdrop{min-height:150px}.pubdrop img{max-height:240px}
-#pubTitle{padding:10px 12px}
+#pubTitle,#pubUse,#pubNote{padding:10px 12px}
 /* gallery */
 .gal{max-width:1320px;margin:0 auto;padding:28px 0 80px;display:flex;flex-direction:column;gap:22px}
 .galhead{display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap}
@@ -1189,8 +1189,26 @@ body.locked{overflow:hidden}
 .adv[open] summary::before{content:"−"}
 .adv summary span{font-size:11px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .adv .hint{margin:8px 0}
-.toggles.clip{max-height:98px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 45%,transparent);mask-image:linear-gradient(#000 45%,transparent)}
-#tgMore{margin-top:-8px}
+/* v36: «Как обращаться с фото» — заметный блок со свитчами, первая строка видна всегда */
+.tgbox{background:color-mix(in srgb,var(--accent) 7%,var(--panel));box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 24%,var(--line));border-radius:18px;padding:4px 12px 12px;display:flex;flex-direction:column;gap:4px}
+.tghead{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;min-height:48px;padding:6px 2px;border-radius:12px}
+.tghead:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tgico{width:32px;height:32px;border-radius:10px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;flex:none}.tgico svg{width:18px;height:18px}
+.tgt{display:flex;flex-direction:column;min-width:0;flex:1;line-height:1.3}.tgt b{font-size:15px;font-weight:600}.tgt small{font-size:12px;color:var(--muted)}
+.tgmore{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:550;color:var(--accent-text);flex:none}.tgmore em{font-style:normal}
+.tgmore svg{width:16px;height:16px;transition:transform var(--t-fast) var(--ease)}.tghead[aria-expanded="true"] .tgmore svg{transform:rotate(180deg)}
+.tgbox{align-self:stretch;flex-shrink:0}.tgbox>*{flex-shrink:0}.toggles.swt{width:100%;min-width:0;align-self:stretch;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:6px;transition:max-height var(--t-slow) var(--ease)}
+.toggles.swt .tg{align-items:center;gap:10px;padding:8px 10px;border-radius:12px;background:var(--panel);box-shadow:0 0 0 1px var(--line);min-height:56px;box-sizing:border-box;font-size:14px;font-weight:550;line-height:1.25}
+.toggles.swt .tg small{font-size:12px;font-weight:400;line-height:1.3;margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.toggles.swt .tg input{-webkit-appearance:none;appearance:none;order:2;margin:0 0 0 auto;width:36px;height:22px;flex:none;border-radius:999px;background:color-mix(in srgb,var(--ink) 20%,transparent);position:relative;cursor:pointer;transition:background var(--t-fast) var(--ease)}
+.toggles.swt .tg input::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform var(--t-fast) var(--ease)}
+.toggles.swt .tg input:checked{background:var(--accent)}.toggles.swt .tg input:checked::after{transform:translateX(14px)}
+.toggles.swt .tg input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.toggles.swt .tg input:disabled{opacity:.45;cursor:default}
+.toggles.swt .tg.off{opacity:.6;background:transparent;box-shadow:none;outline:1px dashed var(--line);outline-offset:-1px}
+.toggles.swt.clip{max-height:76px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 62%,transparent);mask-image:linear-gradient(#000 62%,transparent)}
+@media (max-width:700px){.toggles.swt{grid-template-columns:1fr}.toggles.swt.clip{max-height:84px}.tgmore em{display:none}}
+@media (prefers-reduced-motion:reduce){.toggles.swt,.toggles.swt .tg input,.toggles.swt .tg input::after,.tgmore svg{transition:none}}
 .tgstat{font-style:normal;font-weight:450;color:var(--muted);margin-left:4px}
 .qtags{flex-wrap:wrap}
 .actions .btn{white-space:nowrap}
@@ -1200,7 +1218,7 @@ body.locked{overflow:hidden}
 .lrow .seg,.podrow .seg{min-width:0}
 /* dark: calm surfaces, contrasty states, dimmed illustrations */
 .card svg.fig,.sfw,.surf,.qthumb .pv,.pvw .pv,.sbig,.sw,.pgdots i{filter:var(--thumb-dim)}
-@media (max-width:700px){.info>div,.subh .info>div{position:fixed;left:16px;right:16px;width:auto;top:auto;margin-top:8px}.rpop{right:-8px}.pgtab{font-size:12px}.toggles.clip{max-height:118px}}
+@media (max-width:700px){.info>div,.subh .info>div{position:fixed;left:16px;right:16px;width:auto;top:auto;margin-top:8px}.rpop{right:-8px}.pgtab{font-size:12px}}
 
 /* v5: mobile sheet, compact rows, team templates */
 .sheetx{display:none}
@@ -1362,6 +1380,36 @@ details.iadm[open]>summary::after{transform:rotate(-135deg)}
 details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .iadmb{display:flex;flex-direction:column;gap:8px;padding:0 14px 14px}
 @media (prefers-reduced-motion:reduce){.ifr{transition:none}}
+.wnote{display:flex;flex-direction:column;gap:10px;background:var(--sunk);box-shadow:0 0 0 1px var(--line);border-radius:16px;padding:12px 14px}
+.wnote p{margin:0;font-size:14px;line-height:1.45;overflow-wrap:anywhere;white-space:pre-line}
+.wnote span{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:2px}
+#pubNote{resize:vertical;min-height:72px}
+/* v36: напоминание «Делитесь лучшими генерациями» */
+.shcard{position:relative;width:min(440px,100%);align-items:center;text-align:center;gap:12px;padding:28px 28px 24px}
+.shx{position:absolute;top:10px;right:10px}
+.shart{position:relative;width:220px;height:150px;margin:4px 0}
+.shlogo{position:absolute;left:50%;top:50%;width:100px;height:100px;margin:-50px 0 0 -50px;border-radius:50%;background:#FFF6E3;box-shadow:0 12px 32px rgba(0,0,0,.14),0 0 0 6px color-mix(in srgb,var(--accent) 14%,transparent);animation:shBob 3.2s var(--ease) infinite alternate}
+.shlogo svg{width:100%;height:100%;display:block}
+.sh-eyes{animation:shLook 5s ease-in-out infinite}
+.sh-eyes circle{transform-box:fill-box;transform-origin:center;animation:shBlink 5s ease-in-out infinite}
+.sh-gl{animation:shGl 5s ease-in-out infinite}
+.shf{position:absolute;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,.12);animation:shFloat 3.4s ease-in-out infinite alternate}
+.shf::after{content:"";position:absolute;left:50%;bottom:22%;width:26%;height:38%;max-width:16px;translate:-50% 0;border-radius:4px;background:rgba(255,255,255,.85)}
+.f1{width:72px;height:41px;left:0;top:22px;rotate:-9deg;background:linear-gradient(135deg,var(--accent-soft),var(--accent))}
+.f2{width:38px;height:68px;right:8px;top:0;rotate:8deg;background:linear-gradient(160deg,#F7DA82,#F0B92A);animation-delay:-1.3s}
+.f3{width:48px;height:48px;left:26px;bottom:0;rotate:6deg;background:linear-gradient(135deg,var(--fig-top),var(--fig-l));animation-delay:-2.2s}
+.shspark{position:absolute;right:34px;bottom:18px;width:14px;height:14px;background:#F0B92A;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);animation:shSpark 2.4s ease-in-out infinite}
+@keyframes shBob{from{translate:0 2px}to{translate:0 -4px}}
+@keyframes shFloat{from{translate:0 0}to{translate:0 -9px}}
+@keyframes shLook{0%,18%,88%,100%{transform:translateX(0)}28%,42%{transform:translateX(-4px)}54%,72%{transform:translateX(4px)}}
+@keyframes shBlink{0%,60%,66%,100%{transform:scaleY(1)}63%{transform:scaleY(.12)}}
+@keyframes shGl{0%,24%,100%{transform:translateY(0)}30%{transform:translateY(-2.5px)}36%{transform:translateY(0)}}
+@keyframes shSpark{0%,100%{scale:.6;opacity:.5;rotate:0deg}50%{scale:1.1;opacity:1;rotate:45deg}}
+.shcard h2{font-size:22px;line-height:1.2;margin:4px 0 0;text-wrap:balance}
+.shcard p{margin:0;color:var(--muted);font-size:15px;line-height:1.5;max-width:36ch;text-wrap:pretty}
+.shact{display:flex;flex-direction:column;gap:8px;width:100%;margin-top:10px}.shact .btn{text-align:center}
+@media (max-width:700px){.shwrap{place-items:end center;padding:0}.shcard{width:100%;border-radius:24px 24px 0 0;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));animation:sheetin .35s var(--ease)}}
+@media (prefers-reduced-motion:reduce){.shlogo,.sh-eyes,.sh-eyes circle,.sh-gl,.shf,.shspark,.shcard{animation:none}}
 .gsort button[role="radio"][aria-checked="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .iaorig{font-size:12px;margin:0;overflow-wrap:anywhere}
 </style>
@@ -1369,7 +1417,7 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 <div class="glow" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
 <div class="topbar">
   <div class="topbar-in">
-    <a class="brand" href="#s-ref" id="brandLink" title="GENA — Generative Engine for Neural Art"><svg viewBox="0 0 120 120" role="img" aria-label="GENA"><path fill="#FFF6E3" d="M26 50C24 92 42 109 60 109C78 109 96 92 94 50Z"/><g fill="none" stroke="#282F33" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5.5" d="M25 54C25 93 44 109 60 109C76 109 95 93 95 54"/><path stroke-width="4.5" d="M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84"/><path stroke-width="4.5" d="M49 93Q60 100 71 93"/></g><path fill="#282F33" d="M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z"/><path fill="#282F33" d="M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z"/><g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="28" y="59" width="27" height="22" rx="8"/><rect x="65" y="59" width="27" height="22" rx="8"/><path d="M55 67H65"/></g><circle cx="42" cy="70.5" r="3.6" fill="#282F33"/><circle cx="78" cy="70.5" r="3.6" fill="#282F33"/></svg><span><b>GENA</b></span></a>
+    <a class="brand" href="#s-ref" id="brandLink" title="GENA — Generative Engine for Neural Art"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GENA"><path d="M58 24C62 15 74 14 78 21" fill="none" stroke="#282F33" stroke-width="6" stroke-linecap="round"/><g fill="none" stroke="#F0B92A" stroke-width="7.5" stroke-linejoin="round"><rect x="16" y="42" width="38" height="30" rx="12"/><rect x="66" y="42" width="38" height="30" rx="12"/><path d="M54 54H66"/></g><circle cx="36" cy="57" r="5" fill="#282F33"/><circle cx="86" cy="57" r="5" fill="#282F33"/><path d="M44 90Q60 101 76 90" fill="none" stroke="#282F33" stroke-width="6" stroke-linecap="round"/></svg><span><b>GENA</b></span></a>
     <nav class="views" id="viewNav" aria-label="Разделы" hidden><a href="#ideas" data-view="ideas" aria-current="false" hidden>Идеи</a><a href="#" data-view="builder" aria-current="true">Конструктор</a><a href="#gallery" data-view="gallery" aria-current="false">Галерея</a></nav>
     <nav class="steps" id="steps" aria-label="Шаги">
       <button type="button" data-t="s-ref" title="Продукт" aria-label="Шаг 01: Продукт"><span>01</span><em>Продукт</em></button>
@@ -1401,9 +1449,8 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
         <div class="uaccw"><div class="uacc" id="uAcc" role="radiogroup" aria-label="Акцентный цвет"><button type="button" role="radio" data-ac="sage" title="Шалфей" aria-label="Шалфей"></button><button type="button" role="radio" data-ac="graphite" title="Графит" aria-label="Графит"></button><button type="button" role="radio" data-ac="ocean" title="Океан" aria-label="Океан"></button><button type="button" role="radio" data-ac="terra" title="Терракота" aria-label="Терракота"></button><button type="button" role="radio" data-ac="plum" title="Слива" aria-label="Слива"></button><button type="button" role="radio" data-ac="mint" title="Мята" aria-label="Мята"></button><button type="button" role="radio" data-ac="indigo" title="Индиго" aria-label="Индиго"></button><button type="button" role="radio" data-ac="rose" title="Роза" aria-label="Роза"></button><button type="button" role="radio" data-ac="ochre" title="Охра" aria-label="Охра"></button><button type="button" role="radio" data-ac="slate" title="Сланец" aria-label="Сланец"></button></div><span class="uaccn" id="uAccN"></span></div><div class="ubgt" id="uBg"><label class="tg"><input type="checkbox" id="bgColor"><span>Цветной фон</span></label><label class="tg"><input type="checkbox" id="bgMove"><span>Движение фона и сфер</span></label></div></div>
         <div class="ulab" id="uLab" hidden><p class="uapph">Лаборатория <em>видно только вам</em></p>
         <div class="umode"><span>Режим</span><div class="gsort" id="labMode" role="radiogroup" aria-label="Режим конструктора"><button type="button" role="radio" data-md="simple" aria-checked="false">Простой</button><button type="button" role="radio" data-md="pro" aria-checked="false">Про</button></div></div>
-        <label class="tg ulabtg"><input type="checkbox" id="labGlass"><span>Стекло</span></label>
-        <div class="ulogo" id="labLogo" role="radiogroup" aria-label="Логотип"></div>
-        <div class="ufonts" id="labFonts" role="radiogroup" aria-label="Шрифтовая пара"></div></div>
+        <button class="opt uopt" type="button" id="labShare"><span>Показать напоминание «Делитесь»</span></button>
+</div>
         <label class="tg uopt utg"><input type="checkbox" id="uDone"><span>Окно оценки после копирования</span></label><button class="opt uopt" type="button" id="uOut"><span>Выйти</span></button></div></div>
     <button class="iconbtn" type="button" id="thBtn" aria-label="Сменить тему"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
   </div>
@@ -1443,16 +1490,19 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
         <textarea id="product" rows="1" placeholder="Например: сыр бри"></textarea>
         <small class="hint">Несколько фото — каждое с новой строки, в порядке загрузки.</small>
       </div>
-      <div class="toggles" id="refToggles" hidden>
-        <label class="tg"><input type="checkbox" id="rebuild"><span>Создавать заново<small>Без вклейки фото: продукт перерисовывается под новую сцену.</small></span></label>
-        <label class="tg"><input type="checkbox" id="keepProduct"><span>Сохранить продукт<small>Форма, цвета и материалы как на фото.</small></span></label>
-        <label class="tg"><input type="checkbox" id="keepText"><span>Сохранить надписи<small>Логотип и текст упаковки без искажений.</small></span></label>
-        <label class="tg"><input type="checkbox" id="isolate"><span>Только продукт с фото<small>Посуда, доски и фон с фото не переносятся.</small></span></label>
-        <label class="tg"><input type="checkbox" id="scale"><span>Реальные пропорции<small>Предметы сохраняют настоящие размеры относительно друг друга.</small></span></label>
-        <label class="tg" hidden><input type="checkbox" id="food"><span>Еда или напитки<small>Свежо и аппетитно, жидкости держат уровень.</small></span></label>
-        <label class="tg"><input type="checkbox" id="avoid"><span>Список запретов<small>Без водяных знаков, лишнего текста и дублей.</small></span></label>
+      <div class="tgbox" id="tgBox">
+        <button class="tghead" type="button" id="tgMore" aria-expanded="false" aria-controls="refToggles"><span class="tgico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="3"/><circle cx="9" cy="11" r="1.6" fill="currentColor" stroke="none"/><path d="M20.5 15.5l-4.5-4.5-7.5 7.5"/></svg></span><span class="tgt"><b id="tgTitle">Как обращаться с фото</b><small id="tgStat"></small></span><span class="tgmore"><em id="tgMoreL">Все настройки</em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="toggles swt clip" id="refToggles">
+          <label class="tg"><input type="checkbox" role="switch" id="keepProduct"><span>Сохранить продукт<small>Форма, цвета и материалы как на фото.</small></span></label>
+          <label class="tg"><input type="checkbox" role="switch" id="keepText"><span>Сохранить надписи<small>Логотип и текст упаковки без искажений.</small></span></label>
+          <label class="tg"><input type="checkbox" role="switch" id="keepWare"><span>Сохранить посуду<small>Тарелка, доска или бокал с фото остаются.</small></span></label>
+          <label class="tg"><input type="checkbox" role="switch" id="isolate"><span>Убрать лишнее<small>Руки, приборы, салфетки и фон с фото не переносятся.</small></span></label>
+          <label class="tg"><input type="checkbox" role="switch" id="rebuild"><span>Создавать заново<small>Без вклейки: продукт перерисовывается под сцену.</small></span></label>
+          <label class="tg"><input type="checkbox" role="switch" id="scale"><span>Реальные пропорции<small>Настоящие размеры предметов относительно друг друга.</small></span></label>
+          <label class="tg" hidden><input type="checkbox" role="switch" id="food"><span>Еда или напитки<small>Свежо и аппетитно, жидкости держат уровень.</small></span></label>
+          <label class="tg"><input type="checkbox" role="switch" id="avoid"><span>Список запретов<small>Без водяных знаков, лишнего текста и дублей.</small></span></label>
+        </div>
       </div>
-      <button class="more" type="button" id="tgMore" aria-expanded="false" aria-controls="refToggles"><span>Как обращаться с фото</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
       <div class="sub"><div class="subh"><h3>Категория</h3><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Подсказывает нейросети, как сделать продукт аппетитным: мясо — сочным, молочное — свежим, выпечку — румяной. Для алкоголя подача сдержанная, без людей.</p></div></details></div><div class="seg" id="cats" role="group" aria-label="Категории, можно несколько"></div><small class="hint">Можно выбрать несколько. «Другой предмет» — если в кадре не еда и не упаковка (техника, косметика, посуда…): в промте он станет «объектом».</small></div>
       <div class="sub"><div class="subh"><h3>Усилить</h3><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Дополнительные указания к главному объекту. Можно включить несколько. Работают с любой категорией.</p></div></details></div><div class="seg" id="enh" role="group" aria-label="Усилить, можно несколько"></div></div>
     </section>
@@ -1520,6 +1570,7 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
         </div>
         <div><span class="lbl">Столешница</span><div class="seg" id="tMat"></div></div>
         <div><span class="lbl">Скатерть</span><div class="seg" id="tCloth"></div></div>
+        <div id="tToneBox" hidden><span class="lbl">Оттенок ткани <span class="opt-tag" id="tToneL"></span></span><div class="swatches" id="tTone" role="group" aria-label="Оттенок ткани"></div></div>
         <p class="sprompt"><span>В промт</span><code id="tableEn"></code></p>
       </div>
       <div class="panel" id="podPanel" hidden>
@@ -1667,7 +1718,7 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
   <div class="isech"><h2 id="ideaAllH">Все сцены</h2><span class="hint" id="ideaCount"></span></div>
   <div class="ibento"><div class="igrid" id="ideaGrid" aria-busy="true" aria-labelledby="ideaAllH"></div></div>
 </section>
-<footer class="foot"><div class="foot-in"><span class="flogo"><svg viewBox="0 0 120 120" aria-hidden="true"><path fill="#FFF6E3" d="M26 50C24 92 42 109 60 109C78 109 96 92 94 50Z"/><g fill="none" stroke="#282F33" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5.5" d="M25 54C25 93 44 109 60 109C76 109 95 93 95 54"/><path stroke-width="4.5" d="M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84"/><path stroke-width="4.5" d="M49 93Q60 100 71 93"/></g><path fill="#282F33" d="M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z"/><path fill="#282F33" d="M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z"/><g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="28" y="59" width="27" height="22" rx="8"/><rect x="65" y="59" width="27" height="22" rx="8"/><path d="M55 67H65"/></g><circle cx="42" cy="70.5" r="3.6" fill="#282F33"/><circle cx="78" cy="70.5" r="3.6" fill="#282F33"/></svg></span><b class="fmark">GENA</b><span class="fwords"><span><i>G</i>enerative <i>E</i>ngine for <i>N</i>eural <i>A</i>rt</span><small>Генеративный движок для нейро-арта</small></span><span class="fside">Для дизайнеров КуулКлевер</span></div></footer>
+<footer class="foot"><div class="foot-in"><span class="flogo"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M58 24C62 15 74 14 78 21" fill="none" stroke="#282F33" stroke-width="6" stroke-linecap="round"/><g fill="none" stroke="#F0B92A" stroke-width="7.5" stroke-linejoin="round"><rect x="16" y="42" width="38" height="30" rx="12"/><rect x="66" y="42" width="38" height="30" rx="12"/><path d="M54 54H66"/></g><circle cx="36" cy="57" r="5" fill="#282F33"/><circle cx="86" cy="57" r="5" fill="#282F33"/><path d="M44 90Q60 101 76 90" fill="none" stroke="#282F33" stroke-width="6" stroke-linecap="round"/></svg></span><b class="fmark">GENA</b><span class="fwords"><span><i>G</i>enerative <i>E</i>ngine for <i>N</i>eural <i>A</i>rt</span><small>Генеративный движок для нейро-арта</small></span><span class="fside">Для дизайнеров КуулКлевер</span></div></footer>
 <div class="fbwrap" id="roleAsk" role="dialog" aria-modal="true" aria-labelledby="roleH" hidden><div class="fbcard rolecard"><h2 id="roleH">Кто вы в команде?</h2><p class="hint">Один вопрос: так мы поймём, кому и для каких задач нужен GENA.</p><div class="rolebox" id="rRole"><div class="roleset" role="radiogroup" aria-label="Кто вы"><button type="button" role="radio" data-role="Дизайнер">Дизайнер</button><button type="button" role="radio" data-role="Маркетолог">Маркетолог</button><button type="button" role="radio" data-role="Бренд-менеджер">Бренд-менеджер</button><button type="button" role="radio" data-role="other">Другое</button></div><input type="text" class="roleother" maxlength="40" placeholder="Ваша роль" hidden aria-label="Ваша роль"></div><p class="gerr" id="rErr" role="alert"></p><div class="fbact"><button class="btn" type="button" id="rSave">Готово</button></div></div></div>
 <div class="fbwrap obwrap" id="onb" role="dialog" aria-modal="true" aria-labelledby="onbH" hidden><div class="fbcard obcard"><h2 id="onbH" class="sr">Как работать с GENA</h2><button class="iconbtn obx" type="button" id="onbX" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button><section class="ob-slide" data-i="0" ><div class="ob-stage"><div class="ob-s1"><div class="ob-tiles"><i class=t0></i><i class=t1></i><i class=t2></i><i class=t3></i><i class=t4></i><i class=t5></i></div><svg class="ob-cur" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 1.6L10 19z" fill="var(--ink)" stroke="var(--panel)" stroke-width="1.5" stroke-linejoin="round"/></svg></div></div><h2>Соберите сцену</h2><p>Готовый сценарий или по шагам</p></section><section class="ob-slide" data-i="1" hidden><div class="ob-stage"><div class="ob-s2"><div class="ob-lines"><i></i><i></i><i></i></div><div class="ob-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span></span></div><div class="ob-conf"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><svg class="ob-cur" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 1.6L10 19z" fill="var(--ink)" stroke="var(--panel)" stroke-width="1.5" stroke-linejoin="round"/></svg></div></div><h2>Скопируйте промт</h2><p>Одна кнопка — и промт готов</p></section><section class="ob-slide" data-i="2" hidden><div class="ob-stage"><div class="ob-s3"><div class="ob-ai"><i class="ob-ai-h"></i><i class="ob-ai-b"></i><div class="ob-ai-in"><b class="d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h9"/></svg></b><b class="d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M5 17l5-5 4 4 2-2 3 3"/></svg></b><b class="d3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M5 17l5-5 4 4 2-2 3 3"/></svg></b></div></div><b class="ob-drag g1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h9"/></svg></b><b class="ob-drag g2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M5 17l5-5 4 4 2-2 3 3"/></svg></b><b class="ob-drag g3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M5 17l5-5 4 4 2-2 3 3"/></svg></b><svg class="ob-cur" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 1.6L10 19z" fill="var(--ink)" stroke="var(--panel)" stroke-width="1.5" stroke-linejoin="round"/></svg></div></div><h2>Вставьте в нейросеть</h2><p>GPT Image или Nano Banana и фото продукта</p></section><section class="ob-slide" data-i="3" hidden><div class="ob-stage"><div class="ob-s4"><div class="ob-stars"><i class="ob-star"></i><i class="ob-star"></i><i class="ob-star"></i><i class="ob-star"></i><i class="ob-star"></i></div><div class="ob-bento"><i class="k1"></i><i class="k2"></i><i class="k3"></i><i class="k4"></i></div></div></div><h2>Оцените и поделитесь</h2><p>Лучшие работы — в галерею команды</p></section>
 <div class="ob-foot"><div class="ob-dots" id="onbDots"><button type="button" data-go="0" aria-label="Шаг 1"></button><button type="button" data-go="1" aria-label="Шаг 2"></button><button type="button" data-go="2" aria-label="Шаг 3"></button><button type="button" data-go="3" aria-label="Шаг 4"></button></div><button class="btn ghost sm" type="button" id="onbPrev">Назад</button><button class="btn sm" type="button" id="onbNext">Дальше</button></div></div></div>
@@ -1693,7 +1744,12 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
     </div>
     <small class="hint" id="pubSize"></small>
     <label class="lbl" for="pubTitle">Подпись <span class="opt-tag">по желанию</span></label>
-    <input type="text" id="pubTitle" maxlength="80" placeholder="Например: сыры на мраморе, 16:9">
+    <input type="text" id="pubTitle" maxlength="80" placeholder="Например: сыры на мраморе">
+    <label class="lbl" for="pubUse">Для чего делали <span class="opt-tag">по желанию</span></label>
+    <input type="text" id="pubUse" maxlength="120" placeholder="Например: баннер 21:9 на главную сайта, акция «Сырная неделя»">
+    <label class="lbl" for="pubNote">Заметка для коллег <span class="opt-tag">по желанию</span></label>
+    <textarea id="pubNote" rows="3" maxlength="400" placeholder="Что дописали в промт от себя и что пошло не так. Например: добавил «капли конденсата на бутылке», с первого раза исказился логотип — помогла вторая генерация"></textarea>
+    <small class="hint">Пара строк сэкономит коллегам несколько попыток.</small>
     <p class="gerr" id="pubErr" role="alert"></p>
     <div class="fbact"><button class="btn" type="submit" form="pubForm" id="pubSend">Опубликовать</button><span class="hint">Картинка сожмётся до 1600 px. Работу увидят все дизайнеры.</span></div>
     </div>
@@ -1720,6 +1776,7 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
     <div class="wside">
       <div class="fbhead"><h2 id="wTitle"></h2><button class="iconbtn" type="button" id="wClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
       <p class="wauth"><span id="wAuthor"></span><span id="wStars"></span></p>
+      <div class="wnote" id="wNote" hidden></div>
       <div class="wact"><button class="btn" type="button" id="wApply">Применить в конструкторе</button>
         <div class="wrow"><button class="btn ghost" type="button" id="wCopy">Скопировать промт</button><button class="btn ghost wlike" type="button" id="wLike" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9zM7 11l4-8a2.5 2.5 0 0 1 2.5 3L13 10h5.6a2 2 0 0 1 2 2.4l-1.4 6A2 2 0 0 1 17.3 20H7"/></svg>Полезно <b id="wLikeN">0</b></button></div>
         <small class="hint">Применяются только настройки сцены: ваш продукт останется на месте.</small>
@@ -1739,6 +1796,7 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
       <div class="fbhead"><h2 id="iTitle"></h2><button class="iconbtn" type="button" id="iClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
       <p class="wauth" id="iAuthor"></p>
       <p class="iwhat" id="iWhat"></p>
+      <div class="wnote" id="iNote" hidden></div>
       <div class="ifmts"><span class="lbl" id="iFmtL">Формат</span><p class="ione" id="iFmtOne" hidden></p><div class="gsort" id="iFmt" role="radiogroup" aria-labelledby="iFmtL"></div><small class="hint" id="iFmtNote" aria-live="polite"></small></div>
       <div class="wact"><button class="btn" type="button" id="iCopy">Скопировать промт</button>
         <small class="hint">Вставьте промт в Nano Banana или GPT Image и приложите фото своего продукта.</small>
@@ -1756,9 +1814,19 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
     </div>
   </div>
 </div>
+<div class="fbwrap shwrap" id="share" role="dialog" aria-modal="true" aria-labelledby="shH" aria-describedby="shP" hidden>
+  <div class="fbcard shcard">
+    <button class="iconbtn shx" type="button" id="shX" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="shart" aria-hidden="true"><i class="shf f1"></i><i class="shf f2"></i><i class="shf f3"></i><i class="shspark"></i>
+      <span class="shlogo"><svg viewBox="0 0 120 120"><path d="M58 24C62 15 74 14 78 21" fill="none" stroke="#282F33" stroke-width="6" stroke-linecap="round"/><g class="sh-gl" fill="none" stroke="#F0B92A" stroke-width="7.5" stroke-linejoin="round"><rect x="16" y="42" width="38" height="30" rx="12"/><rect x="66" y="42" width="38" height="30" rx="12"/><path d="M54 54H66"/></g><g class="sh-eyes"><circle cx="36" cy="57" r="5" fill="#282F33"/><circle cx="86" cy="57" r="5" fill="#282F33"/></g><path d="M44 90Q60 101 76 90" fill="none" stroke="#282F33" stroke-width="6" stroke-linecap="round"/></svg></span></div>
+    <h2 id="shH">Делитесь лучшими генерациями</h2>
+    <p id="shP">Каждая удачная работа в галерее — готовая сцена для коллег. Из лучших мы собираем простой режим GENA: выбрал картинку — получил промт под свой продукт, без сложных настроек.</p>
+    <div class="shact"><button class="btn" type="button" id="shGo">Опубликовать работу</button><button class="btn ghost" type="button" id="shLater">Напомнить позже</button></div>
+  </div>
+</div>
 <div class="gate" id="gate">
   <div class="gcard">
-    <div class="glogo"><svg viewBox="0 0 120 120" role="img" aria-label="GENA"><path fill="#FFF6E3" d="M26 50C24 92 42 109 60 109C78 109 96 92 94 50Z"/><g fill="none" stroke="#282F33" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5.5" d="M25 54C25 93 44 109 60 109C76 109 95 93 95 54"/><path stroke-width="4.5" d="M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84"/><path stroke-width="4.5" d="M49 93Q60 100 71 93"/></g><path fill="#282F33" d="M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z"/><path fill="#282F33" d="M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z"/><g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="28" y="59" width="27" height="22" rx="8"/><rect x="65" y="59" width="27" height="22" rx="8"/><path d="M55 67H65"/></g><circle cx="42" cy="70.5" r="3.6" fill="#282F33"/><circle cx="78" cy="70.5" r="3.6" fill="#282F33"/></svg></div>
+    <div class="glogo"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GENA"><path d="M58 24C62 15 74 14 78 21" fill="none" stroke="#282F33" stroke-width="6" stroke-linecap="round"/><g fill="none" stroke="#F0B92A" stroke-width="7.5" stroke-linejoin="round"><rect x="16" y="42" width="38" height="30" rx="12"/><rect x="66" y="42" width="38" height="30" rx="12"/><path d="M54 54H66"/></g><circle cx="36" cy="57" r="5" fill="#282F33"/><circle cx="86" cy="57" r="5" fill="#282F33"/><path d="M44 90Q60 101 76 90" fill="none" stroke="#282F33" stroke-width="6" stroke-linecap="round"/></svg></div>
     <h2>GENA</h2><p class="gsub">Конструктор промтов для дизайнеров КуулКлевер</p>
     <p class="gwait" id="gWait">Проверяем вход…</p>
     <form id="gForm" hidden novalidate>
@@ -2062,16 +2130,22 @@ const TOCC=[
 const TSHAPE=[["round","Круглый","a round"],["rect","Прямоугольный","a rectangular"],["oval","Овальный","an oval"],["square","Квадратный","a square"]];
 const TSIZE=[["small","Маленький","small cafe-size","fits 2"],["dining","Обеденный","family dining-size","fits 4–6"],["long","Длинный","long banquet","for a feast"]];
 const TMAT=[["oak","Светлое дерево","light oak wood with visible grain","#D9B98C"],["walnut","Тёмное дерево","dark walnut wood","#7A5136"],["marble","Мрамор","white marble with soft grey veins","#EDEBE7"],["glass","Стекло","clear glass with soft reflections","#CFE3E8"],["metal","Металл","brushed steel","#B7BCC0"]];
-const TCLOTH=[["none","Без скатерти","","",""],["linen","Белый лён","a white linen tablecloth with soft natural creases","#F4F1EA"],["white","Белая скатерть","a crisp white tablecloth","#FFFFFF"],["check","Клетка","a red-and-white gingham tablecloth","#E9B9B5"],["velvet","Бархат","a deep burgundy velvet tablecloth","#6E1F2E"],["lace","Кружево","a cream lace tablecloth","#F2E8D5"]];
+const TCLOTH=[["none","Без скатерти","","",""],["linen","Лён","a {c} linen tablecloth with soft natural creases","#F4F1EA","white"],["white","Гладкая","a crisp smooth {c} tablecloth","#FFFFFF","white"],["check","Клетка","a {c}-and-white gingham tablecloth","#E9B9B5","red"],["velvet","Бархат","a deep {c} velvet tablecloth","#6E1F2E","burgundy"],["lace","Кружево","a {c} lace tablecloth","#F2E8D5","cream"]];
+/* оттенок ткани: null — родной цвет ткани */
+const CTONES=[["#FFFFFF","Белый","white"],["#F2E8D5","Сливочный","cream"],["#D8C4A0","Бежевый","sand beige"],["#A9BBCB","Серо-голубой","dusty blue"],["#9CAF88","Шалфей","sage green"],["#C2694A","Терракота","terracotta"],["#6E1F2E","Бордо","burgundy"],["#33393D","Графит","charcoal grey"]];
+function clothEn(c){const t=S.tTone&&CTONES.find(x=>x[0]===S.tTone);let col=t?t[2]:S.tTone?`${S.tTone}-coloured`:c[4];if(c[0]==="check"&&col==="white")col="light grey";return c[2].replace("{c}",col)}
 function tableEn(){if(!S.table)return "";const o=find(TOCC,S.tOcc),sh=TSHAPE.find(x=>x[0]===S.tShape)||TSHAPE[0],sz=TSIZE.find(x=>x[0]===S.tSize)||TSIZE[0],m=TMAT.find(x=>x[0]===S.tMat)||TMAT[0],c=TCLOTH.find(x=>x[0]===S.tCloth)||TCLOTH[0],ar=find(ARR,S.arr);
-  let t=`The products are placed on ${sh[2]} ${sz[2]} table with a ${m[2]} top`+(c[0]!=="none"?`, covered with ${c[2]}`:"")+`. The table edge and part of the tabletop are visible in the frame; the table is the only surface the products touch.`;
+  let t=`The products are placed on ${sh[2]} ${sz[2]} table with a ${m[2]} top`+(c[0]!=="none"?`, covered with ${clothEn(c)}`:"")+`. The table edge and part of the tabletop are visible in the frame; the table is the only surface the products touch.`;
   if(o.en)t+=` Table setting: ${o.en}. The setting stays secondary: props are smaller than the products, sit around and behind them, and never cover or overlap the products.`;
   t+=ar.float?" The products float just above the table, casting soft shadows onto it.":" The products stand naturally on the table, the hero product in front.";
   return t}
 function syncTable(){const on=!!S.table;$("tablePanel").hidden=!on;$("pods").hidden=on||S.pod==="none";{const mo=$("pods").nextElementSibling;if(mo&&mo.classList.contains("more"))mo.hidden=$("pods").hidden;const gw=$("pods").nextElementSibling;}
   $("standSeg").querySelectorAll("[data-st]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.st===(on?"table":S.pod==="none"?"none":"pod"))));
   $("pods").querySelectorAll('[data-v="none"]').forEach(b=>b.hidden=true);
-  if(!on)return;mark($("tOcc"),S.tOcc);mark($("tShape"),S.tShape);mark($("tSize"),S.tSize);mark($("tMat"),S.tMat);mark($("tCloth"),S.tCloth);$("tableEn").textContent=tableEn()}
+  if(!on)return;mark($("tOcc"),S.tOcc);mark($("tShape"),S.tShape);mark($("tSize"),S.tSize);mark($("tMat"),S.tMat);mark($("tCloth"),S.tCloth);syncTone();$("tableEn").textContent=tableEn()}
+function syncTone(){const c=TCLOTH.find(x=>x[0]===S.tCloth)||TCLOTH[0],t=S.tTone&&CTONES.find(x=>x[0]===S.tTone);$("tToneBox").hidden=c[0]==="none";
+  $("tTone").querySelectorAll("[data-tone]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.tone===S.tTone)));
+  $("tToneL").textContent=t?t[1].toLowerCase():S.tTone?"свой":"как у ткани";$("tToneC").value=(S.tTone||c[3]||"#F2E8D5").toLowerCase()}
 function podEn(){const p=find(PODS,S.pod);if(!p||p.id==="none")return "";const ar=find(ARR,S.arr),n=+S.podTiers;
   let t=p.en+".";
   if(p.shape)t+=` Podium shape: ${find(PSHAPE,S.podShape)[2]}.`;
@@ -2197,7 +2271,7 @@ const DOF=[
 const RATIOS=[["21:9",21,9],["1:1",1,1],["4:5",4,5],["3:4",3,4],["2:3",2,3],["9:16",9,16],["16:9",16,9],["3:2",3,2]];
 
 /* ---------- STATE ---------- */
-const DEF={gap:"close",mirror:false,cats:[],enh:[],table:false,tOcc:"plain",tShape:"round",tSize:"dining",tMat:"oak",tCloth:"none",bgText:"",style:"fintech",angle:"e45",arr:"cluster",place:"center",grid:"golden",tilt:"left",fill:"70",light:"auto",lcount:"all",lside:"left",lsoft:"soft",ltemp:"neutral",noCrop:true,dof:"all",objList:"",isolate:true,scale:true,food:false,bg:"grad",color:"#F3D9E4",g1:"#F4F6FB",g2:"#E2E8F5",gbase:"#E2E8F5",gdir:"radial",gmode:"pal",surface:"lwood",decor:"few",decorAuto:true,shadow:"ao",ratio:"1:1",cat:"none",product:"",props:"",src:"photo",items:[{type:"cup",mat:"matte",color:"#F5F5F2",what:"",label:"",details:""}],sv:{},pod:"none",podShape:"cyl",podTiers:"2",podCol:"bg",rebuild:true,keepProduct:true,keepText:true,avoid:true};
+const DEF={gap:"close",mirror:false,cats:[],enh:[],table:false,tOcc:"plain",tShape:"round",tSize:"dining",tMat:"oak",tCloth:"none",tTone:null,bgText:"",style:"fintech",angle:"e45",arr:"cluster",place:"center",grid:"golden",tilt:"left",fill:"70",light:"auto",lcount:"all",lside:"left",lsoft:"soft",ltemp:"neutral",noCrop:true,dof:"all",objList:"",isolate:true,keepWare:true,scale:true,food:false,bg:"grad",color:"#F3D9E4",g1:"#F4F6FB",g2:"#E2E8F5",gbase:"#E2E8F5",gdir:"radial",gmode:"pal",surface:"lwood",decor:"few",decorAuto:true,shadow:"ao",ratio:"1:1",cat:"none",product:"",props:"",src:"photo",items:[{type:"cup",mat:"matte",color:"#F5F5F2",what:"",label:"",details:""}],sv:{},pod:"none",podShape:"cyl",podTiers:"2",podCol:"bg",rebuild:true,keepProduct:true,keepText:true,avoid:true};
 const freshS=()=>JSON.parse(JSON.stringify(DEF));
 let S=freshS();
 try{const s=JSON.parse(localStorage.getItem("ppc-v7")||"null");if(s)S=Object.assign(freshS(),s)}catch(e){}
@@ -2207,6 +2281,7 @@ function migrate(){
   if(m[S.surface]){S.sv[m[S.surface][0]]=m[S.surface][1];S.surface=m[S.surface][0]}
   if(S.surface==="podium"){S.surface="wood";if(S.pod==="none")S.pod="soft"}
   if(!SURF.some(x=>x.id===S.surface))S.surface="wood";
+  if(typeof S.keepWare!=="boolean")S.keepWare=true;
   if(S.fill==="75")S.fill="70";if(!S.cat)S.cat="none";if(!Array.isArray(S.cats))S.cats=S.cat&&S.cat!=="none"?[S.cat]:[];if(!Array.isArray(S.enh))S.enh=[];
   const tmap={can:"jar",pouch:"box",tube:"cup"};S.items.forEach(it=>{if(tmap[it.type])it.type=tmap[it.type];if(!ICONS[it.type])it.type="cup"});
 }
@@ -2410,7 +2485,11 @@ $("tOcc").innerHTML=cardsHTML(TOCC,occSVG);$("tShape").innerHTML=chipHTML(TSHAPE
 $("standSeg").addEventListener("click",e=>{const b=e.target.closest("[data-st]");if(!b)return;const v=b.dataset.st;
   if(v==="none"){S.table=false;S.pod="none"}else if(v==="pod"){S.table=false;if(S.pod==="none")S.pod="soft"}else{S.table=true;S.pod="none"}update()});
 $("tOcc").addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(!b)return;const o=find(TOCC,b.dataset.v);S.tOcc=o.id;if(o.cloth)S.tCloth=o.cloth;if(o.mat)S.tMat=o.mat;update()});
-[["tShape","tShape"],["tSize","tSize"],["tMat","tMat"],["tCloth","tCloth"]].forEach(([el,k])=>bindPick($(el),k));$("podShape").innerHTML=chipHTML(PSHAPE);$("podTiers").innerHTML=chipHTML(PTIERS);
+[["tShape","tShape"],["tSize","tSize"],["tMat","tMat"],["tCloth","tCloth"]].forEach(([el,k])=>bindPick($(el),k));
+$("tTone").innerHTML=CTONES.map(([h,n])=>`<button class="sw sm" type="button" data-tone="${h}" title="${n}" aria-label="${n}" aria-pressed="false" style="background:${h}"></button>`).join("")+`<label class="custom">Свой <input type="color" id="tToneC" aria-label="Свой оттенок ткани"></label>`;
+$("tTone").addEventListener("click",e=>{const b=e.target.closest("[data-tone]");if(!b)return;S.tTone=S.tTone===b.dataset.tone?null:b.dataset.tone;update()});
+$("tToneC").addEventListener("input",e=>{S.tTone=e.target.value.toUpperCase();update()});
+$("podShape").innerHTML=chipHTML(PSHAPE);$("podTiers").innerHTML=chipHTML(PTIERS);
 $("tilt").innerHTML=cardsHTML(TILT,tiltSVG);$("fill").innerHTML=cardsHTML(FILL,fillSVG);$("dof").innerHTML=cardsHTML(DOF,dofSVG);
 $("lside").innerHTML=chipHTML(LSIDE);$("lsoft").innerHTML=chipHTML(LSOFT);$("ltemp").innerHTML=LTEMP.map(([v,l])=>`<button class="chip" type="button" data-v="${v}" aria-pressed="false"><span class="dot" style="background:${{neutral:"#F4F1EA",warm:"#F5B24A",cool:"#9CC3EE"}[v]};box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)"></span>${l}</button>`).join("");
 function drawLights(){$("lights").innerHTML=cardsHTML(LIGHTS.filter(x=>!x.x),lightSVG);$("lightsX").innerHTML=cardsHTML(LIGHTS.filter(x=>x.x),lightSVG);if(window.__cr)applyRules(window.__cr);mark($("lights"),S.light);mark($("lightsX"),S.light)}
@@ -2443,7 +2522,7 @@ renderProds();
 $("bgTextIn").addEventListener("input",e=>{S.bgText=e.target.value;update()});
 $("bgIdeas").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const t=$("bgTextIn"),v=t.value.trim();S.bgText=v?v.replace(/[,.\s]+$/,"")+", "+b.textContent:b.textContent;t.value=S.bgText;update();t.focus()});
 const growProd=()=>{const t=$("product");t.style.height="auto";t.style.height=t.scrollHeight+2+"px"};$("product").addEventListener("input",growProd);requestAnimationFrame(growProd);
-["rebuild","keepProduct","keepText","avoid","decorAuto","isolate","scale","food","noCrop"].forEach(k=>$(k).addEventListener("change",e=>{S[k]=e.target.checked;update()}));
+["rebuild","keepProduct","keepText","keepWare","avoid","decorAuto","isolate","scale","food","noCrop"].forEach(k=>$(k).addEventListener("change",e=>{S[k]=e.target.checked;update()}));
 
 /* ---------- COMPATIBILITY ---------- */
 const OPTS={arr:ARR.map(x=>x.id),angle:ANGLES.map(x=>x.id),place:PLACE.map(x=>x.id),grid:GRIDS.map(x=>x.id),fill:FILL.map(x=>x.id),dof:DOF.map(x=>x.id),shadow:SHADOWS.map(x=>x.id),light:LIGHTS.map(x=>x.id),lsoft:LSOFT.map(x=>x[0])};
@@ -2473,7 +2552,7 @@ function rules(){
   if(S.light==="auto"){G.lside=G.lsoft=G.ltemp="Задаётся выбранным стилем. Выбери схему света, чтобы настроить вручную"}
   else if(lt.sym)G.lside="Схема симметричная, стороны ключевого света у неё нет";
   if(S.decor==="none"){C.decorAuto="Декор выключен";C.props="Декор выключен"}
-  if(S.src==="text"){const n=S.items.length;C.rebuild=C.isolate=C.keepProduct="Нужно только при работе с фото";
+  if(S.src==="text"){const n=S.items.length;C.rebuild=C.isolate=C.keepProduct=C.keepWare="Нужно только при работе с фото";
     if(n>1)dis("arr",["one","onefly","lone"],`Описано продуктов: ${n}, нужна групповая расстановка`);
     else dis("arr",["group","cluster","apart","sapart","lgroup","lapart","lcheck","lknoll","lrow","lring"],"Описан один продукт: групповая расстановка не нужна")}
   return {R,G,C};
@@ -2503,7 +2582,7 @@ function applyRules(c){
     g.querySelectorAll(".card.off").forEach(b=>{if(getComputedStyle(b).display==="none")return;const w=b.dataset.why,t=(b.querySelector(".meta .t")||b).textContent.trim();if(!by.has(w))by.set(w,[]);by.get(w).push(t)});
     let n=g.nextElementSibling;if(!n||!n.classList.contains("gwhy")){n=document.createElement("p");n.className="gwhy";n.setAttribute("aria-live","polite");g.after(n)}
     n.hidden=!by.size;n.innerHTML=[...by].map(([w,ts])=>`<span><b>${escA(ts.join(", "))}</b> — ${escA(w.charAt(0).toLowerCase()+w.slice(1))}</span>`).join("")}
-  ["noCrop","decorAuto","rebuild","isolate","keepProduct"].forEach(id=>{const inp=$(id),lab=inp.closest(".tg"),why=c.C[id]||"";inp.disabled=!!why;lab.classList.toggle("off",!!why);lab.title=why;
+  ["noCrop","decorAuto","rebuild","isolate","keepProduct","keepWare"].forEach(id=>{const inp=$(id),lab=inp.closest(".tg"),why=c.C[id]||"";inp.disabled=!!why;lab.classList.toggle("off",!!why);lab.title=why;
     let w=lab.querySelector(".why");if(!w){w=document.createElement("em");w.className="why";lab.querySelector("span").appendChild(w)}w.textContent=why?"Недоступно: "+why.toLowerCase():""});
   $("props").disabled=!!c.C.props;$("props").title=c.C.props||"";
 }
@@ -2531,7 +2610,8 @@ function sections(){
   }
   const ref=[];
   if(many)ref.push("Reference images in order: "+refs.map((r,i)=>`image ${i+1} is the ${r}`).join("; ")+".");
-  if(S.isolate)ref.push(`From ${many?"each":"the"} reference use only the product itself: ignore boards, plates, bread, garnish, cutlery, hands and any other objects or background around it.`);
+  if(S.isolate)ref.push(S.keepWare?`From ${many?"each":"the"} reference use the product together with the plate, board, bowl or glass it is served on or in; rebuild that serveware to match the new scene. Ignore cutlery, hands, napkins, unrelated food and any other objects or background around it.`:`From ${many?"each":"the"} reference use only the product itself: ignore boards, plates, bowls, cutlery, hands, napkins, garnish and any other objects or background around it.`);
+  else if(!S.keepWare)ref.push("Do not carry over plates, boards, bowls or other serveware from the reference; place the product directly in the new scene.");
   if(S.rebuild)ref.push("Do not cut out, composite or paste the original photos: rebuild every object from scratch as a clean new object inside one shared scene with the same camera, perspective and light source, so reflections, shadows and edges are physically consistent. No cut-out edges, halos or mismatched lighting.");
   if(S.keepProduct)ref.push("Keep each product's shape, proportions, materials and colors identical to the reference; do not redesign or simplify it.");
   if(S.keepText)ref.push("Preserve all label text, logos and typography exactly as on the reference, sharp and legible.");
@@ -2640,7 +2720,7 @@ const PRESETS=[
  {id:"social11",t:"Соцсети 1:1",d:"Солнце, тени листвы, лён и немного декора",tags:["1:1","Солнце"],kind:"stand",
   set:{style:"sun",angle:"slight",place:"center",grid:"diag",tilt:"none",fill:"70",noCrop:true,light:"key45",lside:"left",lsoft:"hard",ltemp:"warm",dof:"all",bg:"scene",surface:"linen",sv:{linen:"#F4F1EA"},decor:"bal",shadow:"hard",ratio:"1:1",pod:"none"}}
 ];
-const SCENE_KEYS=["gap","mirror","table","tOcc","tShape","tSize","tMat","tCloth","bgText","style","angle","arr","place","grid","tilt","fill","light","lside","lsoft","ltemp","dof","bg","color","gbase","gdir","gmode","g1","g2","surface","sv","decor","shadow","ratio","pod","podShape","podTiers","podCol","noCrop"];
+const SCENE_KEYS=["gap","mirror","table","tOcc","tShape","tSize","tMat","tCloth","tTone","bgText","style","angle","arr","place","grid","tilt","fill","light","lside","lsoft","ltemp","dof","bg","color","gbase","gdir","gmode","g1","g2","surface","sv","decor","shadow","ratio","pod","podShape","podTiers","podCol","noCrop"];
 const sceneSig=st=>JSON.stringify(SCENE_KEYS.map(k=>k==="sv"?Object.entries(st.sv||{}).sort():st[k]));
 function presetState(pr,base){
   const st=JSON.parse(JSON.stringify(base));Object.assign(st,JSON.parse(JSON.stringify(pr.set)));st.sv=Object.assign({},base.sv,pr.set.sv||{});
@@ -2689,41 +2769,19 @@ document.addEventListener("keydown",e=>{if(e.key!=="Tab")return;
   const a=f[0],z=f[f.length-1];if(!d.contains(document.activeElement)){e.preventDefault();a.focus();return}
   if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});
 
-/* ----- admin lab: glass + font pairs (applied only for admin) ----- */
-const FONTS={inter:{s:"Inter Tight",t:"Inter Tight",d:'"Inter Tight"',b:'"Inter Tight"',q:null},
-  sf:{s:"SF",t:"Системный · SF",d:'-apple-system,"SF Pro Display",system-ui',b:'-apple-system,"SF Pro Text",system-ui',q:null},
-  onest:{s:"Onest",t:"Onest",d:'"Onest"',b:'"Onest"',q:"Onest:wght@400..700"},
-  manrope:{s:"Manrope",t:"Manrope + Inter",d:'"Manrope"',b:'"Inter"',q:"Manrope:wght@500..800&family=Inter:wght@400..700"},
-  golos:{s:"Geologica",t:"Geologica + Golos",d:'"Geologica"',b:'"Golos Text"',q:"Geologica:wght@400..700&family=Golos+Text:wght@400..700"},
-  plex:{s:"Plex Sans",t:"IBM Plex Sans",d:'"IBM Plex Sans"',b:'"IBM Plex Sans"',q:"IBM+Plex+Sans:wght@400;500;600;700"},
-  jost:{s:"Jost",t:"Jost + Inter",d:'"Jost"',b:'"Inter"',q:"Jost:wght@400..700&family=Inter:wght@400..700"},
-  rubik:{s:"Rubik",t:"Rubik",d:'"Rubik"',b:'"Rubik"',q:"Rubik:wght@400..700"},
-  unb:{s:"Unbounded",t:"Unbounded + Onest",d:'"Unbounded"',b:'"Onest"',q:"Unbounded:wght@400..700&family=Onest:wght@400..700"},
-  mont:{s:"Montserrat",t:"Montserrat + Golos",d:'"Montserrat"',b:'"Golos Text"',q:"Montserrat:wght@500..700&family=Golos+Text:wght@400..700"}};
-const LOGOS={"mark": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><path d=\"M58 24C62 15 74 14 78 21\" fill=\"none\" stroke=\"#282F33\" stroke-width=\"6\" stroke-linecap=\"round\"/><g fill=\"none\" stroke=\"#F0B92A\" stroke-width=\"7.5\" stroke-linejoin=\"round\"><rect x=\"16\" y=\"42\" width=\"38\" height=\"30\" rx=\"12\"/><rect x=\"66\" y=\"42\" width=\"38\" height=\"30\" rx=\"12\"/><path d=\"M54 54H66\"/></g><circle cx=\"36\" cy=\"57\" r=\"5\" fill=\"#282F33\"/><circle cx=\"86\" cy=\"57\" r=\"5\" fill=\"#282F33\"/><path d=\"M44 90Q60 101 76 90\" fill=\"none\" stroke=\"#282F33\" stroke-width=\"6\" stroke-linecap=\"round\"/></svg>", "hair": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><path fill=\"#282F33\" d=\"M22 58C15 26 38 10 61 10C87 10 106 26 98 58C96 51 91 46 85 43C72 47 48 47 34 44C28 47 24 52 22 58Z\"/><path fill=\"#282F33\" d=\"M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z\"/><g fill=\"none\" stroke=\"#F0B92A\" stroke-width=\"5.5\" stroke-linejoin=\"round\"><rect x=\"28\" y=\"59\" width=\"27\" height=\"22\" rx=\"8\"/><rect x=\"65\" y=\"59\" width=\"27\" height=\"22\" rx=\"8\"/><path d=\"M55 67H65\"/></g><circle cx=\"42\" cy=\"70.5\" r=\"3.6\" fill=\"#282F33\"/><circle cx=\"78\" cy=\"70.5\" r=\"3.6\" fill=\"#282F33\"/><path d=\"M48 95Q60 103 72 95\" fill=\"none\" stroke=\"#282F33\" stroke-width=\"5\" stroke-linecap=\"round\"/></svg>", "girl": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><circle cx=\"60\" cy=\"16\" r=\"11\" fill=\"#282F33\"/><path fill=\"#FFF6E3\" d=\"M26 52C24 92 42 109 60 109C78 109 96 92 94 52Z\"/><g fill=\"none\" stroke=\"#282F33\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke-width=\"5.5\" d=\"M25 56C25 93 44 109 60 109C76 109 95 93 95 56\"/><path stroke-width=\"4.5\" d=\"M49 93Q60 100 71 93\"/></g><path fill=\"#282F33\" d=\"M20 70C14 36 36 22 60 22C84 22 106 36 100 70C98 60 92 53 84 50C76 56 64 56 60 48C56 56 44 56 36 50C28 53 22 60 20 70Z\"/><circle cx=\"96\" cy=\"86\" r=\"3.5\" fill=\"#F0B92A\"/><circle cx=\"24\" cy=\"86\" r=\"3.5\" fill=\"#F0B92A\"/><g fill=\"none\" stroke=\"#F0B92A\" stroke-width=\"5.5\" stroke-linejoin=\"round\"><rect x=\"28\" y=\"61\" width=\"27\" height=\"21\" rx=\"10\"/><rect x=\"65\" y=\"61\" width=\"27\" height=\"21\" rx=\"10\"/><path d=\"M55 69H65\"/></g><circle cx=\"42\" cy=\"72\" r=\"3.6\" fill=\"#282F33\"/><circle cx=\"78\" cy=\"72\" r=\"3.6\" fill=\"#282F33\"/></svg>", "orb": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><ellipse cx=\"58\" cy=\"100\" rx=\"28\" ry=\"5\" fill=\"#282F33\" opacity=\".14\"/><circle cx=\"58\" cy=\"62\" r=\"32\" fill=\"#FFF6E3\" stroke=\"#282F33\" stroke-width=\"5.5\"/><path d=\"M40 52A20 20 0 0 1 56 38\" fill=\"none\" stroke=\"#F0B92A\" stroke-width=\"5.5\" stroke-linecap=\"round\"/><path fill=\"#F0B92A\" d=\"M92 14C93.6 23 95 24.4 104 26C95 27.6 93.6 29 92 38C90.4 29 89 27.6 80 26C89 24.4 90.4 23 92 14Z\"/></svg>", "cubes": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><g stroke=\"#282F33\" stroke-width=\"4.5\" stroke-linejoin=\"round\"><path fill=\"#FFF6E3\" d=\"M30 66L48 56L66 66L48 76Z\"/><path fill=\"#E8DCC2\" d=\"M30 66V88L48 98V76Z\"/><path fill=\"#D8C9AA\" d=\"M66 66V88L48 98V76Z\"/><path fill=\"#FFF6E3\" d=\"M56 66L74 56L92 66L74 76Z\"/><path fill=\"#E8DCC2\" d=\"M56 66V88L74 98V76Z\"/><path fill=\"#D8C9AA\" d=\"M92 66V88L74 98V76Z\"/><path fill=\"#F6C94E\" d=\"M43 42L61 32L79 42L61 52Z\"/><path fill=\"#F0B92A\" d=\"M43 42V64L61 74V52Z\"/><path fill=\"#D9A21F\" d=\"M79 42V64L61 74V52Z\"/></g></svg>", "flow": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><g fill=\"none\" stroke=\"#282F33\" stroke-width=\"5.5\" stroke-linecap=\"round\"><path d=\"M16 40H44M16 56H38M16 72H44M16 88H30\"/></g><path d=\"M50 64H62\" stroke=\"#F0B92A\" stroke-width=\"5.5\" stroke-linecap=\"round\"/><path d=\"M58 57L66 64L58 71\" fill=\"none\" stroke=\"#F0B92A\" stroke-width=\"5.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"72\" y=\"38\" width=\"34\" height=\"52\" rx=\"9\" fill=\"#FFF6E3\" stroke=\"#282F33\" stroke-width=\"5.5\"/><circle cx=\"89\" cy=\"68\" r=\"8\" fill=\"#F0B92A\"/><path d=\"M78 84H100\" stroke=\"#282F33\" stroke-width=\"3.5\" stroke-linecap=\"round\" opacity=\".4\"/></svg>", "mono": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><path d=\"M88 38A34 34 0 1 0 94 70H66\" fill=\"none\" stroke=\"#282F33\" stroke-width=\"12\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"58\" y=\"58\" width=\"30\" height=\"24\" rx=\"9\" fill=\"#FFF6E3\" stroke=\"#F0B92A\" stroke-width=\"6\"/><circle cx=\"73\" cy=\"70\" r=\"4\" fill=\"#282F33\"/></svg>", "jar": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><ellipse cx=\"60\" cy=\"104\" rx=\"30\" ry=\"5\" fill=\"#282F33\" opacity=\".14\"/><rect x=\"34\" y=\"20\" width=\"52\" height=\"16\" rx=\"6\" fill=\"#F0B92A\" stroke=\"#282F33\" stroke-width=\"5\"/><path d=\"M36 36H84V92A10 10 0 0 1 74 102H46A10 10 0 0 1 36 92Z\" fill=\"#FFF6E3\" stroke=\"#282F33\" stroke-width=\"5.5\" stroke-linejoin=\"round\"/><rect x=\"44\" y=\"56\" width=\"32\" height=\"22\" rx=\"5\" fill=\"none\" stroke=\"#282F33\" stroke-width=\"4\"/><path d=\"M51 67H69\" stroke=\"#F0B92A\" stroke-width=\"4.5\" stroke-linecap=\"round\"/></svg>", "cam": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><path d=\"M44 30H76L82 40H94A10 10 0 0 1 104 50V86A10 10 0 0 1 94 96H26A10 10 0 0 1 16 86V50A10 10 0 0 1 26 40H38Z\" fill=\"#FFF6E3\" stroke=\"#282F33\" stroke-width=\"5.5\" stroke-linejoin=\"round\"/><circle cx=\"60\" cy=\"68\" r=\"18\" fill=\"none\" stroke=\"#F0B92A\" stroke-width=\"6\"/><circle cx=\"60\" cy=\"68\" r=\"7\" fill=\"#282F33\"/><circle cx=\"90\" cy=\"52\" r=\"3.5\" fill=\"#282F33\"/></svg>", "jarg": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><ellipse cx=\"60\" cy=\"106\" rx=\"30\" ry=\"5\" fill=\"#282F33\" opacity=\".14\"/><rect x=\"32\" y=\"16\" width=\"56\" height=\"16\" rx=\"6\" fill=\"#282F33\"/><path d=\"M34 32H86V94A10 10 0 0 1 76 104H44A10 10 0 0 1 34 94Z\" fill=\"#FFF6E3\" stroke=\"#282F33\" stroke-width=\"5.5\" stroke-linejoin=\"round\"/><g fill=\"none\" stroke=\"#F0B92A\" stroke-width=\"5\" stroke-linejoin=\"round\"><rect x=\"38\" y=\"50\" width=\"20\" height=\"16\" rx=\"6\"/><rect x=\"62\" y=\"50\" width=\"20\" height=\"16\" rx=\"6\"/><path d=\"M58 57H62\"/></g><circle cx=\"48\" cy=\"58\" r=\"3\" fill=\"#282F33\"/><circle cx=\"72\" cy=\"58\" r=\"3\" fill=\"#282F33\"/><path d=\"M52 80Q60 86 68 80\" fill=\"none\" stroke=\"#282F33\" stroke-width=\"4.5\" stroke-linecap=\"round\"/></svg>", "pod": "<svg viewBox=\"0 0 120 120\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\"><path d=\"M20 84V94C20 100 38 106 60 106C82 106 100 100 100 94V84\" fill=\"#E8DCC2\" stroke=\"#282F33\" stroke-width=\"5\" stroke-linejoin=\"round\"/><ellipse cx=\"60\" cy=\"84\" rx=\"40\" ry=\"10\" fill=\"#FFF6E3\" stroke=\"#282F33\" stroke-width=\"5\"/><rect x=\"44\" y=\"40\" width=\"32\" height=\"42\" rx=\"8\" fill=\"#FFF6E3\" stroke=\"#282F33\" stroke-width=\"5.5\"/><rect x=\"44\" y=\"40\" width=\"32\" height=\"12\" rx=\"6\" fill=\"#F0B92A\" stroke=\"#282F33\" stroke-width=\"5.5\"/><path fill=\"#F0B92A\" d=\"M92 18C93.4 26 94.6 27.2 102 28.5C94.6 29.8 93.4 31 92 39C90.6 31 89.4 29.8 82 28.5C89.4 27.2 90.6 26 92 18Z\"/></svg>"};const LOGO_T={"guy": "Классика", "mark": "Лицо", "hair": "Причёска", "girl": "Девушка", "orb": "Сфера", "cubes": "Кубы", "flow": "Промт → кадр", "mono": "Буква G", "jar": "Банка", "cam": "Камера", "jarg": "Банка в очках", "pod": "Подиум"};const LOGO_G=[["Человек", ["guy", "mark", "hair", "girl"]], ["Абстракция", ["orb", "cubes", "flow", "mono"]], ["Предмет", ["jar", "cam", "jarg", "pod"]]];let GUY=null;
-const LAB={glass:false,font:"inter",logo:"guy",mode:"pro"};try{Object.assign(LAB,JSON.parse(localStorage.getItem("gena-lab")||"{}"))}catch(e){}
-function labApply(){const on=!!(Cloud&&Cloud.admin);document.body.classList.toggle("glass",on&&LAB.glass);modeApply(on&&LAB.mode==="simple"?"simple":"pro");
-  const f=FONTS[on?LAB.font:"inter"]||FONTS.inter;
-  if(f.q&&!document.getElementById("lf-"+(on?LAB.font:""))){const l=document.createElement("link");l.rel="stylesheet";l.id="lf-"+LAB.font;l.href="https://fonts.googleapis.com/css2?family="+f.q+"&display=swap";document.head.appendChild(l)}
-  root.style.setProperty("--f-display",f.d+',Arial,system-ui,sans-serif');root.style.setProperty("--f-body",f.b+',Arial,system-ui,sans-serif');
-  $("uLab").hidden=!on;$("labGlass").checked=LAB.glass;
-  if(!LOGO_T[LAB.logo])LAB.logo="guy";const lg=on?LAB.logo:"guy",bs=document.querySelector(".brand svg");if(!GUY&&bs)GUY=bs.outerHTML;
-  document.querySelectorAll(".brand svg,.flogo svg").forEach(el=>{const want=lg==="guy"?GUY:LOGOS[lg]||GUY;if(want&&el.dataset.lg!==lg){const t=document.createElement("div");t.innerHTML=want;const n=t.firstElementChild;n.dataset.lg=lg;if(el.closest(".brand"))n.setAttribute("aria-hidden","true");el.replaceWith(n)}});
-  if(!GUY&&bs)GUY=bs.outerHTML;$("labLogo").innerHTML=LOGO_G.map(([gt,ks])=>`<p class="ulg">${gt}</p>`+ks.map(k=>[k,LOGO_T[k]]).map(([k,t])=>`<button type="button" role="radio" data-lg="${k}" title="${t}" aria-label="${t}" aria-checked="${k===lg}">${k==="guy"?(GUY||"").replace(/role="img"[^>]*?aria-label="GENA"/,'aria-hidden="true"'):LOGOS[k]}</button>`).join("")).join("");
-  $("labFonts").innerHTML=Object.entries(FONTS).map(([k,v])=>`<button type="button" role="radio" data-lf="${k}" title="${v.t}" aria-checked="${k===LAB.font}" style="font-family:${v.d.replace(/"/g,"'")},system-ui"><b>Аа</b><span>${v.s||v.t}</span></button>`).join("");
-  if(window.Hero)Hero.refresh()}
+/* ----- admin lab: Simple / Pro mode (only admin for now) ----- */
+
+const LAB={mode:"pro"};try{Object.assign(LAB,JSON.parse(localStorage.getItem("gena-lab")||"{}"))}catch(e){}
+function labApply(){const on=!!(Cloud&&Cloud.admin);modeApply(on&&LAB.mode==="simple"?"simple":"pro");$("uLab").hidden=!on;if(window.Hero)Hero.refresh()}
 function labSave(){try{localStorage.setItem("gena-lab",JSON.stringify(LAB))}catch(e){}labApply()}
-$("labGlass").addEventListener("change",e=>{LAB.glass=e.target.checked;labSave()});
 $("labMode").addEventListener("click",e=>{const b=e.target.closest("[data-md]");if(!b||LAB.mode===b.dataset.md)return;LAB.mode=b.dataset.md;labSave();toast(LAB.mode==="simple"?"Простой режим: только главные настройки":"Режим Про: все настройки")});
 /* Simple / Pro mode (stage 1): hide fine-tuning; hidden values still come from scenario, style and templates */
-const PRO_ONLY=["#refToggles","#tgMore","#enh",'#standSeg [data-st="pod"]',"#pods","#podPanel","#gapRow","#tiltBox","#s-comp details.adv","#fill","#grids","#s-cam","#s-light","#s-fin",'#steps [data-t="s-cam"]','#steps [data-t="s-light"]','#steps [data-t="s-fin"]'];
+const PRO_ONLY=["#tgBox","#enh",'#standSeg [data-st="pod"]',"#pods","#podPanel","#gapRow","#tiltBox","#s-comp details.adv","#fill","#grids","#s-cam","#s-light","#s-fin",'#steps [data-t="s-cam"]','#steps [data-t="s-light"]','#steps [data-t="s-fin"]'];
 let MODE_MARKED=false;
 function modeMark(){if(MODE_MARKED)return;MODE_MARKED=true;PRO_ONLY.forEach(q=>document.querySelectorAll(q).forEach(el=>{const t=["#enh","#fill","#grids"].includes(q)?el.closest(".sub"):el;t.classList.add("pxo");const hr=t.previousElementSibling;if(t.classList.contains("sub")&&hr&&hr.tagName==="HR")hr.classList.add("pxo")}))}
 function modeApply(m){modeMark();document.querySelectorAll("#labMode [data-md]").forEach(b=>b.setAttribute("aria-checked",String(b.dataset.md===m)));if(root.dataset.mode===m)return;root.dataset.mode=m;if(Cloud.user)setTimeout(route);
   let n=0;document.querySelectorAll("#steps [data-t]").forEach(b=>{const sec=$(b.dataset.t);if(b.classList.contains("pxo")&&m==="simple")return;n++;const k=String(n).padStart(2,"0");b.querySelector("span").textContent=k;b.setAttribute("aria-label","Шаг "+k+": "+b.title);const nm=sec&&sec.querySelector(".num");if(nm)nm.textContent=k});
   if(typeof fitGrids==="function")requestAnimationFrame(fitGrids)}
-$("labLogo").addEventListener("click",e=>{const b=e.target.closest("[data-lg]");if(!b)return;e.stopPropagation();LAB.logo=b.dataset.lg;labSave()});
-$("labFonts").addEventListener("click",e=>{const b=e.target.closest("[data-lf]");if(!b)return;e.stopPropagation();LAB.font=b.dataset.lf;labSave()});
 
 /* background mode: live / still / clean (for everyone) */
 function setBg(m){if(m==="live")delete root.dataset.bg;else root.dataset.bg=m;try{localStorage.setItem("gena-bg",m)}catch(e){}
@@ -2779,9 +2837,11 @@ function renderPal(id){
 }
 ["pals","gpals"].forEach(id=>$(id).addEventListener("click",e=>{const t=e.target.closest("[data-gi]");if(!t)return;palOpen[id]=+t.dataset.gi;renderPal(id)}));
 
-$("tgMore").addEventListener("click",()=>{const t=$("refToggles"),o=t.hidden;t.hidden=!o;$("tgMore").setAttribute("aria-expanded",String(o));syncTg()});
-function syncTg(){const all=[...$("refToggles").querySelectorAll(".tg:not([hidden]) input")],on=all.filter(x=>x.checked).length,o=!$("refToggles").hidden,what=S.src==="text"?"Правила для промта":"Как обращаться с фото";
-  $("tgMore").querySelector("span").innerHTML=o?"Свернуть":`${what} <em class="tgstat">${on===all.length?"всё включено":`включено ${on} из ${all.length}`}</em>`}
+function tgOpen(o){$("refToggles").classList.toggle("clip",!o);$("tgMore").setAttribute("aria-expanded",String(o));syncTg()}
+$("tgMore").addEventListener("click",()=>tgOpen($("refToggles").classList.contains("clip")));
+$("refToggles").addEventListener("focusin",()=>{if($("refToggles").classList.contains("clip"))tgOpen(true)});
+function syncTg(){const all=[...$("refToggles").querySelectorAll(".tg:not([hidden]) input:not(:disabled)")],on=all.filter(x=>x.checked).length,o=!$("refToggles").classList.contains("clip");
+  $("tgTitle").textContent=S.src==="text"?"Правила для промта":"Как обращаться с фото";$("tgStat").textContent=on===all.length?"Всё включено":`Включено ${on} из ${all.length}`;$("tgMoreL").textContent=o?"Свернуть":"Все настройки"}
 /* ---------- RATIO PICKER ---------- */
 function ratioPop(o){$("ratios").hidden=!o;$("rBtn").setAttribute("aria-expanded",String(o));if(o)($("ratios").querySelector('[aria-pressed="true"]')||$("ratios").firstElementChild).focus()}
 function syncRatio(){$("rVal").textContent=S.ratio==="auto"?"Авто":S.ratio;$("rIco").outerHTML=rIcon(S.ratio,14).replace('class="ri','id="rIco" class="ri')}
@@ -2896,7 +2956,7 @@ async function onSession(session){
   const nm=Cloud.profile.name||Cloud.user.email.split("@")[0];
   labApply();$("uName").textContent=nm;$("uMail").textContent=Cloud.user.email;$("uIni").textContent=nm.trim().charAt(0).toUpperCase()||"?";$("uAdmin").hidden=!Cloud.admin;$("uOnb").hidden=false;
   $("tpl").hidden=false;$("qtTeam").hidden=false;$("tOpen").hidden=false;loadTemplates();
-  $("histBtn").hidden=false;$("viewNav").hidden=false;loadHistory();route();
+  $("histBtn").hidden=false;$("viewNav").hidden=false;loadHistory();route();setTimeout(shareAuto,9000);
   if(prof&&!prof.role)setTimeout(()=>{if(!Cloud.profile.role){$("roleAsk").hidden=false;document.body.classList.add("locked")}},1200);setTimeout(onbAuto,1500);
 }
 
@@ -3062,7 +3122,7 @@ function syncPod(){
 function mark(el,v){el.querySelectorAll("[data-v]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===v)))}
 
 /* step dots: which steps differ from the defaults */
-const STEP_KEYS={"s-ref":["src","cats","enh","product","items","isolate","scale","food","rebuild","keepProduct","keepText","avoid"],"s-style":["style"],"s-bg":["bg","color","g1","g2","gbase","gdir","gmode","surface","sv","decor","decorAuto","props","bgText"],"s-pod":["pod","podShape","podTiers","podCol","table","tOcc","tShape","tSize","tMat","tCloth"],"s-comp":["gap","mirror","arr","place","grid","fill","tilt","objList","noCrop"],"s-cam":["angle"],"s-light":["light","lcount","lside","lsoft","ltemp"],"s-fin":["shadow","dof"]};
+const STEP_KEYS={"s-ref":["src","cats","enh","product","items","isolate","keepWare","scale","food","rebuild","keepProduct","keepText","avoid"],"s-style":["style"],"s-bg":["bg","color","g1","g2","gbase","gdir","gmode","surface","sv","decor","decorAuto","props","bgText"],"s-pod":["pod","podShape","podTiers","podCol","table","tOcc","tShape","tSize","tMat","tCloth","tTone"],"s-comp":["gap","mirror","arr","place","grid","fill","tilt","objList","noCrop"],"s-cam":["angle"],"s-light":["light","lcount","lside","lsoft","ltemp"],"s-fin":["shadow","dof"]};
 const stepRel=k=>({surface:S.bg==="scene",sv:S.bg==="scene",color:S.bg==="solid",g1:S.bg==="grad",g2:S.bg==="grad",gbase:S.bg==="grad",gdir:S.bg==="grad",gmode:S.bg==="grad",bgText:S.bg==="text",podShape:S.pod!=="none",podTiers:S.pod!=="none",podCol:S.pod!=="none"})[k]??true;
 function stepDirty(){$("steps").querySelectorAll("[data-t]").forEach(b=>{const ks=(STEP_KEYS[b.dataset.t]||[]).filter(stepRel),d=ks.some(k=>JSON.stringify(S[k]??null)!==JSON.stringify(DEF[k]??null));
   b.classList.toggle("dirty",d);b.title=b.title.replace(/ · изменено$/,"")+(d?" · изменено":"")})}
@@ -3101,7 +3161,7 @@ function update(){
   $("autoNote").hidden=!notes.length;$("autoNote").textContent="Автоматически: "+notes.join(" ");if(notes.length)toast(notes[0]);
   mark($("tilt"),S.tilt);mark($("fill"),S.fill);mark($("dof"),S.dof);
   $("tiltBox").hidden=!find(ARR,S.arr).float;
-  ["rebuild","keepProduct","keepText","avoid","decorAuto","isolate","scale","food","noCrop"].forEach(k=>$(k).checked=S[k]);
+  ["rebuild","keepProduct","keepText","keepWare","avoid","decorAuto","isolate","scale","food","noCrop"].forEach(k=>$(k).checked=S[k]);
   const ar=find(ARR,S.arr),shd=find(SHADOWS,S.shadow);
   const secs=sections(),prev=window.__secPrev,cur={};let first=null;
   $("out").innerHTML=secs.map(([h,t],i)=>{const k=h||"#"+i;cur[k]=t;const chg=prev&&prev[k]!==t;
@@ -3205,9 +3265,10 @@ async function compressImage(file,max,q){
   let blob=await new Promise(r=>c.toBlob(r,"image/webp",q));if(!blob||blob.type!=="image/webp")blob=await new Promise(r=>c.toBlob(r,"image/jpeg",q));
   return {blob,w,h}}
 const kb=n=>n>1048576?(n/1048576).toFixed(1)+" МБ":Math.round(n/1024)+" КБ";
-function pubOpen(row){slotPub(false);PUB={row,file:null};$("pubErr").textContent="";$("pubTitle").value="";pubClear();
+function pubOpen(row){slotPub(false);PUB={row,file:null};$("pubErr").textContent="";pubFieldsClear();pubClear();
   $("pubScene").innerHTML=`<div class="hthumb">${pvBox}</div><div><b>Сцена из истории</b><div class="achips">${sceneChips(row.scene).slice(0,6).map(x=>`<i>${escA(x)}</i>`).join("")}</div>${starsHTML(row.rating,"",true)}</div>`;
   miniPreview($("pubScene").querySelector(".hthumb"),row.scene,"pub",72,72);$("pub").hidden=false;document.body.classList.add("locked");$("pubTitle").focus()}
+function pubFieldsClear(){$("pubTitle").value="";$("pubUse").value="";$("pubNote").value=""}
 function pubClose(){$("pub").hidden=true;document.body.classList.toggle("locked",!$("hist").hidden)}
 function pubClear(){PUB.file=null;$("pubPrev").hidden=true;$("pubEmpty").hidden=false;$("pubImg").removeAttribute("src");$("pubFile").value="";$("pubSize").textContent=""}
 async function pubSet(file){if(!file)return;if(!/^image\//.test(file.type)&&!/\.(heic|heif)$/i.test(file.name)){$("pubErr").textContent="Нужна картинка: JPG, PNG или WEBP.";return}
@@ -3231,7 +3292,7 @@ $("pubForm").addEventListener("submit",async e=>{e.preventDefault();if(!PUB.full
     const ip=`${base}.${ext(PUB.full.blob)}`,tp=`${base}_t.${ext(thumb.blob)}`;
     let u=await Cloud.sb.storage.from("works").upload(ip,PUB.full.blob,{contentType:PUB.full.blob.type});if(u.error)throw u.error;
     u=await Cloud.sb.storage.from("works").upload(tp,thumb.blob,{contentType:thumb.blob.type});if(u.error)throw u.error;
-    const {error}=await Cloud.sb.from("publications").insert({history_id:PUB.row.id,title:$("pubTitle").value.trim(),image_path:ip,thumb_path:tp,w:PUB.full.w,h:PUB.full.h});
+    const {error}=await Cloud.sb.from("publications").insert({history_id:PUB.row.id,title:$("pubTitle").value.trim(),usage:$("pubUse").value.trim()||null,note:$("pubNote").value.trim()||null,image_path:ip,thumb_path:tp,w:PUB.full.w,h:PUB.full.h});
     if(error){await Cloud.sb.storage.from("works").remove([ip,tp]);throw error}
     if(!$("done").hidden){$("done").hidden=true;slotPub(false)}pubClose();histOpen(false);await loadHistory();toast("Спасибо! Работа уже в галерее");go("gallery")}
   catch(err){$("pubErr").textContent="Не получилось опубликовать: "+(err&&err.message||err)}
@@ -3252,7 +3313,7 @@ $("viewNav").addEventListener("click",e=>{const a=e.target.closest("[data-view]"
 async function signed(paths){const need=paths.filter(p=>p&&!GAL.urls[p]);if(need.length){const {data}=await Cloud.sb.storage.from("works").createSignedUrls(need,3600);(data||[]).forEach(d=>{if(d.signedUrl)GAL.urls[d.path]=d.signedUrl})}}
 async function loadGallery(){
   if(!Cloud.sb)return;$("galGrid").setAttribute("aria-busy","true");
-  let q=Cloud.sb.from("publications").select("id,user_id,author_name,title,scene,prompt,rating,image_path,thumb_path,w,h,likes,created_at").order(GAL.sort==="top"?"likes":"created_at",{ascending:false}).limit(120);
+  let q=Cloud.sb.from("publications").select("id,user_id,author_name,title,usage,note,scene,prompt,rating,image_path,thumb_path,w,h,likes,created_at").order(GAL.sort==="top"?"likes":"created_at",{ascending:false}).limit(120);
   const [{data},{data:lk}]=await Promise.all([q,Cloud.sb.from("publication_likes").select("publication_id").eq("user_id",Cloud.user.id)]);
   GAL.rows=data||[];GAL.liked=new Set((lk||[]).map(x=>x.publication_id));
   await signed(GAL.rows.map(r=>r.thumb_path));drawGallery()}
@@ -3289,7 +3350,7 @@ async function workOpen(id,dir=0,ids){const r=GAL.rows.find(x=>x.id===id);if(!r)
   clearTimeout(busy);if(tile)tile.classList.remove("loading");$("wImgBox").classList.remove("busy");if(seq!==workSeq)return;
   GAL.cur=r;const img=$("wImg"),src=ok?full:(GAL.urls[r.thumb_path]||full);
   const fill=()=>{img.src=src;img.alt=r.title||"Работа";$("wImgBox").style.aspectRatio=`${r.w}/${r.h}`;
-    $("wTitle").textContent=r.title||"Без названия";$("wAuthor").textContent=`${r.author_name||"Коллега"} · ${fmtDate(r.created_at)}`;$("wStars").innerHTML=starsHTML(r.rating,"",true);
+    $("wTitle").textContent=r.title||"Без названия";$("wAuthor").textContent=`${r.author_name||"Коллега"} · ${fmtDate(r.created_at)}`;$("wStars").innerHTML=starsHTML(r.rating,"",true);noteFill($("wNote"),r);
     $("wChips").innerHTML=sceneChips(r.scene).map(x=>`<i>${escA(x)}</i>`).join("");miniPreview($("wScene"),r.scene,"w",150,120);
     workLike();$("wDel").hidden=!(r.user_id===Cloud.user.id||Cloud.admin);$("wDel").dataset.arm="";$("wDel").textContent="Удалить";
     const L=navIds(),k=L.indexOf(r.id);$("wPrev").hidden=k<=0;$("wNext").hidden=k<0||k>=L.length-1;$("wCount").textContent=L.length>1&&k>=0?`${k+1} / ${L.length}`:"";
@@ -3303,6 +3364,8 @@ document.addEventListener("keydown",e=>{if($("work").hidden||e.target.matches("i
 {let sx=null,sy=0;$("wImgBox").addEventListener("touchstart",e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
  $("wImgBox").addEventListener("touchend",e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;sx=null;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.4)workStep(dx<0?1:-1)},{passive:true})}
 $("galGrid").addEventListener("pointerover",e=>{const t=e.target.closest(".gtile");if(t&&!t.dataset.pf){t.dataset.pf="1";prefetchPub(GAL.rows.find(x=>x.id===t.dataset.pub))}});
+function noteFill(el,r){const u=(r.usage||"").trim(),n=(r.note||"").trim();el.hidden=!u&&!n;
+  el.innerHTML=(u?`<p><span>Для чего</span>${escA(u)}</p>`:"")+(n?`<p><span>Заметка автора</span>${escA(n)}</p>`:"")}
 function workLike(){const r=GAL.cur,on=GAL.liked.has(r.id);$("wLike").setAttribute("aria-pressed",String(on));$("wLikeN").textContent=r.likes}
 function workClose(){workSeq++;const w=$("work");w.classList.add("closing");clearTimeout(window.__wct);window.__wct=setTimeout(()=>{w.hidden=true;w.classList.remove("closing")},180);document.body.classList.toggle("locked",!$("adm").hidden);GAL.cur=null;GAL.navIds=null}
 $("wClose").addEventListener("click",workClose);
@@ -3320,6 +3383,21 @@ async function likePub(r){const on=GAL.liked.has(r.id);
 $("wDel").addEventListener("click",async()=>{const b=$("wDel"),r=GAL.cur;if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Точно удалить?";return}
   const {error}=await Cloud.sb.from("publications").delete().eq("id",r.id);if(error){toast("Не получилось удалить");return}
   await Cloud.sb.storage.from("works").remove([r.image_path,r.thumb_path]);workClose();toast("Публикация удалена");loadGallery();loadHistory()});
+/* ----- напоминание: делитесь лучшими генерациями (раз в неделю, если есть что публиковать или оценивать) ----- */
+const SHARE_EVERY=7*864e5;
+function shareOpen(){const best=HIST.rows.filter(r=>r.rating>=4&&!(HIST.published&&HIST.published.has(r.id))).length,un=HIST.rows.filter(r=>!r.rating).length,g=$("shGo");
+  g.textContent=best?"Опубликовать работу":un?"Оценить генерации":"Открыть «Мои промты»";g.dataset.f=best?"best":un?"new":"all";
+  $("share").hidden=false;document.body.classList.add("locked");g.focus();try{localStorage.setItem("gena-share-at",String(Date.now()))}catch(e){}}
+function shareClose(){if($("share").hidden)return;$("share").hidden=true;document.body.classList.toggle("locked",!$("hist").hidden)}
+function shareAuto(){if(!Cloud.user)return;const rows=HIST.rows,todo=rows.some(r=>!r.rating||(r.rating>=4&&!(HIST.published&&HIST.published.has(r.id))));if(rows.length<2||!todo)return;
+  let at=0;try{at=+localStorage.getItem("gena-share-at")||0}catch(e){}if(Date.now()-at<SHARE_EVERY)return;
+  if([...document.querySelectorAll('[role="dialog"][aria-modal="true"]')].some(d=>!d.hidden))return;shareOpen()}
+$("shGo").addEventListener("click",()=>{const f=$("shGo").dataset.f||"all";shareClose();HIST.filter=f;histOpen(true)});
+$("shLater").addEventListener("click",shareClose);$("shX").addEventListener("click",shareClose);
+$("share").addEventListener("click",e=>{if(e.target===$("share"))shareClose()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("share").hidden)shareClose()});
+$("labShare").addEventListener("click",()=>{userMenu(false);shareOpen()});
+
 /* ===== IDEAS (Simple mode): витрина готовых сцен, бенто по формату ===== */
 const ITASK={banner:{t:"Баннер на сайт",f:["16:9","21:9"]},card:{t:"Карточка товара",f:["1:1","3:4"]},story:{t:"Сторис",f:["9:16"]},post:{t:"Пост",f:["4:5","1:1"]},catalog:{t:"Каталог и меню",f:["3:2","1:1"]}};
 const IPROD={drinks:"Напитки",alcohol:"Алкоголь",grocery:"Бакалея",sweets:"Сладкое и выпечка",dairy:"Молочное",sets:"Наборы и подарки"};
@@ -3344,7 +3422,7 @@ async function loadIdeas(force){
   if(!force&&IDEA.rows.length&&Date.now()-IDEA.at<60000){drawIdeas();return}
   if(!IDEA.rows.length)$("ideaGrid").setAttribute("aria-busy","true");
   const [{data},{data:sc},{data:lk}]=await Promise.all([
-    Cloud.sb.from("publications").select("id,user_id,author_name,title,scene,prompt,rating,image_path,thumb_path,w,h,likes,created_at").order("likes",{ascending:false}).order("created_at",{ascending:false}).limit(200),
+    Cloud.sb.from("publications").select("id,user_id,author_name,title,usage,note,scene,prompt,rating,image_path,thumb_path,w,h,likes,created_at").order("likes",{ascending:false}).order("created_at",{ascending:false}).limit(200),
     Cloud.sb.from("showcase").select("publication_id,title,task,product,featured,hidden,ord"),
     Cloud.sb.from("publication_likes").select("publication_id").eq("user_id",Cloud.user.id)]);
   IDEA.sc=Object.fromEntries((sc||[]).map(x=>[x.publication_id,x]));
@@ -3393,7 +3471,7 @@ async function ideaOpen(id){const r=IDEA.rows.find(x=>x.id===id);if(!r)return;ID
   if(w.hidden){clearTimeout(window.__ict);w.classList.remove("closing");w.hidden=false;w.classList.add("opening");document.body.classList.add("locked");requestAnimationFrame(()=>requestAnimationFrame(()=>w.classList.remove("opening")));$("iCopy").focus({preventScroll:true})}
   if(!GAL.urls[r.image_path]){await signed([r.image_path]);if(IDEA.cur===r&&GAL.urls[r.image_path])img.src=GAL.urls[r.image_path]}}
 function ideaFill(){const r=IDEA.cur;$("iTitle").textContent=r.ttl;$("iAuthor").textContent=`Автор сцены: ${r.author_name||"коллега"} · ${fmtDate(r.created_at)}`;
-  const ch=sceneChips(r.scene||{});$("iWhat").textContent=[ch[0],ch[2],ch[3]].filter(Boolean).join(" · ");
+  const ch=sceneChips(r.scene||{});$("iWhat").textContent=[ch[0],ch[2],ch[3]].filter(Boolean).join(" · ");noteFill($("iNote"),r);
   ideaFmtDraw();$("iLike").setAttribute("aria-pressed",String(GAL.liked.has(r.id)));$("iLikeN").textContent=r.likes;
   $("iAdm").hidden=!Cloud.admin;if(Cloud.admin)ideaAdmFill()}
 function ideaFmtDraw(){const r=IDEA.cur,fs=[...new Set([r.fmt,...ITASK[r.task].f])];if(!fs.includes(IDEA.fmt))IDEA.fmt=r.fmt;
@@ -3469,7 +3547,7 @@ $("doneStars").addEventListener("click",async e=>{const b=e.target.closest("[dat
   const {error}=await Cloud.sb.from("prompt_history").update({rating:v}).eq("id",DONE.hid);if(error){$("doneMsg").textContent="Не получилось сохранить оценку, попробуйте ещё раз";return}
   DONE.rating=v;doneStars();loadHistory();
   $("done").querySelector(".donecard").classList.toggle("rated",v>=4);if(v>=4){$("doneQ").textContent="Отличный результат!";$("doneMsg").textContent="Промт сохранён навсегда. Добавьте картинку, и коллеги увидят её в галерее.";doneSteps(2);
-    const row={id:DONE.hid,rating:v,scene:sceneOf(S)};PUB={row,file:null};pubClear();$("pubErr").textContent="";$("pubTitle").value="";slotPub(true)}
+    const row={id:DONE.hid,rating:v,scene:sceneOf(S)};PUB={row,file:null};pubClear();$("pubErr").textContent="";pubFieldsClear();slotPub(true)}
   else{$("doneQ").textContent="Спасибо за честную оценку";$("doneMsg").textContent=v<=2?"Попробуйте другой ракурс или свет: схема справа покажет, что поменяется.":"Промт останется среди последних 10 в «Мои промты».";doneSteps(2);$("doneSteps").lastElementChild.className="";slotPub(false)}});
 
 function copy(statusEl){
@@ -3621,7 +3699,7 @@ function drawPreview(T){
     }
   }
 
-  if(S.table&&an.id!=="macro"){const m=TMAT.find(x=>x[0]===S.tMat)||TMAT[0],c=TCLOTH.find(x=>x[0]===S.tCloth)||TCLOTH[0],col=c[0]!=="none"?c[3]:m[3],ee=Math.max(E0(),.08);
+  if(S.table&&an.id!=="macro"){const m=TMAT.find(x=>x[0]===S.tMat)||TMAT[0],c=TCLOTH.find(x=>x[0]===S.tCloth)||TCLOTH[0],col=c[0]!=="none"?(S.tTone||c[3]):m[3],ee=Math.max(E0(),.08);
     const wt=Math.min(W*.96,(span*w0+w0)*({small:1.15,dining:1.5,long:2}[S.tSize]||1.4)),th=h0*.06,yb=float?Math.min(H*.97,by+h0*.25):Math.min(H*.97,by+Math.max(0,...it.map(o=>o.dy))*h0+th*.2),
       sq=S.tShape==="rect"||S.tShape==="square",d=S.tShape==="oval"||S.tShape==="rect"?.75:1,ry=Math.max(1.2,wt*.5*ee*(S.tShape==="square"?1.1:d));
     podStr+=`<ellipse cx="${cx}" cy="${yb+ry*.4}" rx="${wt*.55}" ry="${ry*1.1+.6}" fill="#000" opacity=".18" filter="url(#pvDf)"/>`;
