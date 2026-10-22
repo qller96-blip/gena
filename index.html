@@ -1429,6 +1429,33 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 @media (max-width:700px){.fside{flex-direction:column;align-items:flex-start;gap:10px}.foot{padding-bottom:88px}}
 @media (max-width:700px){.chwrap{place-items:end center;padding:0}.chcard{width:100%;max-height:88dvh;border-radius:24px 24px 0 0;padding-bottom:env(safe-area-inset-bottom,0px);animation:sheetin .35s var(--ease)}}
 @media (prefers-reduced-motion:reduce){.chcard{animation:none}}
+/* v38: текст на баннере (админ) — ПП 1100×600 */
+.bnrblk{gap:16px}.bnrblk.on{box-shadow:0 0 0 1.5px color-mix(in srgb,var(--accent) 45%,var(--line))}
+.bnrhead{display:flex;align-items:center;gap:12px}.bnrt{flex:1;min-width:0}.bnrt h2{font-size:20px;margin:0 0 2px}.bnrt p{margin:0;font-size:13px;color:var(--muted)}
+.bnrsw input{-webkit-appearance:none;appearance:none;margin:0;width:44px;height:26px;border-radius:999px;background:color-mix(in srgb,var(--ink) 20%,transparent);position:relative;cursor:pointer;display:block;transition:background var(--t-fast) var(--ease)}
+.bnrsw input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform var(--t-fast) var(--ease)}
+.bnrsw input:checked{background:var(--accent)}.bnrsw input:checked::after{transform:translateX(18px)}.bnrsw input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.bnrbody{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px;align-items:start}
+.bnrform{display:flex;flex-direction:column;gap:6px}.bnrform .lbl{margin-top:8px}.bnrform textarea{min-height:64px}
+.bnrrow{display:flex;gap:16px;flex-wrap:wrap;margin-top:4px}.bnrrow .gsort{align-self:flex-start}
+.bnrform .tg{margin-top:10px}
+.bnrpvw{position:sticky;top:96px;display:flex;flex-direction:column;gap:8px}
+.bnrpv{position:relative;container-type:inline-size;aspect-ratio:1100/600;border-radius:12px;overflow:hidden;box-shadow:0 0 0 1px var(--line)}
+.bnrpv .bg{position:absolute;top:0;left:0;height:100%;background:rgba(232,90,90,.16);border-right:1px solid rgba(220,70,70,.45)}
+.bnrpv .m-t,.bnrpv .m-b{height:auto;border-right:0;border-bottom:1px solid rgba(220,70,70,.45)}.bnrpv .m-b{border-bottom:0;border-top:1px solid rgba(220,70,70,.45);bottom:0;height:auto}
+.bnrpv .bv{font-style:normal;position:absolute;top:0;bottom:0;right:0;border-left:1px dashed rgba(255,255,255,.55);background:repeating-conic-gradient(rgba(255,255,255,.10) 0 25%,transparent 0 50%) 0 0/calc(28 * 100cqw / 1100) calc(28 * 100cqw / 1100);display:grid;place-items:center}
+.bnrpv[data-tone="dark"] .bv{border-left-color:rgba(0,0,0,.3);background-image:repeating-conic-gradient(rgba(0,0,0,.06) 0 25%,transparent 0 50%)}
+.bnrpv .bv span{font-size:calc(34 * 100cqw / 1100);font-weight:500;color:rgba(255,255,255,.55);letter-spacing:.04em}.bnrpv[data-tone="dark"] .bv span{color:rgba(0,0,0,.35)}
+.bnrpv .bl{position:absolute;font-style:normal;font-size:calc(14 * 100cqw / 1100);line-height:1;padding:calc(4 * 100cqw / 1100) calc(7 * 100cqw / 1100);border-radius:calc(6 * 100cqw / 1100);background:#D9534F;color:#fff}
+.bnrpv .bnrtx{position:absolute;inset:0}.bnrpv .bnrtx b{display:inline;font-size:inherit}
+.bnrpv .bp{position:absolute;left:calc(96 * 100cqw / 1100);white-space:nowrap;line-height:1;color:#fff}
+.bnrpv[data-tone="dark"] .bp{color:#2A1A10}
+.bnrpv .b-head{font-family:"Anaphora","Anafora","Анафора","Roboto Slab",Rockwell,Georgia,serif;font-weight:800;letter-spacing:.01em}
+.bnrpv .b-sub,.bnrpv .b-price,.bnrpv .b-kick,.bnrpv .b-hero,.bnrpv .bdg{font-family:"Ubuntu",var(--f-body)}
+.bnrpv .b-sub,.bnrpv .b-price{font-weight:500;line-height:1.2}.bnrpv .b-kick{font-weight:500;letter-spacing:.25em}
+.bnrpv .bdg{font-weight:700}.bnrpv .b-hero{font-weight:700;letter-spacing:-.02em}.bnrpv .b-hero small{font-size:30%;font-weight:500;vertical-align:.95em;margin-right:.08em;letter-spacing:0}
+.bnrnote.warn{color:var(--mark)}
+@media (max-width:860px){.bnrbody{grid-template-columns:1fr}.bnrpvw{position:static;order:-1}}
 .gsort button[role="radio"][aria-checked="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
 .iaorig{font-size:12px;margin:0;overflow-wrap:anywhere}
 </style>
@@ -1494,6 +1521,25 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
   </section>
 
   <main>
+    <section class="block bnrblk" id="s-bnr" hidden aria-labelledby="bnrH">
+      <div class="bnrhead"><span class="tgico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="3"/><path d="M7 10h5M9.5 10v5M14.5 15h2.5"/></svg></span>
+        <div class="bnrt"><h2 id="bnrH">Текст на баннере</h2><p>ПП 1100×600: текст слева по гайдлайнам, визуал справа. Промт соберёт всю картинку целиком. Видно только вам.</p></div>
+        <label class="bnrsw"><input type="checkbox" role="switch" id="bnrOn"><span class="sr">Текст на баннере</span></label></div>
+      <div class="bnrbody" id="bnrBody" hidden>
+        <div class="bnrform">
+          <label class="lbl" for="bnrKick">Надзаголовок <span class="opt-tag">по желанию</span></label><input type="text" id="bnrKick" maxlength="40" placeholder="Например: Думай, что ешь">
+          <label class="lbl" for="bnrHead">Заголовок</label><textarea id="bnrHead" rows="2" maxlength="60" placeholder="Например: Золото Франции"></textarea>
+          <small class="hint">Анафора, заглавными, 1–2 строки. Enter — свой перенос. Цифры наберутся Ubuntu Bold.</small>
+          <label class="lbl" for="bnrSub">Подзаголовок</label><textarea id="bnrSub" rows="2" maxlength="90" placeholder="Например: Артизанальные коньяки с вековой историей"></textarea>
+          <label class="lbl" for="bnrPrice">Цена или акция <span class="opt-tag">по желанию</span></label><input type="text" id="bnrPrice" maxlength="30" placeholder="Например: От 1790 ₽">
+          <div class="bnrrow"><div><span class="lbl" id="bnrToneL">Цвет текста</span><div class="gsort" id="bnrTone" role="radiogroup" aria-labelledby="bnrToneL"><button type="button" role="radio" data-v="auto">Авто</button><button type="button" role="radio" data-v="light">Светлый</button><button type="button" role="radio" data-v="dark">Тёмный</button></div></div>
+            <div><span class="lbl" id="bnrModeL">Типографика</span><div class="gsort" id="bnrMode" role="radiogroup" aria-labelledby="bnrModeL"><button type="button" role="radio" data-v="grid">По сетке</button><button type="button" role="radio" data-v="bold">Смело</button></div></div></div>
+          <small class="hint">«Смело»: крупная цифра акции в начале заголовка («до -50%»), надзаголовок и цифра могут выйти за сетку.</small>
+          <label class="tg"><input type="checkbox" id="bnrRef"><span>Приложу пример шрифта<small>Последней картинкой в нейросеть — любой наш баннер с заголовком. Так Анафора повторится точнее.</small></span></label>
+        </div>
+        <div class="bnrpvw"><div class="bnrpv" id="bnrPv" role="img" aria-label="Превью раскладки текста"></div><p class="hint bnrnote" id="bnrNote" aria-live="polite"></p><p class="hint">Превью приблизительное: если Анафора установлена на компьютере, покажется она.</p></div>
+      </div>
+    </section>
     <section class="block" id="s-ref">
       <div class="bh"><span class="num">01</span><h2>Продукт</h2>
         <details class="info"><summary aria-label="Подробнее">i</summary><div><p><b>Есть фото.</b> Загрузите фото товара в нейросеть вместе с промтом. Галочки ниже подскажут ей, как с этим фото обращаться.</p><p><b>Описать текстом.</b> Фото нет: нейросеть нарисует упаковку по описанию. До 5 продуктов, первый будет главным.</p></div></details>
@@ -2296,7 +2342,7 @@ const DOF=[
 const RATIOS=[["21:9",21,9],["1:1",1,1],["4:5",4,5],["3:4",3,4],["2:3",2,3],["9:16",9,16],["16:9",16,9],["3:2",3,2]];
 
 /* ---------- STATE ---------- */
-const DEF={gap:"close",mirror:false,cats:[],enh:[],table:false,tOcc:"plain",tShape:"round",tSize:"dining",tMat:"oak",tCloth:"none",tTone:null,bgText:"",style:"fintech",angle:"e45",arr:"cluster",place:"center",grid:"golden",tilt:"left",fill:"70",light:"auto",lcount:"all",lside:"left",lsoft:"soft",ltemp:"neutral",noCrop:true,dof:"all",objList:"",isolate:true,keepWare:true,scale:true,food:false,bg:"grad",color:"#F3D9E4",g1:"#F4F6FB",g2:"#E2E8F5",gbase:"#E2E8F5",gdir:"radial",gmode:"pal",surface:"lwood",decor:"few",decorAuto:true,shadow:"ao",ratio:"1:1",cat:"none",product:"",props:"",src:"photo",items:[{type:"cup",mat:"matte",color:"#F5F5F2",what:"",label:"",details:""}],sv:{},pod:"none",podShape:"cyl",podTiers:"2",podCol:"bg",rebuild:true,keepProduct:true,keepText:true,avoid:true};
+const DEF={gap:"close",mirror:false,cats:[],enh:[],table:false,tOcc:"plain",tShape:"round",tSize:"dining",tMat:"oak",tCloth:"none",tTone:null,bnr:{on:false,kick:"",head:"",sub:"",price:"",tone:"auto",mode:"grid",ref:false},bgText:"",style:"fintech",angle:"e45",arr:"cluster",place:"center",grid:"golden",tilt:"left",fill:"70",light:"auto",lcount:"all",lside:"left",lsoft:"soft",ltemp:"neutral",noCrop:true,dof:"all",objList:"",isolate:true,keepWare:true,scale:true,food:false,bg:"grad",color:"#F3D9E4",g1:"#F4F6FB",g2:"#E2E8F5",gbase:"#E2E8F5",gdir:"radial",gmode:"pal",surface:"lwood",decor:"few",decorAuto:true,shadow:"ao",ratio:"1:1",cat:"none",product:"",props:"",src:"photo",items:[{type:"cup",mat:"matte",color:"#F5F5F2",what:"",label:"",details:""}],sv:{},pod:"none",podShape:"cyl",podTiers:"2",podCol:"bg",rebuild:true,keepProduct:true,keepText:true,avoid:true};
 const freshS=()=>JSON.parse(JSON.stringify(DEF));
 let S=freshS();
 try{const s=JSON.parse(localStorage.getItem("ppc-v7")||"null");if(s)S=Object.assign(freshS(),s)}catch(e){}
@@ -2307,6 +2353,7 @@ function migrate(){
   if(S.surface==="podium"){S.surface="wood";if(S.pod==="none")S.pod="soft"}
   if(!SURF.some(x=>x.id===S.surface))S.surface="wood";
   if(typeof S.keepWare!=="boolean")S.keepWare=true;
+  S.bnr=Object.assign(freshS().bnr,S.bnr&&typeof S.bnr==="object"?S.bnr:{});
   if(S.fill==="75")S.fill="70";if(!S.cat)S.cat="none";if(!Array.isArray(S.cats))S.cats=S.cat&&S.cat!=="none"?[S.cat]:[];if(!Array.isArray(S.enh))S.enh=[];
   const tmap={can:"jar",pouch:"box",tube:"cup"};S.items.forEach(it=>{if(tmap[it.type])it.type=tmap[it.type];if(!ICONS[it.type])it.type="cup"});
 }
@@ -2720,7 +2767,8 @@ function sections(){
   if(S.cats.includes("other")){const w=t=>t.replace(/premium retail packaging that matches/g,"a clean, realistic object that matches").replace(/as if it were a real product from a shop shelf/g,"as if it were a real, carefully made object")
       .replace(/\bProducts\b/g,"Objects").replace(/\bproducts\b/g,"objects").replace(/\bProduct\b/g,"Object").replace(/\bproduct\b/g,"object").replace(/\bproduct's\b/g,"object's").replace(/\bPRODUCTS\b/g,"OBJECTS").replace(/\bPRODUCT\b/g,"OBJECT")
       .replace(/ The food and drinks look fresh, juicy, appetizing and natural, rich in texture and color, never plastic or artificial\./,S.cats.some(c=>c!=="other")?" The food and drinks look fresh, juicy, appetizing and natural, rich in texture and color, never plastic or artificial.":"");
-    return out.map(([h,t])=>[w(h),w(t)])}
+    if(bnrActive())bnrPatch(out);return out.map(([h,t])=>[w(h),w(t)])}
+  if(bnrActive())bnrPatch(out);
   return out;
 }
 const esc=t=>t.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
@@ -2797,7 +2845,7 @@ document.addEventListener("keydown",e=>{if(e.key!=="Tab")return;
 /* ----- admin lab: Simple / Pro mode (only admin for now) ----- */
 
 const LAB={mode:"pro"};try{Object.assign(LAB,JSON.parse(localStorage.getItem("gena-lab")||"{}"))}catch(e){}
-function labApply(){const on=!!(Cloud&&Cloud.admin);modeApply(on&&LAB.mode==="simple"?"simple":"pro");$("uLab").hidden=!on;if(window.Hero)Hero.refresh()}
+function labApply(){const on=!!(Cloud&&Cloud.admin);modeApply(on&&LAB.mode==="simple"?"simple":"pro");$("uLab").hidden=!on;syncBnr();if(window.Hero)Hero.refresh()}
 function labSave(){try{localStorage.setItem("gena-lab",JSON.stringify(LAB))}catch(e){}labApply()}
 $("labMode").addEventListener("click",e=>{const b=e.target.closest("[data-md]");if(!b||LAB.mode===b.dataset.md)return;LAB.mode=b.dataset.md;labSave();toast(LAB.mode==="simple"?"Простой режим: только главные настройки":"Режим Про: все настройки")});
 /* Simple / Pro mode (stage 1): hide fine-tuning; hidden values still come from scenario, style and templates */
@@ -3198,7 +3246,7 @@ function update(){
   const bgL=S.bg==="text"?"Фон: свой текст":S.bg==="solid"?"Фон "+((pinfo(S.color)||[S.color])[0]):S.bg==="grad"?"Градиент "+(S.gmode==="pal"?(pinfo(S.gbase)||[""])[0]:"свой"):sfLabel();
   const chips=[...S.cats.map(c=>[find(CATS,c)[1],"s-ref"]),...S.enh.map(k=>[ENH.find(x=>x[0]===k)[1],"s-ref"]),...(S.src==="text"?[[S.items.length===1?"Продукт: описание":`Продуктов: ${S.items.length}`,"s-ref"]]:[]),[find(STYLES,S.style).t,"s-style"],["Свет: "+find(LIGHTS,S.light).t.toLowerCase(),"s-light"],[find(ANGLES,S.angle).t,"s-cam"],[ar.t,"s-comp"],...(ar.float?[[find(TILT,S.tilt).t,"s-comp"]]:[]),[find(PLACE,S.place).t,"s-comp"],[find(GRIDS,S.grid).t,"s-comp"],[bgL,"s-bg"],...(S.pod!=="none"?[["Подиум: "+find(PODS,S.pod).t.toLowerCase(),"s-pod"]]:[]),...(S.table?[["Стол: "+find(TOCC,S.tOcc).t.toLowerCase(),"s-pod"]]:[]),["Декор: "+find(DECOR,S.decor).t.toLowerCase(),"s-bg"],["Масштаб "+S.fill+"%","s-comp"],["Тень: "+shd.t.toLowerCase(),"s-fin"],[S.ratio==="auto"?"Формат авто":S.ratio,"pvbox"]];
   $("summary").innerHTML=chips.map(([l,t])=>`<button type="button" data-t="${t}">${esc(l)}</button>`).join("");
-  syncRatio();syncTg();drawPreview();if($("qgrid").childElementCount)syncPresets();if(window.Hero)Hero.setLabels(chips.map(c=>c[0]));
+  syncRatio();syncTg();syncBnr();drawPreview();if($("qgrid").childElementCount)syncPresets();if(window.Hero)Hero.setLabels(chips.map(c=>c[0]));
   $("mstat").textContent=find(STYLES,S.style).t+" · "+find(ANGLES,S.angle).t+" · "+(S.ratio==="auto"?"формат авто":S.ratio);
   $("status").textContent="";save();
 }
@@ -3408,6 +3456,94 @@ async function likePub(r){const on=GAL.liked.has(r.id);
 $("wDel").addEventListener("click",async()=>{const b=$("wDel"),r=GAL.cur;if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Точно удалить?";return}
   const {error}=await Cloud.sb.from("publications").delete().eq("id",r.id);if(error){toast("Не получилось удалить");return}
   await Cloud.sb.storage.from("works").remove([r.image_path,r.thumb_path]);workClose();toast("Публикация удалена");loadGallery();loadHistory()});
+/* ===== Текст на баннере (админ): ПП 1100×600, текст слева по гайдлайнам, визуал справа ===== */
+const BN={W:1100,H:600,L:96,T:192,B:456,CW:440,VX:576};
+const BNR_HERO=/^((?:до|от)\s+)?([-−–+]?\s?\d[\d\s.,]*\s?[%₽]?)$/i;
+const bnrActive=()=>!!(Cloud&&Cloud.admin&&S.bnr&&S.bnr.on&&(S.bnr.head.trim()||S.bnr.sub.trim()));
+function bnrSplit(t,maxL){t=(t||"").trim();if(!t)return[];
+  if(t.includes("\n"))return t.split("\n").map(s=>s.trim().replace(/\s+/g," ")).filter(Boolean);
+  const w=t.split(/\s+/);t=w.join(" ");if(t.length<=maxL||w.length<2)return [t];
+  let best=null;for(let i=1;i<w.length;i++){const a=w.slice(0,i).join(" "),b=w.slice(i).join(" "),m=Math.max(a.length,b.length)+(BNR_SHORT.test(w[i-1])?100:0);if(!best||m<best[0])best=[m,[a,b]]}return best[1]}
+const BNR_SHORT=/^(в|во|с|со|и|к|ко|у|о|об|а|на|по|за|из|от|до|не|но|для|при|без|над|под|что|как|—|–|-)$/i;
+/* предлоги и союзы не висят в конце строки: переносим их на следующую */
+function bnrHang(L){for(let i=0;i<L.length-1;i++){const w=L[i].split(" ");if(w.length>1&&BNR_SHORT.test(w[w.length-1])){L[i+1]=w.pop()+" "+L[i+1];L[i]=w.join(" ")}}return L}
+function bnrWrap(t,max){const out=[];(t||"").trim().split("\n").forEach(p=>{const L=[];let cur="";p.trim().split(/\s+/).filter(Boolean).forEach(w=>{if(cur&&(cur+" "+w).length>max){L.push(cur);cur=w}else cur=cur?cur+" "+w:w});if(cur)L.push(cur);out.push(...bnrHang(L))});return out}
+function bnrTone(){const t=S.bnr.tone;if(t!=="auto")return t;
+  const c=S.bg==="solid"?S.color:S.bg==="grad"?(S.gmode==="pal"?S.gbase:S.g2):null;return c&&hexLum(c)>.6?"dark":"light"}
+/* раскладка в пикселях холста 1100×600: кегль от длины строк, при нехватке места всё ужимается до 72% */
+function bnrLay(){const b=S.bnr,bold=b.mode==="bold";
+  let head=bnrSplit(b.head.toUpperCase(),12),hero=null;
+  if(bold&&head.length){const m=head[0].match(BNR_HERO);if(m)hero={pre:(m[1]||"").trim().toLowerCase(),num:m[2].replace(/\s+/g,"")}}
+  if(hero)head=head.slice(1);
+  const maxL=bold?3:2;if(head.length>maxL)head=[...head.slice(0,maxL-1),head.slice(maxL-1).join(" ")];
+  const hl=Math.max(1,...head.map(l=>l.length));
+  let hs=head.length?Math.min(head.length===1&&!hero?76:64,Math.max(36,Math.floor(BN.CW/(hl*.68)))):0;
+  let hz=hero?Math.min(170,Math.floor(BN.CW/(hero.num.length*.6))):0;
+  let ss=30,sub=[];for(ss=30;ss>=20;ss-=2){sub=bnrWrap(b.sub,Math.floor(BN.CW/(ss*.5)));if(sub.length<=3)break}
+  let ps=b.price.trim()?26:0,ks=b.kick.trim()?18:0;
+  let g1=24,g2=20;const H0=hs,S0=ss,Z0=hz,P0=ps;
+  const stack=()=>(hero?hz*1.04:0)+(head.length?head.length*hs*1.02:0)+(sub.length?((head.length||hero)?g1:0)+sub.length*ss*1.22:0)+(ps?g2+ps*1.2:0);
+  const lift=hero&&bold?Math.round(Z0*.45):0,avail=BN.B-BN.T+lift;let k=1;
+  while(stack()>avail&&k>.72){k-=.02;hs=Math.round(H0*k);ss=Math.round(S0*k);hz=Math.round(Z0*k);ps=Math.round(P0*k);g1=Math.round(24*k);g2=Math.round(20*k)}
+  const over=stack()>avail+1;
+  const P=[];let y=BN.T-lift;
+  if(ks)P.push({k:"kick",t:b.kick.trim().toUpperCase(),s:ks,y:y-ks-22});
+  if(hero){P.push({k:"hero",t:hero.num,pre:hero.pre,s:hz,y});y+=hz*1.04}
+  head.forEach(l=>{P.push({k:"head",t:l,s:hs,y});y+=hs*1.02});
+  if(sub.length){if(head.length||hero)y+=g1;sub.forEach(l=>{P.push({k:"sub",t:l,s:ss,y});y+=ss*1.22})}
+  if(ps){y+=g2;P.push({k:"price",t:b.price.trim(),s:ps,y})}
+  return {P,head,sub,hero,hs,ss,hz,ks,ps,k,over,bold,g1,g2}}
+const bnrDigits=t=>escA(t).replace(/(\d[\d\s.,]*\s?[%₽]?|[%₽])/g,'<b class="bdg">$1</b>');
+function drawBnr(){const pv=$("bnrPv");if(!pv||$("bnrBody").hidden)return;const L=bnrLay(),tone=bnrTone(),u=n=>`calc(${n} * 100cqw / 1100)`;
+  const a=S.gmode==="pal"?lighten(S.gbase,.38):S.g1,c=S.gmode==="pal"?S.gbase:S.g2;
+  pv.style.background=S.bg==="solid"?S.color:S.bg==="grad"?`linear-gradient(120deg,${a},${c})`:tone==="light"?"linear-gradient(120deg,#5A4A40,#2E2621)":"linear-gradient(120deg,#F1E9DE,#D9CBB8)";
+  pv.dataset.tone=tone;
+  const g=`<i class="bg m-l" style="width:${u(96)}"></i><i class="bg m-t" style="left:${u(96)};width:${u(456)};height:${u(192)}"></i><i class="bg m-b" style="left:${u(96)};width:${u(456)};top:${u(456)}"></i>
+    <i class="bv" style="left:${u(BN.VX)}"><span>Визуал</span></i><em class="bl" style="left:${u(10)};top:${u(300)}">96</em><em class="bl" style="left:${u(470)};top:${u(84)}">192</em><em class="bl" style="left:${u(470)};top:${u(516)}">144</em>`;
+  const txt=L.P.map(p=>{const st=`top:${u(p.y)};font-size:${u(p.s)}`;
+    if(p.k==="hero")return `<span class="bp b-hero" style="${st}">${p.pre?`<small>${escA(p.pre)}</small>`:""}${escA(p.t)}</span>`;
+    if(p.k==="head")return `<span class="bp b-head" style="${st}">${bnrDigits(p.t)}</span>`;
+    if(p.k==="price")return `<span class="bp b-sub" style="${st}">${bnrDigits(p.t)}</span>`;
+    return `<span class="bp b-${p.k}" style="${st}">${escA(p.t)}</span>`}).join("");
+  pv.innerHTML=g+`<div class="bnrtx">${txt}</div>`;
+  pv.setAttribute("aria-label",`Превью: ${[S.bnr.head,S.bnr.sub].filter(Boolean).join(". ")||"текст не введён"}`);
+  const parts=[];if(L.hero)parts.push(`цифра ${L.hz} px`);if(L.hs)parts.push(`заголовок ${L.hs} px`);if(L.sub.length)parts.push(`подзаголовок ${L.ss} px`);
+  $("bnrNote").innerHTML=L.over?`<b>Не помещается в сетку.</b> Сократите текст или включите «Смело».`:(parts.length?parts.join(" · "):"Введите заголовок или подзаголовок")+(L.k<.99&&!L.over?` · кегль уменьшен на ${Math.round((1-L.k)*100)}%`:"");
+  $("bnrNote").classList.toggle("warn",L.over)}
+function syncBnr(){const blk=$("s-bnr");if(!blk)return;const on=!!(Cloud&&Cloud.admin);blk.hidden=!on;if(!on)return;
+  const b=S.bnr;$("bnrOn").checked=b.on;$("bnrBody").hidden=!b.on;blk.classList.toggle("on",b.on);
+  [["bnrKick","kick"],["bnrHead","head"],["bnrSub","sub"],["bnrPrice","price"]].forEach(([id,k])=>{const el=$(id);if(document.activeElement!==el&&el.value!==b[k])el.value=b[k]});
+  $("bnrTone").querySelectorAll("[data-v]").forEach(x=>x.setAttribute("aria-checked",String(x.dataset.v===b.tone)));
+  $("bnrMode").querySelectorAll("[data-v]").forEach(x=>x.setAttribute("aria-checked",String(x.dataset.v===b.mode)));
+  $("bnrRef").checked=b.ref;
+  if(b.on&&!document.getElementById("bnr-fonts")){const l=document.createElement("link");l.id="bnr-fonts";l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&family=Roboto+Slab:wght@800&display=swap";document.head.appendChild(l)}
+  drawBnr()}
+$("bnrOn").addEventListener("change",e=>{S.bnr.on=e.target.checked;
+  if(S.bnr.on){S.place="right";S.ratio="16:9";S.noCrop=true;S.mirror=true;if(S.fill==="90")S.fill="70";toast("Формат ПП 1100×600: продукты справа, текст слева")}update()});
+[["bnrKick","kick"],["bnrHead","head"],["bnrSub","sub"],["bnrPrice","price"]].forEach(([id,k])=>$(id).addEventListener("input",e=>{S.bnr[k]=e.target.value;update()}));
+[["bnrTone","tone"],["bnrMode","mode"]].forEach(([id,k])=>{$(id).addEventListener("click",e=>{const x=e.target.closest("[data-v]");if(!x)return;S.bnr[k]=x.dataset.v;update()});
+  $(id).addEventListener("keydown",e=>{const d=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;if(!d)return;e.preventDefault();const L=[...$(id).querySelectorAll("[data-v]")],i=L.findIndex(x=>x.dataset.v===S.bnr[k]),n=L[(i+d+L.length)%L.length];S.bnr[k]=n.dataset.v;update();$(id).querySelector(`[data-v="${n.dataset.v}"]`).focus()})});
+$("bnrRef").addEventListener("change",e=>{S.bnr.ref=e.target.checked;update()});
+/* промт: макет, текст, формат и запреты под баннер */
+function bnrPatch(out){const L=bnrLay(),b=S.bnr,col=bnrTone()==="light"?"pure white #FFFFFF":"deep warm dark brown #2A1A10",q=s=>`"${s}"`,n=x=>x===1?"1 line":`${x} lines`;
+  out[0][1]="A finished 1100×600 web promo banner with typography. "+out[0][1];
+  const lay=`Final banner 1100×600 px (11:6 landscape) with a strict grid. LEFT TEXT ZONE: from x=96 px (8.7% of the width) to x=530 px (48%), text block between y=192 px (32% from the top) and y=456 px (24% from the bottom). RIGHT VISUAL ZONE: from x=576 px (52% of the width) to the right edge, full height. The products and all props live only in the visual zone, fully inside the frame, never behind or under the text. The background continues seamlessly across the whole banner; behind the text it stays calm, soft and low-detail with an even tone, so the text reads perfectly.`;
+  const t=[`Render exactly this Russian text, letter by letter, with correct Cyrillic spelling, left-aligned at x=96 px, colour ${col}, flat, with no shadow, outline, box or plate behind it.`];
+  const kick=L.P.find(p=>p.k==="kick");if(kick)t.push(`Kicker above the headline: ${q(kick.t)} — Ubuntu Medium, all caps, wide letter-spacing (about 0.25 em), about ${kick.s} px${L.bold?", sitting in the top margin above the grid":""}.`);
+  if(L.hero)t.push(`Big promo figure on its own line: ${q(L.hero.num)} — Ubuntu Bold, about ${L.hz} px tall, the dominant element of the text block${L.hero.pre?`, with a small ${q(L.hero.pre)} in Ubuntu Medium (about ${Math.round(L.hz*.3)} px) raised like a superscript just before it`:""}; it may rise above the grid into the top margin.`);
+  if(L.head.length){t.push(`Headline in ${n(L.head.length)}: ${L.head.map(q).join(" / ")} — all caps, font Anaphora: a heavy display slab serif with sturdy wedge-shaped serifs and compact, slightly condensed proportions (if unknown, use the closest bold slab serif). About ${L.hs} px, line spacing 1.0.`);
+    if(/\d/.test(L.head.join("")))t.push("Every digit and the symbols % and ₽ inside the headline are set in Ubuntu Bold, same size, while the letters stay in Anaphora.")}
+  if(L.sub.length)t.push(`Subtitle in ${n(L.sub.length)}, ${L.g1} px below the headline: ${L.sub.map(q).join(" / ")} — Ubuntu Medium, sentence case as written, about ${L.ss} px, line spacing 1.2.`);
+  const pr=L.P.find(p=>p.k==="price");if(pr)t.push(`Price line ${L.g2} px below: ${q(pr.t)} — Ubuntu Medium, about ${pr.s} px; the number and the ₽ sign in Ubuntu Bold.`);
+  if(L.bold)t.push("The typography is confident and may break the grid on purpose: strong contrast between sizes, like a bold retail promo layout.");
+  if(b.ref)t.push("The last attached image is a reference of our brand banner typography: reproduce that exact headline typeface and text weight.");
+  t.push("No other text anywhere: no logos, invented labels, buttons, stickers or watermarks besides the copy above.");
+  out.splice(1,0,["BANNER",lay],["TEXT",t.join("\n")]);
+  const f=out.find(x=>x[0]==="FORMAT");if(f)f[1]=f[1].replace(/^Aspect ratio [^.]+\. /,"")+" Final size 1100×600 px; if only presets are available, generate 16:9 and keep everything at least 3% away from the top and bottom edges so it can be cropped to 1100×600. Crisp, sharp typography.";
+  const cp=out.find(x=>x[0]==="COMPOSITION");if(cp)cp[1]=cp[1].replace(/within the right \d+%/,"inside the right visual zone (the right 48% of the banner, from x=576 px)").replace("sit on the LEFT side of the frame (about 38% across); the composition flows from left to right.","sit on the right, inside the visual zone; the composition flows from right to left.").replace(/usable as space for text/,"reserved for the banner text");
+  const av=out.find(x=>x[0]==="AVOID");if(av)av[1]=av[1].replace(/added text or captions/,"any text other than the banner copy, misspelled or distorted letters, text over the products");
+  const ky=out.find(x=>x[0]==="KEY");if(ky)ky[1]="finished 1100×600 banner, text on the left by the grid, products on the right, "+ky[1]}
+
 /* ----- «Что нового»: только изменения для всех, без админских. Новая версия — первой строкой ----- */
 const CHANGELOG=[
  ["1.4","22 октября",["Тарелки, доски и бокалы с фото теперь остаются в кадре. Чтобы убрать посуду, выключите «Сохранить посуду».",
