@@ -1265,13 +1265,112 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   .gsort button,.views a{min-height:36px;display:inline-flex;align-items:center}
   .info>summary{width:32px;height:32px}
 }
+/* v35: Simple mode — «Идеи»: витрина готовых сцен, бенто по формату */
+body.v-ideas .wrap,body.v-ideas .mbar,body.v-ideas .steps,body.v-ideas .shade{display:none!important}
+body.v-ideas .topbar-in .setwrap{display:none}body.v-ideas .views{margin-right:auto}body.v-ideas .foot{display:block}
+.ideas{max-width:1320px;margin:0 auto;padding:28px 0 96px;display:flex;flex-direction:column;gap:24px}
+.ihead h1{font-size:28px;line-height:1.15;letter-spacing:-.02em;margin:0 0 8px}
+.ihead p{margin:0;color:var(--muted);font-size:15px;line-height:1.45;max-width:60ch}
+.ifilt{display:flex;flex-direction:column;gap:12px}
+.itasks{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:3px;margin:-3px}
+.itasks::-webkit-scrollbar{display:none}
+.itask{all:unset;box-sizing:border-box;cursor:pointer;flex:none;display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:6px 18px 6px 6px;border-radius:999px;background:var(--panel);box-shadow:0 0 0 1px var(--line);font-size:15px;font-weight:600;transition:background var(--t-fast) var(--ease),color var(--t-fast) var(--ease),box-shadow var(--t-fast) var(--ease)}
+.itask:hover{background:var(--hover)}
+.itask:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.itask .iav{width:40px;height:40px;border-radius:50%;overflow:hidden;background:var(--sunk);display:grid;place-items:center;flex:none;color:var(--muted)}
+.itask .iav img{width:100%;height:100%;object-fit:cover;display:block}
+.itask .iav svg{width:20px;height:20px}
+.itask small{font-size:13px;font-weight:500;color:var(--muted);margin-left:-4px}
+.itask[aria-pressed="true"]{background:var(--ink);color:var(--bg);box-shadow:0 0 0 1px var(--ink)}
+.itask[aria-pressed="true"] small{color:inherit;opacity:.65}
+.iprods{display:flex;gap:6px;flex-wrap:wrap}
+.iprods .chip{min-height:36px;box-sizing:border-box}
+.iprods .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.iprods .chip:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+/* подборка */
+.ipick{background:color-mix(in srgb,var(--accent) 8%,var(--panel));box-shadow:0 0 0 1px var(--line);border-radius:22px;padding:20px 0;display:flex;flex-direction:column;gap:16px;min-width:0}
+.ipickh{display:flex;align-items:flex-end;gap:16px;padding:0 20px}
+.ipickh>div:first-child{flex:1;min-width:0}
+.ipickh h2,.isech h2{font-size:20px;line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+.ipickh p{margin:0;font-size:13px;color:var(--muted)}
+.ipnav{display:flex;gap:8px}
+.ipnav .iconbtn{width:44px;height:44px;border-radius:50%;background:var(--panel);box-shadow:0 0 0 1px var(--line)}
+.ipnav .iconbtn svg{width:20px;height:20px}
+.ipnav .iconbtn:disabled{opacity:.35;cursor:default}
+.irow{display:flex;gap:12px;overflow-x:auto;padding:0 20px;scroll-snap-type:x mandatory;scroll-padding:0 20px;scrollbar-width:none;overscroll-behavior-x:contain}
+.irow::-webkit-scrollbar{display:none}
+.irow .it{flex:none;height:240px;width:auto;aspect-ratio:var(--ar);min-width:200px;max-width:560px;scroll-snap-align:start}
+.isech{display:flex;align-items:baseline;gap:12px}.isech h2{margin:0}.isech .hint{font-size:13px}
+/* бенто: квадратная ячейка = единица, плитка повторяет формат; высоты кратны 3, чтобы ряды сходились без дыр */
+.ibento{container-type:inline-size}
+.igrid{--c:15;--g:12px;display:grid;grid-template-columns:repeat(var(--c),minmax(0,1fr));grid-auto-rows:calc((100cqw - (var(--c) - 1) * var(--g)) / var(--c));grid-auto-flow:dense;gap:var(--g)}
+.igrid .it[data-f="sq"]{grid-column:span 3;grid-row:span 3}
+.igrid .it[data-f="port"]{grid-column:span 3;grid-row:span 4}
+.igrid .it[data-f="story"]{grid-column:span 3;grid-row:span 6}
+.igrid .it[data-f="wide"]{grid-column:span 6;grid-row:span 3}
+.igrid .it[data-f="ultra"]{grid-column:span 9;grid-row:span 4}
+.igrid[aria-busy="true"]:empty{min-height:320px;border-radius:22px;background:linear-gradient(90deg,var(--sunk),var(--panel),var(--sunk));background-size:200% 100%;animation:shim 1.2s linear infinite}
+.it{all:unset;box-sizing:border-box;cursor:pointer;position:relative;display:block;min-width:0;min-height:0;border-radius:16px;overflow:hidden;background:var(--sunk);box-shadow:0 0 0 1px var(--line);-webkit-tap-highlight-color:transparent}
+.it img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform var(--t-slow) var(--ease)}
+.it:hover img{transform:scale(1.03)}
+.it:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.ifmt,.ilk,.ihid{position:absolute;top:10px;display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:650;color:#fff;background:rgba(18,20,21,.5);-webkit-backdrop-filter:blur(10px) saturate(160%);backdrop-filter:blur(10px) saturate(160%)}
+.ifmt{left:10px}.ifmt svg{width:14px;height:14px;flex:none}
+.ilk{right:10px}.ilk svg{width:14px;height:14px}
+.ihid{left:10px;top:42px;background:var(--detail);color:#272E32}
+.icap{position:absolute;inset:auto 0 0 0;display:flex;flex-direction:column;gap:4px;padding:48px 14px 12px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.66))}
+.icap b{font-size:15px;line-height:1.25;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.icap small{font-size:12px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.irow .icap b{-webkit-line-clamp:1}
+.it.off{opacity:.45}
+.iempty{grid-column:1/-1;grid-row:span 3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;border:1.5px dashed var(--line);border-radius:22px;padding:24px;background:var(--panel)}
+.iempty b{font-size:17px}.iempty p{margin:0;color:var(--muted);font-size:14px;max-width:44ch}
+@media (max-width:1100px){.igrid{--c:12}}
+@media (max-width:860px){.igrid{--c:6}.igrid .it[data-f="ultra"]{grid-column:span 6;grid-row:span 3}}
+@media (max-width:700px){.ideas{padding-top:18px;gap:20px}.ihead h1{font-size:22px}.ihead p{font-size:14px}
+  .igrid{--g:8px}
+  .irow .it{height:180px}.ipnav{display:none}.icap{padding:36px 10px 10px}.icap b{font-size:14px}
+  .itask{min-height:44px;padding:4px 14px 4px 4px;font-size:14px;gap:10px}.itask .iav{width:36px;height:36px}}
+/* окно идеи */
+.icard .wside{gap:16px}
+.iwhat{margin:0;font-size:14px;line-height:1.45;color:var(--muted)}
+.ifmts{display:flex;flex-direction:column;gap:8px}
+.ifmts .lbl{margin:0}
+.ifmts .gsort{align-self:stretch}
+.ifmts .gsort button{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:36px}
+.ifmts .gsort svg{width:16px;height:16px;flex:none}
+.ifmts .hint{min-height:1.4em;font-size:12px}
+.icard .wact{margin-top:0}
+.iadm{display:flex;flex-direction:column;gap:8px;background:var(--sunk);box-shadow:0 0 0 1px var(--line);border-radius:18px;padding:14px;margin-top:auto}
+.iadmh{margin:0 0 2px;font-size:13px;font-weight:650}.iadmh em{font-style:normal;font-weight:500;color:var(--muted);margin-left:6px}
+.iadm .lbl{margin:6px 0 0}
+.ichips{display:flex;gap:6px;flex-wrap:wrap}
+.ichips .chip{padding:6px 11px;font-size:13px;min-height:32px;box-sizing:border-box}
+.ichips .chip[aria-checked="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.iadm .tg{font-size:13px}
+.iadm .btn{align-self:flex-start;margin-top:4px}
+@media (prefers-reduced-motion:reduce){.it img,.itask{transition:none}.it:hover img{transform:none}.irow{scroll-behavior:auto}}
+.ifw{position:relative;display:grid;place-items:center;max-width:100%;overflow:hidden}
+.ifr{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:8px;outline:2px solid rgba(255,255,255,.92);outline-offset:-2px;box-shadow:0 0 0 9999px rgba(8,10,9,.5);pointer-events:none;transition:width var(--t-slow) var(--ease),height var(--t-slow) var(--ease)}
+.ifr b{font-style:normal;position:absolute;top:10px;left:10px;height:26px;display:inline-flex;align-items:center;padding:0 10px;border-radius:999px;font-size:12px;font-weight:650;color:#272E32;background:rgba(255,255,255,.92)}
+.ione{margin:0;font-size:14px;font-weight:550;display:flex;align-items:center;gap:6px}.ione svg{width:16px;height:16px}
+.icard .wrow{grid-template-columns:minmax(0,1fr) auto}.icard .wrow .wlike{padding:10px 16px}
+details.iadm{padding:0}details.iadm>summary{list-style:none;cursor:pointer;padding:14px;min-height:20px;display:flex;align-items:center;border-radius:18px}
+details.iadm>summary::-webkit-details-marker{display:none}
+details.iadm>summary::after{content:"";width:8px;height:8px;margin-left:auto;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg);opacity:.6;transition:transform var(--t-fast) var(--ease)}
+details.iadm[open]>summary::after{transform:rotate(-135deg)}
+details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.iadmb{display:flex;flex-direction:column;gap:8px;padding:0 14px 14px}
+@media (prefers-reduced-motion:reduce){.ifr{transition:none}}
+.gsort button[role="radio"][aria-checked="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.iaorig{font-size:12px;margin:0;overflow-wrap:anywhere}
 </style>
 
 <div class="glow" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
 <div class="topbar">
   <div class="topbar-in">
     <a class="brand" href="#s-ref" id="brandLink" title="GENA — Generative Engine for Neural Art"><svg viewBox="0 0 120 120" role="img" aria-label="GENA"><path fill="#FFF6E3" d="M26 50C24 92 42 109 60 109C78 109 96 92 94 50Z"/><g fill="none" stroke="#282F33" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5.5" d="M25 54C25 93 44 109 60 109C76 109 95 93 95 54"/><path stroke-width="4.5" d="M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84"/><path stroke-width="4.5" d="M49 93Q60 100 71 93"/></g><path fill="#282F33" d="M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z"/><path fill="#282F33" d="M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z"/><g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="28" y="59" width="27" height="22" rx="8"/><rect x="65" y="59" width="27" height="22" rx="8"/><path d="M55 67H65"/></g><circle cx="42" cy="70.5" r="3.6" fill="#282F33"/><circle cx="78" cy="70.5" r="3.6" fill="#282F33"/></svg><span><b>GENA</b></span></a>
-    <nav class="views" id="viewNav" aria-label="Разделы" hidden><a href="#" data-view="builder" aria-current="true">Конструктор</a><a href="#gallery" data-view="gallery" aria-current="false">Галерея</a></nav>
+    <nav class="views" id="viewNav" aria-label="Разделы" hidden><a href="#ideas" data-view="ideas" aria-current="false" hidden>Идеи</a><a href="#" data-view="builder" aria-current="true">Конструктор</a><a href="#gallery" data-view="gallery" aria-current="false">Галерея</a></nav>
     <nav class="steps" id="steps" aria-label="Шаги">
       <button type="button" data-t="s-ref" title="Продукт" aria-label="Шаг 01: Продукт"><span>01</span><em>Продукт</em></button>
       <button type="button" data-t="s-style" title="Стиль" aria-label="Шаг 02: Стиль"><span>02</span><em>Стиль</em></button>
@@ -1554,6 +1653,20 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
   <div class="gfilt" id="galFilt" role="group" aria-label="Стиль"></div>
   <div class="ggrid" id="galGrid" aria-busy="true"></div>
 </section>
+<section class="ideas" id="ideaPage" hidden aria-labelledby="ideaTitle">
+  <div class="ihead"><h1 id="ideaTitle">Готовые сцены</h1><p>Выберите сцену под свою задачу. GENA соберёт промт в нужном формате, а продукт возьмёт с вашего фото.</p></div>
+  <div class="ifilt">
+    <div class="itasks" id="ideaTasks" role="group" aria-label="Задача"></div>
+    <div class="iprods" id="ideaProds" role="group" aria-label="Продукт" hidden></div>
+  </div>
+  <section class="ipick" id="ideaPick" hidden aria-labelledby="ideaPickH">
+    <div class="ipickh"><div><h2 id="ideaPickH">Начните отсюда</h2><p id="ideaPickSub">Сцены, которые хорошо получаются с первого раза</p></div>
+      <div class="ipnav"><button class="iconbtn" type="button" id="ideaPrev" aria-label="Листать назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="iconbtn" type="button" id="ideaNext" aria-label="Листать вперёд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div></div>
+    <div class="irow" id="ideaRow"></div>
+  </section>
+  <div class="isech"><h2 id="ideaAllH">Все сцены</h2><span class="hint" id="ideaCount"></span></div>
+  <div class="ibento"><div class="igrid" id="ideaGrid" aria-busy="true" aria-labelledby="ideaAllH"></div></div>
+</section>
 <footer class="foot"><div class="foot-in"><span class="flogo"><svg viewBox="0 0 120 120" aria-hidden="true"><path fill="#FFF6E3" d="M26 50C24 92 42 109 60 109C78 109 96 92 94 50Z"/><g fill="none" stroke="#282F33" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5.5" d="M25 54C25 93 44 109 60 109C76 109 95 93 95 54"/><path stroke-width="4.5" d="M25 67C16 65 15 82 26 84M95 67C104 65 105 82 94 84"/><path stroke-width="4.5" d="M49 93Q60 100 71 93"/></g><path fill="#282F33" d="M22 61C15 28 38 10 61 10C87 10 106 27 98 61C96 54 91 49 85 46C72 50 48 50 34 47C28 50 24 55 22 61Z"/><path fill="#282F33" d="M92 19C98 16 104 20 102 26C101 29 98 30 95 29Z"/><g fill="none" stroke="#F0B92A" stroke-width="5.5" stroke-linejoin="round"><rect x="28" y="59" width="27" height="22" rx="8"/><rect x="65" y="59" width="27" height="22" rx="8"/><path d="M55 67H65"/></g><circle cx="42" cy="70.5" r="3.6" fill="#282F33"/><circle cx="78" cy="70.5" r="3.6" fill="#282F33"/></svg></span><b class="fmark">GENA</b><span class="fwords"><span><i>G</i>enerative <i>E</i>ngine for <i>N</i>eural <i>A</i>rt</span><small>Генеративный движок для нейро-арта</small></span><span class="fside">Для дизайнеров КуулКлевер</span></div></footer>
 <div class="fbwrap" id="roleAsk" role="dialog" aria-modal="true" aria-labelledby="roleH" hidden><div class="fbcard rolecard"><h2 id="roleH">Кто вы в команде?</h2><p class="hint">Один вопрос: так мы поймём, кому и для каких задач нужен GENA.</p><div class="rolebox" id="rRole"><div class="roleset" role="radiogroup" aria-label="Кто вы"><button type="button" role="radio" data-role="Дизайнер">Дизайнер</button><button type="button" role="radio" data-role="Маркетолог">Маркетолог</button><button type="button" role="radio" data-role="Бренд-менеджер">Бренд-менеджер</button><button type="button" role="radio" data-role="other">Другое</button></div><input type="text" class="roleother" maxlength="40" placeholder="Ваша роль" hidden aria-label="Ваша роль"></div><p class="gerr" id="rErr" role="alert"></p><div class="fbact"><button class="btn" type="button" id="rSave">Готово</button></div></div></div>
 <div class="fbwrap obwrap" id="onb" role="dialog" aria-modal="true" aria-labelledby="onbH" hidden><div class="fbcard obcard"><h2 id="onbH" class="sr">Как работать с GENA</h2><button class="iconbtn obx" type="button" id="onbX" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button><section class="ob-slide" data-i="0" ><div class="ob-stage"><div class="ob-s1"><div class="ob-tiles"><i class=t0></i><i class=t1></i><i class=t2></i><i class=t3></i><i class=t4></i><i class=t5></i></div><svg class="ob-cur" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 1.6L10 19z" fill="var(--ink)" stroke="var(--panel)" stroke-width="1.5" stroke-linejoin="round"/></svg></div></div><h2>Соберите сцену</h2><p>Готовый сценарий или по шагам</p></section><section class="ob-slide" data-i="1" hidden><div class="ob-stage"><div class="ob-s2"><div class="ob-lines"><i></i><i></i><i></i></div><div class="ob-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span></span></div><div class="ob-conf"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><svg class="ob-cur" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 1.6L10 19z" fill="var(--ink)" stroke="var(--panel)" stroke-width="1.5" stroke-linejoin="round"/></svg></div></div><h2>Скопируйте промт</h2><p>Одна кнопка — и промт готов</p></section><section class="ob-slide" data-i="2" hidden><div class="ob-stage"><div class="ob-s3"><div class="ob-ai"><i class="ob-ai-h"></i><i class="ob-ai-b"></i><div class="ob-ai-in"><b class="d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h9"/></svg></b><b class="d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M5 17l5-5 4 4 2-2 3 3"/></svg></b><b class="d3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M5 17l5-5 4 4 2-2 3 3"/></svg></b></div></div><b class="ob-drag g1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h9"/></svg></b><b class="ob-drag g2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M5 17l5-5 4 4 2-2 3 3"/></svg></b><b class="ob-drag g3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><circle cx="9" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M5 17l5-5 4 4 2-2 3 3"/></svg></b><svg class="ob-cur" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l14 8-6 1.6L10 19z" fill="var(--ink)" stroke="var(--panel)" stroke-width="1.5" stroke-linejoin="round"/></svg></div></div><h2>Вставьте в нейросеть</h2><p>GPT Image или Nano Banana и фото продукта</p></section><section class="ob-slide" data-i="3" hidden><div class="ob-stage"><div class="ob-s4"><div class="ob-stars"><i class="ob-star"></i><i class="ob-star"></i><i class="ob-star"></i><i class="ob-star"></i><i class="ob-star"></i></div><div class="ob-bento"><i class="k1"></i><i class="k2"></i><i class="k3"></i><i class="k4"></i></div></div></div><h2>Оцените и поделитесь</h2><p>Лучшие работы — в галерею команды</p></section>
@@ -1616,6 +1729,30 @@ body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
       <div class="achips" id="wChips"></div>
       </details>
       <button class="hdel" type="button" id="wDel" hidden>Удалить</button>
+    </div>
+  </div>
+</div>
+<div class="fbwrap wwrap" id="idea" role="dialog" aria-modal="true" aria-labelledby="iTitle" hidden>
+  <div class="wcard icard">
+    <div class="wimg" id="iImgBox"><span class="ifw"><img id="iImg" alt=""><i class="ifr" id="iFr" hidden><b id="iFrL"></b></i></span></div>
+    <div class="wside">
+      <div class="fbhead"><h2 id="iTitle"></h2><button class="iconbtn" type="button" id="iClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <p class="wauth" id="iAuthor"></p>
+      <p class="iwhat" id="iWhat"></p>
+      <div class="ifmts"><span class="lbl" id="iFmtL">Формат</span><p class="ione" id="iFmtOne" hidden></p><div class="gsort" id="iFmt" role="radiogroup" aria-labelledby="iFmtL"></div><small class="hint" id="iFmtNote" aria-live="polite"></small></div>
+      <div class="wact"><button class="btn" type="button" id="iCopy">Скопировать промт</button>
+        <small class="hint">Вставьте промт в Nano Banana или GPT Image и приложите фото своего продукта.</small>
+        <div class="wrow"><button class="btn ghost" type="button" id="iPro">Настроить подробнее</button><button class="btn ghost wlike" type="button" id="iLike" aria-pressed="false" aria-label="Полезно"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9zM7 11l4-8a2.5 2.5 0 0 1 2.5 3L13 10h5.6a2 2 0 0 1 2 2.4l-1.4 6A2 2 0 0 1 17.3 20H7"/></svg><b id="iLikeN">0</b></button></div>
+      </div>
+      <details class="iadm" id="iAdm" hidden>
+        <summary class="iadmh">Витрина<em>видно только вам</em></summary><div class="iadmb">
+        <label class="lbl" for="iaTitle">Название на карточке</label><input type="text" id="iaTitle" maxlength="60"><p class="hint iaorig" id="iaOrig" hidden></p>
+        <span class="lbl" id="iaTaskL">Задача</span><div class="ichips" id="iaTask" role="radiogroup" aria-labelledby="iaTaskL"></div>
+        <span class="lbl" id="iaProdL">Продукт</span><div class="ichips" id="iaProd" role="radiogroup" aria-labelledby="iaProdL"></div>
+        <label class="tg"><input type="checkbox" id="iaFeat"><span>В подборке «Начните отсюда»</span></label>
+        <label class="tg"><input type="checkbox" id="iaHid"><span>Скрыть с витрины</span></label>
+        <button class="btn sm" type="button" id="iaSave">Сохранить</button>
+      </div></details>
     </div>
   </div>
 </div>
@@ -2582,7 +2719,7 @@ $("labMode").addEventListener("click",e=>{const b=e.target.closest("[data-md]");
 const PRO_ONLY=["#refToggles","#tgMore","#enh",'#standSeg [data-st="pod"]',"#pods","#podPanel","#gapRow","#tiltBox","#s-comp details.adv","#fill","#grids","#s-cam","#s-light","#s-fin",'#steps [data-t="s-cam"]','#steps [data-t="s-light"]','#steps [data-t="s-fin"]'];
 let MODE_MARKED=false;
 function modeMark(){if(MODE_MARKED)return;MODE_MARKED=true;PRO_ONLY.forEach(q=>document.querySelectorAll(q).forEach(el=>{const t=["#enh","#fill","#grids"].includes(q)?el.closest(".sub"):el;t.classList.add("pxo");const hr=t.previousElementSibling;if(t.classList.contains("sub")&&hr&&hr.tagName==="HR")hr.classList.add("pxo")}))}
-function modeApply(m){modeMark();document.querySelectorAll("#labMode [data-md]").forEach(b=>b.setAttribute("aria-checked",String(b.dataset.md===m)));if(root.dataset.mode===m)return;root.dataset.mode=m;
+function modeApply(m){modeMark();document.querySelectorAll("#labMode [data-md]").forEach(b=>b.setAttribute("aria-checked",String(b.dataset.md===m)));if(root.dataset.mode===m)return;root.dataset.mode=m;if(Cloud.user)setTimeout(route);
   let n=0;document.querySelectorAll("#steps [data-t]").forEach(b=>{const sec=$(b.dataset.t);if(b.classList.contains("pxo")&&m==="simple")return;n++;const k=String(n).padStart(2,"0");b.querySelector("span").textContent=k;b.setAttribute("aria-label","Шаг "+k+": "+b.title);const nm=sec&&sec.querySelector(".num");if(nm)nm.textContent=k});
   if(typeof fitGrids==="function")requestAnimationFrame(fitGrids)}
 $("labLogo").addEventListener("click",e=>{const b=e.target.closest("[data-lg]");if(!b)return;e.stopPropagation();LAB.logo=b.dataset.lg;labSave()});
@@ -3101,10 +3238,15 @@ $("pubForm").addEventListener("submit",async e=>{e.preventDefault();if(!PUB.full
   finally{btn.disabled=false;btn.textContent="Опубликовать"}});
 
 /* ----- 3. gallery ----- */
-function go(v){const want=v==="gallery"?"#gallery":"";if(location.hash!==want){if(want)location.hash=want;else history.pushState("",document.title,location.pathname+location.search);route()}}
-function route(){const g=location.hash==="#gallery"&&Cloud.user;document.body.classList.toggle("v-gallery",!!g);$("galPage").hidden=!g;
-  $("viewNav").querySelectorAll("[data-view]").forEach(a=>a.setAttribute("aria-current",String((a.dataset.view==="gallery")===!!g)));
-  if(g){loadGallery();window.scrollTo(0,0)}}
+function go(v){const simple=root.dataset.mode==="simple",want=v==="gallery"?"#gallery":v==="ideas"?"#ideas":simple?"#build":"";if(location.hash!==want){if(want)location.hash=want;else history.pushState("",document.title,location.pathname+location.search);route()}}
+/* Simple: «Идеи» — главный экран; конструктор живёт на #build. Pro: как раньше */
+function route(){const h=location.hash,simple=root.dataset.mode==="simple";
+  const v=!Cloud.user?"builder":h==="#gallery"?"gallery":simple&&(h==="#ideas"||!h)?"ideas":"builder";
+  document.body.classList.toggle("v-gallery",v==="gallery");document.body.classList.toggle("v-ideas",v==="ideas");$("galPage").hidden=v!=="gallery";$("ideaPage").hidden=v!=="ideas";
+  const N=$("viewNav");N.querySelector('[data-view="ideas"]').hidden=!simple;N.querySelector('[data-view="gallery"]').hidden=simple;
+  N.querySelectorAll("[data-view]").forEach(a=>a.setAttribute("aria-current",String(a.dataset.view===v)));
+  if(v==="gallery"){loadGallery();window.scrollTo(0,0)}
+  if(v==="ideas"){loadIdeas();window.scrollTo(0,0)}}
 window.addEventListener("hashchange",route);
 $("viewNav").addEventListener("click",e=>{const a=e.target.closest("[data-view]");if(!a)return;e.preventDefault();go(a.dataset.view)});
 async function signed(paths){const need=paths.filter(p=>p&&!GAL.urls[p]);if(need.length){const {data}=await Cloud.sb.storage.from("works").createSignedUrls(need,3600);(data||[]).forEach(d=>{if(d.signedUrl)GAL.urls[d.path]=d.signedUrl})}}
@@ -3178,6 +3320,118 @@ async function likePub(r){const on=GAL.liked.has(r.id);
 $("wDel").addEventListener("click",async()=>{const b=$("wDel"),r=GAL.cur;if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Точно удалить?";return}
   const {error}=await Cloud.sb.from("publications").delete().eq("id",r.id);if(error){toast("Не получилось удалить");return}
   await Cloud.sb.storage.from("works").remove([r.image_path,r.thumb_path]);workClose();toast("Публикация удалена");loadGallery();loadHistory()});
+/* ===== IDEAS (Simple mode): витрина готовых сцен, бенто по формату ===== */
+const ITASK={banner:{t:"Баннер на сайт",f:["16:9","21:9"]},card:{t:"Карточка товара",f:["1:1","3:4"]},story:{t:"Сторис",f:["9:16"]},post:{t:"Пост",f:["4:5","1:1"]},catalog:{t:"Каталог и меню",f:["3:2","1:1"]}};
+const IPROD={drinks:"Напитки",alcohol:"Алкоголь",grocery:"Бакалея",sweets:"Сладкое и выпечка",dairy:"Молочное",sets:"Наборы и подарки"};
+const IDEA={rows:[],sc:{},task:null,prod:null,cur:null,fmt:null,at:0};
+let IADM={task:null,prod:null};
+const LIKE_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9zM7 11l4-8a2.5 2.5 0 0 1 2.5 3L13 10h5.6a2 2 0 0 1 2 2.4l-1.4 6A2 2 0 0 1 17.3 20H7"/></svg>';
+const ALL_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg>';
+const ideaPlural=(n,a)=>a[(n%100>4&&n%100<20)?2:[2,0,1,1,1,2][Math.min(n%10,5)]];
+/* формат — по реальным пропорциям картинки, а не по настройке сцены */
+const nearRatio=(w,h)=>{const a=w/h;let best=RATIOS[0],d=1e9;RATIOS.forEach(r=>{const x=Math.abs(Math.log(a*r[2]/r[1]));if(x<d){d=x;best=r}});return best[0]};
+const fmtShape=f=>({"1:1":"sq","3:4":"port","4:5":"port","2:3":"story","9:16":"story","16:9":"wide","3:2":"wide","21:9":"ultra"})[f]||"sq";
+const fmtTask=f=>({"16:9":"banner","21:9":"banner","3:2":"banner","1:1":"card","3:4":"card","9:16":"story","2:3":"story","4:5":"post"})[f]||"card";
+function fmtIcon(f){const [a,b]=f.split(":").map(Number),k=16/Math.max(a,b),w=a*k,h=b*k;
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="${(12-w/2).toFixed(1)}" y="${(12-h/2).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="2"/></svg>`}
+const ideaAutoTitle=r=>{const sc=r.scene||{},st=valLabel("style",sc.style)||"Сцена",an=sc.angle?valLabel("angle",sc.angle):"";return an&&an!==sc.angle?`${st} · ${an.toLowerCase()}`:st};
+function ideaDecor(r){const s=IDEA.sc[r.id]||{},f=nearRatio(r.w||1,r.h||1),task=ITASK[s.task]?s.task:fmtTask(f);
+  return Object.assign(r,{fmt:f,shape:fmtShape(f),task,prod:IPROD[s.product]?s.product:null,feat:!!s.featured,hid:!!s.hidden,ord:s.ord||0,ttl:s.title||ideaAutoTitle(r)})}
+const ideaBig=r=>r.shape==="wide"||r.shape==="ultra";
+
+async function loadIdeas(force){
+  if(!Cloud.sb||!Cloud.user)return;
+  if(!force&&IDEA.rows.length&&Date.now()-IDEA.at<60000){drawIdeas();return}
+  if(!IDEA.rows.length)$("ideaGrid").setAttribute("aria-busy","true");
+  const [{data},{data:sc},{data:lk}]=await Promise.all([
+    Cloud.sb.from("publications").select("id,user_id,author_name,title,scene,prompt,rating,image_path,thumb_path,w,h,likes,created_at").order("likes",{ascending:false}).order("created_at",{ascending:false}).limit(200),
+    Cloud.sb.from("showcase").select("publication_id,title,task,product,featured,hidden,ord"),
+    Cloud.sb.from("publication_likes").select("publication_id").eq("user_id",Cloud.user.id)]);
+  IDEA.sc=Object.fromEntries((sc||[]).map(x=>[x.publication_id,x]));
+  IDEA.rows=(data||[]).map(ideaDecor);IDEA.at=Date.now();GAL.liked=new Set((lk||[]).map(x=>x.publication_id));
+  await signed([...IDEA.rows.map(r=>r.thumb_path),...IDEA.rows.filter(ideaBig).map(r=>r.image_path)]);
+  drawIdeas()}
+
+function ideaTile(r,grid){const src=(grid&&ideaBig(r)&&GAL.urls[r.image_path])||GAL.urls[r.thumb_path]||"",sub=ITASK[r.task].t+(r.prod?" · "+IPROD[r.prod]:"");
+  return `<button type="button" class="it${r.hid?" off":""}" data-f="${r.shape}" data-idea="${escA(r.id)}" style="--ar:${+r.w||1}/${+r.h||1}" aria-label="${escA(`${r.ttl}. ${sub}, формат ${r.fmt}`)}"><img src="${escA(src)}" alt="" loading="lazy" decoding="async">`+
+    `<span class="ifmt" aria-hidden="true">${fmtIcon(r.fmt)}${r.fmt}</span>${r.likes?`<span class="ilk" aria-hidden="true">${LIKE_SVG}${r.likes}</span>`:""}${r.hid?'<span class="ihid" aria-hidden="true">Скрыта</span>':""}`+
+    `<span class="icap" aria-hidden="true"><b>${escA(r.ttl)}</b><small>${escA(sub)}</small></span></button>`}
+
+function drawIdeas(){
+  const all=IDEA.rows.filter(r=>!r.hid||Cloud.admin),live=all.filter(r=>!r.hid);
+  /* задачи: только непустые, аватар — лучшая работа задачи */
+  const tasks=Object.keys(ITASK).filter(k=>live.some(r=>r.task===k));if(IDEA.task&&!tasks.includes(IDEA.task))IDEA.task=null;
+  $("ideaTasks").innerHTML=[["","Все",null,live.length],...tasks.map(k=>{const rs=live.filter(r=>r.task===k);return [k,ITASK[k].t,rs[0],rs.length]})]
+    .map(([k,t,r,n])=>`<button type="button" class="itask" data-itask="${k}" aria-pressed="${(IDEA.task||"")===k}"><span class="iav">${r?`<img src="${escA(GAL.urls[r.thumb_path]||"")}" alt="">`:ALL_SVG}</span>${escA(t)}<small>${n}</small></button>`).join("");
+  /* продукт: появляется, когда работы размечены */
+  const base=live.filter(r=>!IDEA.task||r.task===IDEA.task),prods=Object.keys(IPROD).filter(k=>base.some(r=>r.prod===k));
+  if(IDEA.prod&&!prods.includes(IDEA.prod))IDEA.prod=null;$("ideaProds").hidden=!prods.length;
+  $("ideaProds").innerHTML=prods.length?[["","Любой продукт"],...prods.map(k=>[k,IPROD[k]])].map(([k,t])=>`<button type="button" class="chip" data-iprod="${k}" aria-pressed="${(IDEA.prod||"")===k}">${escA(t)}</button>`).join(""):"";
+  /* подборка: отобранные админом, пока их нет — самые полезные */
+  const isAll=!IDEA.task&&!IDEA.prod;let pick=live.filter(r=>r.feat).sort((a,b)=>a.ord-b.ord);const auto=!pick.length;if(pick.length<6)pick=pick.concat(live.filter(r=>!r.feat).slice(0,6-pick.length));
+  $("ideaPick").hidden=!isAll||pick.length<3;
+  if(!$("ideaPick").hidden){$("ideaRow").innerHTML=pick.map(r=>ideaTile(r,false)).join("");$("ideaPickSub").textContent=auto?"Самые полезные сцены команды":"Сцены, которые хорошо получаются с первого раза";$("ideaRow").scrollLeft=0;ideaNav()}
+  /* бенто */
+  const rows=all.filter(r=>(!IDEA.task||r.task===IDEA.task)&&(!IDEA.prod||r.prod===IDEA.prod)).sort((a,b)=>a.hid-b.hid),G=$("ideaGrid");
+  $("ideaAllH").textContent=IDEA.task?ITASK[IDEA.task].t:IDEA.prod?IPROD[IDEA.prod]:"Все сцены";
+  $("ideaCount").textContent=rows.length?`${rows.length} ${ideaPlural(rows.length,["сцена","сцены","сцен"])}`:"";G.removeAttribute("aria-busy");
+  G.innerHTML=rows.length?rows.map(r=>ideaTile(r,true)).join(""):`<div class="iempty"><b>Здесь пока пусто</b><p>Сцены появятся, когда коллеги опубликуют удачные генерации в галерее.</p></div>`}
+
+$("ideaTasks").addEventListener("click",e=>{const b=e.target.closest("[data-itask]");if(!b)return;IDEA.task=b.dataset.itask||null;IDEA.prod=null;drawIdeas()});
+$("ideaProds").addEventListener("click",e=>{const b=e.target.closest("[data-iprod]");if(!b)return;IDEA.prod=b.dataset.iprod||null;drawIdeas()});
+["ideaRow","ideaGrid"].forEach(id=>$(id).addEventListener("click",e=>{const t=e.target.closest("[data-idea]");if(t)ideaOpen(t.dataset.idea)}));
+function ideaNav(){const R=$("ideaRow");$("ideaPrev").disabled=R.scrollLeft<4;$("ideaNext").disabled=R.scrollLeft+R.clientWidth>=R.scrollWidth-4}
+$("ideaRow").addEventListener("scroll",ideaNav,{passive:true});addEventListener("resize",()=>{if(!$("ideaPick").hidden)ideaNav()});
+[["ideaPrev",-1],["ideaNext",1]].forEach(([id,d])=>$(id).addEventListener("click",()=>{const R=$("ideaRow");R.scrollBy({left:d*R.clientWidth*.8,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})}));
+
+/* ----- окно идеи: формат → промт ----- */
+function ideaState(r,ratio){const st=Object.assign(freshS(),JSON.parse(JSON.stringify(r.scene||{})));st.sv=Object.assign({},(r.scene||{}).sv||{});st.src="photo";st.ratio=ratio;st.preset=null;return st}
+function ideaApply(r){S=ideaState(r,IDEA.fmt||r.fmt);migrate();drawLights();renderProds();update()}
+async function ideaOpen(id){const r=IDEA.rows.find(x=>x.id===id);if(!r)return;IDEA.cur=r;IDEA.fmt=r.fmt;
+  const img=$("iImg");img.src=GAL.urls[r.image_path]||GAL.urls[r.thumb_path]||"";img.alt=r.ttl;$("iImgBox").style.aspectRatio=`${+r.w||1}/${+r.h||1}`;
+  ideaFill();const w=$("idea");
+  if(w.hidden){clearTimeout(window.__ict);w.classList.remove("closing");w.hidden=false;w.classList.add("opening");document.body.classList.add("locked");requestAnimationFrame(()=>requestAnimationFrame(()=>w.classList.remove("opening")));$("iCopy").focus({preventScroll:true})}
+  if(!GAL.urls[r.image_path]){await signed([r.image_path]);if(IDEA.cur===r&&GAL.urls[r.image_path])img.src=GAL.urls[r.image_path]}}
+function ideaFill(){const r=IDEA.cur;$("iTitle").textContent=r.ttl;$("iAuthor").textContent=`Автор сцены: ${r.author_name||"коллега"} · ${fmtDate(r.created_at)}`;
+  const ch=sceneChips(r.scene||{});$("iWhat").textContent=[ch[0],ch[2],ch[3]].filter(Boolean).join(" · ");
+  ideaFmtDraw();$("iLike").setAttribute("aria-pressed",String(GAL.liked.has(r.id)));$("iLikeN").textContent=r.likes;
+  $("iAdm").hidden=!Cloud.admin;if(Cloud.admin)ideaAdmFill()}
+function ideaFmtDraw(){const r=IDEA.cur,fs=[...new Set([r.fmt,...ITASK[r.task].f])];if(!fs.includes(IDEA.fmt))IDEA.fmt=r.fmt;
+  const one=fs.length<2;$("iFmt").hidden=one;$("iFmtOne").hidden=!one;$("iFmtOne").innerHTML=one?fmtIcon(r.fmt)+r.fmt:"";
+  $("iFmt").innerHTML=one?"":fs.map(f=>`<button type="button" role="radio" data-fmt="${f}" aria-checked="${f===IDEA.fmt}" tabindex="${f===IDEA.fmt?0:-1}">${fmtIcon(f)}${f}</button>`).join("");
+  const same=IDEA.fmt===r.fmt,fr=$("iFr");$("iFmtNote").textContent=same?"Как в примере":`GENA перестроит композицию под ${IDEA.fmt}, а не обрежет картинку`;
+  fr.hidden=same;if(!same){const [a,b]=IDEA.fmt.split(":").map(Number),fa=a/b,ia=(+r.w||1)/(+r.h||1);fr.style.width=fa>=ia?"100%":(fa/ia*100).toFixed(2)+"%";fr.style.height=fa>=ia?(ia/fa*100).toFixed(2)+"%":"100%";$("iFrL").textContent="Кадр "+IDEA.fmt}}
+function ideaFmtSet(f,focus){IDEA.fmt=f;ideaFmtDraw();if(focus)$("iFmt").querySelector(`[data-fmt="${f}"]`).focus()}
+$("iFmt").addEventListener("click",e=>{const b=e.target.closest("[data-fmt]");if(b)ideaFmtSet(b.dataset.fmt)});
+$("iFmt").addEventListener("keydown",e=>{const d=e.key==="ArrowRight"||e.key==="ArrowDown"?1:e.key==="ArrowLeft"||e.key==="ArrowUp"?-1:0;if(!d)return;e.preventDefault();
+  const L=[...$("iFmt").querySelectorAll("[data-fmt]")].map(b=>b.dataset.fmt),k=(L.indexOf(IDEA.fmt)+d+L.length)%L.length;ideaFmtSet(L[k],true)});
+function ideaClose(){const w=$("idea");if(w.hidden)return;w.classList.add("closing");clearTimeout(window.__ict);window.__ict=setTimeout(()=>{w.hidden=true;w.classList.remove("closing")},180);
+  document.body.classList.remove("locked");const t=IDEA.cur&&document.querySelector(`.it[data-idea="${CSS.escape(IDEA.cur.id)}"]`);IDEA.cur=null;if(t&&$("done").hidden)t.focus({preventScroll:true})}
+$("iClose").addEventListener("click",ideaClose);
+$("idea").addEventListener("click",e=>{if(e.target===$("idea"))ideaClose()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("idea").hidden)ideaClose()});
+$("iCopy").addEventListener("click",()=>{const r=IDEA.cur;if(!r)return;ideaApply(r);logEvent("template",{publication:r.id,via:"ideas",fmt:IDEA.fmt});ideaClose();copy($("status"))});
+$("iPro").addEventListener("click",()=>{const r=IDEA.cur;if(!r)return;const snap=JSON.stringify(S);ideaApply(r);ideaClose();go("builder");
+  toastUndo("Сцена в конструкторе. Продукт возьмётся с вашего фото",()=>{S=JSON.parse(snap);drawLights();renderProds();update()})});
+$("iLike").addEventListener("click",async()=>{const r=IDEA.cur;if(!r)return;await likePub(r);if(IDEA.cur===r){$("iLike").setAttribute("aria-pressed",String(GAL.liked.has(r.id)));$("iLikeN").textContent=r.likes}drawIdeas()});
+
+/* ----- курирование витрины (только админ) ----- */
+function ideaAdmFill(){const r=IDEA.cur,s=IDEA.sc[r.id]||{};IADM={task:r.task,prod:r.prod};
+  $("iaTitle").value=s.title||"";$("iaTitle").placeholder=ideaAutoTitle(r);
+  $("iaOrig").hidden=!r.title;$("iaOrig").textContent=r.title?`Подпись автора: «${r.title}»`:"";
+  ideaAdmChips();$("iaFeat").checked=!!s.featured;$("iaHid").checked=!!s.hidden}
+function ideaAdmChips(){
+  $("iaTask").innerHTML=Object.entries(ITASK).map(([k,v])=>`<button type="button" class="chip" role="radio" data-at="${k}" aria-checked="${IADM.task===k}">${escA(v.t)}</button>`).join("");
+  $("iaProd").innerHTML=[["","Не указан"],...Object.entries(IPROD)].map(([k,v])=>`<button type="button" class="chip" role="radio" data-ap="${k}" aria-checked="${(IADM.prod||"")===k}">${escA(v)}</button>`).join("")}
+$("iaTask").addEventListener("click",e=>{const b=e.target.closest("[data-at]");if(!b)return;IADM.task=b.dataset.at;ideaAdmChips();$("iaTask").querySelector(`[data-at="${b.dataset.at}"]`).focus()});
+$("iaProd").addEventListener("click",e=>{const b=e.target.closest("[data-ap]");if(!b)return;IADM.prod=b.dataset.ap||null;ideaAdmChips();$("iaProd").querySelector(`[data-ap="${b.dataset.ap}"]`).focus()});
+$("iaSave").addEventListener("click",async()=>{const r=IDEA.cur;if(!r||!Cloud.admin)return;const b=$("iaSave"),old=IDEA.sc[r.id];
+  const feat=$("iaFeat").checked,ord=feat&&!(old&&old.featured)?Math.max(0,...Object.values(IDEA.sc).map(x=>x.ord||0))+1:(old&&old.ord)||0;
+  const row={publication_id:r.id,title:$("iaTitle").value.trim()||null,task:IADM.task,product:IADM.prod||null,featured:feat,hidden:$("iaHid").checked,ord,updated_at:new Date().toISOString()};
+  b.disabled=true;b.textContent="Сохраняю…";const {error}=await Cloud.sb.from("showcase").upsert(row);b.disabled=false;b.textContent="Сохранить";
+  if(error){toast("Не получилось сохранить: "+error.message);return}
+  IDEA.sc[r.id]=Object.assign({},old,row);ideaDecor(r);drawIdeas();if(IDEA.cur===r){$("iTitle").textContent=r.ttl;ideaFmtDraw()}toast("Витрина обновлена")});
+
 
 
 /* ----- after-copy: confetti, chime, rate & publish ----- */
