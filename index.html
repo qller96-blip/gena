@@ -1440,7 +1440,20 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 .bnrrow{display:flex;gap:16px;flex-wrap:wrap;margin-top:4px}.bnrrow .gsort{align-self:flex-start}
 .bnrform .tg{margin-top:10px}
 .bnrpvw{position:sticky;top:96px;display:flex;flex-direction:column;gap:8px}
-.bnrpv{position:relative;container-type:inline-size;aspect-ratio:1100/600;border-radius:12px;overflow:hidden;box-shadow:0 0 0 1px var(--line)}
+.bnrpv{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:0 0 0 1px var(--line)}
+.bnrcrop{position:absolute;container-type:inline-size}.bnrcrop.cut{box-shadow:0 0 0 999px rgba(10,12,11,.42);outline:1.5px dashed rgba(255,255,255,.75);outline-offset:-1px}
+.bnrh3{font-size:15px;font-weight:600;margin:14px 0 2px}.bnrform .bnrh3:first-child{margin-top:0}
+.bnrlab{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:8px}.bnrlab .lbl{margin:0}
+.bstep{display:inline-flex;align-items:center;gap:2px;background:var(--sunk);box-shadow:0 0 0 1px var(--line);border-radius:999px;padding:2px;font-size:13px;font-variant-numeric:tabular-nums}
+.bstep button{all:unset;cursor:pointer;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:17px;line-height:1;color:var(--ink)}
+.bstep button:hover:not(:disabled){background:var(--hover)}.bstep button:disabled{opacity:.3;cursor:default}.bstep button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.bstep output{min-width:24px;text-align:right;color:var(--muted);font-weight:600}.bstep .bpx{color:var(--muted);font-size:12px;margin-right:2px}
+.bstep.man output{color:var(--ink)}.bstep .bauto{width:auto;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600;color:var(--accent-text);height:28px}
+.bcol{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 12px 0 4px;border-radius:12px;box-shadow:0 0 0 1px var(--line);font-size:13px;font-weight:550;color:var(--muted);cursor:pointer}
+.bcol input{width:28px;height:28px;border:0;padding:0;background:none;cursor:pointer}.bcol.on{color:var(--ink);box-shadow:0 0 0 2px var(--accent)}
+.bgen{align-self:stretch}.bgen button{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:7px 8px;min-height:44px;box-sizing:border-box}
+.bgen b{font-size:14px;color:inherit}.bgen small{font-size:11px;font-weight:500;color:var(--muted)}
+.bnrpv .b-tag{font-family:"Ubuntu",var(--f-body);font-weight:500;line-height:1;padding:.5em .9em;border-radius:999px;background:var(--tag);color:var(--tagink);margin-top:0}
 .bnrpv .bg{position:absolute;top:0;left:0;height:100%;background:rgba(232,90,90,.16);border-right:1px solid rgba(220,70,70,.45)}
 .bnrpv .m-t,.bnrpv .m-b{height:auto;border-right:0;border-bottom:1px solid rgba(220,70,70,.45)}.bnrpv .m-b{border-bottom:0;border-top:1px solid rgba(220,70,70,.45);bottom:0;height:auto}
 .bnrpv .bv{font-style:normal;position:absolute;top:0;bottom:0;right:0;border-left:1px dashed rgba(255,255,255,.55);background:repeating-conic-gradient(rgba(255,255,255,.10) 0 25%,transparent 0 50%) 0 0/calc(28 * 100cqw / 1100) calc(28 * 100cqw / 1100);display:grid;place-items:center}
@@ -1448,8 +1461,7 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 .bnrpv .bv span{font-size:calc(34 * 100cqw / 1100);font-weight:500;color:rgba(255,255,255,.55);letter-spacing:.04em}.bnrpv[data-tone="dark"] .bv span{color:rgba(0,0,0,.35)}
 .bnrpv .bl{position:absolute;font-style:normal;font-size:calc(14 * 100cqw / 1100);line-height:1;padding:calc(4 * 100cqw / 1100) calc(7 * 100cqw / 1100);border-radius:calc(6 * 100cqw / 1100);background:#D9534F;color:#fff}
 .bnrpv .bnrtx{position:absolute;inset:0}.bnrpv .bnrtx b{display:inline;font-size:inherit}
-.bnrpv .bp{position:absolute;left:calc(96 * 100cqw / 1100);white-space:nowrap;line-height:1;color:#fff}
-.bnrpv[data-tone="dark"] .bp{color:#2A1A10}
+.bnrpv .bp{position:absolute;left:calc(96 * 100cqw / 1100);white-space:nowrap;line-height:1;color:var(--ink,#fff)}
 .bnrpv .b-head{font-family:"Anaphora","Anafora","Анафора","Roboto Slab",Rockwell,Georgia,serif;font-weight:800;letter-spacing:.01em}
 .bnrpv .b-sub,.bnrpv .b-price,.bnrpv .b-kick,.bnrpv .b-hero,.bnrpv .bdg{font-family:"Ubuntu",var(--f-body)}
 .bnrpv .b-sub,.bnrpv .b-price{font-weight:500;line-height:1.2}.bnrpv .b-kick{font-weight:500;letter-spacing:.25em}
@@ -1527,17 +1539,31 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
         <label class="bnrsw"><input type="checkbox" role="switch" id="bnrOn"><span class="sr">Текст на баннере</span></label></div>
       <div class="bnrbody" id="bnrBody" hidden>
         <div class="bnrform">
+          <h3 class="bnrh3">Текст</h3>
           <label class="lbl" for="bnrKick">Надзаголовок <span class="opt-tag">по желанию</span></label><input type="text" id="bnrKick" maxlength="40" placeholder="Например: Думай, что ешь">
-          <label class="lbl" for="bnrHead">Заголовок</label><textarea id="bnrHead" rows="2" maxlength="60" placeholder="Например: Золото Франции"></textarea>
-          <small class="hint">Анафора, заглавными, 1–2 строки. Enter — свой перенос. Цифры наберутся Ubuntu Bold.</small>
-          <label class="lbl" for="bnrSub">Подзаголовок</label><textarea id="bnrSub" rows="2" maxlength="90" placeholder="Например: Артизанальные коньяки с вековой историей"></textarea>
-          <label class="lbl" for="bnrPrice">Цена или акция <span class="opt-tag">по желанию</span></label><input type="text" id="bnrPrice" maxlength="30" placeholder="Например: От 1790 ₽">
-          <div class="bnrrow"><div><span class="lbl" id="bnrToneL">Цвет текста</span><div class="gsort" id="bnrTone" role="radiogroup" aria-labelledby="bnrToneL"><button type="button" role="radio" data-v="auto">Авто</button><button type="button" role="radio" data-v="light">Светлый</button><button type="button" role="radio" data-v="dark">Тёмный</button></div></div>
-            <div><span class="lbl" id="bnrModeL">Типографика</span><div class="gsort" id="bnrMode" role="radiogroup" aria-labelledby="bnrModeL"><button type="button" role="radio" data-v="grid">По сетке</button><button type="button" role="radio" data-v="bold">Смело</button></div></div></div>
-          <small class="hint">«Смело»: крупная цифра акции в начале заголовка («до -50%»), надзаголовок и цифра могут выйти за сетку.</small>
-          <label class="tg"><input type="checkbox" id="bnrRef"><span>Приложу пример шрифта<small>Последней картинкой в нейросеть — любой наш баннер с заголовком. Так Анафора повторится точнее.</small></span></label>
+          <div class="bnrlab"><label class="lbl" for="bnrHead">Заголовок</label><span class="bstep" id="bnrHs" role="group" aria-label="Кегль: заголовок"><button type="button" data-d="-2" aria-label="Меньше">−</button><output aria-live="polite"></output><span class="bpx" aria-hidden="true">px</span><button type="button" data-d="2" aria-label="Больше">+</button><button type="button" class="bauto" data-d="0" hidden>Авто</button></span></div>
+          <textarea id="bnrHead" rows="2" maxlength="60" placeholder="Например: Скидки до 50%"></textarea>
+          <small class="hint">Анафора заглавными, цифры — Ubuntu Bold. Enter — свой перенос.</small>
+          <div class="bnrlab"><label class="lbl" for="bnrSub">Подзаголовок</label><span class="bstep" id="bnrSs" role="group" aria-label="Кегль: подзаголовок"><button type="button" data-d="-2" aria-label="Меньше">−</button><output aria-live="polite"></output><span class="bpx" aria-hidden="true">px</span><button type="button" data-d="2" aria-label="Больше">+</button><button type="button" class="bauto" data-d="0" hidden>Авто</button></span></div>
+          <textarea id="bnrSub" rows="2" maxlength="90" placeholder="Например: «Классная пятница» в ОТДОХНИ"></textarea>
+          <div class="bnrlab"><label class="lbl" for="bnrPrice">Цена, даты или акция <span class="opt-tag">по желанию</span></label><span class="bstep" id="bnrPs" role="group" aria-label="Кегль: цена"><button type="button" data-d="-2" aria-label="Меньше">−</button><output aria-live="polite"></output><span class="bpx" aria-hidden="true">px</span><button type="button" data-d="2" aria-label="Больше">+</button><button type="button" class="bauto" data-d="0" hidden>Авто</button></span></div>
+          <input type="text" id="bnrPrice" maxlength="32" placeholder="Например: с 22 по 25 октября">
+          <div class="bnrrow"><div class="gsort" id="bnrTag" role="radiogroup" aria-label="Вид строки цены"><button type="button" role="radio" data-v="text">Строкой</button><button type="button" role="radio" data-v="pill">Плашкой</button></div>
+            <div class="swatches" id="bnrTagBox" hidden><span class="lbl sr">Цвет плашки</span><div class="swatches" id="bnrTagCol" role="group" aria-label="Цвет плашки"></div></div></div>
+          <h3 class="bnrh3">Оформление</h3>
+          <span class="lbl" id="bnrToneL">Цвет текста</span>
+          <div class="bnrrow"><div class="gsort" id="bnrTone" role="radiogroup" aria-labelledby="bnrToneL"><button type="button" role="radio" data-v="auto">Авто</button><button type="button" role="radio" data-v="light">Светлый</button><button type="button" role="radio" data-v="dark">Тёмный</button></div>
+            <label class="bcol" id="bnrColorL"><input type="color" id="bnrColor" aria-label="Свой цвет текста"><span>Свой</span></label></div>
+          <span class="lbl" id="bnrModeL">Типографика</span>
+          <div class="gsort" id="bnrMode" role="radiogroup" aria-labelledby="bnrModeL"><button type="button" role="radio" data-v="grid">По сетке</button><button type="button" role="radio" data-v="bold">Смело</button></div>
+          <small class="hint">«Смело»: крупная цифра акции в начале заголовка («до -50%»), надзаголовок и цифра выходят за сетку.</small>
+          <h3 class="bnrh3">Генерация</h3>
+          <span class="lbl" id="bnrGenL">Кадр под нейросеть</span>
+          <div class="gsort bgen" id="bnrGen" role="radiogroup" aria-labelledby="bnrGenL"><button type="button" role="radio" data-v="16:9"><b>16:9</b><small>Nano Banana</small></button><button type="button" role="radio" data-v="gpt2"><b>2208×1216</b><small>GPT Image 2</small></button><button type="button" role="radio" data-v="3:2"><b>3:2</b><small>ChatGPT</small></button></div>
+          <small class="hint" id="bnrGenNote" aria-live="polite"></small>
+          <label class="tg"><input type="checkbox" id="bnrRef"><span>Приложу пример шрифта<small>Последней картинкой — любой наш баннер с заголовком. Так Анафора повторится точнее.</small></span></label>
         </div>
-        <div class="bnrpvw"><div class="bnrpv" id="bnrPv" role="img" aria-label="Превью раскладки текста"></div><p class="hint bnrnote" id="bnrNote" aria-live="polite"></p><p class="hint">Превью приблизительное: если Анафора установлена на компьютере, покажется она.</p></div>
+        <div class="bnrpvw"><div class="bnrpv" id="bnrPv" role="img" aria-label="Превью баннера"></div><p class="hint bnrnote" id="bnrNote" aria-live="polite"></p><p class="hint">Затемнено то, что срежется при кадрировании. Превью приблизительное: если Анафора установлена, покажется она.</p></div>
       </div>
     </section>
     <section class="block" id="s-ref">
@@ -2342,7 +2368,7 @@ const DOF=[
 const RATIOS=[["21:9",21,9],["1:1",1,1],["4:5",4,5],["3:4",3,4],["2:3",2,3],["9:16",9,16],["16:9",16,9],["3:2",3,2]];
 
 /* ---------- STATE ---------- */
-const DEF={gap:"close",mirror:false,cats:[],enh:[],table:false,tOcc:"plain",tShape:"round",tSize:"dining",tMat:"oak",tCloth:"none",tTone:null,bnr:{on:false,kick:"",head:"",sub:"",price:"",tone:"auto",mode:"grid",ref:false},bgText:"",style:"fintech",angle:"e45",arr:"cluster",place:"center",grid:"golden",tilt:"left",fill:"70",light:"auto",lcount:"all",lside:"left",lsoft:"soft",ltemp:"neutral",noCrop:true,dof:"all",objList:"",isolate:true,keepWare:true,scale:true,food:false,bg:"grad",color:"#F3D9E4",g1:"#F4F6FB",g2:"#E2E8F5",gbase:"#E2E8F5",gdir:"radial",gmode:"pal",surface:"lwood",decor:"few",decorAuto:true,shadow:"ao",ratio:"1:1",cat:"none",product:"",props:"",src:"photo",items:[{type:"cup",mat:"matte",color:"#F5F5F2",what:"",label:"",details:""}],sv:{},pod:"none",podShape:"cyl",podTiers:"2",podCol:"bg",rebuild:true,keepProduct:true,keepText:true,avoid:true};
+const DEF={gap:"close",mirror:false,cats:[],enh:[],table:false,tOcc:"plain",tShape:"round",tSize:"dining",tMat:"oak",tCloth:"none",tTone:null,bnr:{on:false,kick:"",head:"",sub:"",price:"",tone:"auto",color:"#2A1A10",mode:"grid",ref:false,hs:null,ss:null,ps:null,tag:"text",tagCol:"#FFFFFF",gen:"16:9"},bgText:"",style:"fintech",angle:"e45",arr:"cluster",place:"center",grid:"golden",tilt:"left",fill:"70",light:"auto",lcount:"all",lside:"left",lsoft:"soft",ltemp:"neutral",noCrop:true,dof:"all",objList:"",isolate:true,keepWare:true,scale:true,food:false,bg:"grad",color:"#F3D9E4",g1:"#F4F6FB",g2:"#E2E8F5",gbase:"#E2E8F5",gdir:"radial",gmode:"pal",surface:"lwood",decor:"few",decorAuto:true,shadow:"ao",ratio:"1:1",cat:"none",product:"",props:"",src:"photo",items:[{type:"cup",mat:"matte",color:"#F5F5F2",what:"",label:"",details:""}],sv:{},pod:"none",podShape:"cyl",podTiers:"2",podCol:"bg",rebuild:true,keepProduct:true,keepText:true,avoid:true};
 const freshS=()=>JSON.parse(JSON.stringify(DEF));
 let S=freshS();
 try{const s=JSON.parse(localStorage.getItem("ppc-v7")||"null");if(s)S=Object.assign(freshS(),s)}catch(e){}
@@ -3458,89 +3484,123 @@ $("wDel").addEventListener("click",async()=>{const b=$("wDel"),r=GAL.cur;if(b.da
   await Cloud.sb.storage.from("works").remove([r.image_path,r.thumb_path]);workClose();toast("Публикация удалена");loadGallery();loadHistory()});
 /* ===== Текст на баннере (админ): ПП 1100×600, текст слева по гайдлайнам, визуал справа ===== */
 const BN={W:1100,H:600,L:96,T:192,B:456,CW:440,VX:576};
+/* форматы генерации: w/h — пропорции кадра; финальный 1100×600 вырезается по центру */
+const BNR_GEN=[{id:"16:9",t:"16:9",d:"Nano Banana",w:16,h:9,ratio:"16:9"},{id:"gpt2",t:"2208×1216",d:"GPT Image 2",w:2208,h:1216,size:"2208×1216 px"},{id:"3:2",t:"3:2",d:"ChatGPT",w:3,h:2,ratio:"3:2"}];
+const bnrGen=()=>BNR_GEN.find(g=>g.id===S.bnr.gen)||BNR_GEN[0];
+/* где 1100×600 лежит внутри кадра генерации, в долях */
+function bnrCrop(g){const a=g.w/g.h,b=11/6;return a<b?{x:0,y:(1-a/b)/2,w:1,h:a/b}:{x:(1-b/a)/2,y:0,w:b/a,h:1}}
 const BNR_HERO=/^((?:до|от)\s+)?([-−–+]?\s?\d[\d\s.,]*\s?[%₽]?)$/i;
+const BNR_SHORT=/^(в|во|с|со|и|к|ко|у|о|об|а|на|по|за|из|от|до|не|но|для|при|без|над|под|что|как|—|–|-)$/i;
+const BNR_LIM={hs:[32,96],ss:[18,40],ps:[18,36]};
 const bnrActive=()=>!!(Cloud&&Cloud.admin&&S.bnr&&S.bnr.on&&(S.bnr.head.trim()||S.bnr.sub.trim()));
 function bnrSplit(t,maxL){t=(t||"").trim();if(!t)return[];
   if(t.includes("\n"))return t.split("\n").map(s=>s.trim().replace(/\s+/g," ")).filter(Boolean);
   const w=t.split(/\s+/);t=w.join(" ");if(t.length<=maxL||w.length<2)return [t];
   let best=null;for(let i=1;i<w.length;i++){const a=w.slice(0,i).join(" "),b=w.slice(i).join(" "),m=Math.max(a.length,b.length)+(BNR_SHORT.test(w[i-1])?100:0);if(!best||m<best[0])best=[m,[a,b]]}return best[1]}
-const BNR_SHORT=/^(в|во|с|со|и|к|ко|у|о|об|а|на|по|за|из|от|до|не|но|для|при|без|над|под|что|как|—|–|-)$/i;
-/* предлоги и союзы не висят в конце строки: переносим их на следующую */
+/* предлоги и союзы не висят в конце строки */
 function bnrHang(L){for(let i=0;i<L.length-1;i++){const w=L[i].split(" ");if(w.length>1&&BNR_SHORT.test(w[w.length-1])){L[i+1]=w.pop()+" "+L[i+1];L[i]=w.join(" ")}}return L}
 function bnrWrap(t,max){const out=[];(t||"").trim().split("\n").forEach(p=>{const L=[];let cur="";p.trim().split(/\s+/).filter(Boolean).forEach(w=>{if(cur&&(cur+" "+w).length>max){L.push(cur);cur=w}else cur=cur?cur+" "+w:w});if(cur)L.push(cur);out.push(...bnrHang(L))});return out}
-function bnrTone(){const t=S.bnr.tone;if(t!=="auto")return t;
+function bnrTone(){const b=S.bnr;if(b.tone==="custom")return hexLum(b.color)>.5?"light":"dark";if(b.tone!=="auto")return b.tone;
   const c=S.bg==="solid"?S.color:S.bg==="grad"?(S.gmode==="pal"?S.gbase:S.g2):null;return c&&hexLum(c)>.6?"dark":"light"}
-/* раскладка в пикселях холста 1100×600: кегль от длины строк, при нехватке места всё ужимается до 72% */
-function bnrLay(){const b=S.bnr,bold=b.mode==="bold";
+const bnrInk=()=>S.bnr.tone==="custom"?S.bnr.color:bnrTone()==="light"?"#FFFFFF":"#2A1A10";
+const bnrTagInk=()=>hexLum(S.bnr.tagCol)>.6?"#2A1A10":"#FFFFFF";
+/* раскладка в пикселях 1100×600: авто-кегль от длины строк; ручной кегль не ужимается */
+function bnrLay(){const b=S.bnr,bold=b.mode==="bold",pill=b.tag==="pill";
   let head=bnrSplit(b.head.toUpperCase(),12),hero=null;
   if(bold&&head.length){const m=head[0].match(BNR_HERO);if(m)hero={pre:(m[1]||"").trim().toLowerCase(),num:m[2].replace(/\s+/g,"")}}
   if(hero)head=head.slice(1);
   const maxL=bold?3:2;if(head.length>maxL)head=[...head.slice(0,maxL-1),head.slice(maxL-1).join(" ")];
   const hl=Math.max(1,...head.map(l=>l.length));
-  let hs=head.length?Math.min(head.length===1&&!hero?76:64,Math.max(36,Math.floor(BN.CW/(hl*.68)))):0;
-  let hz=hero?Math.min(170,Math.floor(BN.CW/(hero.num.length*.6))):0;
-  let ss=30,sub=[];for(ss=30;ss>=20;ss-=2){sub=bnrWrap(b.sub,Math.floor(BN.CW/(ss*.5)));if(sub.length<=3)break}
-  let ps=b.price.trim()?26:0,ks=b.kick.trim()?18:0;
-  let g1=24,g2=20;const H0=hs,S0=ss,Z0=hz,P0=ps;
-  const stack=()=>(hero?hz*1.04:0)+(head.length?head.length*hs*1.02:0)+(sub.length?((head.length||hero)?g1:0)+sub.length*ss*1.22:0)+(ps?g2+ps*1.2:0);
+  const autoH=head.length?Math.min(head.length===1&&!hero?76:64,Math.max(36,Math.floor(BN.CW/(hl*.68)))):0;
+  let hs=b.hs||autoH,hz=hero?Math.min(170,Math.floor(BN.CW/(hero.num.length*.6))):0;
+  let ss,sub=[];if(b.ss){ss=b.ss;sub=bnrWrap(b.sub,Math.floor(BN.CW/(ss*.5)))}else for(ss=30;ss>=20;ss-=2){sub=bnrWrap(b.sub,Math.floor(BN.CW/(ss*.5)));if(sub.length<=3)break}
+  const autoS=ss;let ps=b.price.trim()?(b.ps||(pill?28:26)):0;const ks=b.kick.trim()?18:0;
+  let g1=24,g2=pill?24:20;const H0=hs,S0=ss,Z0=hz,P0=ps;
+  const tagH=s=>pill?s*2.05:s*1.2;
+  const stack=()=>(hero?hz*1.04:0)+(head.length?head.length*hs*1.02:0)+(sub.length?((head.length||hero)?g1:0)+sub.length*ss*1.22:0)+(ps?g2+tagH(ps):0);
   const lift=hero&&bold?Math.round(Z0*.45):0,avail=BN.B-BN.T+lift;let k=1;
-  while(stack()>avail&&k>.72){k-=.02;hs=Math.round(H0*k);ss=Math.round(S0*k);hz=Math.round(Z0*k);ps=Math.round(P0*k);g1=Math.round(24*k);g2=Math.round(20*k)}
+  while(stack()>avail&&k>.72){k-=.02;if(!b.hs)hs=Math.round(H0*k);if(!b.ss)ss=Math.round(S0*k);hz=Math.round(Z0*k);if(!b.ps)ps=Math.round(P0*k);g1=Math.round(24*k);g2=Math.round((pill?24:20)*k)}
   const over=stack()>avail+1;
   const P=[];let y=BN.T-lift;
   if(ks)P.push({k:"kick",t:b.kick.trim().toUpperCase(),s:ks,y:y-ks-22});
   if(hero){P.push({k:"hero",t:hero.num,pre:hero.pre,s:hz,y});y+=hz*1.04}
   head.forEach(l=>{P.push({k:"head",t:l,s:hs,y});y+=hs*1.02});
   if(sub.length){if(head.length||hero)y+=g1;sub.forEach(l=>{P.push({k:"sub",t:l,s:ss,y});y+=ss*1.22})}
-  if(ps){y+=g2;P.push({k:"price",t:b.price.trim(),s:ps,y})}
-  return {P,head,sub,hero,hs,ss,hz,ks,ps,k,over,bold,g1,g2}}
+  if(ps){y+=g2;P.push({k:pill?"tag":"price",t:b.price.trim(),s:ps,y})}
+  return {P,head,sub,hero,hs,ss,hz,ks,ps,k,over,bold,g1,g2,auto:{hs:autoH,ss:autoS,ps:pill?28:26}}}
 const bnrDigits=t=>escA(t).replace(/(\d[\d\s.,]*\s?[%₽]?|[%₽])/g,'<b class="bdg">$1</b>');
-function drawBnr(){const pv=$("bnrPv");if(!pv||$("bnrBody").hidden)return;const L=bnrLay(),tone=bnrTone(),u=n=>`calc(${n} * 100cqw / 1100)`;
-  const a=S.gmode==="pal"?lighten(S.gbase,.38):S.g1,c=S.gmode==="pal"?S.gbase:S.g2;
-  pv.style.background=S.bg==="solid"?S.color:S.bg==="grad"?`linear-gradient(120deg,${a},${c})`:tone==="light"?"linear-gradient(120deg,#5A4A40,#2E2621)":"linear-gradient(120deg,#F1E9DE,#D9CBB8)";
-  pv.dataset.tone=tone;
-  const g=`<i class="bg m-l" style="width:${u(96)}"></i><i class="bg m-t" style="left:${u(96)};width:${u(456)};height:${u(192)}"></i><i class="bg m-b" style="left:${u(96)};width:${u(456)};top:${u(456)}"></i>
+function drawBnr(){const pv=$("bnrPv");if(!pv||$("bnrBody").hidden)return;const L=bnrLay(),tone=bnrTone(),g=bnrGen(),c=bnrCrop(g),u=n=>`calc(${n} * 100cqw / 1100)`;
+  const a=S.gmode==="pal"?lighten(S.gbase,.38):S.g1,z=S.gmode==="pal"?S.gbase:S.g2;
+  pv.style.aspectRatio=`${g.w}/${g.h}`;
+  pv.style.background=S.bg==="solid"?S.color:S.bg==="grad"?`linear-gradient(120deg,${a},${z})`:tone==="light"?"linear-gradient(120deg,#5A4A40,#2E2621)":"linear-gradient(120deg,#F1E9DE,#D9CBB8)";
+  pv.dataset.tone=tone;pv.style.setProperty("--ink",bnrInk());pv.style.setProperty("--tag",S.bnr.tagCol);pv.style.setProperty("--tagink",bnrTagInk());
+  const guides=`<i class="bg m-l" style="width:${u(96)}"></i><i class="bg m-t" style="left:${u(96)};width:${u(456)};height:${u(192)}"></i><i class="bg m-b" style="left:${u(96)};width:${u(456)};top:${u(456)}"></i>
     <i class="bv" style="left:${u(BN.VX)}"><span>Визуал</span></i><em class="bl" style="left:${u(10)};top:${u(300)}">96</em><em class="bl" style="left:${u(470)};top:${u(84)}">192</em><em class="bl" style="left:${u(470)};top:${u(516)}">144</em>`;
   const txt=L.P.map(p=>{const st=`top:${u(p.y)};font-size:${u(p.s)}`;
     if(p.k==="hero")return `<span class="bp b-hero" style="${st}">${p.pre?`<small>${escA(p.pre)}</small>`:""}${escA(p.t)}</span>`;
     if(p.k==="head")return `<span class="bp b-head" style="${st}">${bnrDigits(p.t)}</span>`;
-    if(p.k==="price")return `<span class="bp b-sub" style="${st}">${bnrDigits(p.t)}</span>`;
+    if(p.k==="price")return `<span class="bp b-price" style="${st}">${bnrDigits(p.t)}</span>`;
+    if(p.k==="tag")return `<span class="bp b-tag" style="${st}">${bnrDigits(p.t)}</span>`;
     return `<span class="bp b-${p.k}" style="${st}">${escA(p.t)}</span>`}).join("");
-  pv.innerHTML=g+`<div class="bnrtx">${txt}</div>`;
-  pv.setAttribute("aria-label",`Превью: ${[S.bnr.head,S.bnr.sub].filter(Boolean).join(". ")||"текст не введён"}`);
-  const parts=[];if(L.hero)parts.push(`цифра ${L.hz} px`);if(L.hs)parts.push(`заголовок ${L.hs} px`);if(L.sub.length)parts.push(`подзаголовок ${L.ss} px`);
-  $("bnrNote").innerHTML=L.over?`<b>Не помещается в сетку.</b> Сократите текст или включите «Смело».`:(parts.length?parts.join(" · "):"Введите заголовок или подзаголовок")+(L.k<.99&&!L.over?` · кегль уменьшен на ${Math.round((1-L.k)*100)}%`:"");
+  const crop=c.w<1||c.h<1;
+  pv.innerHTML=`<div class="bnrcrop${crop?" cut":""}" style="left:${c.x*100}%;top:${c.y*100}%;width:${c.w*100}%;height:${c.h*100}%">${guides}<div class="bnrtx">${txt}</div></div>`;
+  pv.setAttribute("aria-label",`Превью баннера в кадре ${g.t}: ${[S.bnr.head,S.bnr.sub].filter(Boolean).join(". ")||"текст не введён"}`);
+  const lost=c.h<1?`обрежем по ${Math.round((1-c.h)*50*10)/10}% сверху и снизу`:c.w<1?`обрежем по ${Math.round((1-c.w)*50*10)/10}% слева и справа`:"без обрезки";
+  $("bnrGenNote").textContent=`Кадр ${g.t} → 1100×600: ${(1-c.h)*50<.6&&(1-c.w)*50<.6?"почти без обрезки, только уменьшить":lost}.`;
+  [["hs","bnrHs"],["ss","bnrSs"],["ps","bnrPs"]].forEach(([k,id])=>{const el=$(id),v=k==="hs"?L.hs:k==="ss"?L.ss:L.ps,man=!!S.bnr[k];
+    el.querySelector("output").textContent=v?v:"—";el.classList.toggle("man",man);el.querySelector(".bauto").hidden=!man;
+    const [lo,hi]=BNR_LIM[k];el.querySelector('[data-d="-2"]').disabled=!v||v<=lo;el.querySelector('[data-d="2"]').disabled=!v||v>=hi});
+  const anyAuto=["hs","ss","ps"].some(k=>!S.bnr[k]);$("bnrNote").innerHTML=L.over?"<b>Не помещается в сетку.</b> Сократите текст, уменьшите кегль или включите «Смело».":L.P.length?(L.k<.99&&anyAuto?`Текста много: авто-кегль уменьшен на ${Math.round((1-L.k)*100)}%.`:"Всё помещается в сетку."):"Введите заголовок или подзаголовок.";
   $("bnrNote").classList.toggle("warn",L.over)}
 function syncBnr(){const blk=$("s-bnr");if(!blk)return;const on=!!(Cloud&&Cloud.admin);blk.hidden=!on;if(!on)return;
   const b=S.bnr;$("bnrOn").checked=b.on;$("bnrBody").hidden=!b.on;blk.classList.toggle("on",b.on);
   [["bnrKick","kick"],["bnrHead","head"],["bnrSub","sub"],["bnrPrice","price"]].forEach(([id,k])=>{const el=$(id);if(document.activeElement!==el&&el.value!==b[k])el.value=b[k]});
-  $("bnrTone").querySelectorAll("[data-v]").forEach(x=>x.setAttribute("aria-checked",String(x.dataset.v===b.tone)));
-  $("bnrMode").querySelectorAll("[data-v]").forEach(x=>x.setAttribute("aria-checked",String(x.dataset.v===b.mode)));
+  [["bnrTone","tone"],["bnrMode","mode"],["bnrTag","tag"],["bnrGen","gen"]].forEach(([id,k])=>$(id).querySelectorAll("[data-v]").forEach(x=>{const on=x.dataset.v===b[k];x.setAttribute("aria-checked",String(on));x.tabIndex=on?0:-1}));
+  $("bnrColor").value=(b.color||"#2A1A10").toLowerCase();$("bnrColorL").classList.toggle("on",b.tone==="custom");
+  $("bnrTagBox").hidden=b.tag!=="pill";
+  $("bnrTagCol").querySelectorAll("[data-tc]").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.tc===b.tagCol)));
+  $("bnrTagC").value=b.tagCol.toLowerCase();
   $("bnrRef").checked=b.ref;
   if(b.on&&!document.getElementById("bnr-fonts")){const l=document.createElement("link");l.id="bnr-fonts";l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500;700&family=Roboto+Slab:wght@800&display=swap";document.head.appendChild(l)}
   drawBnr()}
+const bnrRatio=()=>{const g=bnrGen();S.ratio=g.ratio||"16:9"};
 $("bnrOn").addEventListener("change",e=>{S.bnr.on=e.target.checked;
-  if(S.bnr.on){S.place="right";S.ratio="16:9";S.noCrop=true;S.mirror=true;if(S.fill==="90")S.fill="70";toast("Формат ПП 1100×600: продукты справа, текст слева")}update()});
+  if(S.bnr.on){S.place="right";bnrRatio();S.noCrop=true;S.mirror=true;if(S.fill==="90")S.fill="70";toast("Формат ПП 1100×600: продукты справа, текст слева")}update()});
 [["bnrKick","kick"],["bnrHead","head"],["bnrSub","sub"],["bnrPrice","price"]].forEach(([id,k])=>$(id).addEventListener("input",e=>{S.bnr[k]=e.target.value;update()}));
-[["bnrTone","tone"],["bnrMode","mode"]].forEach(([id,k])=>{$(id).addEventListener("click",e=>{const x=e.target.closest("[data-v]");if(!x)return;S.bnr[k]=x.dataset.v;update()});
-  $(id).addEventListener("keydown",e=>{const d=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;if(!d)return;e.preventDefault();const L=[...$(id).querySelectorAll("[data-v]")],i=L.findIndex(x=>x.dataset.v===S.bnr[k]),n=L[(i+d+L.length)%L.length];S.bnr[k]=n.dataset.v;update();$(id).querySelector(`[data-v="${n.dataset.v}"]`).focus()})});
+/* сегменты-радио: клик и стрелки */
+[["bnrTone","tone"],["bnrMode","mode"],["bnrTag","tag"],["bnrGen","gen"]].forEach(([id,k])=>{const set=v=>{S.bnr[k]=v;if(k==="gen")bnrRatio();update()};
+  $(id).addEventListener("click",e=>{const x=e.target.closest("[data-v]");if(x)set(x.dataset.v)});
+  $(id).addEventListener("keydown",e=>{const d=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;if(!d)return;e.preventDefault();const L=[...$(id).querySelectorAll("[data-v]")],i=L.findIndex(x=>x.dataset.v===S.bnr[k]),n=L[(i+d+L.length)%L.length];set(n.dataset.v);$(id).querySelector(`[data-v="${n.dataset.v}"]`).focus()})});
+$("bnrColor").addEventListener("input",e=>{S.bnr.color=e.target.value.toUpperCase();S.bnr.tone="custom";update()});
+/* кегль: шаг 2 px, «авто» возвращает расчёт */
+[["bnrHs","hs"],["bnrSs","ss"],["bnrPs","ps"]].forEach(([id,k])=>$(id).addEventListener("click",e=>{const x=e.target.closest("[data-d]");if(!x||x.disabled)return;const d=+x.dataset.d;
+  if(!d){S.bnr[k]=null;update();return}const L=bnrLay(),cur=k==="hs"?L.hs:k==="ss"?L.ss:L.ps,[lo,hi]=BNR_LIM[k];S.bnr[k]=Math.min(hi,Math.max(lo,cur+d));update()}));
+$("bnrTagCol").innerHTML=[["#FFFFFF","Белая"],["#2A1A10","Тёмная"],["#F0B92A","Жёлтая"],["#C2412D","Красная"]].map(([h,n])=>`<button class="sw sm" type="button" data-tc="${h}" title="${n}" aria-label="${n} плашка" aria-pressed="false" style="background:${h}"></button>`).join("")+`<label class="custom">Свой <input type="color" id="bnrTagC" aria-label="Свой цвет плашки"></label>`;
+$("bnrTagCol").addEventListener("click",e=>{const x=e.target.closest("[data-tc]");if(!x)return;S.bnr.tagCol=x.dataset.tc;update()});
+$("bnrTagC").addEventListener("input",e=>{S.bnr.tagCol=e.target.value.toUpperCase();update()});
 $("bnrRef").addEventListener("change",e=>{S.bnr.ref=e.target.checked;update()});
-/* промт: макет, текст, формат и запреты под баннер */
-function bnrPatch(out){const L=bnrLay(),b=S.bnr,col=bnrTone()==="light"?"pure white #FFFFFF":"deep warm dark brown #2A1A10",q=s=>`"${s}"`,n=x=>x===1?"1 line":`${x} lines`;
+/* промт: сетка пересчитана в проценты кадра генерации */
+function bnrPatch(out){const L=bnrLay(),b=S.bnr,g=bnrGen(),c=bnrCrop(g),q=s=>`"${s}"`,n=x=>x===1?"1 line":`${x} lines`;
+  const X=x=>Math.round((c.x+x/BN.W*c.w)*1000)/10,Y=y=>Math.round((c.y+y/BN.H*c.h)*1000)/10,F=s=>Math.round(s/BN.H*c.h*1000)/10;
+  const sz=s=>`about ${s} px on the final banner (cap height about ${F(s*.72)}% of the image height)`;
+  const ink=b.tone==="custom"?cname(b.color):bnrTone()==="light"?"pure white #FFFFFF":"deep warm dark brown #2A1A10";
   out[0][1]="A finished 1100×600 web promo banner with typography. "+out[0][1];
-  const lay=`Final banner 1100×600 px (11:6 landscape) with a strict grid. LEFT TEXT ZONE: from x=96 px (8.7% of the width) to x=530 px (48%), text block between y=192 px (32% from the top) and y=456 px (24% from the bottom). RIGHT VISUAL ZONE: from x=576 px (52% of the width) to the right edge, full height. The products and all props live only in the visual zone, fully inside the frame, never behind or under the text. The background continues seamlessly across the whole banner; behind the text it stays calm, soft and low-detail with an even tone, so the text reads perfectly.`;
-  const t=[`Render exactly this Russian text, letter by letter, with correct Cyrillic spelling, left-aligned at x=96 px, colour ${col}, flat, with no shadow, outline, box or plate behind it.`];
-  const kick=L.P.find(p=>p.k==="kick");if(kick)t.push(`Kicker above the headline: ${q(kick.t)} — Ubuntu Medium, all caps, wide letter-spacing (about 0.25 em), about ${kick.s} px${L.bold?", sitting in the top margin above the grid":""}.`);
-  if(L.hero)t.push(`Big promo figure on its own line: ${q(L.hero.num)} — Ubuntu Bold, about ${L.hz} px tall, the dominant element of the text block${L.hero.pre?`, with a small ${q(L.hero.pre)} in Ubuntu Medium (about ${Math.round(L.hz*.3)} px) raised like a superscript just before it`:""}; it may rise above the grid into the top margin.`);
-  if(L.head.length){t.push(`Headline in ${n(L.head.length)}: ${L.head.map(q).join(" / ")} — all caps, font Anaphora: a heavy display slab serif with sturdy wedge-shaped serifs and compact, slightly condensed proportions (if unknown, use the closest bold slab serif). About ${L.hs} px, line spacing 1.0.`);
+  const cutT=c.h<1?`The final banner is the central band of the image: full width and the middle ${Math.round(c.h*1000)/10}% of the height; the top and bottom ${Math.round((1-c.h)*500)/10}% will be cropped away, so keep them as plain background only.`:c.w<1?`The final banner is the central part of the image: full height and the middle ${Math.round(c.w*1000)/10}% of the width; the left and right ${Math.round((1-c.w)*500)/10}% will be cropped away, so keep them as plain background only.`:"The image is the banner itself, edge to edge.";
+  const lay=`Final banner 1100×600 px (11:6), cut from this image. ${cutT} Strict grid, in percent of the generated image: LEFT TEXT ZONE from x=${X(96)}% to x=${X(530)}%, text block between y=${Y(192)}% and y=${Y(456)}% (on the final banner: x 96–530 px, y 192–456 px). RIGHT VISUAL ZONE from x=${X(576)}% to the right edge. The products and all props live only in the visual zone, fully inside the banner area, never behind or under the text. The background continues seamlessly across the whole image; behind the text it stays calm, soft and low-detail with an even tone, so the text reads perfectly.`;
+  const t=[`Render exactly this Russian text, letter by letter, with correct Cyrillic spelling, left-aligned at x=${X(96)}%, colour ${ink}, flat, with no shadow, outline or box behind it.`];
+  const kick=L.P.find(p=>p.k==="kick");if(kick)t.push(`Kicker above the headline: ${q(kick.t)} — Ubuntu Medium, all caps, wide letter-spacing (about 0.25 em), ${sz(kick.s)}${L.bold?", sitting in the top margin above the grid":""}.`);
+  if(L.hero)t.push(`Big promo figure on its own line: ${q(L.hero.num)} — Ubuntu Bold, ${sz(L.hz)}, the dominant element of the text block${L.hero.pre?`, with a small ${q(L.hero.pre)} in Ubuntu Medium (about ${Math.round(L.hz*.3)} px) raised like a superscript just before it`:""}; it may rise above the grid into the top margin.`);
+  if(L.head.length){t.push(`Headline in ${n(L.head.length)}: ${L.head.map(q).join(" / ")} — all caps, font Anaphora: a heavy display slab serif with sturdy wedge-shaped serifs and compact, slightly condensed proportions (if unknown, use the closest bold slab serif). ${sz(L.hs).replace(/^./,x=>x.toUpperCase())}, line spacing 1.0.`);
     if(/\d/.test(L.head.join("")))t.push("Every digit and the symbols % and ₽ inside the headline are set in Ubuntu Bold, same size, while the letters stay in Anaphora.")}
-  if(L.sub.length)t.push(`Subtitle in ${n(L.sub.length)}, ${L.g1} px below the headline: ${L.sub.map(q).join(" / ")} — Ubuntu Medium, sentence case as written, about ${L.ss} px, line spacing 1.2.`);
-  const pr=L.P.find(p=>p.k==="price");if(pr)t.push(`Price line ${L.g2} px below: ${q(pr.t)} — Ubuntu Medium, about ${pr.s} px; the number and the ₽ sign in Ubuntu Bold.`);
+  if(L.sub.length)t.push(`Subtitle in ${n(L.sub.length)}, ${L.g1} px below the headline: ${L.sub.map(q).join(" / ")} — Ubuntu Medium, sentence case as written, ${sz(L.ss)}, line spacing 1.2.`);
+  const pr=L.P.find(p=>p.k==="price");if(pr)t.push(`Price line ${L.g2} px below: ${q(pr.t)} — Ubuntu Medium, ${sz(pr.s)}; numbers and the ₽ sign in Ubuntu Bold.`);
+  const tg=L.P.find(p=>p.k==="tag");if(tg)t.push(`Rounded label ${L.g2} px below: a fully rounded capsule (pill) filled with flat ${cname(b.tagCol)}, about ${Math.round(tg.s*2.05)} px tall with horizontal padding of about ${Math.round(tg.s*.9)} px, left edge at x=${X(96)}%. Inside it: ${q(tg.t)} in Ubuntu Medium, ${sz(tg.s)}, colour ${bnrTagInk()==="#FFFFFF"?"white":"deep warm dark brown #2A1A10"}, numbers in Ubuntu Bold. No shadow, outline or gradient on the capsule.`);
   if(L.bold)t.push("The typography is confident and may break the grid on purpose: strong contrast between sizes, like a bold retail promo layout.");
   if(b.ref)t.push("The last attached image is a reference of our brand banner typography: reproduce that exact headline typeface and text weight.");
   t.push("No other text anywhere: no logos, invented labels, buttons, stickers or watermarks besides the copy above.");
   out.splice(1,0,["BANNER",lay],["TEXT",t.join("\n")]);
-  const f=out.find(x=>x[0]==="FORMAT");if(f)f[1]=f[1].replace(/^Aspect ratio [^.]+\. /,"")+" Final size 1100×600 px; if only presets are available, generate 16:9 and keep everything at least 3% away from the top and bottom edges so it can be cropped to 1100×600. Crisp, sharp typography.";
-  const cp=out.find(x=>x[0]==="COMPOSITION");if(cp)cp[1]=cp[1].replace(/within the right \d+%/,"inside the right visual zone (the right 48% of the banner, from x=576 px)").replace("sit on the LEFT side of the frame (about 38% across); the composition flows from left to right.","sit on the right, inside the visual zone; the composition flows from right to left.").replace(/usable as space for text/,"reserved for the banner text");
+  const cp=out.find(x=>x[0]==="COMPOSITION");if(cp)cp[1]=cp[1].replace(/within the right \d+%/,`inside the right visual zone (from x=${X(576)}% to the right edge)`).replace("sit on the LEFT side of the frame (about 38% across); the composition flows from left to right.","sit on the right, inside the visual zone; the composition flows from right to left.").replace(/usable as space for text/,"reserved for the banner text");
+  const f=out.find(x=>x[0]==="FORMAT");if(f)f[1]=(g.size?`Image size exactly ${g.size} (custom size, 11:6). `:`Aspect ratio ${g.ratio}. `)+f[1].replace(/^Aspect ratio [^.]+\. /,"")+" Crisp, sharp typography.";
   const av=out.find(x=>x[0]==="AVOID");if(av)av[1]=av[1].replace(/added text or captions/,"any text other than the banner copy, misspelled or distorted letters, text over the products");
   const ky=out.find(x=>x[0]==="KEY");if(ky)ky[1]="finished 1100×600 banner, text on the left by the grid, products on the right, "+ky[1]}
 
