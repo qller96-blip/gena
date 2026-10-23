@@ -416,7 +416,11 @@ body.v-gallery .topbar-in .setwrap{margin-left:auto}
 .galhead h1{font-size:clamp(30px,4vw,44px);margin:0 0 6px;letter-spacing:-.02em}.galhead p{margin:0;color:var(--muted);max-width:56ch}
 .ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));grid-auto-rows:240px;grid-auto-flow:dense;gap:12px}
 .gtile{all:unset;cursor:pointer;position:relative;border-radius:var(--r);overflow:hidden;background:var(--sunk);box-shadow:0 0 0 1px var(--line)}
-.gtile.wide{grid-column:span 2}.gtile.tall{grid-row:span 2}
+.gtile.wide{grid-column:span 2}
+.gtile.gpair{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line)}.gtile.gpair .gsch{display:grid;place-items:center;background:var(--sunk);overflow:hidden;position:relative}.gtile.gpair .gsch svg{width:100%;height:100%}
+.gtile.gpair .gsch::after{content:"Макет";position:absolute;left:8px;top:8px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.85);color:#272E32}
+.wimg.pair{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line)}.wimg.pair>img{width:100%;height:100%;object-fit:contain;background:var(--sunk)}.wsch{display:grid;place-items:center;background:var(--sunk);overflow:hidden}.wsch svg{width:100%;height:100%}.wsch[hidden]{display:none}
+.hthumb.scnmini{display:grid;place-items:center;overflow:hidden}.hthumb.scnmini svg{width:100%;height:100%}.gtile.tall{grid-row:span 2}
 .gtile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .gtile:hover img{transform:scale(1.035)}
 .gtile:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
@@ -1559,13 +1563,47 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 .toggles.swt.scn-one{grid-template-columns:1fr}
 .scn-rules{margin-top:4px}.scn-rules .toggles.swt{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
 .scn-outh{position:relative}.scn-outh .scn-sech{position:static}
+.scn-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.scn-helpb{display:inline-flex;align-items:center;gap:6px;flex:none;min-height:28px}.scn-helpb svg{width:18px;height:18px}
+.scn-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;counter-reset:st}
+.scn-steps li{counter-increment:st;position:relative;display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:18px;background:color-mix(in srgb,var(--panel) 70%,transparent);border:1px solid var(--line);font-size:13px;line-height:1.35}
+.scn-steps li>button{all:unset;cursor:pointer;display:flex;gap:12px;align-items:flex-start;width:100%;border-radius:12px}.scn-steps li>button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.scn-steps b{display:block;font-size:14px;font-weight:600}.scn-steps small{display:block;color:var(--muted);font-size:12px;margin-top:2px}.scn-steps small em{font-style:normal;font-weight:600;color:var(--mark)}
+.scn-si{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--sunk);color:var(--muted);flex:none;position:relative}.scn-si svg{width:18px;height:18px}
+.scn-steps li.key{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}.scn-steps li.key .scn-si{background:var(--accent);color:var(--accent-ink)}
+.scn-steps li.done .scn-si::after{content:"";position:absolute;right:-4px;bottom:-4px;width:14px;height:14px;border-radius:999px;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/10px no-repeat;box-shadow:0 0 0 2px var(--panel)}
+.scn-add{display:inline-flex;align-items:center;gap:4px;background:var(--accent-soft);color:var(--ink);border:1px solid color-mix(in srgb,var(--accent) 40%,var(--line));padding:9px 14px 9px 10px}.scn-add:hover{background:color-mix(in srgb,var(--accent) 22%,var(--panel))}.scn-add svg{width:18px;height:18px;color:var(--accent)}
+:root[data-theme="dark"] .scn-add svg{color:var(--ink)}
+.scn-take{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}.scn-take svg{width:18px;height:18px}.scn-take:disabled{opacity:.6;cursor:progress}
+.scn-hint{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center}.scn-hint>span{display:inline-flex;align-items:center;gap:6px}.scn-hint svg{width:16px;height:16px;flex:none}
+.scn-in.need{border-color:var(--mark);background:var(--warn-bg)}
+.scn-pnote{margin:4px 12px 4px;font-size:12px;color:var(--muted);line-height:1.4}
+.scn-row2{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px}.scn-icseg button{display:grid;place-items:center;padding:6px 10px}.scn-icseg svg{width:20px;height:20px}
+.scn-extra{margin-top:4px}.scn-xhead{cursor:default}.scn-xinf{flex:none}.scn-xinf .info>div{right:-6px;left:auto}.toggles.swt.scn-xsw{display:block;width:auto;min-width:0;flex:none;align-self:center}.toggles.swt.scn-xsw .tg{background:none;box-shadow:none;padding:0 4px;min-height:44px}.scn-xsw .tg{background:none;box-shadow:none;padding:0;min-height:44px}
+.scn-xbody{display:flex;flex-direction:column;gap:8px;padding:4px 0 4px}.scn-xbody .gsort{align-self:stretch}.scn-xbody .gsort button{flex:1;text-align:center}.scn-xbody[hidden]{display:none}
+.scn-dlg{position:fixed;inset:0;z-index:90;background:rgba(15,18,20,.45);display:grid;place-items:center;padding:24px}.scn-dlg[hidden]{display:none}
+.scn-dcard{width:min(640px,100%);max-height:calc(100dvh - 48px);overflow:auto;background:var(--panel);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:16px;box-shadow:0 30px 80px rgba(0,0,0,.3);animation:scnIn .35s cubic-bezier(.2,.8,.2,1)}
+.scn-dcard .grab{display:none}
+@keyframes scnIn{from{opacity:0;transform:translateY(12px)}}
+.scn-dhead{display:flex;align-items:center;justify-content:space-between;gap:12px}.scn-dhead h2{font-size:22px}
+.scn-dlead{margin:0;color:var(--muted);font-size:15px;line-height:1.5}
+.scn-dsteps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.scn-dsteps li{display:flex;gap:12px;padding:12px;border-radius:16px;background:var(--sunk)}.scn-dsteps li.key{background:var(--accent-soft)}.scn-dsteps li.key .scn-si{background:var(--accent);color:var(--accent-ink)}
+.scn-dsteps .scn-si{background:var(--panel)}
+.scn-dsteps b{font-size:15px}.scn-dsteps p{margin:4px 0 0;font-size:14px;line-height:1.5;color:var(--ink)}.scn-dsteps p b{font-size:inherit}
+.scn-k{font-style:normal;font-weight:600;font-size:13px;white-space:nowrap;padding:1px 8px;border-radius:999px;background:var(--panel);border:1px solid var(--line)}
+.scn-dcard>.btn{align-self:flex-end}
+@media (prefers-reduced-motion:reduce){.scn-dcard{animation:none}}
+@media (max-width:980px){.scn-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.scn-head{flex-direction:column}.scn-steps{grid-template-columns:1fr 1fr}.scn-steps li{padding:8px;gap:8px}.scn-steps li.key{grid-column:1/-1}.scn-steps li:not(.key) small{display:none}.scn-steps b{font-size:13px}.scn-dlg{place-items:end stretch;padding:0}.scn-dcard{border-radius:24px 24px 0 0;max-height:92dvh}.scn-dcard .grab{display:block;width:36px;height:5px;border-radius:999px;background:var(--line);align-self:center;margin:-12px 0 -4px}.scn-dcard>.btn{align-self:stretch}.scn-row2{grid-template-columns:1fr}}
+.scn-link{all:unset;cursor:pointer;align-self:flex-start;font-size:13px;font-weight:550;color:var(--accent-text,var(--accent));padding:4px 0;min-height:28px}.scn-link:hover{text-decoration:underline}.scn-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 </style>
 
 <div class="glow" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
 <div class="topbar">
   <div class="topbar-in">
     <a class="brand" href="#s-ref" id="brandLink" title="GENA — Generative Engine for Neural Art"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GENA"><path d="M58 24C62 15 74 14 78 21" fill="none" stroke="#282F33" stroke-width="6" stroke-linecap="round"/><g fill="none" stroke="#F0B92A" stroke-width="7.5" stroke-linejoin="round"><rect x="16" y="42" width="38" height="30" rx="12"/><rect x="66" y="42" width="38" height="30" rx="12"/><path d="M54 54H66"/></g><circle cx="36" cy="57" r="5" fill="#282F33"/><circle cx="86" cy="57" r="5" fill="#282F33"/><path d="M44 90Q60 101 76 90" fill="none" stroke="#282F33" stroke-width="6" stroke-linecap="round"/></svg><span><b>GENA</b></span></a>
-    <nav class="views" id="viewNav" aria-label="Разделы" hidden><a href="#ideas" data-view="ideas" aria-current="false" hidden>Идеи</a><a href="#" data-view="builder" aria-current="true">Конструктор</a><a href="#gallery" data-view="gallery" aria-current="false">Галерея</a><a href="#scene" data-view="scene" aria-current="false" hidden>Сцена</a></nav>
+    <nav class="views" id="viewNav" aria-label="Разделы" hidden><a href="#ideas" data-view="ideas" aria-current="false" hidden>Идеи</a><a href="#" data-view="builder" aria-current="true">Конструктор</a><a href="#gallery" data-view="gallery" aria-current="false">Галерея</a><a href="#scene" data-view="scene" aria-current="false" hidden>Макет</a></nav>
     <nav class="steps" id="steps" aria-label="Шаги">
       <button type="button" data-t="s-ref" title="Продукт" aria-label="Шаг 01: Продукт"><span>01</span><em>Продукт</em></button>
       <button type="button" data-t="s-style" title="Стиль" aria-label="Шаг 02: Стиль"><span>02</span><em>Стиль</em></button>
@@ -1596,7 +1634,6 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
         <div class="uaccw"><div class="uacc" id="uAcc" role="radiogroup" aria-label="Акцентный цвет"><button type="button" role="radio" data-ac="sage" title="Шалфей" aria-label="Шалфей"></button><button type="button" role="radio" data-ac="graphite" title="Графит" aria-label="Графит"></button><button type="button" role="radio" data-ac="ocean" title="Океан" aria-label="Океан"></button><button type="button" role="radio" data-ac="terra" title="Терракота" aria-label="Терракота"></button><button type="button" role="radio" data-ac="plum" title="Слива" aria-label="Слива"></button><button type="button" role="radio" data-ac="mint" title="Мята" aria-label="Мята"></button><button type="button" role="radio" data-ac="indigo" title="Индиго" aria-label="Индиго"></button><button type="button" role="radio" data-ac="rose" title="Роза" aria-label="Роза"></button><button type="button" role="radio" data-ac="ochre" title="Охра" aria-label="Охра"></button><button type="button" role="radio" data-ac="slate" title="Сланец" aria-label="Сланец"></button></div><span class="uaccn" id="uAccN"></span></div><div class="ubgt" id="uBg"><label class="tg"><input type="checkbox" id="bgColor"><span>Цветной фон</span></label><label class="tg"><input type="checkbox" id="bgMove"><span>Движение фона и сфер</span></label></div></div>
         <div class="ulab" id="uLab" hidden><p class="uapph">Лаборатория <em>видно только вам</em></p>
         <div class="umode"><span>Режим</span><div class="gsort" id="labMode" role="radiogroup" aria-label="Режим конструктора"><button type="button" role="radio" data-md="simple" aria-checked="false">Простой</button><button type="button" role="radio" data-md="pro" aria-checked="false">Про</button></div></div>
-        <label class="tg uopt utg"><input type="checkbox" id="labScene"><span>Ручная сцена<small>Вкладка «Сцена» в шапке: расставить объекты вручную</small></span></label>
         <button class="opt uopt" type="button" id="labShare"><span>Показать напоминание «Делитесь»</span></button>
 </div>
         <label class="tg uopt utg"><input type="checkbox" id="uDone"><span>Окно оценки после копирования</span></label><button class="opt uopt" type="button" id="uOut"><span>Выйти</span></button></div></div>
@@ -1886,12 +1923,19 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
   <div class="ggrid" id="galGrid" aria-busy="true"></div>
 </section>
 <section class="scn" id="scnPage" hidden aria-labelledby="scnTitle">
-  <div class="scn-head"><div><h1 id="scnTitle">Сцена <em>тест</em></h1><p>Расставьте продукты, декор и текст на схеме — промт соберётся по ней с координатами.</p></div></div>
-  <div class="scn-bar" role="toolbar" aria-label="Сцена">
+  <div class="scn-head"><div><h1 id="scnTitle">Макет сцены <em>бета</em></h1><p>Расставьте продукты, декор и текст — GENA превратит макет в промт и картинку-набросок для нейросети.</p></div>
+    <button class="btn ghost sm scn-helpb" type="button" id="scnHelp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.5a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.6"/><circle cx="12" cy="17" r=".9" fill="currentColor" stroke="none"/></svg>Как это работает</button></div>
+  <ol class="scn-steps" id="scnSteps" aria-label="Как получить картинку">
+    <li data-st="build"><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><span><b>Соберите макет</b><small>Продукты, декор и текст — тяните по холсту</small></span></li>
+    <li data-st="take" class="key"><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19h14"/></svg></span><span><b>Нажмите «Промт и набросок»</b><small>Промт скопируется, набросок скачается</small></span></li>
+    <li data-st="gen"><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.5" fill="currentColor" stroke="none"/><path d="M20.5 16l-4.5-4.5L8 19.5"/></svg></span><span><b>Загрузите в нейросеть</b><small>GPT Image или Nano Banana: фото продуктов, <em>набросок последним</em>, вставьте промт</small></span></li>
+    <li data-st="share"><button type="button" data-step="share"><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.6 9.6l5.8-.8z"/></svg></span><span><b>Поделитесь</b><small>Оцените в «Мои промты» и опубликуйте в галерее</small></span></button></li>
+  </ol>
+  <div class="scn-bar" role="toolbar" aria-label="Макет">
     <div class="scn-grp">
-      <button class="btn ghost sm scn-add" type="button" data-add="prod"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="7" width="12" height="13" rx="2.5"/><path d="M9 4h6"/></svg>Продукт</button>
-      <button class="btn ghost sm scn-add" type="button" data-add="dec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20C6 16 5 9 12 4c7 5 6 12 0 16z"/><path d="M12 19V9"/></svg>Декор</button>
-      <button class="btn ghost sm scn-add" type="button" data-add="txt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h14M12 6v13M9 19h6"/></svg>Текст</button>
+      <button class="btn sm scn-add" type="button" data-add="prod" aria-label="Добавить: продукт"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Продукт</button>
+      <button class="btn sm scn-add" type="button" data-add="dec" aria-label="Добавить: декор"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Декор</button>
+      <button class="btn sm scn-add" type="button" data-add="txt" aria-label="Добавить: текст"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Текст</button>
     </div>
     <div class="scn-grp scn-sets">
       <button class="scn-chip" type="button" data-menu="style" aria-haspopup="listbox" aria-expanded="false"><small>Стиль</small><b id="scnStyleV"></b></button>
@@ -1901,8 +1945,7 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
     </div>
     <div class="scn-grp scn-end">
       <div class="scn-mw"><button class="iconbtn scn-more" type="button" data-menu="more" aria-haspopup="menu" aria-expanded="false" aria-label="Ещё действия" title="Ещё действия"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5.5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18.5" cy="12" r="1.8"/></svg></button></div>
-      <button class="btn ghost scn-dl" type="button" id="scnPng" aria-label="Скачать набросок" title="Картинка-раскладка для генератора: приложите её последней"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19h14"/></svg><span>Набросок</span></button>
-      <button class="btn" type="button" id="scnCopy">Скопировать промт</button>
+      <button class="btn scn-take" type="button" id="scnCopy" title="Копирует промт и скачивает картинку-набросок"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19h14"/></svg>Промт и набросок</button>
     </div>
     <div class="scn-pop" id="scnPop" hidden></div>
   </div>
@@ -1910,10 +1953,15 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
     <div class="scn-left">
       <div class="scn-stage" id="scnStage">
         <div class="scn-ctool"><span id="scnFrameInfo"></span><button class="scn-tgl" type="button" id="scnGuides" aria-pressed="true" title="Направляющие (G)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9.5 4v16M4 9.5h16" stroke-dasharray="2 2.4"/></svg>Направляющие</button></div>
-        <svg id="scnSvg" xmlns="http://www.w3.org/2000/svg" tabindex="0" role="application" aria-roledescription="холст сцены" aria-label="Холст сцены. Стрелки двигают выбранный объект, Shift — шагом крупнее, Delete удаляет, G — направляющие."></svg>
+        <svg id="scnSvg" xmlns="http://www.w3.org/2000/svg" tabindex="0" role="application" aria-roledescription="холст макета" aria-label="Холст макета. Стрелки двигают выбранный объект, Shift — шагом крупнее, Delete удаляет, G — направляющие."></svg>
         <p class="scn-warn" id="scnWarn" role="status" hidden></p></div>
       <div class="scn-layers" id="scnLayers" role="group" aria-label="Объекты сцены"></div>
-      <p class="scn-hint">Тяните объект, чтобы переставить; круглая ручка меняет размер. Клик по фону или подставке открывает их настройки. <span class="kb"><kbd>G</kbd> направляющие · <kbd>Delete</kbd> удалить · <kbd>⌘D</kbd> копия · <kbd>⌘Z</kbd> отменить</span></p>
+      <p class="scn-hint"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V6.5a1.5 1.5 0 0 1 3 0V12M11 11V5a1.5 1.5 0 0 1 3 0v6M14 11V6.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-1a5 5 0 0 1-4.2-2.3L4 14.5a1.6 1.6 0 0 1 2.6-1.8L8 14"/></svg>Тяните объекты, круглая ручка — размер</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.5V5a1.5 1.5 0 0 1 1.5-1.5h7.5l8 8-9 9z"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/></svg>Подпишите фигуру — нейросеть нарисует именно это</span><span class="kb"><kbd>G</kbd> направляющие · <kbd>Delete</kbd> удалить · <kbd>⌘D</kbd> копия · <kbd>⌘Z</kbd> отменить</span></p>
+      <div class="tgbox scn-extra"><div class="tghead scn-xhead"><span class="tgico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l1.6 4.4 4.4 1.6-4.4 1.6L12 15.5l-1.6-4.4L6 9.5l4.4-1.6z"/><path d="M18.5 15l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg></span><span class="tgt"><b>Декор от нейросети</b><small id="scnXStat"></small></span>
+          <span class="scn-xinf"><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Нейросеть сама добавит предметы по теме продукта: ингредиенты, травы, посуду. Ваши объекты на макете останутся на местах, а зона текста — чистой. Нужен конкретный предмет в конкретном месте — поставьте его вручную через «+ Декор».</p></div></details></span>
+          <span class="toggles swt scn-xsw"><label class="tg"><input type="checkbox" role="switch" id="scnXOn" aria-label="Декор от нейросети"><span></span></label></span></div>
+        <div class="scn-xbody" id="scnXBody" hidden><div class="gsort" id="scnXN" role="radiogroup" aria-label="Сколько декора"><button type="button" role="radio" data-xn="few" aria-checked="true">Мало · 2–3</button><button type="button" role="radio" data-xn="bal" aria-checked="false">Баланс · 5–7</button><button type="button" role="radio" data-xn="rich" aria-checked="false">Много · 10+</button></div>
+          <input class="scn-in" type="text" id="scnXProps" maxlength="120" placeholder="Обязательно добавить: например «дольки лимона, лёд»" aria-label="Обязательно добавить"></div></div>
       <div class="tgbox scn-rules"><button class="tghead" type="button" id="scnRulesHead" aria-expanded="false" aria-controls="scnRules"><span class="tgico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="3"/><circle cx="9" cy="11" r="1.6" fill="currentColor" stroke="none"/><path d="M20.5 15.5l-4.5-4.5-7.5 7.5"/></svg></span><span class="tgt"><b>Как обращаться с фото</b><small id="scnRulesStat"></small></span><span class="tgmore"><em id="scnRulesL">Все настройки</em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></button>
         <div class="toggles swt clip" id="scnRules"></div></div>
     </div>
@@ -1922,12 +1970,27 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
       <div class="scn-out">
         <div class="scn-outh"><div class="scn-sech"><h2>Промт</h2><details class="info"><summary aria-label="Подробнее">i</summary><div><p><b>Текст</b> — обычный промт по блокам. <b>JSON</b> — тот же промт в виде структуры: некоторым генераторам (GPT Image) так проще не путать объекты. Пробуйте оба.</p><p>Порядок картинок при генерации: фото продуктов по номерам, набросок последним.</p></div></details></div>
           <div class="gsort" id="scnFmt" role="radiogroup" aria-label="Формат промта"><button type="button" role="radio" data-fmt="text" aria-checked="true">Текст</button><button type="button" role="radio" data-fmt="json" aria-checked="false">JSON</button></div></div>
-        <div class="toggles swt scn-one"><label class="tg scn-sk"><input type="checkbox" role="switch" id="scnSketch"><span>Промт с наброском<small>Генератор берёт расстановку и шрифты из картинки «Набросок». Включается сам, когда вы его скачиваете</small></span></label></div>
+        <div class="toggles swt scn-one"><label class="tg scn-sk"><input type="checkbox" role="switch" id="scnSketch"><span>Промт ссылается на набросок<small>Нейросеть возьмёт из картинки расстановку и шрифты. Выключите, если прикладываете только фото продуктов</small></span></label></div>
         <pre id="scnOut" class="scn-pre"></pre>
         <div class="scn-outa"><span class="scn-count" id="scnCount"></span></div>
       </div>
     </div>
   </div>
+  <div class="scn-dlg" id="scnHelpDlg" role="dialog" aria-modal="true" aria-labelledby="scnHelpT" hidden>
+    <div class="scn-dcard"><span class="grab" aria-hidden="true"></span>
+      <div class="scn-dhead"><h2 id="scnHelpT">Как работает «Макет»</h2><button class="iconbtn" type="button" id="scnHelpX" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <p class="scn-dlead">Вы рисуете простую схему кадра — где что стоит. GENA пишет по ней точный промт и делает картинку-набросок. Нейросеть превращает фигуры в настоящие продукты и предметы.</p>
+      <ol class="scn-dsteps">
+        <li><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><div><b>1. Соберите макет</b><p>Кнопки <i class="scn-k">+ Продукт</i> <i class="scn-k">+ Декор</i> <i class="scn-k">+ Текст</i> добавляют фигуры. Тяните их по холсту, круглая ручка меняет размер. Клик по фону или подставке открывает их настройки справа.</p></div></li>
+        <li><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.5V5a1.5 1.5 0 0 1 1.5-1.5h7.5l8 8-9 9z"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/></svg></span><div><b>2. Подпишите фигуры</b><p>В поле <i class="scn-k">Подпись: что это</i> напишите, что должно стоять на месте фигуры — «сыр в вакуумной упаковке», «веточка розмарина». Нейросеть нарисует именно это. Нужного декора нет в списке — возьмите <i class="scn-k">Свой предмет</i>.</p></div></li>
+        <li><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9.5 4v16M4 9.5h16" stroke-dasharray="2 2.4"/></svg></span><div><b>3. Для ПП включите кадр «ПП»</b><p>Жёлтые направляющие показывают баннер 1100×600: слева колонка текста, справа зона продуктов. Если объект вылез за сетку, под холстом появится подсказка.</p></div></li>
+        <li><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h14M12 6v13M9 19h6"/></svg></span><div><b>4. Текст: нейросеть или вы</b><p>Нейросеть рисует текст сразу, но размер держит приблизительно. Для точной типографики выберите <i class="scn-k">Наберу сам</i> — место останется пустым, текст наберёте в Figma.</p></div></li>
+        <li class="key"><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19h14"/></svg></span><div><b>5. Нажмите «Промт и набросок»</b><p>Промт скопируется в буфер, а картинка-набросок скачается. <b>Набросок обязателен</b>: по нему нейросеть понимает расстановку и шрифты.</p></div></li>
+        <li><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="3"/><circle cx="9" cy="10.5" r="1.5" fill="currentColor" stroke="none"/><path d="M20.5 16l-4.5-4.5L8 19.5"/></svg></span><div><b>6. Загрузите в GPT Image или Nano Banana</b><p>Сначала фото продуктов — в том порядке, что указан у продуктов в поле «С какого фото». <b>Набросок — последним.</b> Потом вставьте промт.</p></div></li>
+        <li><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.6 9.6l5.8-.8z"/></svg></span><div><b>7. Поделитесь результатом</b><p>Промт сохранится в «Мои промты». Поставьте оценку 4–5 и опубликуйте картинку — в галерее она встанет рядом с вашим макетом, и коллеги смогут взять его за основу.</p></div></li>
+      </ol>
+      <button class="btn" type="button" id="scnHelpOk">Понятно</button>
+    </div></div>
 </section>
 <section class="ideas" id="ideaPage" hidden aria-labelledby="ideaTitle">
   <div class="ihead"><h1 id="ideaTitle">Готовые сцены</h1><p>Выберите сцену под свою задачу. GENA соберёт промт в нужном формате, а продукт возьмёт с вашего фото.</p></div>
@@ -3005,9 +3068,8 @@ document.addEventListener("keydown",e=>{if(e.key!=="Tab")return;
 /* ----- admin lab: Simple / Pro mode (only admin for now) ----- */
 
 const LAB={mode:"pro",scene:false};try{Object.assign(LAB,JSON.parse(localStorage.getItem("gena-lab")||"{}"))}catch(e){}
-function labApply(){const on=!!(Cloud&&Cloud.admin);$("labScene").checked=!!LAB.scene;if(window.Scene)Scene.sync();modeApply(on&&LAB.mode==="simple"?"simple":"pro");$("uLab").hidden=!on;syncBnr();if(window.Hero)Hero.refresh()}
+function labApply(){const on=!!(Cloud&&Cloud.admin);if(window.Scene)Scene.sync();modeApply(on&&LAB.mode==="simple"?"simple":"pro");$("uLab").hidden=!on;syncBnr();if(window.Hero)Hero.refresh()}
 function labSave(){try{localStorage.setItem("gena-lab",JSON.stringify(LAB))}catch(e){}labApply()}
-$("labScene").addEventListener("change",e=>{LAB.scene=e.target.checked;labSave();if(Cloud.user)route();toast(LAB.scene?"Вкладка «Сцена» в шапке":"Ручная сцена скрыта")});
 $("labMode").addEventListener("click",e=>{const b=e.target.closest("[data-md]");if(!b||LAB.mode===b.dataset.md)return;LAB.mode=b.dataset.md;labSave();toast(LAB.mode==="simple"?"Простой режим: только главные настройки":"Режим Про: все настройки")});
 /* Simple / Pro mode (stage 1): hide fine-tuning; hidden values still come from scenario, style and templates */
 const PRO_ONLY=["#tgBox","#enh",'#standSeg [data-st="pod"]',"#pods","#podPanel","#gapRow","#tiltBox","#s-comp details.adv","#fill","#grids","#s-cam","#s-light","#s-fin",'#steps [data-t="s-cam"]','#steps [data-t="s-light"]','#steps [data-t="s-fin"]'];
@@ -3233,7 +3295,8 @@ $("tSave").addEventListener("submit",async e=>{e.preventDefault();const name=$("
 const ANA_KEYS=[["style","Стиль",STYLES],["ratio","Формат",null],["angle","Ракурс",ANGLES],["arr","Расстановка",ARR],["place","Место в кадре",PLACE],["grid","Схема",GRIDS],["fill","Масштаб",FILL],["bg","Фон",BGMODES],["decor","Декор",DECOR],["shadow","Тень",SHADOWS],["light","Свет",LIGHTS],["pod","Подиум",PODS],["dof","Резкость",DOF]];
 const COMBO_KEYS=["table","tOcc","style","ratio","angle","arr","place","grid","fill","bg","bgText","surface","gbase","color","decor","shadow","light","pod","tilt"];
 const valLabel=(k,v)=>{const L=(ANA_KEYS.find(x=>x[0]===k)||[])[2];if(k==="ratio")return v==="auto"?"Авто":v;if(k==="fill")return v+"%";const o=L&&find(L,v);return o?o.t:String(v)};
-function sceneChips(sc){const out=[valLabel("style",sc.style),sc.ratio==="auto"?"Формат авто":sc.ratio,valLabel("angle",sc.angle),valLabel("arr",sc.arr),valLabel("place",sc.place)];
+const isScn=sc=>!!(sc&&sc.mode==="scene"&&sc.sc);
+function sceneChips(sc){if(isScn(sc))return ["Макет",valLabel("style",sc.style),sc.ratio,valLabel("angle",sc.angle),`Объектов: ${sc.n||0}`].filter(Boolean);const out=[valLabel("style",sc.style),sc.ratio==="auto"?"Формат авто":sc.ratio,valLabel("angle",sc.angle),valLabel("arr",sc.arr),valLabel("place",sc.place)];
   if(sc.grid&&sc.grid!=="free")out.push(valLabel("grid",sc.grid));
   out.push(sc.bg==="scene"?(find(SURF,sc.surface)||{t:"Поверхность"}).t:sc.bg==="grad"?"Градиент":sc.bg==="text"?"Свой фон":"Цвет");
   if(sc.pod&&sc.pod!=="none")out.push("Подиум: "+valLabel("pod",sc.pod).toLowerCase());
@@ -3420,7 +3483,7 @@ const hashStr=s=>{let h1=0xdeadbeef,h2=0x41c6ce57;for(let i=0;i<s.length;i++){co
 const stateOf=()=>{const o=JSON.parse(JSON.stringify(S));delete o.preset;delete o.presetSig;return o};
 const fmtWhen=t=>{try{const d=new Date(t),now=new Date(),same=d.toDateString()===now.toDateString();return same?"сегодня, "+d.toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"}):d.toLocaleDateString("ru-RU",{day:"numeric",month:"short"})+", "+d.toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"})}catch(e){return ""}};
 const starsHTML=(v,id,ro)=>`<span class="stars${ro?" ro":""}" role="${ro?"img":"radiogroup"}" aria-label="${ro?`Оценка ${v||0} из 5`:"Оценка результата"}">${[1,2,3,4,5].map(n=>ro?`<i class="${n<=(v||0)?"on":""}"></i>`:`<button type="button" class="${n<=(v||0)?"on":""}" data-rate="${n}" data-h="${escA(id)}" role="radio" aria-checked="${n===v}" aria-label="${n} из 5"></button>`).join("")}</span>`;
-function miniPreview(el,scene,px,mw,mh){const keep=S,st=JSON.parse(JSON.stringify(keep));Object.assign(st,JSON.parse(JSON.stringify(scene||{})));st.sv=Object.assign({},keep.sv,(scene||{}).sv||{});
+function miniPreview(el,scene,px,mw,mh){if(isScn(scene)){el.innerHTML=Scene.thumb(scene.sc);el.classList.add("scnmini");return}el.classList.remove("scnmini");if(!el.querySelector(".pv"))el.innerHTML=pvBox;const keep=S,st=JSON.parse(JSON.stringify(keep));Object.assign(st,JSON.parse(JSON.stringify(scene||{})));st.sv=Object.assign({},keep.sv,(scene||{}).sv||{});
   try{S=st;autofix();drawPreview({pv:el.querySelector(".pv"),floor:el.querySelector(".pvfloor"),svg:el.querySelector("svg"),leg:null,mw,mh,px})}catch(e){}finally{S=keep}}
 const pvBox='<div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div>';
 
@@ -3471,6 +3534,7 @@ $("histList").addEventListener("click",async e=>{
     if(row)row.rating=nv;syncNudge();drawHistory();
     if(nv>=4&&!(HIST.published&&HIST.published.has(id)))toast("Отлично! Теперь можно опубликовать работу в галерее");return}
   const b=e.target.closest("[data-hact]");if(!b)return;const li=b.closest("[data-hid]"),row=HIST.rows.find(r=>r.id===li.dataset.hid);if(!row)return;
+  if(b.dataset.hact==="apply"&&isScn(row.state)){histOpen(false);Scene.open(row.state.sc);return}
   if(b.dataset.hact==="apply"){const snap=JSON.stringify(S);S=Object.assign(freshS(),JSON.parse(JSON.stringify(row.state)));migrate();S.preset=null;drawLights();renderProds();update();histOpen(false);go("builder");
     toastUndo("Настройки из истории применены",()=>{S=JSON.parse(snap);drawLights();renderProds();update()})}
   if(b.dataset.hact==="copy"){try{await navigator.clipboard.writeText(row.prompt);toast("Промт скопирован")}catch(err){toast("Не получилось скопировать")}}
@@ -3500,7 +3564,7 @@ async function compressImage(file,max,q){
   return {blob,w,h}}
 const kb=n=>n>1048576?(n/1048576).toFixed(1)+" МБ":Math.round(n/1024)+" КБ";
 function pubOpen(row){slotPub(false);PUB={row,file:null};$("pubErr").textContent="";pubFieldsClear();pubClear();
-  $("pubScene").innerHTML=`<div class="hthumb">${pvBox}</div><div><b>Сцена из истории</b><div class="achips">${sceneChips(row.scene).slice(0,6).map(x=>`<i>${escA(x)}</i>`).join("")}</div>${starsHTML(row.rating,"",true)}</div>`;
+  $("pubScene").innerHTML=`<div class="hthumb">${pvBox}</div><div><b>${isScn(row.scene)?"Макет из истории":"Сцена из истории"}</b><div class="achips">${sceneChips(row.scene).slice(0,6).map(x=>`<i>${escA(x)}</i>`).join("")}</div>${starsHTML(row.rating,"",true)}</div>`;
   miniPreview($("pubScene").querySelector(".hthumb"),row.scene,"pub",72,72);$("pub").hidden=false;document.body.classList.add("locked");$("pubTitle").focus()}
 function pubFieldsClear(){$("pubTitle").value="";$("pubUse").value="";$("pubNote").value=""}
 function pubClose(){$("pub").hidden=true;document.body.classList.toggle("locked",!$("hist").hidden)}
@@ -3562,11 +3626,11 @@ function drawGallery(){drawGalFilt();
   const rows=(GAL.mine?GAL.rows.filter(r=>r.user_id===Cloud.user.id):GAL.rows).filter(r=>!GAL.style||(r.scene||{}).style===GAL.style),G=$("galGrid");G.removeAttribute("aria-busy");
   if(!rows.length){G.innerHTML=`<div class="gempty"><b>${GAL.mine?"У вас пока нет публикаций":"Здесь появятся лучшие работы команды"}</b><p>Оцените свой промт на 4–5 в «Мои промты» и опубликуйте результат генерации.</p><button class="btn" type="button" id="galToHist">Открыть «Мои промты»</button></div>`;
     $("galToHist").addEventListener("click",()=>histOpen(true));return}
-  G.innerHTML=rows.map(r=>{const ar=r.w/r.h,cls=ar>=1.55?"wide":ar<=.72?"tall":"";
+  G.innerHTML=rows.map(r=>{const pair=isScn(r.scene),ar=r.w/r.h*(pair?2:1),cls=(ar>=1.55?"wide":ar<=.72?"tall":"")+(pair?" gpair":"");
     const on=GAL.liked.has(r.id);
-    return `<div class="gtile ${cls}" role="button" tabindex="0" data-pub="${escA(r.id)}" aria-label="${escA((r.title||"Работа")+", автор "+(r.author_name||"коллега"))}"><img src="${escA(GAL.urls[r.thumb_path]||"")}" alt="" loading="lazy" decoding="async">
+    return `<div class="gtile ${cls}" role="button" tabindex="0" data-pub="${escA(r.id)}" aria-label="${escA((r.title||"Работа")+", автор "+(r.author_name||"коллега"))}">${pair?`<span class="gsch" title="Макет">${Scene.thumb(r.scene.sc)}</span>`:""}<img src="${escA(GAL.urls[r.thumb_path]||"")}" alt="" loading="lazy" decoding="async">
       <span class="gtop"><button class="gbtn${on?" on":""}" type="button" data-ga="like" aria-pressed="${on}" title="Полезно"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9zM7 11l4-8a2.5 2.5 0 0 1 2.5 3L13 10h5.6a2 2 0 0 1 2 2.4l-1.4 6A2 2 0 0 1 17.3 20H7"/></svg><b>${r.likes}</b></button><button class="gbtn" type="button" data-ga="copy" title="Скопировать промт" aria-label="Скопировать промт"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></button></span>
-      <span class="gcap"><span class="gtx"><b>${escA(r.title||r.author_name||"Работа")}</b><small>${escA(r.title?r.author_name:fmtDate(r.created_at))}</small></span><em class="glike${on?" on":""}">${r.likes}</em><button class="gapply" type="button" data-ga="apply">Применить</button></span></div>`}).join("")}
+      <span class="gcap"><span class="gtx"><b>${escA(r.title||r.author_name||"Работа")}</b><small>${escA(r.title?r.author_name:fmtDate(r.created_at))}</small></span><em class="glike${on?" on":""}">${r.likes}</em><button class="gapply" type="button" data-ga="apply">${pair?"Открыть макет":"Применить"}</button></span></div>`}).join("")}
 $("galSort").addEventListener("click",e=>{const b=e.target.closest("[data-gs]");if(!b)return;if(b.dataset.gs==="mine"){GAL.mine=true;drawGallery();return}GAL.mine=false;GAL.sort=b.dataset.gs;loadGallery()});
 $("galGrid").addEventListener("click",e=>{const t=e.target.closest("[data-pub]");if(!t)return;const a=e.target.closest("[data-ga]"),r=GAL.rows.find(x=>x.id===t.dataset.pub);
   if(a&&r){e.stopPropagation();if(a.dataset.ga==="apply")applyPub(r);if(a.dataset.ga==="copy")copyPub(r);if(a.dataset.ga==="like")likePub(r);return}workOpen(t.dataset.pub)});
@@ -3585,7 +3649,9 @@ async function workOpen(id,dir=0,ids){const r=GAL.rows.find(x=>x.id===id);if(!r)
   await signed([r.image_path]);const full=GAL.urls[r.image_path],ok=await preload(full,4000);
   clearTimeout(busy);if(tile)tile.classList.remove("loading");$("wImgBox").classList.remove("busy");if(seq!==workSeq)return;
   GAL.cur=r;const img=$("wImg"),src=ok?full:(GAL.urls[r.thumb_path]||full);
-  const fill=()=>{img.src=src;img.alt=r.title||"Работа";$("wImgBox").style.aspectRatio=`${r.w}/${r.h}`;
+  const fill=()=>{img.src=src;img.alt=r.title||"Работа";const pair=isScn(r.scene),box=$("wImgBox");box.classList.toggle("pair",pair);box.style.aspectRatio=pair?`${r.w*2}/${r.h}`:`${r.w}/${r.h}`;
+    let sch=$("wSch");if(!sch){sch=document.createElement("div");sch.id="wSch";sch.className="wsch";box.prepend(sch)}sch.innerHTML=pair?Scene.thumb(r.scene.sc):"";sch.hidden=!pair;
+    $("wApply").textContent=pair?"Открыть макет":"Применить в конструкторе";
     $("wTitle").textContent=r.title||"Без названия";$("wAuthor").textContent=`${r.author_name||"Коллега"} · ${fmtDate(r.created_at)}`;$("wStars").innerHTML=starsHTML(r.rating,"",true);noteFill($("wNote"),r);
     $("wChips").innerHTML=sceneChips(r.scene).map(x=>`<i>${escA(x)}</i>`).join("");miniPreview($("wScene"),r.scene,"w",150,120);
     workLike();$("wDel").hidden=!(r.user_id===Cloud.user.id||Cloud.admin);$("wDel").dataset.arm="";$("wDel").textContent="Удалить";
@@ -3608,7 +3674,7 @@ $("wClose").addEventListener("click",workClose);
 $("work").addEventListener("click",e=>{if(e.target===$("work"))workClose()});
 document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!$("pub").hidden)pubClose();else if(!$("work").hidden)workClose();else if(!$("hist").hidden)histOpen(false)});
 $("wApply").addEventListener("click",()=>applyPub(GAL.cur));
-function applyPub(r){const snap=JSON.stringify(S);Object.assign(S,JSON.parse(JSON.stringify(r.scene||{})));S.sv=Object.assign({},JSON.parse(snap).sv,(r.scene||{}).sv||{});S.preset=null;
+function applyPub(r){if(isScn(r.scene)){if(!$("work").hidden)workClose();Scene.open(r.scene.sc);logEvent("template",{publication:r.id,scene:true});return}const snap=JSON.stringify(S);Object.assign(S,JSON.parse(JSON.stringify(r.scene||{})));S.sv=Object.assign({},JSON.parse(snap).sv,(r.scene||{}).sv||{});S.preset=null;
   drawLights();update();if(!$("work").hidden)workClose();if(!$("adm").hidden)closeAdmin();go("builder");logEvent("template",{publication:r.id});toastUndo("Сцена из галереи применена, продукт ваш",()=>{S=JSON.parse(snap);drawLights();renderProds();update()})}
 $("wCopy").addEventListener("click",()=>copyPub(GAL.cur));
 async function copyPub(r){try{await navigator.clipboard.writeText(r.prompt);toast("Промт автора скопирован. В нём продукт автора — замените на свой")}catch(e){toast("Не получилось скопировать")}}
@@ -3743,6 +3809,11 @@ function bnrPatch(out){const L=bnrLay(),b=S.bnr,g=bnrGen(),c=bnrCrop(g),q=s=>`"$
 
 /* ----- «Что нового»: только изменения для всех, без админских. Новая версия — первой строкой ----- */
 const CHANGELOG=[
+ ["1.5","23 октября",["Новая вкладка «Макет»: расставьте продукты, декор и текст на холсте — GENA напишет промт с точными координатами и сделает картинку-набросок для нейросети.",
+  "Подпишите любую фигуру — нейросеть нарисует на её месте именно то, что написано. Для нестандартного декора есть «Свой предмет».",
+  "Баннер ПП 1100×600: сетка текста и продуктов прямо на холсте, шрифты Анафора и Ubuntu, текст можно отдать нейросети или оставить место под Figma.",
+  "Макеты сохраняются в «Мои промты», а в галерее показываются рядом с готовой картинкой. «Открыть макет» — и он ваш.",
+  "Как пользоваться — кнопка «Как это работает» на странице «Макет»."]],
  ["1.4","22 октября",["Тарелки, доски и бокалы с фото теперь остаются в кадре. Чтобы убрать посуду, выключите «Сохранить посуду».",
   "Блок «Как обращаться с фото» стал заметнее: вместо галочек переключатели, главные видны сразу.",
   "У скатерти можно выбрать оттенок ткани или свой цвет.",
@@ -4536,7 +4607,7 @@ const Hero=(()=>{
 $("thBtn").addEventListener("click",()=>Hero.refresh());
 mq.addEventListener&&mq.addEventListener("change",()=>Hero.refresh());
 window.Hero=Hero;
-/* ===== Ручная сцена (лаборатория, только админ) =====
+/* ===== Макет сцены (ручная расстановка) =====
    Координаты — доли кадра генерации: x от левого края, y от верхнего; у продукта и декора y — точка опоры (низ), h — видимая высота в долях высоты кадра.
    Режим ПП: кадр генерации (16:9, GPT 2208×1216, 3:2, 21:9, 1:1), внутри — баннер 1100×600 с сеткой из блока «Баннер с текстом» (BN, bnrCrop).
    Набросок — сцена в её цветах без номеров и направляющих: генератор берёт из него только расстановку и шрифты. */
@@ -4544,7 +4615,7 @@ const Scene=(()=>{
 const KEY="gena-scene-v1",VBW=1000;
 const cl=(v,a,b)=>Math.max(a,Math.min(b,v)),pc=v=>Math.round(v*100);
 const uid=()=>"o"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
-const STROKE=new Set(["fat","leaf","line","vein"]);
+const STROKE=new Set(["fat","leaf","line","vein","plus"]);
 function shape(I,x,by,h,pal,rot=0){const sc=h/(100-I.top),w=I.W*sc;
   const g=I.parts.map(([r,svg])=>{const f=pal[r]??pal.body;if(f==null||f==="none")return "";const op=r==="label"?(pal.labelOp??.8):r==="glass"?(pal.glassOp??.55):1;
     return STROKE.has(r)?`<g fill="${f}" stroke="${f}" stroke-linecap="round" opacity="${op}">${svg}</g>`:`<g fill="${f}" opacity="${op}">${svg}</g>`}).join("");
@@ -4580,11 +4651,13 @@ const DT={
  board:{t:"Доска",en:"a wooden serving board",col:"#C79A62",W:180,top:84,parts:[["body",'<rect x="0" y="86" width="160" height="14" rx="5"/>'],["dark",'<rect x="158" y="89" width="22" height="8" rx="4"/>']]},
  candle:{t:"Свеча",en:"a lit pillar candle",col:"#F3EEE4",W:40,top:2,parts:[["body",'<rect x="6" y="30" width="28" height="70" rx="3"/>'],["acc",'<path d="M20 4Q30 18 20 26Q10 18 20 4Z"/>']]},
  cutlery:{t:"Приборы",en:"a fork and a knife",col:"#B8BEC2",W:60,top:2,parts:[["line",'<path d="M18 100V30M10 4V24Q18 32 26 24V4M18 4V24" fill="none" stroke-width="5" stroke-linejoin="round"/>'],["body",'<path d="M42 100V44Q40 14 52 4V60H46V100Z"/>']]},
+ wglass:{t:"Бокал",en:"a wine glass",col:"#7A1F2B",W:50,top:0,parts:[["glass",'<path d="M5 0H45Q48 30 25 44Q2 30 5 0Z"/>'],["drink",'<path d="M7 16H43Q42 32 25 41Q8 32 7 16Z"/>'],["line",'<path d="M25 44V96M12 98H38" fill="none" stroke-width="4"/>']]},
+ custom:{t:"Свой предмет",en:"",col:"#B9B3A8",W:80,top:20,parts:[["body",'<rect x="0" y="20" width="80" height="80" rx="22"/>'],["plus",'<path d="M40 44V76M24 60H56" fill="none" stroke-width="7"/>']]},
  sphere:{t:"Шар",en:"a smooth matte sphere",col:"#E9D6DC",W:80,top:20,parts:[["body",'<circle cx="40" cy="60" r="40"/>'],["lite",'<ellipse cx="27" cy="45" rx="10" ry="7"/>']]},
  cube:{t:"Куб",en:"a smooth matte cube",col:"#D9D6CF",W:80,top:20,parts:[["top",'<path d="M0 36L20 20H80L60 36Z"/>'],["side",'<path d="M60 36L80 20V84L60 100Z"/>'],["body",'<rect x="0" y="36" width="60" height="64"/>']]}
 };
-const DGROUPS=[["Природа",["leaf","herb","citrus","berries","fruit","flower","spice","nuts"]],["Предметы",["ice","splash","cloth","board","candle","cutlery","sphere","cube"]]];
-const DH={leaf:.16,herb:.22,citrus:.1,berries:.09,fruit:.14,flower:.22,spice:.07,nuts:.07,ice:.1,splash:.18,cloth:.06,board:.04,candle:.24,cutlery:.26,sphere:.14,cube:.14};
+const DGROUPS=[["Природа",["leaf","herb","citrus","berries","fruit","flower","spice","nuts"]],["Предметы",["ice","splash","cloth","board","candle","cutlery","wglass","custom"]]];
+const DH={wglass:.3,custom:.14,leaf:.16,herb:.22,citrus:.1,berries:.09,fruit:.14,flower:.22,spice:.07,nuts:.07,ice:.1,splash:.18,cloth:.06,board:.04,candle:.24,cutlery:.26,sphere:.14,cube:.14};
 
 /* ---------- шрифты ПП: Анафора — заголовок, Ubuntu — цифры, подзаголовок, цена, плашка ---------- */
 const FF_HEAD='"GENA Anaphora","Anaphora","Anafora","Анафора","Roboto Slab",Rockwell,Georgia,serif',FF_UB='"GENA Ubuntu","Ubuntu","Onest",Arial,sans-serif';
@@ -4626,7 +4699,7 @@ async function fontUpload(slot,file){if(!file)return;const ext=(file.name.split(
   if(!FONT[slot]){toast("Не получилось прочитать шрифт");return}await idb.set(slot,rec);draw();drawInsp();outSoon();toast(slot==="ana"?"Анафора подключена: холст и набросок рисуют ею":"Ubuntu подключён")}
 
 /* ---------- кадр ---------- */
-const GENS=[{id:"16:9",t:"16:9",d:"Nano Banana",w:16,h:9,ratio:"16:9"},{id:"gpt2",t:"2208×1216",d:"GPT Image 2",w:2208,h:1216,size:"2208×1216 px"},{id:"3:2",t:"3:2",d:"ChatGPT",w:3,h:2,ratio:"3:2"},{id:"21:9",t:"21:9",d:"Широкий кадр",w:21,h:9,ratio:"21:9"},{id:"1:1",t:"1:1",d:"Квадрат",w:1,h:1,ratio:"1:1"}];
+const GENS=[{id:"16:9",t:"16:9",d:"Nano Banana",w:16,h:9,ratio:"16:9"},{id:"gpt2",t:"2208×1216",d:"GPT Image 2",w:2208,h:1216,size:"2208×1216 px"},{id:"3:2",t:"3:2",d:"ChatGPT",w:3,h:2,ratio:"3:2"}];
 const gen=()=>GENS.find(g=>g.id===SC.frame.gen)||GENS[0];
 const isPP=()=>!!SC.frame.pp;
 const crop=()=>isPP()?bnrCrop(gen()):{x:0,y:0,w:1,h:1};
@@ -4656,14 +4729,15 @@ function lightEn(st){const L=SC.light;if(L.id==="auto")return st.light;const lt=
 
 /* ---------- состояние ---------- */
 const RULES=[["keepProduct","Сохранить продукт","Форма, цвета и материалы как на фото."],["keepText","Сохранить надписи","Логотип и текст упаковки без искажений."],["keepWare","Сохранить посуду","Тарелка, доска или бокал с фото остаются."],["isolate","Убрать лишнее","Руки, приборы, салфетки и фон с фото не переносятся."],["rebuild","Создавать заново","Без вклейки: продукт перерисовывается под сцену."],["scale","Реальные пропорции","Настоящие размеры предметов относительно друг друга."],["avoid","Список запретов","Без водяных знаков, лишнего текста и дублей."]];
-const fresh=()=>({v:2,rules:Object.fromEntries(RULES.map(r=>[r[0],true])),txtMode:"render",frame:{pp:true,gen:"16:9",ratio:"16:9",edge:"extend"},guides:true,style:"fintech",angle:"slight",light:{id:"auto",side:"left",soft:"soft",temp:"neutral"},fmt:"text",sketch:false,
+const fresh=()=>({v:2,extra:{on:false,n:"few",props:""},rules:Object.fromEntries(RULES.map(r=>[r[0],true])),txtMode:"render",frame:{pp:true,gen:"16:9",ratio:"16:9",edge:"extend"},guides:true,style:"fintech",angle:"slight",light:{id:"auto",side:"left",soft:"soft",temp:"neutral"},fmt:"text",sketch:true,
   bg:{kind:"solid",color:"#E3E4E4",tone:0,g1:"#F4F1EC",g2:"#D6D0C6",gdir:"v",stop:"g1",room:"kitchen",time:"day",blur:"strong"},
   under:{kind:"none",col:"auto",w:.46},
   base:{kind:"none",x:.62,y:.8,w:.52,surf:"wood",sv:{},tMat:"oak",tCloth:"none",tShape:"round",pod:"soft",pShape:"cyl",pCol:"#FFFFFF",tiers:1},
   objs:[]});
 let SC=fresh(),SEL="bg",DRAG=null,UNDO=[],REDO=[],LOADED=false,PREV=[],PALG={};
 function adopt(d){const f=fresh();if(d.v===1){d.frame={pp:false,gen:"16:9",ratio:d.ratio||"16:9",edge:"extend"};d.v=2}
-  SC=Object.assign(f,d);["frame","light","bg","under","base","rules"].forEach(k=>SC[k]=Object.assign(fresh()[k],d[k]||{}))}
+  SC=Object.assign(f,d);["frame","light","bg","under","base","rules","extra"].forEach(k=>SC[k]=Object.assign(fresh()[k],d[k]||{}));
+  if(!GENS.some(g=>g.id===SC.frame.gen))SC.frame.gen="16:9"}
 function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||"null");if(d&&(d.v===1||d.v===2)){adopt(d);return true}}catch(e){}return false}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(SC))}catch(e){}}
 function snap(){UNDO.push(JSON.stringify(SC));if(UNDO.length>60)UNDO.shift();REDO=[]}
@@ -4682,8 +4756,8 @@ function remap(c1,c2){const mx=x=>c2.x+(x-c1.x)/c1.w*c2.w,my=y=>c2.y+(y-c1.y)/c1
 /* ---------- цвета объектов ---------- */
 function palOf(o,I){const c=o.col||(o.k==="dec"?I.col:PCOL[o.type])||"#8C958F",isHero=o.k==="prod"&&heroOf()===o;
   return {body:c,cap:shadeHex(c,-.28),label:isHero&&!o.col?"#F0B92A":"#FFFFFF",labelOp:isHero&&!o.col?.95:.82,top:lighten(c,.3),side:shadeHex(c,-.22),meat:"#C77B5E",fat:"#F1D5C8",veg:c,veg2:shadeHex(c,-.2),leaf:"#6E8F4E",
-    glass:"#DDE6EA",drink:c,line:shadeHex(c,-.3),lite:lighten(c,.45),acc:"#F0B92A",dark:shadeHex(c,-.32),vein:shadeHex(c,-.25)}}
-const FIG={body:"var(--fig-l)",cap:"var(--fig-r)",label:"var(--detail)",labelOp:1,top:"var(--fig-top)",side:"var(--fig-r)",meat:"var(--fig-r)",fat:"var(--fig-top)",veg:"var(--fig-l)",veg2:"var(--fig-r)",leaf:"var(--fig-r)",glass:"var(--fig-top)",glassOp:1,drink:"var(--fig-l)",line:"var(--fig-r)",lite:"var(--fig-top)",acc:"var(--detail)",dark:"var(--fig-r)",vein:"var(--fig-r)"};
+    glass:"#DDE6EA",drink:c,line:o.type==="wglass"?"#C9D3D8":shadeHex(c,-.3),lite:lighten(c,.45),acc:"#F0B92A",dark:shadeHex(c,-.32),vein:shadeHex(c,-.25),plus:"#FFFFFF"}}
+const FIG={body:"var(--fig-l)",cap:"var(--fig-r)",label:"var(--detail)",labelOp:1,top:"var(--fig-top)",side:"var(--fig-r)",meat:"var(--fig-r)",fat:"var(--fig-top)",veg:"var(--fig-l)",veg2:"var(--fig-r)",leaf:"var(--fig-r)",glass:"var(--fig-top)",glassOp:1,drink:"var(--fig-l)",line:"var(--fig-r)",lite:"var(--fig-top)",acc:"var(--detail)",dark:"var(--fig-r)",vein:"var(--fig-r)",plus:"var(--detail)"};
 const lumAvg=a=>a.reduce((s,c)=>s+hexLum(c),0)/a.length;
 function inkOf(o){if(o.ink==="light")return "#FFFFFF";if(o.ink==="dark")return "#2A1A10";if(o.ink==="custom")return o.inkC||"#2A1A10";
   const u=SC.under,l=u.kind!=="none"&&o.x<u.w?hexLum(underCol()):lumAvg(effBg());return l<.5?"#FFFFFF":"#2A1A10"}
@@ -4727,29 +4801,35 @@ function baseSVG(W,H){const b=SC.base;if(b.kind==="none")return "";const bx=b.x*
   for(let i=n-1;i>=0;i--){const wi=bw*(1+.22*i),y=by+i*ph,xc=shp==="steps"?bx+bw*.11*i:bx,f=shadeHex(col,-.05*i);
     s+=(shp==="block"||shp==="steps")?blk(xc,y,wi,ph,f,E):cyl(xc,y,wi,ph,f,E)}
   return `<g data-id="base">${s}</g>`}
+/* положение: стоит, парит или лежит */
+const poseOf=o=>o.pose||"stand";
+function groundY(o){const b=SC.base;if((b.kind==="table"||b.kind==="pod")&&o.x>b.x-b.w/2&&o.x<b.x+b.w/2)return b.y;if(b.kind==="surface")return Math.max(b.y,Math.min(.97,o.y+.08));return Math.min(.97,o.y+.1)}
 function objSVG(o,W,H){
   if(o.k==="txt")return txtSVG(o,W,H);
   const I=o.k==="prod"?PT[o.type]:DT[o.type];if(!I)return "";
-  const h=o.h*H,x=o.x*W,by=o.y*H,w=wOf(I,h),pal=palOf(o,I);let s="";
-  if(o.k==="prod")s+=`<ellipse cx="${x}" cy="${by}" rx="${w*.55}" ry="${Math.max(3,w*.09)}" fill="#000" opacity=".18" filter="url(#scSh)"/>`;
-  if(o.k==="dec"&&o.many){[[-.85,.03,.62,-14],[.8,.025,.7,12],[.15,.06,.5,-6],[0,0,1,0]].forEach(([dx,dy,f,rr])=>{s+=shape(I,x+dx*w,by+dy*H,h*f,pal,(o.rot||0)+rr)})}
+  const h=o.h*H,x=o.x*W,by=o.y*H,w=wOf(I,h),pal=palOf(o,I),pose=poseOf(o);let s="";
+  if(pose==="float"){const gy=groundY(o)*H;s+=`<ellipse cx="${x}" cy="${gy}" rx="${w*.5}" ry="${Math.max(3,w*.08)}" fill="#000" opacity=".12" filter="url(#scSh)"/>`}
+  else if(o.k==="prod")s+=`<ellipse cx="${x}" cy="${by}" rx="${(pose==="lie"?h:w)*.55}" ry="${Math.max(3,w*.09)}" fill="#000" opacity=".18" filter="url(#scSh)"/>`;
+  if(pose==="lie")s+=shape(I,x,by-w/2+h/2,h,pal,90+(o.rot||0));
+  else if(o.k==="dec"&&o.many){[[-.85,.03,.62,-14],[.8,.025,.7,12],[.15,.06,.5,-6],[0,0,1,0]].forEach(([dx,dy,f,rr])=>{s+=shape(I,x+dx*w,by+dy*H,h*f,pal,(o.rot||0)+rr)})}
   else s+=shape(I,x,by,h,pal,o.rot||0);
   if(o.k==="dec"&&o.blur)s=`<g filter="url(#scSoft)">${s}</g>`;
   return `<g data-id="${o.id}">${s}</g>`}
 /* текст: строки, отрезки «буквы / цифры», ширина по реальному шрифту */
 function txtLines(o){let L=String(o.text||TROLE[o.role].ph).split("\n").slice(0,4);if(o.role==="head"&&o.caps!==false)L=L.map(l=>l.toUpperCase());return o.role==="tag"?L.slice(0,1):L}
 const DIG=/(\d[\d\s.,]*\s?[%₽]?|[%₽])/;
-function runs(o,line){const R=TROLE[o.role];if(o.role!=="head")return [{t:line,ff:R.ff,fw:R.fw}];
+const lhOf=o=>o.lh||TROLE[o.role].lh,lsOf=o=>+o.ls||0;
+function runs(o,line){const R=TROLE[o.role];if(o.role!=="head")return [{t:line,ff:R.ff,fw:o.bold?700:R.fw}];
   return line.split(DIG).filter(Boolean).map(t=>DIG.test(t)&&/^[\d%₽]/.test(t)?{t,ff:FF_UB,fw:700}:{t,ff:FF_HEAD,fw:800})}
 const MC=document.createElement("canvas").getContext("2d");
-function measure(o,line,fs){return runs(o,line).reduce((w,r)=>{MC.font=`${r.fw} ${fs}px ${r.ff}`;return w+MC.measureText(r.t).width},0)}
+function measure(o,line,fs){return runs(o,line).reduce((w,r)=>{MC.font=`${r.fw} ${fs}px ${r.ff}`;return w+MC.measureText(r.t).width},0)+lsOf(o)*fs*Math.max(0,line.length-1)}
 function txtBox(o,W,H){const R=TROLE[o.role],fs=o.size*H,L=txtLines(o),w=Math.max(...L.map(l=>measure(o,l,fs)));
-  return o.role==="tag"?{w:w+fs*1.8,h:fs*2.05}:{w,h:fs*(.86+(L.length-1)*R.lh)}}
+  return o.role==="tag"?{w:w+fs*1.8,h:fs*2.05}:{w,h:fs*(.86+(L.length-1)*lhOf(o))}}
 function txtSVG(o,W,H){const R=TROLE[o.role],fs=o.size*H,x=o.x*W,y=o.y*H,L=txtLines(o),ink=inkOf(o);let s="";
   const tsp=(line)=>runs(o,line).map(r=>`<tspan font-family='${r.ff}' font-weight="${r.fw}">${escA(r.t)}</tspan>`).join("");
   if(o.role==="tag"){const bb=txtBox(o,W,H),tc=o.tagCol||"#D9534F";s+=`<rect x="${x}" y="${y}" width="${bb.w}" height="${bb.h}" rx="${bb.h/2}" fill="${tc}"/>`;
-    s+=`<text x="${x+fs*.9}" y="${y+bb.h/2}" font-size="${fs}" fill="${hexLum(tc)>.6?"#2A1A10":"#FFFFFF"}" dominant-baseline="central">${tsp(L[0])}</text>`}
-  else s+=`<text font-size="${fs}" fill="${ink}">${L.map((l,i)=>`<tspan x="${x}" y="${y+fs*(.8+i*R.lh)}">${tsp(l)||" "}</tspan>`).join("")}</text>`;
+    s+=`<text x="${x+fs*.9}" y="${y+bb.h/2}" font-size="${fs}"${lsOf(o)?` letter-spacing="${lsOf(o)*fs}"`:""} fill="${hexLum(tc)>.6?"#2A1A10":"#FFFFFF"}" dominant-baseline="central">${tsp(L[0])}</text>`}
+  else{const bw=txtBox(o,W,H).w,al=o.align||"left";s+=`<text font-size="${fs}" fill="${ink}"${lsOf(o)?` letter-spacing="${lsOf(o)*fs}"`:""}>${L.map((l,i)=>{const lw=measure(o,l,fs),lx=x+(al==="center"?(bw-lw)/2:al==="right"?bw-lw:0);return `<tspan x="${lx}" y="${y+fs*(.8+i*lhOf(o))}">${tsp(l)||" "}</tspan>`}).join("")}</text>`}
   return `<g data-id="${o.id}">${s}</g>`}
 function defsSVG(W,H){const b=SC.bg,E=effBg(),u=SC.under,gd=b.gdir==="h"?'x1="0" y1="0" x2="1" y2="0"':'x1="0" y1="0" x2="0" y2="1"';
   const grad=b.kind==="grad"&&b.gdir==="radial"?`<radialGradient id="scG" cx=".5" cy=".45" r=".8"><stop offset="0" stop-color="${E[0]}"/><stop offset="1" stop-color="${E[1]}"/></radialGradient>`:`<linearGradient id="scG" ${b.kind==="grad"?gd:'x1="0" y1="0" x2="0" y2="1"'}><stop offset="0" stop-color="${E[0]}"/><stop offset="1" stop-color="${E[1]||E[0]}"/></linearGradient>`;
@@ -4758,8 +4838,10 @@ function defsSVG(W,H){const b=SC.bg,E=effBg(),u=SC.under,gd=b.gdir==="h"?'x1="0"
   <filter id="scSh" x="-50%" y="-200%" width="200%" height="500%"><feGaussianBlur stdDeviation="6"/></filter><filter id="scSoft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
   <filter id="scBl24" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="24"/></filter><filter id="scBl10" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="10"/></filter></defs>`}
 function sceneSVG(ex){const {W,H}=dims(),c=crop(),ord=SC.objs.filter(o=>o.k!=="txt").sort((a,b)=>a.y-b.y),space=SC.txtMode==="space";
+  const labels=ex?"":SC.objs.filter(o=>o.k!=="txt"&&((o.name||"").trim()||o.type==="custom")).map(o=>{const t=(o.name||"").trim()||"Подпишите предмет",fs=Math.max(11,H*.024),w=Math.min(W*.4,t.length*fs*.56+fs*1.2),x=cl(o.x*W-w/2,4,W-w-4),y=Math.min(H-fs*1.9-4,o.y*H+6);
+    return `<g pointer-events="none"><rect x="${x}" y="${y}" width="${w}" height="${fs*1.8}" rx="${fs*.9}" fill="${(o.name||"").trim()?"#272E32":"#875B05"}" fill-opacity=".86"/><text x="${x+w/2}" y="${y+fs*.9}" font-family="Onest,Arial,sans-serif" font-size="${fs}" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">${escA(t.length>34?t.slice(0,33)+"…":t)}</text></g>`}).join("");
   const tx=ex&&space?"":(space?`<g opacity=".45">`:"")+txts().map(o=>objSVG(o,W,H)).join("")+(space?"</g>":"");
-  return {W,H,c,body:defsSVG(W,H)+`<g data-id="bg">${bgSVG(W,H)}${underSVG(W,H)}</g>`+baseSVG(W,H)+ord.map(o=>objSVG(o,W,H)).join("")+stripsSVG(W,H,c)+tx}}
+  return {W,H,c,body:defsSVG(W,H)+`<g data-id="bg">${bgSVG(W,H)}${underSVG(W,H)}</g>`+baseSVG(W,H)+ord.map(o=>objSVG(o,W,H)).join("")+stripsSVG(W,H,c)+tx+labels}}
 
 /* направляющие и подсказки — только в редакторе, в набросок не попадают */
 function guidesSVG(W,H,c){let s="";const x0=c.x*W,y0=c.y*H,x1=(c.x+c.w)*W,y1=(c.y+c.h)*H,fs=Math.max(11,H*.022);
@@ -4792,7 +4874,7 @@ function draw(){if(!svg)return;const {W,H,c,body}=sceneSVG();svg.setAttribute("v
 
 /* ---------- проверки ПП ---------- */
 function boxOf(o){const {W,H}=dims();if(o.k==="txt"){const bb=txtBox(o,W,H);return {x0:o.x,x1:o.x+bb.w/W,y0:o.y,y1:o.y+bb.h/H}}
-  const I=o.k==="prod"?PT[o.type]:DT[o.type],w=wOf(I,o.h*H)/W*(o.many?2.2:1);return {x0:o.x-w/2,x1:o.x+w/2,y0:o.y-o.h,y1:o.y}}
+  const I=o.k==="prod"?PT[o.type]:DT[o.type],w=wOf(I,o.h*H)/W*(o.many?2.2:1);if(poseOf(o)==="lie"){const hw=o.h*H/W,ww=w*W/H;return {x0:o.x-hw/2,x1:o.x+hw/2,y0:o.y-ww,y1:o.y}}return {x0:o.x-w/2,x1:o.x+w/2,y0:o.y-o.h,y1:o.y}}
 const nmRu=o=>o.k==="prod"?`Продукт ${numOf(o)}`:o.k==="dec"?`Декор ${numOf(o)}`:TROLE[o.role].t;
 function warnings(){if(!isPP())return [];const c=crop(),out=[],tz=[BX(96),BX(560)],vz=BX(576);
   SC.objs.forEach(o=>{const b=boxOf(o),e=.004;
@@ -4800,7 +4882,8 @@ function warnings(){if(!isPP())return [];const c=crop(),out=[],tz=[BX(96),BX(560
     else if(o.k==="txt"&&b.x1>BX(530)+.004)out.push(`<b>${nmRu(o)}</b> шире колонки текста (до 530 px)`);
     else if(o.k==="prod"&&b.x0<vz-.004&&b.x1>tz[0])out.push(`<b>${nmRu(o)}</b> заходит в зону текста`)});
   return out.slice(0,3)}
-function drawWarn(){const w=warnings(),el=$("scnWarn");el.hidden=!w.length;el.innerHTML=w.length?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 3 20h18z"/><path d="M12 10v4"/><circle cx="12" cy="17" r=".9" fill="currentColor"/></svg><span>${w.join(" · ")}</span>`:""}
+function warnAll(){const w=warnings();SC.objs.filter(o=>o.type==="custom"&&!(o.name||"").trim()).forEach(o=>w.unshift(`<b>${nmRu(o)}</b>: подпишите, что это — иначе нейросеть выберет сама`));return w.slice(0,3)}
+function drawWarn(){const w=warnAll(),el=$("scnWarn");el.hidden=!w.length;el.innerHTML=w.length?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 3 20h18z"/><path d="M12 10v4"/><circle cx="12" cy="17" r=".9" fill="currentColor"/></svg><span>${w.join(" · ")}</span>`:""}
 
 /* ---------- промт ---------- */
 const xR=x=>x<.36?"left":x>.64?"right":"centre",yR=y=>y<.4?"upper":y>.72?"lower":"middle";
@@ -4820,7 +4903,9 @@ function baseEn(){const b=SC.base;if(b.kind==="none")return "";
     return `${sh[2]} table with a tabletop of ${m[2]}`+(c[0]!=="none"?`, covered with ${c[2].replace("{c}",c[4])}`:"")+`; the tabletop is centred at x ${pc(b.x)}%, its top surface at y ${pc(b.y)}%, about ${pc(b.w)}% of the frame width wide`}
   const p=find(PODS,b.pod)||PODS[1],sh=PSHAPE.find(x=>x[0]===b.pShape)||PSHAPE[0],n=+b.tiers||1;
   return `${p.en||"a display podium"}, shaped as ${sh[2]}${n>1?`, ${n} tiers stacked`:", one tier"}${p.color?`, colour ${col(b.pCol)}`:""}; the top surface is centred at x ${pc(b.x)}%, at y ${pc(b.y)}%, about ${pc(b.w)}% of the frame width wide`}
-function onWhat(o){const b=SC.base,bx=boxOf(o);
+function onWhat(o){const b=SC.base,bx=boxOf(o),pose=poseOf(o),sup=(b.kind==="table"||b.kind==="pod")&&o.x>b.x-b.w/2&&o.x<b.x+b.w/2?(b.kind==="table"?"the table":"the podium"):b.kind==="surface"?"the surface":"the ground";
+  if(pose==="float")return `levitates in mid-air above ${sup}, clearly not touching it, with a soft diffused shadow on ${sup} below to show the height`;
+  if(pose==="lie")return `lies on its side on ${sup}, its long axis horizontal`;
   if(b.kind==="table"||b.kind==="pod"){const L=b.x-b.w/2,R=b.x+b.w/2,on=Math.abs(o.y-b.y)<.03&&o.x>L&&o.x<R;
     if(on)return b.kind==="table"?"stands on the tabletop":"stands on the podium top";
     if(o.y<b.y-.04)return "floats in the air above the "+(b.kind==="table"?"table":"podium")+", casting a soft shadow below";
@@ -4851,10 +4936,11 @@ function txtEn(o){const R=TROLE[o.role],L=txtLines(o),bb=boxOf(o),q=s=>`"${s}"`,
   bx=v=>Math.round((v-c.x)/c.w*BN.W),by=v=>Math.round((v-c.y)/c.h*BN.H),hero=heroOf(),cap=o.size*.72,
   pos=`the block occupies exactly x ${P1(bb.x0)}–${P1(bb.x1)}%, y ${P1(bb.y0)}–${P1(bb.y1)}% of the image${pp?` (on the final banner: x ${bx(bb.x0)}–${bx(bb.x1)} px, y ${by(bb.y0)}–${by(bb.y1)} px)`:""}${hero&&o.role==="head"?`; its capital letters are about ${Math.max(1,Math.round(hero.h/cap*10)/10)} times shorter than ${nm(hero)}`:""}`;
   const lines=L.length>1?`in ${L.length} lines: ${L.map(q).join(" / ")} (the slash marks a line break)`:q(L[0]);
-  if(o.role==="head"){let t=`Headline ${lines} — ${o.caps!==false?"all caps, ":""}${ANA_EN}; ${sz}, line spacing 1.0, left-aligned, ${pos}, colour ${col(inkOf(o))}.`;
+  const al=({left:"left-aligned",center:"centre-aligned",right:"right-aligned"})[o.align||"left"],ls=lsOf(o)?`, letter spacing ${lsOf(o)>0?"+":""}${Math.round(lsOf(o)*100)/100} em`:"";
+  if(o.role==="head"){let t=`Headline ${lines} — ${o.caps!==false?"all caps, ":""}${ANA_EN}; ${sz}, line spacing ${lhOf(o)}${ls}, ${al}, ${pos}, colour ${col(inkOf(o))}.`;
     if(/\d|%|₽/.test(L.join("")))t+=" Every digit and the symbols % and ₽ inside the headline are set in Ubuntu Bold at the same size, while the letters stay in Anaphora.";return t}
-  if(o.role==="tag"){const tc=o.tagCol||"#D9534F";return `Badge: a flat 2D capsule (pill) label overlaid on the image like a graphic sticker in a layout — perfectly horizontal, not rotated, no perspective, not placed on or attached to any object, crisp edges, no shadow, outline or gradient. Filled with flat ${col(tc)}, about ${pp?Math.round(px*2.05)+" px":P1(o.size*2.05)+"% of the image height"} tall with horizontal padding of about ${pp?Math.round(px*.9)+" px":"0.9 em"}, ${pos}. Inside it: ${q(L[0])} in Ubuntu Medium, ${sz}, colour ${hexLum(tc)>.6?"deep warm dark brown #2A1A10":"white"}, numbers in Ubuntu Bold.`}
-  return `${o.role==="sub"?"Subtitle":"Price line"} ${lines} — Ubuntu Medium, sentence case as written${o.role==="price"?", numbers and the ₽ sign in Ubuntu Bold":""}; ${sz}, line spacing ${R.lh}, left-aligned, ${pos}, colour ${col(inkOf(o))}.`}
+  if(o.role==="tag"){const tc=o.tagCol||"#D9534F";return `Badge: a flat 2D capsule (pill) label overlaid on the image like a graphic sticker in a layout — perfectly horizontal, not rotated, no perspective, not placed on or attached to any object, crisp edges, no shadow, outline or gradient. Filled with flat ${col(tc)}, about ${pp?Math.round(px*2.05)+" px":P1(o.size*2.05)+"% of the image height"} tall with horizontal padding of about ${pp?Math.round(px*.9)+" px":"0.9 em"}, ${pos}. Inside it: ${q(L[0])} in ${o.bold?"Ubuntu Bold":"Ubuntu Medium"}${ls}, ${sz}, colour ${hexLum(tc)>.6?"deep warm dark brown #2A1A10":"white"}, numbers in Ubuntu Bold.`}
+  return `${o.role==="sub"?"Subtitle":"Price line"} ${lines} — ${o.bold?"Ubuntu Bold":"Ubuntu Medium"}, sentence case as written${o.role==="price"&&!o.bold?", numbers and the ₽ sign in Ubuntu Bold":""}; ${sz}, line spacing ${lhOf(o)}${ls}, ${al}, ${pos}, colour ${col(inkOf(o))}.`}
 const TXT_SCALE="TYPE SCALE IS FIXED: keep every text block exactly at the size and position given; measure against the whole image. Do not enlarge text to fill the text zone or empty space, do not move it up or down, do not add line breaks — generous empty background around the text is intentional.";
 const TXT_RULE="All text is flat 2D typography overlaid on the image, as in a finished layout: perfectly horizontal baselines, no rotation, no perspective, no 3D, no shadows, never printed on objects. Render the Russian text letter for letter with correct Cyrillic spelling. No other text anywhere: no logos, invented labels, buttons, stickers or watermarks.";
 function sketchEn(){const T=SC.txtMode==="render"?txts().length:0;return "The last attached image is a flat layout mock-up of this exact frame. Use it only as a composition guide: copy the placement, size, overlap and cropping of every object, the support"+(T?", the text block":"")+" and the background split. Do not copy its flat look: replace every flat placeholder shape with the real, photorealistic object described below, render the background and surfaces as described with natural light, shadows and materials. The final image contains no guides, outlines, placeholder shapes, letters or numbers other than the specified text."
@@ -4872,6 +4958,10 @@ function refEn(){const r=SC.rules,P=prods(),out=[];if(!P.length)return "";const 
   if(r.scale)out.push("All objects keep realistic real-world proportions relative to each other.");
   return out.join(" ")}
 const avoidEn=()=>SC.rules.avoid?"collage look, pasted or cut-out reference, added text or captions, watermarks, extra or duplicated products, distorted or misspelled labels, plastic AI sheen, warped geometry"+(txts().length&&SC.txtMode==="render"?", text larger or higher than specified":"")+(SC.sketch?", the flat look, outlines or placeholder shapes of the mock-up":"")+".":"";
+function decWhat(o){const n=(o.name||"").trim();return n?`${n} (exactly this object)`:o.type==="custom"?"a small decorative object that suits the product":DT[o.type].en}
+const XD={few:"2–3 small decor elements, placed close to the products as quiet accents",bal:"about 5–7 decor elements arranged around the products with clear breathing room between them",rich:"10 or more decor elements layered in the foreground and background, rich yet organized, some partly out of focus at the frame edges"};
+function extraEn(){const x=SC.extra;if(!x.on)return "";const st=spec().st,pp=isPP();
+  return `In addition to the objects listed above, add ${XD[x.n]||XD.few}. Choose them thematically from the reference: read what the product is, its flavor, ingredients, origin, use and packaging colors, and add elements that tell that story (ingredients, fruits, herbs, utensils, related objects).${x.props.trim()?` Must include: ${x.props.trim()}.`:""} Render them in exactly the same visual style as the scene (${st.kind==="3D-рендер"?"3D-rendered with the same materials and finish":"real photographed objects"}), under the same light, in a palette harmonized with the product. They never cover the products or their labels, never move the listed objects${txts().length?`, and stay out of the text area`:""}${pp?" and inside the banner area":""}.`}
 function promptText(){const {st,an,look}=spec(),P=prods(),Dc=decs(),T=txts(),out=[],bn=bannerEn();
   out.push(["SCENE",`${bn?"A finished 1100×600 web promo banner with typography. ":""}${st.open}: a hand-arranged product scene. ${bn?bn.size:`Aspect ratio ${SC.frame.ratio}.`} Reproduce the layout below precisely.`]);
   if(SC.sketch)out.push(["LAYOUT MOCK-UP",sketchEn()]);
@@ -4880,8 +4970,9 @@ function promptText(){const {st,an,look}=spec(),P=prods(),Dc=decs(),T=txts(),out
   out.push(["CAMERA",an.p]);
   out.push(["BACKGROUND",bgEn()+"."]);
   {const be=baseEn();if(be)out.push(["SUPPORT",be.charAt(0).toUpperCase()+be.slice(1)+"."])}
-  if(P.length)out.push(["PRODUCTS",`${P.length} product${P.length>1?"s":""}. `+P.map(o=>{const {hero,t}=prodEn(o);return `${nm(o)}${hero&&P.length>1?" (hero, the most prominent)":""}: ${t}. Position x ${pc(o.x)}%, y ${pc(o.y)}% (${where(o.x,o.y-o.h/2)}); height ≈ ${pc(o.h)}% of the image; ${rotEn(o.rot)}, label facing the camera; ${onWhat(o)}.`}).join(" ")]);
-  if(Dc.length)out.push(["DECOR",Dc.map(o=>{const I=DT[o.type];return `${nm(o)}: ${o.many?"a small scattered cluster of "+I.en.replace(/^an? /,""):I.en}${o.col&&o.col!==I.col?` in ${col(o.col)}`:""} at x ${pc(o.x)}%, y ${pc(o.y)}%, height ≈ ${pc(o.h)}% of the image, ${rotEn(o.rot)}${o.blur?", softly out of focus":""}.`}).join(" ")+" Decor stays secondary and never covers the product labels."]);
+  if(P.length)out.push(["PRODUCTS",`${P.length} product${P.length>1?"s":""}. `+P.map(o=>{const {hero,t}=prodEn(o);return `${nm(o)}${hero&&P.length>1?" (hero, the most prominent)":""}: ${t}. Position x ${pc(o.x)}%, y ${pc(o.y)}% (${where(o.x,o.y-o.h/2)}); height ≈ ${pc(o.h)}% of the image${poseOf(o)==="lie"?" (its length when lying)":""}; ${rotEn(o.rot)}${poseOf(o)==="lie"?"":", label facing the camera"}; ${onWhat(o)}.`}).join(" ")]);
+  if(Dc.length)out.push(["DECOR",Dc.map(o=>{const what=decWhat(o);return `${nm(o)}: ${o.many?"a small scattered cluster of "+what.replace(/^an? /,""):what}${o.col&&o.col!==DT[o.type].col&&o.type!=="custom"?` in ${col(o.col)}`:""} at x ${pc(o.x)}%, y ${pc(o.y)}%, height ≈ ${pc(o.h)}% of the image, ${rotEn(o.rot)}, ${onWhat(o)}${o.blur?", softly out of focus":""}.`}).join(" ")+" Decor stays secondary and never covers the product labels."]);
+  {const xe=extraEn();if(xe)out.push(["EXTRA DECOR",xe])}
   {const ov=overlaps();if(ov.length)out.push(["DEPTH",ov.map(([f,k])=>`${nm(f)} is in front of ${nm(k)} and partly overlaps it.`).join(" ")])}
   if(T.length&&SC.txtMode==="render")out.push(["TEXT",TXT_SCALE+"\n"+T.map(txtEn).join("\n")+"\n"+TXT_RULE]);
   if(T.length&&SC.txtMode==="space")out.push(["TEXT AREA",spaceEn(txtArea())]);
@@ -4889,7 +4980,7 @@ function promptText(){const {st,an,look}=spec(),P=prods(),Dc=decs(),T=txts(),out
   out.push(["STYLE",look]);
   out.push(["LIGHT",lightEn(st)]);
   {const av=avoidEn();if(av)out.push(["AVOID",av])}
-  out.push(["RULES",["Do not add any objects, people, hands or props beyond those listed; areas without objects stay empty.",T.length&&SC.txtMode==="render"?"":"No text, logos or watermarks.",
+  out.push(["RULES",[SC.extra.on?"Do not add people or hands; besides the listed objects add only the extra decor described above.":"Do not add any objects, people, hands or props beyond those listed; areas without objects stay empty.",T.length&&SC.txtMode==="render"?"":"No text, logos or watermarks.",
     bn?"Everything important stays inside the 1100×600 banner area.":"Keep every object fully inside the frame unless its position is at the edge."].filter(Boolean).join(" ")]);
   return out.map(([k,v])=>`${k}: ${v}`).join("\n\n")}
 function promptJSON(){const {st,an,look}=spec(),P=prods(),Dc=decs(),T=txts(),ov=overlaps(),bn=bannerEn();
@@ -4898,14 +4989,15 @@ function promptJSON(){const {st,an,look}=spec(),P=prods(),Dc=decs(),T=txts(),ov=
     frame:Object.assign({format:bn?bn.size:`Aspect ratio ${SC.frame.ratio}.`,coordinates:"x, y in % of the generated image from the top-left corner; for objects (x, y) is where the base touches its support; height in % of image height; lower in frame = closer to camera"},bn?{banner:bn.lay}:{}),
     render:st.open,camera:an.p,background:bgEn()};
   const be=baseEn();if(be)j.support=be;
-  if(P.length)j.products=P.map(o=>{const {hero,t}=prodEn(o),r={id:+numOf(o),what:t,position:{x:pc(o.x),y:pc(o.y)},height:pc(o.h)+"%",orientation:rotEn(o.rot)+", label facing the camera",support:onWhat(o)};if(hero&&P.length>1)r.role="hero, the most prominent";return r});
-  if(Dc.length)j.decor=Dc.map(o=>{const I=DT[o.type],r={id:numOf(o),what:(o.many?"a small scattered cluster of "+I.en.replace(/^an? /,""):I.en)+(o.col&&o.col!==I.col?` in ${col(o.col)}`:""),position:{x:pc(o.x),y:pc(o.y)},height:pc(o.h)+"%",orientation:rotEn(o.rot)};if(o.blur)r.focus="softly out of focus";return r});
+  if(P.length)j.products=P.map(o=>{const {hero,t}=prodEn(o),r={id:+numOf(o),what:t,position:{x:pc(o.x),y:pc(o.y)},height:pc(o.h)+"%",orientation:rotEn(o.rot)+(poseOf(o)==="lie"?"":", label facing the camera"),support:onWhat(o)};if(hero&&P.length>1)r.role="hero, the most prominent";return r});
+  if(Dc.length)j.decor=Dc.map(o=>{const what=decWhat(o),r={id:numOf(o),what:(o.many?"a small scattered cluster of "+what.replace(/^an? /,""):what)+(o.col&&o.col!==DT[o.type].col&&o.type!=="custom"?` in ${col(o.col)}`:""),position:{x:pc(o.x),y:pc(o.y)},height:pc(o.h)+"%",orientation:rotEn(o.rot),support:onWhat(o)};if(o.blur)r.focus="softly out of focus";return r});
+  {const xe=extraEn();if(xe)j.extra_decor=xe}
   if(ov.length)j.depth=ov.map(([f,k])=>`${nm(f)} in front of ${nm(k)}, partly overlapping`);
   if(T.length&&SC.txtMode==="render"){j.text=T.map(o=>({id:numOf(o),role:ROLE_EN[o.role],content:txtLines(o),spec:txtEn(o)}));j.text_rules=[TXT_SCALE,TXT_RULE]}
   if(T.length&&SC.txtMode==="space")j.text_area=spaceEn(txtArea());
   {const rf=refEn();if(rf)j.reference=rf;const av=avoidEn();if(av)j.avoid=av}
   j.style=look;j.light=lightEn(st);
-  j.rules=[T.length&&SC.txtMode==="render"?"":"No text, logos or watermarks.","Do not add objects, people, hands or props beyond those listed; empty areas stay empty.",bn?"Everything important stays inside the 1100×600 banner area.":"Keep every object fully inside the frame."].filter(Boolean);
+  j.rules=[T.length&&SC.txtMode==="render"?"":"No text, logos or watermarks.",SC.extra.on?"Do not add people or hands; besides the listed objects add only the extra decor.":"Do not add objects, people, hands or props beyond those listed; empty areas stay empty.",bn?"Everything important stays inside the 1100×600 banner area.":"Keep every object fully inside the frame."].filter(Boolean);
   return JSON.stringify(j,null,2)}
 const prompt=()=>SC.fmt==="json"?promptJSON():promptText();
 function drawOut(){const t=prompt(),L=t.split("\n"),old=new Set(PREV);
@@ -4918,13 +5010,19 @@ let outT=0;const outSoon=()=>{clearTimeout(outT);outT=setTimeout(drawOut,160)};
 function drawLayers(){const b=SC.base,chip=(id,i,ico,t)=>`<button class="scn-lay" type="button" data-sel="${id}" aria-pressed="${SEL===id}"><i>${i}</i>${ico}${escA(t)}</button>`;
   $("scnLayers").innerHTML=chip("bg","Ф","",({solid:"Фон: цвет",grad:"Фон: градиент",room:"Фон: "+((ROOMS.find(r=>r[0]===SC.bg.room)||ROOMS[0])[1]).toLowerCase()})[SC.bg.kind])
     +chip("base","П","",b.kind==="none"?"Подставка: нет":"Подставка: "+({surface:"поверхность",table:"стол",pod:"подиум"})[b.kind])
-    +SC.objs.map(o=>chip(o.id,numOf(o),o.k==="txt"?"":mini(o.k==="prod"?PT[o.type]:DT[o.type]),o.k==="prod"?((o.name||"").trim()||PT[o.type].t):o.k==="dec"?DT[o.type].t:(txtLines(o)[0]||TROLE[o.role].t))).join("")}
+    +SC.objs.map(o=>chip(o.id,numOf(o),o.k==="txt"?"":mini(o.k==="prod"?PT[o.type]:DT[o.type]),o.k==="prod"?((o.name||"").trim()||PT[o.type].t):o.k==="dec"?((o.name||"").trim()||DT[o.type].t):(txtLines(o)[0]||TROLE[o.role].t))).join("")}
 
 /* ---------- инспектор ---------- */
 const ic={dup:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"/></svg>',
   del:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 13h8l1-13"/></svg>',
   up:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 19h14"/></svg>'};
-const I_={"bgkind": "<b>Цвет</b> — ровный студийный фон. <b>Градиент</b> — плавный переход двух цветов. <b>Интерьер</b> — размытое помещение за продуктом: генератор нарисует его сам, на холсте только намёк.", "tone": "Делает выбранный цвет светлее или темнее, не меняя оттенок. Удобно подогнать фон под упаковку.", "gdir": "Как идёт переход: сверху вниз, слева направо или из центра к краям.", "stops": "Выберите, какой край градиента меняете, затем цвет в палитре.", "room": "Какое помещение угадывается за продуктом. Это фон, а не стол: на чём стоят продукты — в «Подставке».", "time": "<b>Вечер</b> — тёплые лампы и огоньки боке, <b>день</b> — мягкий дневной свет из окна.", "blur": "<b>Сильное</b> — от интерьера остаются пятна света и цвета, продукт выделяется сильнее. <b>Лёгкое</b> — помещение узнаётся.", "under": "Спокойная зона под текстом, чтобы он читался на любом фоне. <b>Плашка</b> — ровная заливка с чётким краем, как сплит-макет. <b>Растушёвка</b> — заливка плавно уходит в фон. <b>В цвет фона</b> подбирает тон из самого фона, чтобы переход был незаметен.", "base": "На чём стоят продукты. <b>Поверхность</b> — столешница до горизонта. <b>Стол</b> — отдельный стол со скатертью. <b>Подиум</b> — студийные постаменты. Продукты на столе или подиуме двигаются вместе с ним.", "ptype": "Форма упаковки на этом месте. Нужна, чтобы генератор понял, что здесь стоит и какого оно размера. Сам продукт он возьмёт с вашего фото.", "pname": "Короткое название по-русски или по-английски, например «сыр в вакуумной упаковке». Помогает, если на фото несколько предметов или фото нет вовсе.", "ref": "Какое из приложенных к генерации фото — этот продукт. Приложили банку первой, бутылку второй — отметьте банке «Фото 1», бутылке «Фото 2». В промте будет «продукт 1 с первого фото, продукт 2 со второго». Порядок — как загружаете в генератор; набросок всегда последним.", "hero": "Главный продукт генератор делает самым заметным: крупнее, резче, в центре внимания. Обычно это то, что продаём.", "pcol": "Подсказка цвета, если фото нет или упаковку нужно перекрасить. «Как на фото» — цвет берётся с референса.", "dtype": "Мелкие предметы вокруг продукта. На холсте — плоская иконка, генератор нарисует настоящий предмет.", "dopts": "<b>Россыпь</b> — несколько штук вокруг точки: ягоды, специи, орехи. <b>Не в фокусе</b> — предмет размыт, как на переднем плане; добавляет глубину.", "size": "<b>Размер</b> — видимая высота относительно кадра. <b>Наклон</b> — поворот для динамики.", "role": "Роль задаёт шрифт и размер по гайду ПП: заголовок — Анафора капсом, подзаголовок и цена — Ubuntu Medium, плашка — цветная капсула.", "tmode": "<b>Рисует генератор</b> — текст сразу в картинке, но размер и место нейросеть держит приблизительно. <b>Наберу в Figma</b> — генератор оставит это место пустым, а текст вы наберёте сами, точно по сетке. На холсте текст остаётся полупрозрачным ориентиром, в набросок не попадает.", "px": "Размер в пикселях баннера 1100×600 — так же, как в Figma."};
+const I_={"bgkind": "<b>Цвет</b> — ровный студийный фон. <b>Градиент</b> — плавный переход двух цветов. <b>Интерьер</b> — размытое помещение за продуктом: генератор нарисует его сам, на холсте только намёк.", "tone": "Делает выбранный цвет светлее или темнее, не меняя оттенок. Удобно подогнать фон под упаковку.", "gdir": "Как идёт переход: сверху вниз, слева направо или из центра к краям.", "stops": "Выберите, какой край градиента меняете, затем цвет в палитре.", "room": "Какое помещение угадывается за продуктом. Это фон, а не стол: на чём стоят продукты — в «Подставке».", "time": "<b>Вечер</b> — тёплые лампы и огоньки боке, <b>день</b> — мягкий дневной свет из окна.", "blur": "<b>Сильное</b> — от интерьера остаются пятна света и цвета, продукт выделяется сильнее. <b>Лёгкое</b> — помещение узнаётся.", "under": "Спокойная зона под текстом, чтобы он читался на любом фоне. <b>Плашка</b> — ровная заливка с чётким краем, как сплит-макет. <b>Растушёвка</b> — заливка плавно уходит в фон. <b>В цвет фона</b> подбирает тон из самого фона, чтобы переход был незаметен.", "base": "На чём стоят продукты. <b>Поверхность</b> — столешница до горизонта. <b>Стол</b> — отдельный стол со скатертью. <b>Подиум</b> — студийные постаменты. Продукты на столе или подиуме двигаются вместе с ним.", "ptype": "Форма упаковки на этом месте. Нужна, чтобы генератор понял, что здесь стоит и какого оно размера. Сам продукт он возьмёт с вашего фото.", "pname":"Подпись превращает фигуру в конкретный предмет: что напишете, то нейросеть и нарисует на этом месте. Например «сыр в вакуумной упаковке». Подпись видна на холсте.",
+ "dname":"Подпись превращает фигуру в конкретный предмет: что напишете, то нейросеть и нарисует на этом месте — например «веточка розмарина» или «бокал игристого». Для «Своего предмета» подпись обязательна.",
+ "extra":"Нейросеть сама добавит предметы по теме продукта: ингредиенты, травы, посуду. Ваши объекты на макете останутся на местах, а зона текста — чистой.",
+ "pose":"<b>Стоит</b> — на подставке или на полу. <b>Парит</b> — висит в воздухе, тень падает ниже: для динамичных промо. <b>Лежит</b> — на боку, как батончик или бутылка на столе. Поднять или опустить объект можно и просто перетаскиванием.",
+ "talign":"Как строки выравниваются внутри блока: по левому краю, по центру или по правому.",
+ "tweight":"Для подзаголовка, цены и плашки: Ubuntu Medium или Ubuntu Bold. Заголовок всегда Анафора.",
+ "tspace":"Между строк — интерлиньяж, 1,0 = плотно. Между букв — трекинг: плюс разреживает, минус уплотняет.", "ref": "Какое из приложенных к генерации фото — этот продукт. Приложили банку первой, бутылку второй — отметьте банке «Фото 1», бутылке «Фото 2». В промте будет «продукт 1 с первого фото, продукт 2 со второго». Порядок — как загружаете в генератор; набросок всегда последним.", "hero": "Главный продукт генератор делает самым заметным: крупнее, резче, в центре внимания. Обычно это то, что продаём.", "pcol": "Подсказка цвета, если фото нет или упаковку нужно перекрасить. «Как на фото» — цвет берётся с референса.", "dtype":"Мелкие предметы вокруг продукта. На холсте — плоская иконка, нейросеть нарисует настоящий предмет. Нужного нет в списке — возьмите «Свой предмет» и подпишите его.", "dopts": "<b>Россыпь</b> — несколько штук вокруг точки: ягоды, специи, орехи. <b>Не в фокусе</b> — предмет размыт, как на переднем плане; добавляет глубину.", "size": "<b>Размер</b> — видимая высота относительно кадра. <b>Наклон</b> — поворот для динамики.", "role": "Роль задаёт шрифт и размер по гайду ПП: заголовок — Анафора капсом, подзаголовок и цена — Ubuntu Medium, плашка — цветная капсула.", "tmode":"<b>Рисует нейросеть</b> — текст сразу в картинке, но размер и место она держит приблизительно. <b>Наберу сам</b> — нейросеть оставит это место пустым, а текст вы наберёте в Figma точно по сетке. На холсте текст остаётся полупрозрачным ориентиром, в набросок не попадает.", "px": "Размер в пикселях баннера 1100×600 — так же, как в Figma."};
 const inf=t=>`<details class="info"><summary aria-label="Подробнее">i</summary><div><p>${t}</p></div></details>`;
 const sec=(t,b,i)=>`<div class="scn-sec">${t||i?`<div class="scn-sech"><h3>${t||""}</h3>${i?inf(i):""}</div>`:""}${b}</div>`;
 const swts=h=>`<div class="toggles swt scn-one">${h}</div>`;
@@ -4939,12 +5037,14 @@ function pal(a,cur){const gi=PALG[a]??Math.max(0,PAL.findIndex(g=>g.c.some(x=>x[
   return `<div class="scn-pal"><div class="pgtabs" role="tablist" aria-label="Группы цветов">${PAL.map((g,i)=>`<button class="pgtab" type="button" role="tab" data-pg="${i}" data-pa="${a}" aria-selected="${i===gi}"><span class="pgdots">${g.c.slice(0,3).map(x=>`<i style="background:${x[1]}"></i>`).join("")}</span>${g.g}</button>`).join("")}</div>
   <div class="swatches pgbody" role="tabpanel">${PAL[gi].c.map(([n,h])=>`<button class="sw" type="button" data-a="${a}" data-v="${h}" title="${escA(n)} · ${h}" aria-label="${escA(n)}" aria-pressed="${h.toLowerCase()===String(cur).toLowerCase()}" style="background:${h}"></button>`).join("")}<input type="color" class="scn-cin" data-a="${a}" value="${okHex(cur)?cur:"#888888"}" aria-label="Свой цвет" title="Свой цвет"></div></div>`}
 function rng(a,label,min,max,step,v,f){return `<label class="scn-rng"><span>${label}</span><output>${f(v)}</output><input type="range" data-a="${a}" min="${min}" max="${max}" step="${step}" value="${v}"></label>`}
-const FMT={h:v=>pc(v)+"% кадра",rot:v=>(Math.round(v)||0)+"°",size:v=>pc(v)+"% кадра",px:v=>Math.round(v)+" px",w:v=>pc(v)+"% ширины","bg.tone":v=>!+v?"как в палитре":(v>0?"светлее ":"темнее ")+Math.abs(Math.round(v*100))+"%","under.w":v=>"до "+pc(v)+"% кадра"};
+const FMT={lh:v=>(+v).toFixed(2).replace(".",","),ls:v=>(v>0?"+":"")+Math.round(v*100)/100+" em",h:v=>pc(v)+"% кадра",rot:v=>(Math.round(v)||0)+"°",size:v=>pc(v)+"% кадра",px:v=>Math.round(v)+" px",w:v=>pc(v)+"% ширины","bg.tone":v=>!+v?"как в палитре":(v>0?"светлее ":"темнее ")+Math.abs(Math.round(v*100))+"%","under.w":v=>"до "+pc(v)+"% кадра"};
 function sw(a,label,on,note){return `<label class="tg"><input type="checkbox" role="switch" data-a="${a}" ${on?"checked":""}><span>${label}${note?`<small>${note}</small>`:""}</span></label>`}
 function head(t,acts){return `<div class="scn-ih"><h2>${t}</h2>${acts?`<button class="iconbtn" type="button" data-act="dup" aria-label="Дублировать" title="Дублировать (⌘D)">${ic.dup}</button><button class="iconbtn" type="button" data-act="del" aria-label="Удалить" title="Удалить (Delete)">${ic.del}</button>`:""}</div>`}
 const roomThumb=id=>{const r=ROOMS.find(x=>x[0]===id),out=["garden","terrace"].includes(id);
   return `<svg viewBox="0 0 48 38" aria-hidden="true"><rect width="48" height="38" fill="var(--fig-top)"/>${out?'<circle cx="12" cy="12" r="9" fill="var(--fig-l)"/><circle cx="34" cy="10" r="10" fill="var(--fig-r)"/>':`<rect x="5" y="5" width="12" height="17" rx="2" fill="var(--panel)"/>`}${["kitchen","cafe","bakery","bar"].includes(id)?'<rect x="22" y="9" width="22" height="2.5" fill="var(--fig-r)"/><rect x="22" y="16" width="22" height="2.5" fill="var(--fig-r)"/>':""}${id==="living"?'<rect x="22" y="17" width="20" height="8" rx="3" fill="var(--fig-r)"/>':""}${id==="winter"?'<path d="M36 5 43 24H29Z" fill="var(--fig-r)"/>':""}${["restaurant","bar","winter"].includes(id)?'<circle cx="26" cy="7" r="2.5" fill="var(--detail)"/><circle cx="34" cy="5" r="2" fill="var(--detail)"/>':'<circle cx="40" cy="6" r="2.5" fill="var(--detail)"/>'}<rect y="28" width="48" height="10" fill="var(--fig-l)"/></svg>`};
 function fontRow(slot,label){const [st,txt]=fontStat(slot);return `<div class="scn-font"><span class="scn-fdot ${st}"></span><span><b>${label}</b><small>${txt}</small></span><button class="btn ghost sm" type="button" data-font="${slot}">${FONT[slot]?"Заменить":"Загрузить"}</button></div>`}
+const AL_IC={left:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 10h10M4 14h16M4 18h10"/></svg>',center:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 10h10M4 14h16M7 18h10"/></svg>',right:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M10 10h10M4 14h16M10 18h10"/></svg>'};
+function segIc(a,opts,cur,label){return `<div class="gsort scn-icseg" role="radiogroup" aria-label="${label}">${opts.map(([v,t,ic])=>`<button type="button" role="radio" data-a="${a}" data-v="${v}" aria-checked="${String(v)===String(cur)}" aria-label="${t}" title="${t}">${ic}</button>`).join("")}</div>`}
 function drawInsp(){const el=$("scnInsp"),o=selObj();let h="";
   if(SEL==="bg"){const b=SC.bg,u=SC.under;h=head("Фон")+sec("Тип фона",seg("bg.kind",[["solid","Цвет"],["grad","Градиент"],["room","Интерьер"]],b.kind,"Тип фона"),I_.bgkind);
     if(b.kind==="solid")h+=sec("Цвет",pal("bg.color",b.color),I_.tone);
@@ -4972,25 +5072,34 @@ function drawInsp(){const el=$("scnInsp"),o=selObj();let h="";
         +sec("Форма",chips("base.pShape",PSHAPE.map(x=>[x[0],x[1]]),b.pShape))+sec("Ярусы",seg("base.tiers",[["1","1"],["2","2"],["3","3"]],String(b.tiers),"Ярусы"))
         +sec("Цвет",sws("base.pCol",PODSW,b.pCol))+sec("",rng("base.w","Ширина",.12,1,.01,b.w,FMT.w))}}
   else if(o&&o.k==="prod"){const nP=prods().length;h=head(`Продукт ${numOf(o)}`,true)+PGROUPS.map(([g,ids],i)=>sec(g,cards("type",ids,o.type,id=>PT[id].t,{svg:id=>mini(PT[id])},colsFor(ids.length)),i?"":I_.ptype)).join("")
-    +sec("Что это",`<input class="scn-in" type="text" data-a="name" value="${escA(o.name||"")}" maxlength="80" placeholder="Например: сыр в вакуумной упаковке" aria-label="Что это за продукт">`,I_.pname)
+    +sec("Подпись: что это",`<input class="scn-in" type="text" data-a="name" value="${escA(o.name||"")}" maxlength="80" placeholder="Например: сыр в вакуумной упаковке" aria-label="Подпись: что это за продукт">`,I_.pname)
     +(nP>1?sec("С какого фото",seg("ref",Array.from({length:Math.min(4,nP)},(_,i)=>[String(i+1),`Фото ${i+1}`]),String(o.ref||1),"С какого фото"),I_.ref):"")
     +(nP>1?sec("Акцент",swts(sw("hero","Главный продукт",heroOf()===o,"Самый заметный в кадре")),I_.hero):"")
+    +sec("Положение",seg("pose",[["stand","Стоит"],["float","Парит"],["lie","Лежит"]],poseOf(o),"Положение")+(nP>1?`<button class="scn-link" type="button" data-act="poseall">Так же для всех: ${({stand:"стоят",float:"парят",lie:"лежат"})[poseOf(o)]}</button>`:""),I_.pose)
     +sec(["plate","bowl"].includes(o.type)?"Цвет посуды":o.type==="glass"?"Цвет напитка":"Цвет упаковки",sws("col",PKCOL,o.col,"Как на фото"),I_.pcol)
     +sec("Размер и наклон",rng("h","Размер",.04,1,.01,o.h,FMT.h)+rng("rot","Наклон",-45,45,1,o.rot||0,FMT.rot),I_.size)}
   else if(o&&o.k==="dec"){h=head(`Декор ${numOf(o)}`,true)+DGROUPS.map(([g,ids],i)=>sec(g,cards("type",ids,o.type,id=>DT[id].t,{svg:id=>mini(DT[id])},4),i?"":I_.dtype)).join("")
+    +sec(o.type==="custom"?"Подпись: что это — обязательно":"Подпись: что это",`<input class="scn-in${o.type==="custom"&&!(o.name||"").trim()?" need":""}" type="text" data-a="name" value="${escA(o.name||"")}" maxlength="80" placeholder="${o.type==="custom"?"Например: бокал игристого":"Необязательно: уточните, например «долька лайма»"}" aria-label="Подпись: что это">`,I_.dname)
+    +sec("Положение",seg("pose",[["stand","Стоит"],["float","Парит"],["lie","Лежит"]],poseOf(o),"Положение")+(decs().length>1?`<button class="scn-link" type="button" data-act="poseall">Так же для всех: ${({stand:"стоят",float:"парят",lie:"лежат"})[poseOf(o)]}</button>`:""),I_.pose)
     +sec("Как выглядит",swts(sw("many","Россыпь",o.many,"Несколько штук вокруг точки")+sw("blur","Не в фокусе",o.blur,"Мягко размыт, как на переднем плане")),I_.dopts)
-    +sec("Цвет",sws("col",[DT[o.type].col,...PKCOL.slice(0,9)],o.col||DT[o.type].col))
+    +(o.type==="custom"?"":sec("Цвет",sws("col",[DT[o.type].col,...PKCOL.slice(0,9)],o.col||DT[o.type].col)))
     +sec("Размер и наклон",rng("h","Размер",.02,.6,.005,o.h,FMT.h)+rng("rot","Наклон",-90,90,1,o.rot||0,FMT.rot),I_.size)}
   else if(o&&o.k==="txt"){const R=TROLE[o.role],pp=isPP();
-    h=head(`Текст ${numOf(o).slice(1)}`,true)+sec("Кто рисует текст",seg("txtMode",[["render","Генератор"],["space","Наберу в Figma"]],SC.txtMode,"Кто рисует текст"),I_.tmode)
+    h=head(`Текст ${numOf(o).slice(1)}`,true)+sec("Текст на картинке",seg("txtMode",[["render","Рисует нейросеть"],["space","Наберу сам"]],SC.txtMode,"Кто рисует текст"),I_.tmode)
     +sec("Роль",seg("role",Object.keys(TROLE).map(k=>[k,TROLE[k].t]),o.role,"Роль текста"),I_.role)
     +sec("Текст",`<textarea class="scn-in" data-a="text" rows="${o.role==="tag"||o.role==="price"?1:2}" maxlength="120" placeholder="${escA(R.ph)}" aria-label="Текст">${escA(o.text||"")}</textarea>`+(o.role==="head"?swts(sw("caps","Заглавными",o.caps!==false,"Анафора набирается капсом, цифры — Ubuntu Bold")):""))
+    +`<div class="scn-row2">${sec("Выравнивание",segIc("align",[["left","По левому краю",AL_IC.left],["center","По центру",AL_IC.center],["right","По правому краю",AL_IC.right]],o.align||"left","Выравнивание"),I_.talign)}${o.role==="head"?"":sec("Начертание",seg("bold",[["0","Medium"],["1","Bold"]],o.bold?"1":"0","Начертание"),I_.tweight)}</div>`
+    +sec("Интервалы",(o.role==="tag"?"":rng("lh","Между строк",.8,1.8,.05,lhOf(o),FMT.lh))+rng("ls","Между букв",-.05,.3,.01,lsOf(o),FMT.ls),I_.tspace)
     +(o.role==="tag"?sec("Цвет плашки",sws("tagCol",["#D9534F","#F0B92A","#3E7D4F","#2F5D9E","#2A1A10","#FFFFFF"],o.tagCol||"#D9534F")):sec("Цвет",seg("ink",[["auto","Авто"],["light","Белый"],["dark","Тёмный"],["custom","Свой"]],o.ink||"auto","Цвет текста")+(o.ink==="custom"?sws("inkC",["#2A1A10","#FFFFFF","#C8102E","#3E7D4F"],o.inkC):"")))
     +sec("Кегль",pp?rng("px","На баннере 1100×600",R.rng[0],R.rng[1],1,pxOf(o),FMT.px):rng("size","Доля кадра",.015,.25,.001,o.size,FMT.size),pp?I_.px:"")
     +sec("Шрифты",fontRow("ana","Анафора · заголовок")+fontRow("ub","Ubuntu · цифры и текст")+`<input type="file" id="scnFontIn" accept=".otf,.ttf,.woff,.woff2" hidden><p class="scn-note">Файл шрифта хранится только в этом браузере. С ним холст и набросок рисуют настоящими буквами — генератор копирует их из наброска.</p>`)}
   el.innerHTML=h}
 
 /* ---------- изменения ---------- */
+function setPose(o,v){const was=poseOf(o),g=groundY(o),b=SC.base,onSup=Math.abs(o.y-g)<.03||(b.kind==="surface"&&o.y>=b.y-.01);
+  if(v==="float"&&was!=="float"&&onSup)o.y=Math.max(.05,o.y-.1);
+  if(v!=="float"&&was==="float"){const gy=(b.kind==="table"||b.kind==="pod")&&o.x>b.x-b.w/2&&o.x<b.x+b.w/2?b.y:o.y;o.y=gy}
+  o.pose=v}
 function setVal(a,v){const o=selObj();
   if(a==="bg.stop"){SC.bg.stop=v;return}
   if(a==="txtMode"){SC.txtMode=v;return}
@@ -5007,15 +5116,18 @@ function setVal(a,v){const o=selObj();
   if(a==="hero"){prods().forEach(p=>p.hero=false);o.hero=!!v;return}
   if(a==="ref"){o.ref=+v;return}
   if(a==="px"){o.size=sizeOfPx(+v);return}
+  if(a==="bold"){o.bold=v==="1";return}
+  if(a==="pose"){setPose(o,v);return}
+  if(a==="lh"||a==="ls"){o[a]=+v;return}
   if(["h","rot","size"].includes(a)){o[a]=+v;return}
   if(a==="col"&&o.k==="dec"&&v===DT[o.type].col){o.col=null;return}
   if(a==="role"){o.size=isPP()?sizeOfPx(TROLE[v].px):TROLE[v].px/600*.95;o.role=v;return}
   o[a]=v===""?null:v}
-const REINSP=new Set(["txtMode","under.col","bg.kind","bg.gdir","bg.stop","under.kind","base.kind","base.surf","base.pod","type","role","ink","hero","caps"]);
+const REINSP=new Set(["pose","bold","align","txtMode","under.col","bg.kind","bg.gdir","bg.stop","under.kind","base.kind","base.surf","base.pod","type","role","ink","hero","caps"]);
 function commit(reInsp){save();draw();drawLayers();if(reInsp)drawInsp();outSoon()}
-function all(){save();draw();drawLayers();drawInsp();drawOut();syncBar();drawRules()}
+function all(){save();draw();drawLayers();drawInsp();drawOut();syncBar();drawRules();drawExtra();stepsSync()}
 function bindInsp(){const el=$("scnInsp");
-  el.addEventListener("click",e=>{const act=e.target.closest("[data-act]");if(act){act.dataset.act==="dup"?dup():del();return}
+  el.addEventListener("click",e=>{const act=e.target.closest("[data-act]");if(act){const k=act.dataset.act;if(k==="poseall"){const o=selObj();snap();(o.k==="prod"?prods():decs()).forEach(x=>{if(x!==o)setPose(x,poseOf(o))});commit(true);toast("Положение применено ко всем");return}k==="dup"?dup():del();return}
     const tab=e.target.closest("[data-pg]");if(tab){PALG[tab.dataset.pa]=+tab.dataset.pg;drawInsp();const f=el.querySelector(`[data-pa="${tab.dataset.pa}"][data-pg="${tab.dataset.pg}"]`);if(f)f.focus();return}
     const fb=e.target.closest("[data-font]");if(fb){const inp=$("scnFontIn");inp.dataset.slot=fb.dataset.font;inp.click();return}
     const b=e.target.closest("button[data-a]");if(!b)return;const a=b.dataset.a;snap();setVal(a,b.dataset.v);
@@ -5105,9 +5217,9 @@ function popHTML(kind){const opt=(v,t,d,on)=>`<button class="scn-opt" type="butt
   if(kind==="angle")return ANGLES.filter(a=>!a.x).map(a=>opt(a.id,a.t,a.d,a.id===SC.angle)).join("");
   if(kind==="light"){const l=lightOf(),L=SC.light;return (l.id==="auto"?"":`<div class="scn-pfoot scn-phead">`)+(l.id==="auto"?"":`${l.sym?"":`<span>Ключевой свет</span>${seg2("side",[["left","Слева"],["right","Справа"]],L.side)}`}<span>Характер</span>${seg2("soft",[["soft","Мягкий"],["hard","Жёсткий"]],L.soft)}<span>Температура</span>${seg2("temp",LTEMP,L.temp)}</div>`)+`<p class="scn-ph">Схема света</p>`+LIGHTS.filter(x=>!x.x||x.id===L.id).map(x=>opt(x.id,x.t,x.d,x.id===L.id)).join("")}
   if(kind==="ratio")return `<p class="scn-ph">Баннер ПП 1100×600</p>`+GENS.map(g=>opt("pp:"+g.id,`Генерация ${g.t}`,g.d,isPP()&&SC.frame.gen===g.id)).join("")
-    +(isPP()&&(crop().w<1||crop().h<1)?`<div class="scn-pfoot"><span>За обрезом</span>${seg2("edge",[["extend","Фон продолжается"],["white","Белые поля"]],SC.frame.edge)}</div>`:"")
-    +`<p class="scn-ph">Свободный кадр</p>`+RATIOS.map(r=>opt("r:"+r[0],r[0],{"16:9":"Баннер","21:9":"Широкий баннер","1:1":"Квадрат","4:5":"Пост","3:4":"Соцсети","9:16":"Сторис","2:3":"Портрет","3:2":"Альбом"}[r[0]]||"",!isPP()&&r[0]===SC.frame.ratio)).join("");
-  if(kind==="more")return opt("pp","Текст как в ПП","Заголовок и подзаголовок по сетке, визуал справа",false)+opt("import","Взять из конструктора","Перенести текущую миниатюру сцены",false)+opt("clear","Очистить сцену","Убрать все объекты",false);
+    +(isPP()&&(crop().w<1||crop().h<1)?`<div class="scn-pfoot"><span>Края за обрезом</span>${seg2("edge",[["extend","Продолжить фон"],["white","Белые поля"]],SC.frame.edge)}</div>`:"")
+    +`<p class="scn-pnote">Нейросеть рисует кадр своего формата, а баннер 1100×600 вы потом вырезаете из центра.</p><p class="scn-ph">Другой формат</p>`+RATIOS.map(r=>opt("r:"+r[0],r[0],{"16:9":"Баннер","21:9":"Широкий баннер","1:1":"Квадрат","4:5":"Пост","3:4":"Соцсети","9:16":"Сторис","2:3":"Портрет","3:2":"Альбом"}[r[0]]||"",!isPP()&&r[0]===SC.frame.ratio)).join("");
+  if(kind==="more")return opt("sketch","Только набросок","Скачать картинку-раскладку ещё раз",false)+opt("plain","Только промт","Скопировать без наброска — если не прикладываете картинку",false)+opt("pp","Текст как в ПП","Заголовок и подзаголовок по сетке, продукты справа",false)+opt("import","Взять из конструктора","Перенести сцену из вкладки «Конструктор»",false)+opt("help","Как это работает","Короткая инструкция по шагам",false)+opt("clear","Очистить макет","Убрать все объекты",false);
   return ""}
 function popOpen(btn,keep){const kind=btn.dataset.menu,pop=$("scnPop");if(POP===btn&&!keep){popClose(true);return}if(!keep)popClose();
   const st=keep?pop.scrollTop:0;pop.innerHTML=popHTML(kind);pop.setAttribute("role",kind==="more"?"menu":"listbox");pop.dataset.kind=kind;pop.hidden=false;
@@ -5125,15 +5237,21 @@ function ppText(){if(!isPP())setFrame(true,SC.frame.gen||"16:9");const T=txts();
 function popPick(v){const kind=$("scnPop").dataset.kind;
   if(kind==="more"){popClose(true);
     if(v==="import"){snap();fromBuilder();SEL="bg";all();toast("Сцена взята из конструктора")}
+    if(v==="sketch")png();if(v==="plain")take(false);if(v==="help")helpOpen();
     if(v==="pp"){snap();ppText();all();toast("Текст по сетке ПП, визуал справа")}
-    if(v==="clear"){if(Date.now()-clearArm>2500){clearArm=Date.now();toast("Нажмите «Очистить сцену» ещё раз, чтобы убрать все объекты");return}
-      clearArm=0;const before=JSON.stringify(SC);snap();SC.objs=[];SEL="bg";all();toastUndo("Сцена очищена",()=>{SC=JSON.parse(before);all()})}
+    if(v==="clear"){if(Date.now()-clearArm>2500){clearArm=Date.now();toast("Нажмите «Очистить макет» ещё раз, чтобы убрать все объекты");return}
+      clearArm=0;const before=JSON.stringify(SC);snap();SC.objs=[];SEL="bg";all();toastUndo("Макет очищен",()=>{SC=JSON.parse(before);all()})}
     return}
   snap();
   if(kind==="style")SC.style=v;if(kind==="angle")SC.angle=v;
   if(kind==="light"){const was=SC.light.id;SC.light.id=v;all();popOpen(POP,true);const f=$("scnPop").querySelector(`[data-pv="${v}"]`);if(f)f.focus({preventScroll:true});if(was==="auto"&&v!=="auto")$("scnPop").scrollTop=0;return}
   if(kind==="ratio"){const [m,id]=[v.slice(0,v.indexOf(":")),v.slice(v.indexOf(":")+1)];setFrame(m==="pp",id);if(m==="pp"&&(crop().w<1||crop().h<1)){all();popOpen(POP,true);const f=$("scnPop").querySelector(`[data-pv="${v}"]`);if(f)f.focus();return}}
   popClose(true);all()}
+function drawExtra(){const x=SC.extra;$("scnXOn").checked=x.on;$("scnXBody").hidden=!x.on;$("scnXStat").textContent=x.on?({few:"Мало: 2–3 предмета",bal:"Баланс: 5–7 предметов",rich:"Много: 10 и больше"})[x.n]:"Выключено";
+  $("scnXN").querySelectorAll("[data-xn]").forEach(b=>b.setAttribute("aria-checked",String(b.dataset.xn===x.n)));if(document.activeElement!==$("scnXProps"))$("scnXProps").value=x.props||""}
+function bindExtra(){$("scnXOn").addEventListener("change",e=>{snap();SC.extra.on=e.target.checked;save();drawExtra();outSoon();syncBar();toast(SC.extra.on?"Нейросеть добавит декор по теме продукта":"Декор от нейросети выключен")});
+  $("scnXN").addEventListener("click",e=>{const b=e.target.closest("[data-xn]");if(!b)return;snap();SC.extra.n=b.dataset.xn;save();drawExtra();outSoon();syncBar()});
+  $("scnXProps").addEventListener("input",e=>{SC.extra.props=e.target.value;save();outSoon()})}
 function drawRules(){const r=SC.rules,on=RULES.filter(x=>r[x[0]]).length;
   $("scnRules").innerHTML=RULES.map(([k,t,d])=>`<label class="tg"><input type="checkbox" role="switch" data-rule="${k}" ${r[k]?"checked":""}><span>${t}<small>${d}</small></span></label>`).join("");
   $("scnRulesStat").textContent=on===RULES.length?"Всё включено":`Включено ${on} из ${RULES.length}`;const o=!$("scnRules").classList.contains("clip");$("scnRulesL").textContent=o?"Свернуть":"Все настройки";$("scnRulesHead").setAttribute("aria-expanded",String(o))}
@@ -5153,20 +5271,36 @@ function bindBar(){const bar=$("scnPage").querySelector(".scn-bar");
   $("scnGuides").addEventListener("click",()=>{SC.guides=!SC.guides;save();draw();syncBar()});
   $("scnFmt").addEventListener("click",e=>{const b=e.target.closest("[data-fmt]");if(!b||SC.fmt===b.dataset.fmt)return;SC.fmt=b.dataset.fmt;PREV=[];save();drawOut();toast(SC.fmt==="json"?"Промт в JSON":"Промт текстом")});
   $("scnSketch").addEventListener("change",e=>{SC.sketch=e.target.checked;save();drawOut();toast(SC.sketch?"Промт ссылается на набросок — приложите его последней картинкой":"Промт без наброска")});
-  $("scnCopy").addEventListener("click",async()=>{const t=prompt();try{await navigator.clipboard.writeText(t)}catch(err){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();document.execCommand("copy");a.remove()}
-    toast(SC.sketch?"Промт скопирован. Приложите набросок последней картинкой":"Промт скопирован")});
-  $("scnPng").addEventListener("click",png)}
+  $("scnCopy").addEventListener("click",()=>take(true));
+  $("scnHelp").addEventListener("click",helpOpen);
+  $("scnSteps").addEventListener("click",e=>{const b=e.target.closest("[data-step]");if(!b)return;if(b.dataset.step==="take")take(true);if(b.dataset.step==="help")helpOpen();if(b.dataset.step==="share")histOpen(true)})}
+async function copyText(t){try{await navigator.clipboard.writeText(t)}catch(err){const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();document.execCommand("copy");a.remove()}}
+/* главное действие: промт в буфер + набросок в загрузки + запись в «Мои промты» */
+async function take(withSketch){const keep=SC.sketch;SC.sketch=!!withSketch;const t=prompt();await copyText(t);
+  if(withSketch)await png(true);SC.sketch=keep||!!withSketch;save();drawOut();
+  DONE.copy=true;if(withSketch)DONE.sketch=true;stepsSync();
+  toast(withSketch?"Промт скопирован, набросок скачан. В генератор: фото продуктов, затем набросок, затем промт":"Промт скопирован (без наброска)");
+  histSave(t)}
+async function histSave(t){if(!Cloud.sb||!Cloud.user)return;const sc=JSON.parse(JSON.stringify(SC)),meta={mode:"scene",style:SC.style,angle:SC.angle,ratio:isPP()?"ПП "+gen().t:SC.frame.ratio,n:SC.objs.length,sc};
+  try{const {error}=await Cloud.sb.rpc("history_touch",{p_state:meta,p_scene:meta,p_prompt:t,p_sig:"scene:"+hashStr(JSON.stringify(sc))});if(!error){await loadHistory();nudgePulse()}}catch(e){}}
 
+/* ---------- шаги наверху и окно «Как это работает» ---------- */
+const DONE={copy:false,sketch:false};
+function stepsSync(){const has=SC.objs.some(o=>o.k==="prod");$("scnSteps").querySelectorAll("[data-st]").forEach(li=>{const k=li.dataset.st,d=k==="build"?has:k==="take"?DONE.copy&&DONE.sketch:false;li.classList.toggle("done",d)})}
+let HELP_RET=null;
+function helpOpen(){HELP_RET=document.activeElement;$("scnHelpDlg").hidden=false;document.body.classList.add("locked");$("scnHelpX").focus();try{localStorage.setItem("gena-scene-help","1")}catch(e){}}
+function helpClose(){$("scnHelpDlg").hidden=true;document.body.classList.remove("locked");if(HELP_RET&&HELP_RET.focus)HELP_RET.focus()}
+function bindHelp(){if(typeof sheetSwipe==="function")sheetSwipe($("scnHelpDlg").querySelector(".scn-dcard"),helpClose);$("scnHelpX").addEventListener("click",helpClose);$("scnHelpOk").addEventListener("click",helpClose);$("scnHelpDlg").addEventListener("click",e=>{if(e.target===$("scnHelpDlg"))helpClose()});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("scnHelpDlg").hidden){e.stopPropagation();helpClose()}},true)}
 /* ---------- набросок: сцена в её цветах, без номеров, рамок и направляющих ---------- */
-async function png(){const btn=$("scnPng");btn.disabled=true;
+async function png(quiet){const btn=$("scnCopy");btn.disabled=true;
   try{const {W,H,body}=sceneSVG(true),k=1600/W,css=await fontCSS(),
     s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W*k}" height="${H*k}">${css?`<style>${css}</style>`:""}${body}</svg>`,
     url=URL.createObjectURL(new Blob([s],{type:"image/svg+xml"})),img=new Image();
     await new Promise((ok,no)=>{img.onload=ok;img.onerror=no;img.src=url});await new Promise(r=>setTimeout(r,60));
     const c=document.createElement("canvas");c.width=W*k;c.height=H*k;const g=c.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,c.width,c.height);g.drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);
     const blob=await new Promise(r=>c.toBlob(r,"image/png")),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`gena-nabrosok-${isPP()?"pp-"+gen().id.replace(":","x"):SC.frame.ratio.replace(":","x")}.png`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);
-    if(!SC.sketch){SC.sketch=true;save();drawOut()}
-    toast("Набросок скачан. Промт ссылается на него — приложите картинку последней")}
+    if(!quiet){if(!SC.sketch){SC.sketch=true;save();drawOut()}DONE.sketch=true;stepsSync();toast("Набросок скачан. Приложите его последним, после фото продуктов")}}
   catch(e){toast("Не получилось собрать набросок")}finally{btn.disabled=false}}
 
 /* ---------- из конструктора ---------- */
@@ -5192,13 +5326,17 @@ function fromBuilder(){try{drawPreview()}catch(e){}const L=drawPreview.last,f=fr
 /* ---------- жизненный цикл ---------- */
 const PKCOL=["#FFFFFF","#2B2B2B","#C8102E","#E57A2B","#F2C14E","#3E7D4F","#2F5D9E","#7A4E9C","#8C5A3C","#C9A24A"];
 let BOUND=false;
-function bind(){if(BOUND)return;BOUND=true;svg=$("scnSvg");bindCanvas();bindInsp();bindBar();bindRules();document.addEventListener("keydown",onKey);fontsInit();
+function bind(){if(BOUND)return;BOUND=true;svg=$("scnSvg");bindCanvas();bindInsp();bindBar();bindRules();bindExtra();bindHelp();document.addEventListener("keydown",onKey);fontsInit();
   if("ResizeObserver" in window)new ResizeObserver(()=>{if(!$("scnPage").hidden)draw()}).observe(svg)}
-function show(){bind();if(!LOADED){LOADED=true;if(!load()){fromBuilder();if(!prods().length)SC.objs.push({id:uid(),k:"prod",type:"jar",x:BX(820),y:.8,h:.34,rot:0,col:null,name:"",ref:1,hero:true})}}
+function show(){bind();let first=false;try{first=!localStorage.getItem("gena-scene-help")}catch(e){}if(first)setTimeout(helpOpen,400);if(!LOADED){LOADED=true;if(!load()){fromBuilder();if(!prods().length)SC.objs.push({id:uid(),k:"prod",type:"jar",x:BX(820),y:.8,h:.34,rot:0,col:null,name:"",ref:1,hero:true})}}
   PREV=[];all()}
-const on=()=>!!(Cloud&&Cloud.admin&&LAB.scene);
+const on=()=>!!(Cloud&&Cloud.user);
 function sync(){const a=$("viewNav").querySelector('[data-view="scene"]');if(a)a.hidden=!on();if(!on()&&location.hash==="#scene"&&Cloud.user)route()}
-return {show,on,sync,get state(){return SC},prompt,png};
+/* миниатюра макета для «Моих промтов» и галереи: та же отрисовка, без подписей и направляющих */
+function thumb(sc){if(!sc)return "";const keep=SC;try{SC=JSON.parse(JSON.stringify(sc));adopt(SC);const {W,H,body}=sceneSVG(true);
+  return `<svg class="scthumb" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${body.replace(/id="(sc[A-Za-z0-9]+)"/g,'id="$1_'+(thumb.n=(thumb.n||0)+1)+'"').replace(/url\(#(sc[A-Za-z0-9]+)\)/g,"url(#$1_"+thumb.n+")")}</svg>`}catch(e){return ""}finally{SC=keep}}
+function open(sc){bind();LOADED=true;const before=JSON.stringify(SC);adopt(JSON.parse(JSON.stringify(sc)));SEL="bg";UNDO.push(before);save();go("scene");all();toastUndo("Макет загружен. Продукты — ваши: приложите свои фото",()=>{SC=JSON.parse(before);all()})}
+return {show,on,sync,get state(){return SC},prompt,png,thumb,open};
 })();
 window.Scene=Scene;
 
