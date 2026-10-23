@@ -419,7 +419,16 @@ body.v-gallery .topbar-in .setwrap{margin-left:auto}
 .gtile.wide{grid-column:span 2}
 .gtile.gpair{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line)}.gtile.gpair .gsch{display:grid;place-items:center;background:var(--sunk);overflow:hidden;position:relative}.gtile.gpair .gsch svg{width:100%;height:100%}
 .gtile.gpair .gsch::after{content:"Макет";position:absolute;left:8px;top:8px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.85);color:#272E32}
-.wimg.pair{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--line)}.wimg.pair>img{width:100%;height:100%;object-fit:contain;background:var(--sunk)}.wsch{display:grid;place-items:center;background:var(--sunk);overflow:hidden}.wsch svg{width:100%;height:100%}.wsch[hidden]{display:none}
+.wsch[hidden]{display:none}.wsch svg{width:100%;height:100%;display:block}
+.wimg.pair img{position:relative;z-index:2;transform-origin:0 0;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-radius .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s cubic-bezier(.2,.8,.2,1),opacity .16s ease}
+.wimg.pair .wsch{position:absolute;z-index:3;left:16px;top:16px;width:22%;height:22%;background:var(--sunk);border-radius:12px;overflow:hidden;cursor:zoom-in;box-shadow:0 0 0 2px rgba(255,255,255,.92),0 8px 24px rgba(0,0,0,.35);transition:left .35s cubic-bezier(.2,.8,.2,1),top .35s cubic-bezier(.2,.8,.2,1),width .35s cubic-bezier(.2,.8,.2,1),height .35s cubic-bezier(.2,.8,.2,1),border-radius .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s cubic-bezier(.2,.8,.2,1)}
+.wimg.pair .wsch::after{content:"Макет";position:absolute;left:6px;bottom:6px;font-size:11px;font-weight:600;line-height:1;padding:4px 8px;border-radius:999px;background:rgba(18,22,20,.6);color:#fff;transition:opacity .2s}
+.wimg.pair .wsch:hover{box-shadow:0 0 0 2px #fff,0 10px 28px rgba(0,0,0,.45)}
+.wimg.pair.swapped .wsch{z-index:1;left:0;top:0;width:100%;height:100%;border-radius:0;box-shadow:none;cursor:default}.wimg.pair.swapped .wsch::after{opacity:0}
+.wimg.pair.swapped img{z-index:3;transform:translate(16px,16px) scale(.22)!important;border-radius:54px;box-shadow:0 0 0 9px rgba(255,255,255,.92),0 36px 110px rgba(0,0,0,.45);cursor:zoom-in;opacity:1!important}
+.wimg.pair .wsch:focus-visible,.wimg.pair.swapped img:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wimg .wnav,.wimg .wcount{z-index:4}
+@media (prefers-reduced-motion:reduce){.wimg.pair img,.wimg.pair .wsch{transition:none}}
 .hthumb.scnmini{display:grid;place-items:center;overflow:hidden}.hthumb.scnmini svg{width:100%;height:100%}.gtile.tall{grid-row:span 2}
 .gtile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .gtile:hover img{transform:scale(1.035)}
@@ -3626,9 +3635,9 @@ function drawGallery(){drawGalFilt();
   const rows=(GAL.mine?GAL.rows.filter(r=>r.user_id===Cloud.user.id):GAL.rows).filter(r=>!GAL.style||(r.scene||{}).style===GAL.style),G=$("galGrid");G.removeAttribute("aria-busy");
   if(!rows.length){G.innerHTML=`<div class="gempty"><b>${GAL.mine?"У вас пока нет публикаций":"Здесь появятся лучшие работы команды"}</b><p>Оцените свой промт на 4–5 в «Мои промты» и опубликуйте результат генерации.</p><button class="btn" type="button" id="galToHist">Открыть «Мои промты»</button></div>`;
     $("galToHist").addEventListener("click",()=>histOpen(true));return}
-  G.innerHTML=rows.map(r=>{const pair=isScn(r.scene),ar=r.w/r.h*(pair?2:1),cls=(ar>=1.55?"wide":ar<=.72?"tall":"")+(pair?" gpair":"");
+  G.innerHTML=rows.map(r=>{const pair=isScn(r.scene),ar=r.w/r.h,cls=ar>=1.55?"wide":ar<=.72?"tall":"";
     const on=GAL.liked.has(r.id);
-    return `<div class="gtile ${cls}" role="button" tabindex="0" data-pub="${escA(r.id)}" aria-label="${escA((r.title||"Работа")+", автор "+(r.author_name||"коллега"))}">${pair?`<span class="gsch" title="Макет">${Scene.thumb(r.scene.sc)}</span>`:""}<img src="${escA(GAL.urls[r.thumb_path]||"")}" alt="" loading="lazy" decoding="async">
+    return `<div class="gtile ${cls}" role="button" tabindex="0" data-pub="${escA(r.id)}" aria-label="${escA((r.title||"Работа")+", автор "+(r.author_name||"коллега"))}"><img src="${escA(GAL.urls[r.thumb_path]||"")}" alt="" loading="lazy" decoding="async">
       <span class="gtop"><button class="gbtn${on?" on":""}" type="button" data-ga="like" aria-pressed="${on}" title="Полезно"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9zM7 11l4-8a2.5 2.5 0 0 1 2.5 3L13 10h5.6a2 2 0 0 1 2 2.4l-1.4 6A2 2 0 0 1 17.3 20H7"/></svg><b>${r.likes}</b></button><button class="gbtn" type="button" data-ga="copy" title="Скопировать промт" aria-label="Скопировать промт"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></button></span>
       <span class="gcap"><span class="gtx"><b>${escA(r.title||r.author_name||"Работа")}</b><small>${escA(r.title?r.author_name:fmtDate(r.created_at))}</small></span><em class="glike${on?" on":""}">${r.likes}</em><button class="gapply" type="button" data-ga="apply">${pair?"Открыть макет":"Применить"}</button></span></div>`}).join("")}
 $("galSort").addEventListener("click",e=>{const b=e.target.closest("[data-gs]");if(!b)return;if(b.dataset.gs==="mine"){GAL.mine=true;drawGallery();return}GAL.mine=false;GAL.sort=b.dataset.gs;loadGallery()});
@@ -3649,8 +3658,12 @@ async function workOpen(id,dir=0,ids){const r=GAL.rows.find(x=>x.id===id);if(!r)
   await signed([r.image_path]);const full=GAL.urls[r.image_path],ok=await preload(full,4000);
   clearTimeout(busy);if(tile)tile.classList.remove("loading");$("wImgBox").classList.remove("busy");if(seq!==workSeq)return;
   GAL.cur=r;const img=$("wImg"),src=ok?full:(GAL.urls[r.thumb_path]||full);
-  const fill=()=>{img.src=src;img.alt=r.title||"Работа";const pair=isScn(r.scene),box=$("wImgBox");box.classList.toggle("pair",pair);box.style.aspectRatio=pair?`${r.w*2}/${r.h}`:`${r.w}/${r.h}`;
-    let sch=$("wSch");if(!sch){sch=document.createElement("div");sch.id="wSch";sch.className="wsch";box.prepend(sch)}sch.innerHTML=pair?Scene.thumb(r.scene.sc):"";sch.hidden=!pair;
+  const fill=()=>{img.src=src;img.alt=r.title||"Работа";const pair=isScn(r.scene),box=$("wImgBox");box.classList.toggle("pair",pair);box.style.aspectRatio=`${r.w}/${r.h}`;
+    let sch=$("wSch");if(!sch){sch=document.createElement("div");sch.id="wSch";sch.className="wsch";box.prepend(sch);
+      const flip=()=>wSwap(!box.classList.contains("swapped"));
+      box.addEventListener("click",e=>{if(!box.classList.contains("pair"))return;const sw=box.classList.contains("swapped");if(e.target.closest("#wSch")&&!sw||e.target===$("wImg")&&sw)flip()});
+      box.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&(e.target===sch||e.target===$("wImg"))&&box.classList.contains("pair")){e.preventDefault();flip()}})}
+    sch.innerHTML=pair?Scene.thumb(r.scene.sc):"";sch.hidden=!pair;wSwap(false,true);
     $("wApply").textContent=pair?"Открыть макет":"Применить в конструкторе";
     $("wTitle").textContent=r.title||"Без названия";$("wAuthor").textContent=`${r.author_name||"Коллега"} · ${fmtDate(r.created_at)}`;$("wStars").innerHTML=starsHTML(r.rating,"",true);noteFill($("wNote"),r);
     $("wChips").innerHTML=sceneChips(r.scene).map(x=>`<i>${escA(x)}</i>`).join("");miniPreview($("wScene"),r.scene,"w",150,120);
@@ -3660,6 +3673,11 @@ async function workOpen(id,dir=0,ids){const r=GAL.rows.find(x=>x.id===id);if(!r)
   if(!open){fill();const w=$("work");clearTimeout(window.__wct);w.classList.remove("closing");w.hidden=false;w.classList.add("opening");document.body.classList.add("locked");requestAnimationFrame(()=>requestAnimationFrame(()=>w.classList.remove("opening")));$("wApply").focus({preventScroll:true})}
   else{const c=$("work").querySelector(".wcard");c.dataset.dir=dir>0?"next":"prev";c.classList.add("swap");await new Promise(t=>setTimeout(t,140));if(seq!==workSeq)return;fill();requestAnimationFrame(()=>c.classList.remove("swap"))}
   if(!ok)preload(full).then(d=>{if(d&&GAL.cur===r)img.src=full})}
+/* макет ↔ фото: маленькая карточка в углу раскрывается на весь контейнер, фото уходит в угол */
+function wSwap(on,silent){const box=$("wImgBox"),sch=$("wSch"),img=$("wImg"),pair=box.classList.contains("pair");box.classList.toggle("swapped",!!on&&pair);
+  if(!sch)return;const mini=pair?(on?img:sch):null;
+  [sch,img].forEach(el=>{const m=el===mini;if(m){el.setAttribute("role","button");el.tabIndex=0;el.setAttribute("aria-label",el===sch?"Показать макет крупно":"Показать картинку крупно");el.title=el===sch?"Макет: нажмите, чтобы увеличить":"Вернуть картинку"}else{el.removeAttribute("role");el.removeAttribute("tabindex");el.removeAttribute("title");if(el===sch)el.removeAttribute("aria-label")}});
+  if(!silent&&mini)mini.focus({preventScroll:true})}
 function workStep(d){if($("work").hidden||!GAL.cur)return;const L=navIds(),k=L.indexOf(GAL.cur.id),n=L[k+d];if(n)workOpen(n,d)}
 $("wPrev").addEventListener("click",e=>{e.stopPropagation();workStep(-1)});$("wNext").addEventListener("click",e=>{e.stopPropagation();workStep(1)});
 document.addEventListener("keydown",e=>{if($("work").hidden||e.target.matches("input,textarea"))return;if(e.key==="ArrowLeft"){e.preventDefault();workStep(-1)}if(e.key==="ArrowRight"){e.preventDefault();workStep(1)}});
