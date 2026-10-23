@@ -4634,10 +4634,10 @@ const KEY="gena-scene-v1",VBW=1000;
 const cl=(v,a,b)=>Math.max(a,Math.min(b,v)),pc=v=>Math.round(v*100);
 const uid=()=>"o"+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
 const STROKE=new Set(["fat","leaf","line","vein","plus"]);
-function shape(I,x,by,h,pal,rot=0){const sc=h/(100-I.top),w=I.W*sc;
+function shape(I,x,by,h,pal,rot=0,sy=1){const sc=h/(100-I.top),w=I.W*sc;
   const g=I.parts.map(([r,svg])=>{const f=pal[r]??pal.body;if(f==null||f==="none")return "";const op=r==="label"?(pal.labelOp??.8):r==="glass"?(pal.glassOp??.55):1;
     return STROKE.has(r)?`<g fill="${f}" stroke="${f}" stroke-linecap="round" opacity="${op}">${svg}</g>`:`<g fill="${f}" opacity="${op}">${svg}</g>`}).join("");
-  return `<g transform="${rot?`rotate(${rot} ${x.toFixed(1)} ${(by-h/2).toFixed(1)}) `:""}translate(${(x-w/2).toFixed(2)} ${(by-h).toFixed(2)}) scale(${sc.toFixed(4)}) translate(0 ${-I.top})">${g}</g>`}
+  return `<g transform="${rot?`rotate(${rot} ${x.toFixed(1)} ${(by-h/2).toFixed(1)}) `:""}translate(${(x-w/2).toFixed(2)} ${(by-h*sy).toFixed(2)}) scale(${sc.toFixed(4)} ${(sc*sy).toFixed(4)}) translate(0 ${-I.top})">${g}</g>`}
 const wOf=(I,h)=>I.W*h/(100-I.top);
 
 /* ---------- каталоги ---------- */
@@ -4803,7 +4803,7 @@ function cyl(x,y,w,h,fill,E){const rx=w/2,ry=Math.max(2,rx*E);return `<path d="M
 function blk(x,y,w,h,fill,E){const d=Math.max(4,w*E*.5);return `<rect x="${x-w/2}" y="${y+d/2}" width="${w}" height="${h}" fill="${shadeHex(fill,-.14)}"/><path d="M${x-w/2} ${y+d/2}H${x+w/2}L${x+w/2-w*.06} ${y-d/2}H${x-w/2+w*.06}Z" fill="${fill}" stroke="#000" stroke-opacity=".1"/>`}
 function baseSVG(W,H){const b=SC.base;if(b.kind==="none")return "";const bx=b.x*W,by=b.y*H,bw=b.w*W,E=ell();let s="";
   if(b.kind==="surface"){const sf=find(SURF,b.surf)||SURF[0],v=(b.sv||{})[sf.id]||(sf.vars?sf.def:sf.color);
-    s=`<image href="data:image/svg+xml;utf8,${encodeURIComponent(sf.draw(v,"#FFFFFF"))}" x="0" y="${by}" width="${W}" height="${H-by}" preserveAspectRatio="xMidYMid slice"/><rect x="0" y="${by}" width="${W}" height="${Math.min(H-by,H*.12)}" fill="url(#scFade)"/>`;
+    const y0=isTop()?0:by;s=`<image href="data:image/svg+xml;utf8,${encodeURIComponent(sf.draw(v,"#FFFFFF"))}" x="0" y="${y0}" width="${W}" height="${H-y0}" preserveAspectRatio="xMidYMid slice"/>${isTop()?"":`<rect x="0" y="${by}" width="${W}" height="${Math.min(H-by,H*.12)}" fill="url(#scFade)"/>`}`;
     return `<g data-id="base">${s}</g>`}
   if(b.kind==="table"){const m=TMAT.find(x=>x[0]===b.tMat)||TMAT[0],c=TCLOTH.find(x=>x[0]===b.tCloth)||TCLOTH[0],col=c[0]!=="none"?c[3]:m[3],
       ry=Math.max(H*.02,bw*.5*E),th=H*.022,sq=b.tShape==="rect"||b.tShape==="square",lk=shadeHex(m[3],-.28),st=' stroke="#000" stroke-opacity=".12"';
@@ -4819,6 +4819,42 @@ function baseSVG(W,H){const b=SC.base;if(b.kind==="none")return "";const bx=b.x*
   for(let i=n-1;i>=0;i--){const wi=bw*(1+.22*i),y=by+i*ph,xc=shp==="steps"?bx+bw*.11*i:bx,f=shadeHex(col,-.05*i);
     s+=(shp==="block"||shp==="steps")?blk(xc,y,wi,ph,f,E):cyl(xc,y,wi,ph,f,E)}
   return `<g data-id="base">${s}</g>`}
+/* ракурс: высота камеры (градусы) и поворот на три четверти — фигуры меняются вместе с ним */
+const ELEV={front:0,profile:0,hero:-8,dutch:12,macro:20,slight:18,side:10,e45:45,hq:38,top:90};
+const YAW={side:1,hq:1,dutch:1};
+const elev=()=>ELEV[SC.angle]??18,isTop=()=>elev()>=80;
+/* [форма, ширина верха, ширина дна, высота кромки для посуды] — доли ширины иконки */
+const GEO={jar:["cyl",.89,.97],bottle:["cyl",.43,.97],wine:["cyl",.38,.94],can:["cyl",.93,.97],cup:["cyl",1,.78],glass:["cyl",1,.8],bowl:["dish",1,.6,.73],plate:["dish",1,.6,.27],box:["box"],carton:["box"],pack:["flat"],flow:["flat"],tray:["flat"],none:["flat"]};
+function prodSVG(o,I,x,by,h,pal,rot){const g=GEO[o.type]||["flat"],w=wOf(I,h),e=elev(),sn=Math.sin(Math.max(0,e)*Math.PI/180),cs=Math.cos(Math.max(0,e)*Math.PI/180),yaw=!!YAW[SC.angle];
+  let s="";const wrap=t=>rot?`<g transform="rotate(${rot} ${x.toFixed(1)} ${(by-h/2).toFixed(1)})">${t}</g>`:t;
+  if(isTop()){
+    if(g[0]==="cyl"||g[0]==="dish"){const d=w*(g[0]==="dish"?1:g[2]),r=d/2,cy=by-r,inner=g[0]==="dish"?r*.62:Math.max(r*.3,w*g[1]/2*.92);
+      s+=`<circle cx="${x}" cy="${cy}" r="${r}" fill="${pal.body}" stroke="#000" stroke-opacity=".1"/>`;
+      s+=`<circle cx="${x}" cy="${cy}" r="${inner}" fill="${o.type==="cup"?pal.label:o.type==="glass"?pal.drink:g[0]==="dish"?pal.meat:pal.cap}"/>`;
+      s+=`<ellipse cx="${x-r*.35}" cy="${cy-r*.35}" rx="${r*.22}" ry="${r*.12}" fill="#fff" opacity=".35"/>`;return wrap(s)}
+    if(g[0]==="box"){const bw=w*.82,dep=bw*.62;s+=`<rect x="${x-bw/2}" y="${by-dep}" width="${bw}" height="${dep}" rx="3" fill="${pal.top}" stroke="#000" stroke-opacity=".1"/><rect x="${x-bw*.32}" y="${by-dep*.68}" width="${bw*.64}" height="${dep*.36}" rx="2" fill="${pal.label}" opacity="${pal.labelOp}"/>`;return wrap(s)}
+    return shape(I,x,by,h,pal,rot)}
+  if(g[0]==="box"){const bw=w*.82,hb=h*cs,x0=x-bw/2,y0=by-hb,dy=Math.max(yaw?bw*.08:0,bw*.42*sn),dx=yaw?bw*.24:0;
+    if(dx)s+=`<path d="M${x0+bw} ${y0}L${x0+bw+dx} ${y0-dy}V${by-dy}L${x0+bw} ${by}Z" fill="${pal.side}"/>`;
+    if(dy>.5)s+=`<path d="M${x0} ${y0}H${x0+bw}L${x0+bw+dx} ${y0-dy}H${x0+dx}Z" fill="${pal.top}"/>`;
+    s+=`<rect x="${x0}" y="${y0}" width="${bw}" height="${hb}" fill="${pal.body}"/><rect x="${x0+bw*.12}" y="${y0+hb*.32}" width="${bw*.76}" height="${hb*.34}" rx="2" fill="${pal.label}" opacity="${pal.labelOp}"/>`;
+    if(o.type==="carton")s+=`<path d="M${x0} ${y0}L${x0+bw*.2} ${y0-hb*.16}H${x0+bw*.8}L${x0+bw} ${y0}Z" fill="${pal.top}"/><rect x="${x0+bw*.56}" y="${y0-hb*.22}" width="${bw*.16}" height="${hb*.08}" rx="2" fill="${pal.cap}"/>`;
+    return wrap(s)}
+  if(e<=2||g[0]==="flat")return shape(I,x,by,h,pal,rot);
+  /* цилиндр и посуда: фасад короче, сверху видна крышка или кромка, дно скруглено */
+  const hb=h*cs;
+  if(g[0]==="cyl"){const rb=w*g[2]/2,rt=w*g[1]/2;
+    s+=`<ellipse cx="${x}" cy="${by}" rx="${rb}" ry="${rb*sn}" fill="${shadeHex(pal.body,-.12)}"/>`;
+    s+=shape(I,x,by,h,pal,0,cs);
+    const ty=by-hb,top=o.type==="cup"?pal.label:o.type==="glass"?pal.glass:lighten(pal.cap,.18);
+    s+=`<ellipse cx="${x}" cy="${ty}" rx="${rt}" ry="${rt*sn}" fill="${top}" stroke="#000" stroke-opacity=".08"/>`;
+    if(o.type==="glass")s+=`<ellipse cx="${x}" cy="${by-hb*.7}" rx="${rt*.9}" ry="${rt*.9*sn}" fill="${pal.drink}" opacity=".9"/>`;
+    return wrap(s)}
+  /* тарелка и миска: кромка — эллипс, еда внутри */
+  const rr=w/2,ry=rr*Math.max(sn,.06),rim=by-hb*g[3];
+  s+=shape(I,x,by,h,pal,0,cs);
+  s+=`<ellipse cx="${x}" cy="${rim}" rx="${rr}" ry="${ry}" fill="${lighten(pal.body,.1)}" stroke="#000" stroke-opacity=".08"/><ellipse cx="${x}" cy="${rim-ry*.15}" rx="${rr*.62}" ry="${ry*.62}" fill="${pal.meat}"/>`;
+  return wrap(s)}
 /* положение: стоит, парит или лежит */
 const poseOf=o=>o.pose||"stand";
 function groundY(o){const b=SC.base;if((b.kind==="table"||b.kind==="pod")&&o.x>b.x-b.w/2&&o.x<b.x+b.w/2)return b.y;if(b.kind==="surface")return Math.max(b.y,Math.min(.97,o.y+.08));return Math.min(.97,o.y+.1)}
@@ -4827,8 +4863,10 @@ function objSVG(o,W,H){
   const I=o.k==="prod"?PT[o.type]:DT[o.type];if(!I)return "";
   const h=o.h*H,x=o.x*W,by=o.y*H,w=wOf(I,h),pal=palOf(o,I),pose=poseOf(o);let s="";
   if(pose==="float"){const gy=groundY(o)*H;s+=`<ellipse cx="${x}" cy="${gy}" rx="${w*.5}" ry="${Math.max(3,w*.08)}" fill="#000" opacity=".12" filter="url(#scSh)"/>`}
-  else if(o.k==="prod")s+=`<ellipse cx="${x}" cy="${by}" rx="${(pose==="lie"?h:w)*.55}" ry="${Math.max(3,w*.09)}" fill="#000" opacity=".18" filter="url(#scSh)"/>`;
-  if(pose==="lie")s+=shape(I,x,by-w/2+h/2,h,pal,90+(o.rot||0));
+  else if(o.k==="prod"){const sn=Math.sin(Math.max(0,elev())*Math.PI/180);s+=isTop()?`<ellipse cx="${x+w*.06}" cy="${by-w*.32}" rx="${w*.55}" ry="${w*.45}" fill="#000" opacity=".16" filter="url(#scSh)"/>`:`<ellipse cx="${x}" cy="${by}" rx="${(pose==="lie"?h:w)*.55}" ry="${Math.max(3,w*Math.max(.09,sn*.5))}" fill="#000" opacity=".18" filter="url(#scSh)"/>`}
+  if(pose==="lie"&&isTop())s+=shape(I,x,by,h,pal,o.rot||0);
+  else if(pose==="lie")s+=shape(I,x,by-w/2+h/2,h,pal,90+(o.rot||0));
+  else if(o.k==="prod")s+=prodSVG(o,I,x,by,h,pal,o.rot||0);
   else if(o.k==="dec"&&o.many){[[-.85,.03,.62,-14],[.8,.025,.7,12],[.15,.06,.5,-6],[0,0,1,0]].forEach(([dx,dy,f,rr])=>{s+=shape(I,x+dx*w,by+dy*H,h*f,pal,(o.rot||0)+rr)})}
   else s+=shape(I,x,by,h,pal,o.rot||0);
   if(o.k==="dec"&&o.blur)s=`<g filter="url(#scSoft)">${s}</g>`;
@@ -4859,7 +4897,8 @@ function sceneSVG(ex){const {W,H}=dims(),c=crop(),ord=SC.objs.filter(o=>o.k!=="t
   const labels=ex?"":SC.objs.filter(o=>o.k!=="txt"&&((o.name||"").trim()||o.type==="custom")).map(o=>{const t=(o.name||"").trim()||"Подпишите предмет",fs=Math.max(11,H*.024),w=Math.min(W*.4,t.length*fs*.56+fs*1.2),x=cl(o.x*W-w/2,4,W-w-4),y=Math.min(H-fs*1.9-4,o.y*H+6);
     return `<g pointer-events="none"><rect x="${x}" y="${y}" width="${w}" height="${fs*1.8}" rx="${fs*.9}" fill="${(o.name||"").trim()?"#272E32":"#875B05"}" fill-opacity=".86"/><text x="${x+w/2}" y="${y+fs*.9}" font-family="Onest,Arial,sans-serif" font-size="${fs}" font-weight="600" fill="#FFFFFF" text-anchor="middle" dominant-baseline="central">${escA(t.length>34?t.slice(0,33)+"…":t)}</text></g>`}).join("");
   const tx=ex&&space?"":(space?`<g opacity=".45">`:"")+txts().map(o=>objSVG(o,W,H)).join("")+(space?"</g>":"");
-  return {W,H,c,body:defsSVG(W,H)+`<g data-id="bg">${bgSVG(W,H)}${underSVG(W,H)}</g>`+baseSVG(W,H)+ord.map(o=>objSVG(o,W,H)).join("")+stripsSVG(W,H,c)+tx+labels}}
+  const tilt=t=>SC.angle==="dutch"?`<g transform="rotate(-7 ${W/2} ${H/2})">${t}</g>`:t;
+  return {W,H,c,body:defsSVG(W,H)+`<g data-id="bg">${bgSVG(W,H)}${underSVG(W,H)}</g>`+tilt(baseSVG(W,H)+ord.map(o=>objSVG(o,W,H)).join(""))+stripsSVG(W,H,c)+tx+labels}}
 
 /* направляющие и подсказки — только в редакторе, в набросок не попадают */
 function guidesSVG(W,H,c){let s="";const x0=c.x*W,y0=c.y*H,x1=(c.x+c.w)*W,y1=(c.y+c.h)*H,fs=Math.max(11,H*.022);
@@ -4892,7 +4931,8 @@ function draw(){if(!svg)return;const {W,H,c,body}=sceneSVG();svg.setAttribute("v
 
 /* ---------- проверки ПП ---------- */
 function boxOf(o){const {W,H}=dims();if(o.k==="txt"){const bb=txtBox(o,W,H);return {x0:o.x,x1:o.x+bb.w/W,y0:o.y,y1:o.y+bb.h/H}}
-  const I=o.k==="prod"?PT[o.type]:DT[o.type],w=wOf(I,o.h*H)/W*(o.many?2.2:1);if(poseOf(o)==="lie"){const hw=o.h*H/W,ww=w*W/H;return {x0:o.x-hw/2,x1:o.x+hw/2,y0:o.y-ww,y1:o.y}}return {x0:o.x-w/2,x1:o.x+w/2,y0:o.y-o.h,y1:o.y}}
+  const I=o.k==="prod"?PT[o.type]:DT[o.type],w=wOf(I,o.h*H)/W*(o.many?2.2:1);if(o.k==="prod"&&isTop()&&poseOf(o)!=="lie"&&(GEO[o.type]||["flat"])[0]!=="flat"){const ge=GEO[o.type],d=w*(ge[0]==="dish"?1:ge[0]==="box"?.82:ge[2]),dh=(ge[0]==="box"?d*.62:d)*W/H;return {x0:o.x-d/2,x1:o.x+d/2,y0:o.y-dh,y1:o.y}}
+  if(poseOf(o)==="lie"&&!isTop()){const hw=o.h*H/W,ww=w*W/H;return {x0:o.x-hw/2,x1:o.x+hw/2,y0:o.y-ww,y1:o.y}}return {x0:o.x-w/2,x1:o.x+w/2,y0:o.y-o.h,y1:o.y}}
 const nmRu=o=>o.k==="prod"?`Продукт ${numOf(o)}`:o.k==="dec"?`Декор ${numOf(o)}`:TROLE[o.role].t;
 function warnings(){if(!isPP())return [];const c=crop(),out=[],tz=[BX(96),BX(560)],vz=BX(576);
   SC.objs.forEach(o=>{const b=boxOf(o),e=.004;
@@ -4923,7 +4963,8 @@ function baseEn(){const b=SC.base;if(b.kind==="none")return "";
   return `${p.en||"a display podium"}, shaped as ${sh[2]}${n>1?`, ${n} tiers stacked`:", one tier"}${p.color?`, colour ${col(b.pCol)}`:""}; the top surface is centred at x ${pc(b.x)}%, at y ${pc(b.y)}%, about ${pc(b.w)}% of the frame width wide`}
 function onWhat(o){const b=SC.base,bx=boxOf(o),pose=poseOf(o),sup=(b.kind==="table"||b.kind==="pod")&&o.x>b.x-b.w/2&&o.x<b.x+b.w/2?(b.kind==="table"?"the table":"the podium"):b.kind==="surface"?"the surface":"the ground";
   if(pose==="float")return `levitates in mid-air above ${sup}, clearly not touching it, with a soft diffused shadow on ${sup} below to show the height`;
-  if(pose==="lie")return `lies on its side on ${sup}, its long axis horizontal`;
+  if(pose==="lie")return isTop()?`lies flat on ${sup} with its label facing up toward the camera`:`lies on its side on ${sup}, its long axis horizontal`;
+  if(isTop()&&o.k==="prod")return `stands upright on ${sup}, seen from directly above (only its top is visible)`;
   if(b.kind==="table"||b.kind==="pod"){const L=b.x-b.w/2,R=b.x+b.w/2,on=Math.abs(o.y-b.y)<.03&&o.x>L&&o.x<R;
     if(on)return b.kind==="table"?"stands on the tabletop":"stands on the podium top";
     if(o.y<b.y-.04)return "floats in the air above the "+(b.kind==="table"?"table":"podium")+", casting a soft shadow below";
@@ -4984,7 +5025,7 @@ function promptText(){const {st,an,look}=spec(),P=prods(),Dc=decs(),T=txts(),out
   out.push(["SCENE",`${bn?"A finished 1100×600 web promo banner with typography. ":""}${st.open}: a hand-arranged product scene. ${bn?bn.size:`Aspect ratio ${SC.frame.ratio}.`} Reproduce the layout below precisely.`]);
   if(SC.sketch)out.push(["LAYOUT MOCK-UP",sketchEn()]);
   if(bn)out.push(["BANNER",bn.lay]);
-  out.push(["LAYOUT KEY","Positions are percentages of the generated image: x from the left edge, y from the top edge. For every object, (x, y) is the point where its base touches its support; height is its visible height as a percent of the image height. Objects lower in the frame are closer to the camera."]);
+  out.push(["LAYOUT KEY",isTop()?"Strict top-down view. Positions are percentages of the generated image: x from the left edge, y from the top edge. For every object, (x, y) is the middle of the lower edge of its outline as seen from above; height is its visible size from top to bottom as a percent of the image height.":"Positions are percentages of the generated image: x from the left edge, y from the top edge. For every object, (x, y) is the point where its base touches its support; height is its visible height as a percent of the image height. Objects lower in the frame are closer to the camera."]);
   out.push(["CAMERA",an.p]);
   out.push(["BACKGROUND",bgEn()+"."]);
   {const be=baseEn();if(be)out.push(["SUPPORT",be.charAt(0).toUpperCase()+be.slice(1)+"."])}
@@ -5261,7 +5302,8 @@ function popPick(v){const kind=$("scnPop").dataset.kind;
       clearArm=0;const before=JSON.stringify(SC);snap();SC.objs=[];SEL="bg";all();toastUndo("Макет очищен",()=>{SC=JSON.parse(before);all()})}
     return}
   snap();
-  if(kind==="style")SC.style=v;if(kind==="angle")SC.angle=v;
+  if(kind==="style")SC.style=v;
+  if(kind==="angle"){SC.angle=v;if(isTop()&&prods().some(p=>poseOf(p)!=="lie")){popClose(true);all();toastAct("Вид сверху: продукты обычно лежат этикеткой вверх","Положить все",()=>{snap();prods().forEach(p=>setPose(p,"lie"));all();toast("Продукты лежат этикеткой вверх")});return}}
   if(kind==="light"){const was=SC.light.id;SC.light.id=v;all();popOpen(POP,true);const f=$("scnPop").querySelector(`[data-pv="${v}"]`);if(f)f.focus({preventScroll:true});if(was==="auto"&&v!=="auto")$("scnPop").scrollTop=0;return}
   if(kind==="ratio"){const [m,id]=[v.slice(0,v.indexOf(":")),v.slice(v.indexOf(":")+1)];setFrame(m==="pp",id);if(m==="pp"&&(crop().w<1||crop().h<1)){all();popOpen(POP,true);const f=$("scnPop").querySelector(`[data-pv="${v}"]`);if(f)f.focus();return}}
   popClose(true);all()}
