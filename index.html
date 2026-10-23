@@ -1554,6 +1554,11 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 @media (max-width:980px){.scn-end{flex-wrap:nowrap}.scn-end .scn-dl{flex:none}}
 @media (max-width:600px){.scn-ctool{flex-wrap:wrap}.scn-dl{padding:11px 12px}.scn-dl span{display:none}}
 #scnCopy{white-space:nowrap}.scn-phead{border-top:0;margin-top:0;padding-top:4px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:4px}
+.scn-sech{display:flex;align-items:center;gap:8px;position:relative}.scn-sech h3{flex:none}.scn-sech .info>div{left:-10px;right:auto}
+.scn-sech .info{position:static}.scn-sech .info>div{left:0;right:0;top:calc(100% + 6px);width:auto;max-width:none}
+.toggles.swt.scn-one{grid-template-columns:1fr}
+.scn-rules{margin-top:4px}.scn-rules .toggles.swt{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.scn-outh{position:relative}.scn-outh .scn-sech{position:static}
 </style>
 
 <div class="glow" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
@@ -1909,13 +1914,15 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
         <p class="scn-warn" id="scnWarn" role="status" hidden></p></div>
       <div class="scn-layers" id="scnLayers" role="group" aria-label="Объекты сцены"></div>
       <p class="scn-hint">Тяните объект, чтобы переставить; круглая ручка меняет размер. Клик по фону или подставке открывает их настройки. <span class="kb"><kbd>G</kbd> направляющие · <kbd>Delete</kbd> удалить · <kbd>⌘D</kbd> копия · <kbd>⌘Z</kbd> отменить</span></p>
+      <div class="tgbox scn-rules"><button class="tghead" type="button" id="scnRulesHead" aria-expanded="false" aria-controls="scnRules"><span class="tgico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="3"/><circle cx="9" cy="11" r="1.6" fill="currentColor" stroke="none"/><path d="M20.5 15.5l-4.5-4.5-7.5 7.5"/></svg></span><span class="tgt"><b>Как обращаться с фото</b><small id="scnRulesStat"></small></span><span class="tgmore"><em id="scnRulesL">Все настройки</em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></button>
+        <div class="toggles swt clip" id="scnRules"></div></div>
     </div>
     <div class="scn-side">
       <div class="scn-insp" id="scnInsp" aria-live="polite"></div>
       <div class="scn-out">
-        <div class="scn-outh"><h2>Промт</h2>
+        <div class="scn-outh"><div class="scn-sech"><h2>Промт</h2><details class="info"><summary aria-label="Подробнее">i</summary><div><p><b>Текст</b> — обычный промт по блокам. <b>JSON</b> — тот же промт в виде структуры: некоторым генераторам (GPT Image) так проще не путать объекты. Пробуйте оба.</p><p>Порядок картинок при генерации: фото продуктов по номерам, набросок последним.</p></div></details></div>
           <div class="gsort" id="scnFmt" role="radiogroup" aria-label="Формат промта"><button type="button" role="radio" data-fmt="text" aria-checked="true">Текст</button><button type="button" role="radio" data-fmt="json" aria-checked="false">JSON</button></div></div>
-        <label class="tg scn-sk"><input type="checkbox" id="scnSketch"><span>Промт с наброском<small>Генератор берёт расстановку и шрифты из картинки «Набросок». Включается сам, когда вы его скачиваете</small></span></label>
+        <div class="toggles swt scn-one"><label class="tg scn-sk"><input type="checkbox" role="switch" id="scnSketch"><span>Промт с наброском<small>Генератор берёт расстановку и шрифты из картинки «Набросок». Включается сам, когда вы его скачиваете</small></span></label></div>
         <pre id="scnOut" class="scn-pre"></pre>
         <div class="scn-outa"><span class="scn-count" id="scnCount"></span></div>
       </div>
@@ -4634,6 +4641,11 @@ const ROOMS=[["kitchen","Кухня","a modern home kitchen interior",["#EFEAE2"
  ["bakery","Пекарня","a rustic bakery interior with bread on wooden shelves",["#F0E3CD","#D1B58E"]],["garden","Сад","a lush summer garden with greenery",["#DCE8D2","#93AE7E"]],["terrace","Терраса","a sunny outdoor terrace with potted plants",["#EAF0F2","#C5CFC1"]],["winter","Праздник","a festive winter interior with a decorated fir tree and string lights",["#E3E8EE","#B4BFCB"]],["studio","Студия","a minimal photo studio with a light plaster wall",["#F2F0EC","#D8D4CE"]]];
 const tone=c=>{const t=+SC.bg.tone||0;return t?shadeHex(c,t):c};
 const effBg=()=>{const b=SC.bg;return b.kind==="solid"?[tone(b.color)]:b.kind==="grad"?[tone(b.g1),tone(b.g2)]:roomCols()};
+/* «в цвет фона»: тон подложки берётся из фона, чтобы переход был незаметен */
+function underCol(){return SC.under.col==="auto"?underAuto():SC.under.col}
+function underAuto(){const b=SC.bg,E=effBg();
+  if(b.kind==="solid")return E[0];if(b.kind==="grad")return b.gdir==="h"?E[0]:b.gdir==="radial"?E[1]:shadeHex(E[0],(hexLum(E[0])+hexLum(E[1]))/2>.5?.15:-.1);
+  return b.time==="evening"?shadeHex(E[1],-.55):lighten(E[0],.45)}
 function roomCols(){const r=ROOMS.find(x=>x[0]===SC.bg.room)||ROOMS[0],ev=SC.bg.time==="evening";return r[3].map(c=>ev?shadeHex(c,-.42):c)}
 
 /* ---------- свет ---------- */
@@ -4643,14 +4655,15 @@ function lightEn(st){const L=SC.light;if(L.id==="auto")return st.light;const lt=
   let l=lt.p.replaceAll("{K}",K).replaceAll("{F}",F);if(!(L.id==="tent"||L.id==="window")||L.soft==="soft")l+=" "+LSOFT_P[L.soft];return l+" "+LTEMP_P[L.temp]}
 
 /* ---------- состояние ---------- */
-const fresh=()=>({v:2,frame:{pp:true,gen:"16:9",ratio:"16:9",edge:"extend"},guides:true,style:"fintech",angle:"slight",light:{id:"auto",side:"left",soft:"soft",temp:"neutral"},fmt:"text",sketch:false,
+const RULES=[["keepProduct","Сохранить продукт","Форма, цвета и материалы как на фото."],["keepText","Сохранить надписи","Логотип и текст упаковки без искажений."],["keepWare","Сохранить посуду","Тарелка, доска или бокал с фото остаются."],["isolate","Убрать лишнее","Руки, приборы, салфетки и фон с фото не переносятся."],["rebuild","Создавать заново","Без вклейки: продукт перерисовывается под сцену."],["scale","Реальные пропорции","Настоящие размеры предметов относительно друг друга."],["avoid","Список запретов","Без водяных знаков, лишнего текста и дублей."]];
+const fresh=()=>({v:2,rules:Object.fromEntries(RULES.map(r=>[r[0],true])),txtMode:"render",frame:{pp:true,gen:"16:9",ratio:"16:9",edge:"extend"},guides:true,style:"fintech",angle:"slight",light:{id:"auto",side:"left",soft:"soft",temp:"neutral"},fmt:"text",sketch:false,
   bg:{kind:"solid",color:"#E3E4E4",tone:0,g1:"#F4F1EC",g2:"#D6D0C6",gdir:"v",stop:"g1",room:"kitchen",time:"day",blur:"strong"},
-  under:{kind:"none",col:"#FFFFFF",w:.46},
+  under:{kind:"none",col:"auto",w:.46},
   base:{kind:"none",x:.62,y:.8,w:.52,surf:"wood",sv:{},tMat:"oak",tCloth:"none",tShape:"round",pod:"soft",pShape:"cyl",pCol:"#FFFFFF",tiers:1},
   objs:[]});
 let SC=fresh(),SEL="bg",DRAG=null,UNDO=[],REDO=[],LOADED=false,PREV=[],PALG={};
 function adopt(d){const f=fresh();if(d.v===1){d.frame={pp:false,gen:"16:9",ratio:d.ratio||"16:9",edge:"extend"};d.v=2}
-  SC=Object.assign(f,d);["frame","light","bg","under","base"].forEach(k=>SC[k]=Object.assign(fresh()[k],d[k]||{}))}
+  SC=Object.assign(f,d);["frame","light","bg","under","base","rules"].forEach(k=>SC[k]=Object.assign(fresh()[k],d[k]||{}))}
 function load(){try{const d=JSON.parse(localStorage.getItem(KEY)||"null");if(d&&(d.v===1||d.v===2)){adopt(d);return true}}catch(e){}return false}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(SC))}catch(e){}}
 function snap(){UNDO.push(JSON.stringify(SC));if(UNDO.length>60)UNDO.shift();REDO=[]}
@@ -4673,7 +4686,7 @@ function palOf(o,I){const c=o.col||(o.k==="dec"?I.col:PCOL[o.type])||"#8C958F",i
 const FIG={body:"var(--fig-l)",cap:"var(--fig-r)",label:"var(--detail)",labelOp:1,top:"var(--fig-top)",side:"var(--fig-r)",meat:"var(--fig-r)",fat:"var(--fig-top)",veg:"var(--fig-l)",veg2:"var(--fig-r)",leaf:"var(--fig-r)",glass:"var(--fig-top)",glassOp:1,drink:"var(--fig-l)",line:"var(--fig-r)",lite:"var(--fig-top)",acc:"var(--detail)",dark:"var(--fig-r)",vein:"var(--fig-r)"};
 const lumAvg=a=>a.reduce((s,c)=>s+hexLum(c),0)/a.length;
 function inkOf(o){if(o.ink==="light")return "#FFFFFF";if(o.ink==="dark")return "#2A1A10";if(o.ink==="custom")return o.inkC||"#2A1A10";
-  const u=SC.under,l=u.kind!=="none"&&o.x<u.w?hexLum(u.col):lumAvg(effBg());return l<.5?"#FFFFFF":"#2A1A10"}
+  const u=SC.under,l=u.kind!=="none"&&o.x<u.w?hexLum(underCol()):lumAvg(effBg());return l<.5?"#FFFFFF":"#2A1A10"}
 function mini(I,pal=FIG){const s=Math.min(40/I.W,40/(100-I.top)),h=(100-I.top)*s;return `<svg viewBox="0 0 48 48" aria-hidden="true">${shape(I,24,24+h/2,h,pal)}</svg>`}
 
 /* ---------- отрисовка ---------- */
@@ -4691,7 +4704,7 @@ function bgSVG(W,H){const b=SC.bg,E=effBg();
   if(ev||["restaurant","bar","winter"].includes(r))for(let i=0;i<9;i++){const x=W*(.32+((i*37)%60)/100),y=H*(.08+((i*23)%30)/100);s+=`<circle cx="${x}" cy="${y}" r="${H*(.025+(i%3)*.012)}" fill="#FFD58A" opacity=".85"/>`}
   return s+"</g>"}
 function underSVG(W,H){const u=SC.under;if(u.kind==="none")return "";const w=u.w*W;
-  return u.kind==="panel"?`<rect width="${w}" height="${H}" fill="${u.col}"/>`:`<rect width="${w}" height="${H}" fill="url(#scU)"/>`}
+  return u.kind==="panel"?`<rect width="${w}" height="${H}" fill="${underCol()}"/>`:`<rect width="${w}" height="${H}" fill="url(#scU)"/>`}
 function stripsSVG(W,H,c){if(!isPP()||SC.frame.edge!=="white"||(c.w>=1&&c.h>=1))return "";const x0=c.x*W,y0=c.y*H,x1=(c.x+c.w)*W,y1=(c.y+c.h)*H;
   return `<path d="M0 0H${W}V${H}H0Z M${x0} ${y0}V${y1}H${x1}V${y0}Z" fill="#FFFFFF" fill-rule="evenodd"/>`}
 function cyl(x,y,w,h,fill,E){const rx=w/2,ry=Math.max(2,rx*E);return `<path d="M${x-rx} ${y}V${y+h}A${rx} ${ry} 0 0 0 ${x+rx} ${y+h}V${y}Z" fill="${shadeHex(fill,-.14)}"/><ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="${fill}" stroke="#000" stroke-opacity=".1"/>`}
@@ -4740,12 +4753,13 @@ function txtSVG(o,W,H){const R=TROLE[o.role],fs=o.size*H,x=o.x*W,y=o.y*H,L=txtLi
   return `<g data-id="${o.id}">${s}</g>`}
 function defsSVG(W,H){const b=SC.bg,E=effBg(),u=SC.under,gd=b.gdir==="h"?'x1="0" y1="0" x2="1" y2="0"':'x1="0" y1="0" x2="0" y2="1"';
   const grad=b.kind==="grad"&&b.gdir==="radial"?`<radialGradient id="scG" cx=".5" cy=".45" r=".8"><stop offset="0" stop-color="${E[0]}"/><stop offset="1" stop-color="${E[1]}"/></radialGradient>`:`<linearGradient id="scG" ${b.kind==="grad"?gd:'x1="0" y1="0" x2="0" y2="1"'}><stop offset="0" stop-color="${E[0]}"/><stop offset="1" stop-color="${E[1]||E[0]}"/></linearGradient>`;
-  return `<defs>${grad}<linearGradient id="scU" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${u.col}"/><stop offset=".55" stop-color="${u.col}" stop-opacity=".92"/><stop offset="1" stop-color="${u.col}" stop-opacity="0"/></linearGradient>
+  return `<defs>${grad}<linearGradient id="scU" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${underCol()}"/><stop offset=".55" stop-color="${underCol()}" stop-opacity=".92"/><stop offset="1" stop-color="${underCol()}" stop-opacity="0"/></linearGradient>
   <linearGradient id="scFade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".45"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient>
   <filter id="scSh" x="-50%" y="-200%" width="200%" height="500%"><feGaussianBlur stdDeviation="6"/></filter><filter id="scSoft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
   <filter id="scBl24" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="24"/></filter><filter id="scBl10" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="10"/></filter></defs>`}
-function sceneSVG(){const {W,H}=dims(),c=crop(),ord=SC.objs.filter(o=>o.k!=="txt").sort((a,b)=>a.y-b.y);
-  return {W,H,c,body:defsSVG(W,H)+`<g data-id="bg">${bgSVG(W,H)}${underSVG(W,H)}</g>`+baseSVG(W,H)+ord.map(o=>objSVG(o,W,H)).join("")+stripsSVG(W,H,c)+txts().map(o=>objSVG(o,W,H)).join("")}}
+function sceneSVG(ex){const {W,H}=dims(),c=crop(),ord=SC.objs.filter(o=>o.k!=="txt").sort((a,b)=>a.y-b.y),space=SC.txtMode==="space";
+  const tx=ex&&space?"":(space?`<g opacity=".45">`:"")+txts().map(o=>objSVG(o,W,H)).join("")+(space?"</g>":"");
+  return {W,H,c,body:defsSVG(W,H)+`<g data-id="bg">${bgSVG(W,H)}${underSVG(W,H)}</g>`+baseSVG(W,H)+ord.map(o=>objSVG(o,W,H)).join("")+stripsSVG(W,H,c)+tx}}
 
 /* направляющие и подсказки — только в редакторе, в набросок не попадают */
 function guidesSVG(W,H,c){let s="";const x0=c.x*W,y0=c.y*H,x1=(c.x+c.w)*W,y1=(c.y+c.h)*H,fs=Math.max(11,H*.022);
@@ -4755,7 +4769,7 @@ function guidesSVG(W,H,c){let s="";const x0=c.x*W,y0=c.y*H,x1=(c.x+c.w)*W,y1=(c.
   if(isPP()){const X=px=>BX(px)*W,Y=py=>BY(py)*H;
     s+=`<rect x="${X(96)}" y="${Y(192)}" width="${X(530)-X(96)}" height="${Y(456)-Y(192)}" fill="#F0B92A" fill-opacity=".08" pointer-events="none"/>`;
     g+=ln(X(96),y0,X(96),y1)+ln(X(530),y0,X(530),y1)+ln(X(576),y0,X(576),y1)+ln(x0,Y(192),X(530),Y(192))+ln(x0,Y(456),X(530),Y(456));
-    s+=`<g font-family="Onest,Arial,sans-serif" font-size="${fs}" font-weight="600" letter-spacing=".06em" fill="#8A6A10" fill-opacity=".9" pointer-events="none"><text x="${X(96)+6}" y="${y0+fs*1.5}">ТЕКСТ · 96–530</text><text x="${X(576)+6}" y="${y0+fs*1.5}">ВИЗУАЛ · от 576</text></g>`;
+    s+=`<g font-family="Onest,Arial,sans-serif" font-size="${fs}" font-weight="600" letter-spacing=".06em" fill="${lumAvg(effBg())<.5?"#F5C842":"#7A5C08"}" pointer-events="none"><text x="${X(96)+6}" y="${y0+fs*1.5}">ТЕКСТ · 96–530</text><text x="${X(576)+6}" y="${y0+fs*1.5}">ВИЗУАЛ · от 576</text></g>`;
     s+=`<rect x="${x0}" y="${y0}" width="${x1-x0}" height="${y1-y0}" fill="none" stroke="#F0B92A" stroke-width="2" pointer-events="none"/>`}
   else g+=ln(W/3,0,W/3,H)+ln(W*2/3,0,W*2/3,H)+ln(0,H/3,W,H/3)+ln(0,H*2/3,W,H*2/3);
   return s+`<g stroke="#FFFFFF" stroke-opacity=".7" stroke-width="2" pointer-events="none">${g}</g><g stroke="#C99A12" stroke-width="1.4" stroke-dasharray="7 6" pointer-events="none">${g}</g>`}
@@ -4796,9 +4810,9 @@ function bgEn(){const b=SC.bg,E=effBg();let t;
   if(b.kind==="solid")t=`a seamless ${col(E[0])} studio backdrop`;
   else if(b.kind==="grad")t=b.gdir==="radial"?`a smooth radial gradient backdrop: ${col(E[0])} in the centre fading to ${col(E[1])} at the edges`:b.gdir==="h"?`a smooth horizontal gradient backdrop from ${col(E[0])} on the left to ${col(E[1])} on the right`:`a smooth vertical gradient backdrop from ${col(E[0])} at the top to ${col(E[1])} at the bottom`;
   else{const r=ROOMS.find(x=>x[0]===b.room)||ROOMS[0];t=`${r[2]} ${b.time==="evening"?"in the evening, lit by warm lamps, with glowing bokeh lights":"in soft natural daylight"}, ${b.blur==="light"?"softly out of focus but still recognisable":"heavily out of focus with creamy bokeh, only shapes and colours readable"}, so the products stay the sharp hero`}
-  const u=SC.under;
-  if(u.kind==="panel")t+=`. A flat solid ${col(u.col)} panel covers the left part of the image from the left edge to x ${pc(u.w)}%, full height, with a crisp straight vertical edge (split layout); the scene lives to the right of it and does not overlap the panel`;
-  if(u.kind==="fade")t+=`. A soft ${col(u.col)} gradient fade covers the left side: solid ${col(u.col)} from the left edge to about x ${pc(u.w*.55)}%, smoothly fading to fully transparent by x ${pc(u.w)}%, with no visible edge, so the text sits on a calm even area`;
+  const u=SC.under,uc=u.col==="auto"?`${col(underCol())}, a tone taken from the background itself so it blends in seamlessly,`:col(u.col);
+  if(u.kind==="panel")t+=`. A flat solid ${uc} panel covers the left part of the image from the left edge to x ${pc(u.w)}%, full height, with a crisp straight vertical edge (split layout); the scene lives to the right of it and does not overlap the panel`;
+  if(u.kind==="fade")t+=`. A soft ${uc} gradient fade covers the left side: solid ${col(underCol())} from the left edge to about x ${pc(u.w*.55)}%, smoothly fading to fully transparent by x ${pc(u.w)}%, with no visible edge, so the text sits on a calm even area`;
   return t}
 function baseEn(){const b=SC.base;if(b.kind==="none")return "";
   if(b.kind==="surface"){const sf=find(SURF,b.surf)||SURF[0],v=(b.sv||{})[sf.id]||(sf.vars?sf.def:sf.color);return `${sf.en(v,"#FFFFFF")} fills the lower part of the frame, from y ${pc(b.y)}% down to the bottom edge; its far edge (horizon) sits at y ${pc(b.y)}%`}
@@ -4831,19 +4845,34 @@ function bannerEn(){if(!isPP())return null;const c=crop(),g=gen(),X=px=>P1(BX(px
   const cut=c.h<1?`The final banner is the central band of the image: full width and the middle ${P1(c.h)}% of the height (y ${P1(c.y)}–${P1(c.y+c.h)}%); the top and bottom ${P1((1-c.h)/2)}% will be cropped away, so ${keep}.`
     :c.w<1?`The final banner is the central part of the image: full height and the middle ${P1(c.w)}% of the width (x ${P1(c.x)}–${P1(c.x+c.w)}%); the left and right ${P1((1-c.w)/2)}% will be cropped away, so ${keep}.`:"The image is the banner itself, edge to edge.";
   return {size:g.size?`Image size exactly ${g.size} (custom size).`:`Aspect ratio ${g.ratio}.`,
-    lay:`Final banner 1100×600 px (11:6), cut from this image. ${cut} Strict grid, in percent of the generated image: LEFT TEXT ZONE from x ${X(96)}% to x ${X(530)}%, text block between y ${Y(192)}% and y ${Y(456)}% (on the final banner: x 96–530 px, y 192–456 px). RIGHT VISUAL ZONE from x ${X(576)}% to the right edge of the banner. Products and all props live only in the visual zone, fully inside the banner area, never behind or under the text. Behind the text the background stays calm, soft and low-detail with an even tone, so the text reads perfectly.`}}
+    lay:`Final banner 1100×600 px (11:6), cut from this image. ${cut} Strict grid, in percent of the generated image: LEFT TEXT ZONE from x ${X(96)}% to x ${X(530)}%, text allowed between y ${Y(192)}% and y ${Y(456)}% (on the final banner: x 96–530 px, y 192–456 px). The text stays inside this zone but does not have to fill it: the exact text sizes are given in TEXT. RIGHT VISUAL ZONE from x ${X(576)}% to the right edge of the banner. Products and all props live only in the visual zone, fully inside the banner area, never behind or under the text. Behind the text the background stays calm, soft and low-detail with an even tone, so the text reads perfectly.`}}
 function txtEn(o){const R=TROLE[o.role],L=txtLines(o),bb=boxOf(o),q=s=>`"${s}"`,pp=isPP(),px=pxOf(o),c=crop(),
   sz=pp?`about ${px} px on the final banner (cap height about ${P1(px*.72/BN.H*c.h)}% of the image height)`:`cap height about ${P1(o.size*.72)}% of the image height`,
-  pos=`left edge at x ${P1(o.x)}%, top at y ${P1(o.y)}%${pp?` (on the final banner: x ${Math.round((o.x-c.x)/c.w*BN.W)} px, y ${Math.round((o.y-c.y)/c.h*BN.H)} px)`:""}, block about ${P1(bb.x1-bb.x0)}% of the image wide`;
+  bx=v=>Math.round((v-c.x)/c.w*BN.W),by=v=>Math.round((v-c.y)/c.h*BN.H),hero=heroOf(),cap=o.size*.72,
+  pos=`the block occupies exactly x ${P1(bb.x0)}–${P1(bb.x1)}%, y ${P1(bb.y0)}–${P1(bb.y1)}% of the image${pp?` (on the final banner: x ${bx(bb.x0)}–${bx(bb.x1)} px, y ${by(bb.y0)}–${by(bb.y1)} px)`:""}${hero&&o.role==="head"?`; its capital letters are about ${Math.max(1,Math.round(hero.h/cap*10)/10)} times shorter than ${nm(hero)}`:""}`;
   const lines=L.length>1?`in ${L.length} lines: ${L.map(q).join(" / ")} (the slash marks a line break)`:q(L[0]);
   if(o.role==="head"){let t=`Headline ${lines} — ${o.caps!==false?"all caps, ":""}${ANA_EN}; ${sz}, line spacing 1.0, left-aligned, ${pos}, colour ${col(inkOf(o))}.`;
     if(/\d|%|₽/.test(L.join("")))t+=" Every digit and the symbols % and ₽ inside the headline are set in Ubuntu Bold at the same size, while the letters stay in Anaphora.";return t}
   if(o.role==="tag"){const tc=o.tagCol||"#D9534F";return `Badge: a flat 2D capsule (pill) label overlaid on the image like a graphic sticker in a layout — perfectly horizontal, not rotated, no perspective, not placed on or attached to any object, crisp edges, no shadow, outline or gradient. Filled with flat ${col(tc)}, about ${pp?Math.round(px*2.05)+" px":P1(o.size*2.05)+"% of the image height"} tall with horizontal padding of about ${pp?Math.round(px*.9)+" px":"0.9 em"}, ${pos}. Inside it: ${q(L[0])} in Ubuntu Medium, ${sz}, colour ${hexLum(tc)>.6?"deep warm dark brown #2A1A10":"white"}, numbers in Ubuntu Bold.`}
   return `${o.role==="sub"?"Subtitle":"Price line"} ${lines} — Ubuntu Medium, sentence case as written${o.role==="price"?", numbers and the ₽ sign in Ubuntu Bold":""}; ${sz}, line spacing ${R.lh}, left-aligned, ${pos}, colour ${col(inkOf(o))}.`}
+const TXT_SCALE="TYPE SCALE IS FIXED: keep every text block exactly at the size and position given; measure against the whole image. Do not enlarge text to fill the text zone or empty space, do not move it up or down, do not add line breaks — generous empty background around the text is intentional.";
 const TXT_RULE="All text is flat 2D typography overlaid on the image, as in a finished layout: perfectly horizontal baselines, no rotation, no perspective, no 3D, no shadows, never printed on objects. Render the Russian text letter for letter with correct Cyrillic spelling. No other text anywhere: no logos, invented labels, buttons, stickers or watermarks.";
-function sketchEn(){const T=txts().length;return "The last attached image is a flat layout mock-up of this exact frame. Use it only as a composition guide: copy the placement, size, overlap and cropping of every object, the support"+(T?", the text block":"")+" and the background split. Do not copy its flat look: replace every flat placeholder shape with the real, photorealistic object described below, render the background and surfaces as described with natural light, shadows and materials. The final image contains no guides, outlines, placeholder shapes, letters or numbers other than the specified text."
+function sketchEn(){const T=SC.txtMode==="render"?txts().length:0;return "The last attached image is a flat layout mock-up of this exact frame. Use it only as a composition guide: copy the placement, size, overlap and cropping of every object, the support"+(T?", the text block":"")+" and the background split. Do not copy its flat look: replace every flat placeholder shape with the real, photorealistic object described below, render the background and surfaces as described with natural light, shadows and materials. The final image contains no guides, outlines, placeholder shapes, letters or numbers other than the specified text."
   +(T?" The text in the mock-up is already set in the brand fonts: reproduce its letterforms, weight, size, line breaks and position exactly.":"")+(isPP()&&SC.frame.edge==="white"?" Keep the white margins exactly as in the mock-up.":"")}
-function promptText(){const {st,an,look}=spec(),P=prods(),Dc=decs(),T=txts(),out=[],bn=bannerEn(),nRef=Math.max(1,...P.map(o=>o.ref||1));
+function txtArea(){const T=txts();if(!T.length)return null;const B=T.map(boxOf),p=.02;return {x0:Math.max(0,Math.min(...B.map(b=>b.x0))-p),x1:Math.min(1,Math.max(...B.map(b=>b.x1))+p),y0:Math.max(0,Math.min(...B.map(b=>b.y0))-p),y1:Math.min(1,Math.max(...B.map(b=>b.y1))+p)}}
+const spaceEn=a=>`Leave the area x ${P1(a.x0)}–${P1(a.x1)}%, y ${P1(a.y0)}–${P1(a.y1)}% empty: calm, even background only, reserved for typography that will be added later in a layout program. No text, letters, numbers, logos or watermarks anywhere in the image.`;
+/* как обращаться с фото — те же правила, что в конструкторе */
+function refEn(){const r=SC.rules,P=prods(),out=[];if(!P.length)return "";const ns=[...new Set(P.map(o=>o.ref||1))].sort(),many=ns.length>1;
+  if(many||SC.sketch)out.push("Reference images in order: "+ns.map(n=>`image ${n} is ${P.filter(o=>(o.ref||1)===n).map(nm).join(" and ")}`).join("; ")+(SC.sketch?`; the last image is the layout mock-up`:"")+".");
+  if(r.isolate)out.push(r.keepWare?`From ${many?"each":"the"} reference use the product together with the plate, board, bowl or glass it is served on or in; rebuild that serveware to match the new scene. Ignore cutlery, hands, napkins, unrelated food and any other objects or background around it.`:`From ${many?"each":"the"} reference use only the product itself: ignore boards, plates, bowls, cutlery, hands, napkins, garnish and any other objects or background around it.`);
+  else if(!r.keepWare)out.push("Do not carry over plates, boards, bowls or other serveware from the reference; place the product directly in the new scene.");
+  if(r.rebuild)out.push("Do not cut out, composite or paste the original photos: rebuild every object from scratch as a clean new object inside one shared scene with the same camera, perspective and light source, so reflections, shadows and edges are physically consistent. No cut-out edges, halos or mismatched lighting.");
+  if(r.keepProduct)out.push("Keep each product's shape, proportions, materials and colors identical to the reference; do not redesign or simplify it.");
+  if(r.keepText)out.push("Preserve all label text, logos and typography exactly as on the reference, sharp and legible.");
+  if(r.scale)out.push("All objects keep realistic real-world proportions relative to each other.");
+  return out.join(" ")}
+const avoidEn=()=>SC.rules.avoid?"collage look, pasted or cut-out reference, added text or captions, watermarks, extra or duplicated products, distorted or misspelled labels, plastic AI sheen, warped geometry"+(txts().length&&SC.txtMode==="render"?", text larger or higher than specified":"")+(SC.sketch?", the flat look, outlines or placeholder shapes of the mock-up":"")+".":"";
+function promptText(){const {st,an,look}=spec(),P=prods(),Dc=decs(),T=txts(),out=[],bn=bannerEn();
   out.push(["SCENE",`${bn?"A finished 1100×600 web promo banner with typography. ":""}${st.open}: a hand-arranged product scene. ${bn?bn.size:`Aspect ratio ${SC.frame.ratio}.`} Reproduce the layout below precisely.`]);
   if(SC.sketch)out.push(["LAYOUT MOCK-UP",sketchEn()]);
   if(bn)out.push(["BANNER",bn.lay]);
@@ -4854,11 +4883,13 @@ function promptText(){const {st,an,look}=spec(),P=prods(),Dc=decs(),T=txts(),out
   if(P.length)out.push(["PRODUCTS",`${P.length} product${P.length>1?"s":""}. `+P.map(o=>{const {hero,t}=prodEn(o);return `${nm(o)}${hero&&P.length>1?" (hero, the most prominent)":""}: ${t}. Position x ${pc(o.x)}%, y ${pc(o.y)}% (${where(o.x,o.y-o.h/2)}); height ≈ ${pc(o.h)}% of the image; ${rotEn(o.rot)}, label facing the camera; ${onWhat(o)}.`}).join(" ")]);
   if(Dc.length)out.push(["DECOR",Dc.map(o=>{const I=DT[o.type];return `${nm(o)}: ${o.many?"a small scattered cluster of "+I.en.replace(/^an? /,""):I.en}${o.col&&o.col!==I.col?` in ${col(o.col)}`:""} at x ${pc(o.x)}%, y ${pc(o.y)}%, height ≈ ${pc(o.h)}% of the image, ${rotEn(o.rot)}${o.blur?", softly out of focus":""}.`}).join(" ")+" Decor stays secondary and never covers the product labels."]);
   {const ov=overlaps();if(ov.length)out.push(["DEPTH",ov.map(([f,k])=>`${nm(f)} is in front of ${nm(k)} and partly overlaps it.`).join(" ")])}
-  if(T.length)out.push(["TEXT",T.map(txtEn).join("\n")+"\n"+TXT_RULE]);
+  if(T.length&&SC.txtMode==="render")out.push(["TEXT",TXT_SCALE+"\n"+T.map(txtEn).join("\n")+"\n"+TXT_RULE]);
+  if(T.length&&SC.txtMode==="space")out.push(["TEXT AREA",spaceEn(txtArea())]);
+  {const rf=refEn();if(rf)out.push(["REFERENCE",rf])}
   out.push(["STYLE",look]);
   out.push(["LIGHT",lightEn(st)]);
-  out.push(["RULES",[P.length?`Recreate ${nRef>1?"each product from its numbered reference photo":"the product from the reference photo"} from scratch in this scene's lighting and perspective: exact shape, colours, label design and text. Do not paste, cut out or collage the reference.`:"",
-    "Do not add any objects, people, hands or props beyond those listed; areas without objects stay empty.",T.length?"":"No text, logos or watermarks.",
+  {const av=avoidEn();if(av)out.push(["AVOID",av])}
+  out.push(["RULES",["Do not add any objects, people, hands or props beyond those listed; areas without objects stay empty.",T.length&&SC.txtMode==="render"?"":"No text, logos or watermarks.",
     bn?"Everything important stays inside the 1100×600 banner area.":"Keep every object fully inside the frame unless its position is at the edge."].filter(Boolean).join(" ")]);
   return out.map(([k,v])=>`${k}: ${v}`).join("\n\n")}
 function promptJSON(){const {st,an,look}=spec(),P=prods(),Dc=decs(),T=txts(),ov=overlaps(),bn=bannerEn();
@@ -4870,10 +4901,11 @@ function promptJSON(){const {st,an,look}=spec(),P=prods(),Dc=decs(),T=txts(),ov=
   if(P.length)j.products=P.map(o=>{const {hero,t}=prodEn(o),r={id:+numOf(o),what:t,position:{x:pc(o.x),y:pc(o.y)},height:pc(o.h)+"%",orientation:rotEn(o.rot)+", label facing the camera",support:onWhat(o)};if(hero&&P.length>1)r.role="hero, the most prominent";return r});
   if(Dc.length)j.decor=Dc.map(o=>{const I=DT[o.type],r={id:numOf(o),what:(o.many?"a small scattered cluster of "+I.en.replace(/^an? /,""):I.en)+(o.col&&o.col!==I.col?` in ${col(o.col)}`:""),position:{x:pc(o.x),y:pc(o.y)},height:pc(o.h)+"%",orientation:rotEn(o.rot)};if(o.blur)r.focus="softly out of focus";return r});
   if(ov.length)j.depth=ov.map(([f,k])=>`${nm(f)} in front of ${nm(k)}, partly overlapping`);
-  if(T.length){j.text=T.map(o=>({id:numOf(o),role:ROLE_EN[o.role],content:txtLines(o),spec:txtEn(o)}));j.text_rules=TXT_RULE}
+  if(T.length&&SC.txtMode==="render"){j.text=T.map(o=>({id:numOf(o),role:ROLE_EN[o.role],content:txtLines(o),spec:txtEn(o)}));j.text_rules=[TXT_SCALE,TXT_RULE]}
+  if(T.length&&SC.txtMode==="space")j.text_area=spaceEn(txtArea());
+  {const rf=refEn();if(rf)j.reference=rf;const av=avoidEn();if(av)j.avoid=av}
   j.style=look;j.light=lightEn(st);
-  j.rules=[P.length?"Recreate each product from its reference photo from scratch in this scene's lighting and perspective: exact shape, colours, label design and text. Do not paste or collage the reference.":"",
-    T.length?"":"No text, logos or watermarks.","Do not add objects, people, hands or props beyond those listed; empty areas stay empty.",bn?"Everything important stays inside the 1100×600 banner area.":"Keep every object fully inside the frame."].filter(Boolean);
+  j.rules=[T.length&&SC.txtMode==="render"?"":"No text, logos or watermarks.","Do not add objects, people, hands or props beyond those listed; empty areas stay empty.",bn?"Everything important stays inside the 1100×600 banner area.":"Keep every object fully inside the frame."].filter(Boolean);
   return JSON.stringify(j,null,2)}
 const prompt=()=>SC.fmt==="json"?promptJSON():promptText();
 function drawOut(){const t=prompt(),L=t.split("\n"),old=new Set(PREV);
@@ -4892,7 +4924,10 @@ function drawLayers(){const b=SC.base,chip=(id,i,ico,t)=>`<button class="scn-lay
 const ic={dup:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"/></svg>',
   del:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 13h8l1-13"/></svg>',
   up:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 19h14"/></svg>'};
-const sec=(t,b)=>`<div class="scn-sec">${t?`<h3>${t}</h3>`:""}${b}</div>`;
+const I_={"bgkind": "<b>Цвет</b> — ровный студийный фон. <b>Градиент</b> — плавный переход двух цветов. <b>Интерьер</b> — размытое помещение за продуктом: генератор нарисует его сам, на холсте только намёк.", "tone": "Делает выбранный цвет светлее или темнее, не меняя оттенок. Удобно подогнать фон под упаковку.", "gdir": "Как идёт переход: сверху вниз, слева направо или из центра к краям.", "stops": "Выберите, какой край градиента меняете, затем цвет в палитре.", "room": "Какое помещение угадывается за продуктом. Это фон, а не стол: на чём стоят продукты — в «Подставке».", "time": "<b>Вечер</b> — тёплые лампы и огоньки боке, <b>день</b> — мягкий дневной свет из окна.", "blur": "<b>Сильное</b> — от интерьера остаются пятна света и цвета, продукт выделяется сильнее. <b>Лёгкое</b> — помещение узнаётся.", "under": "Спокойная зона под текстом, чтобы он читался на любом фоне. <b>Плашка</b> — ровная заливка с чётким краем, как сплит-макет. <b>Растушёвка</b> — заливка плавно уходит в фон. <b>В цвет фона</b> подбирает тон из самого фона, чтобы переход был незаметен.", "base": "На чём стоят продукты. <b>Поверхность</b> — столешница до горизонта. <b>Стол</b> — отдельный стол со скатертью. <b>Подиум</b> — студийные постаменты. Продукты на столе или подиуме двигаются вместе с ним.", "ptype": "Форма упаковки на этом месте. Нужна, чтобы генератор понял, что здесь стоит и какого оно размера. Сам продукт он возьмёт с вашего фото.", "pname": "Короткое название по-русски или по-английски, например «сыр в вакуумной упаковке». Помогает, если на фото несколько предметов или фото нет вовсе.", "ref": "Какое из приложенных к генерации фото — этот продукт. Приложили банку первой, бутылку второй — отметьте банке «Фото 1», бутылке «Фото 2». В промте будет «продукт 1 с первого фото, продукт 2 со второго». Порядок — как загружаете в генератор; набросок всегда последним.", "hero": "Главный продукт генератор делает самым заметным: крупнее, резче, в центре внимания. Обычно это то, что продаём.", "pcol": "Подсказка цвета, если фото нет или упаковку нужно перекрасить. «Как на фото» — цвет берётся с референса.", "dtype": "Мелкие предметы вокруг продукта. На холсте — плоская иконка, генератор нарисует настоящий предмет.", "dopts": "<b>Россыпь</b> — несколько штук вокруг точки: ягоды, специи, орехи. <b>Не в фокусе</b> — предмет размыт, как на переднем плане; добавляет глубину.", "size": "<b>Размер</b> — видимая высота относительно кадра. <b>Наклон</b> — поворот для динамики.", "role": "Роль задаёт шрифт и размер по гайду ПП: заголовок — Анафора капсом, подзаголовок и цена — Ubuntu Medium, плашка — цветная капсула.", "tmode": "<b>Рисует генератор</b> — текст сразу в картинке, но размер и место нейросеть держит приблизительно. <b>Наберу в Figma</b> — генератор оставит это место пустым, а текст вы наберёте сами, точно по сетке. На холсте текст остаётся полупрозрачным ориентиром, в набросок не попадает.", "px": "Размер в пикселях баннера 1100×600 — так же, как в Figma."};
+const inf=t=>`<details class="info"><summary aria-label="Подробнее">i</summary><div><p>${t}</p></div></details>`;
+const sec=(t,b,i)=>`<div class="scn-sec">${t||i?`<div class="scn-sech"><h3>${t||""}</h3>${i?inf(i):""}</div>`:""}${b}</div>`;
+const swts=h=>`<div class="toggles swt scn-one">${h}</div>`;
 function cards(a,ids,cur,lab,thumb,cols){return `<div class="scn-cards" style="--c:${cols||Math.min(6,ids.length)}">${ids.map(id=>`<button class="scn-card" type="button" data-a="${a}" data-v="${id}" aria-pressed="${id===cur}"><span class="th"${thumb.bg?` style="background-image:${thumb.bg(id)}"`:""}>${thumb.svg?thumb.svg(id):""}</span><span>${escA(lab(id))}</span></button>`).join("")}</div>`}
 const colsFor=n=>n<=6?n:n%5===0?5:4;
 function seg(a,opts,cur,label){return `<div class="gsort" role="radiogroup" aria-label="${label}">${opts.map(([v,t])=>`<button type="button" role="radio" data-a="${a}" data-v="${v}" aria-checked="${String(v)===String(cur)}">${t}</button>`).join("")}</div>`}
@@ -4905,24 +4940,25 @@ function pal(a,cur){const gi=PALG[a]??Math.max(0,PAL.findIndex(g=>g.c.some(x=>x[
   <div class="swatches pgbody" role="tabpanel">${PAL[gi].c.map(([n,h])=>`<button class="sw" type="button" data-a="${a}" data-v="${h}" title="${escA(n)} · ${h}" aria-label="${escA(n)}" aria-pressed="${h.toLowerCase()===String(cur).toLowerCase()}" style="background:${h}"></button>`).join("")}<input type="color" class="scn-cin" data-a="${a}" value="${okHex(cur)?cur:"#888888"}" aria-label="Свой цвет" title="Свой цвет"></div></div>`}
 function rng(a,label,min,max,step,v,f){return `<label class="scn-rng"><span>${label}</span><output>${f(v)}</output><input type="range" data-a="${a}" min="${min}" max="${max}" step="${step}" value="${v}"></label>`}
 const FMT={h:v=>pc(v)+"% кадра",rot:v=>(Math.round(v)||0)+"°",size:v=>pc(v)+"% кадра",px:v=>Math.round(v)+" px",w:v=>pc(v)+"% ширины","bg.tone":v=>!+v?"как в палитре":(v>0?"светлее ":"темнее ")+Math.abs(Math.round(v*100))+"%","under.w":v=>"до "+pc(v)+"% кадра"};
-function sw(a,label,on,note){return `<label class="tg"><input type="checkbox" data-a="${a}" ${on?"checked":""}><span>${label}${note?`<small>${note}</small>`:""}</span></label>`}
+function sw(a,label,on,note){return `<label class="tg"><input type="checkbox" role="switch" data-a="${a}" ${on?"checked":""}><span>${label}${note?`<small>${note}</small>`:""}</span></label>`}
 function head(t,acts){return `<div class="scn-ih"><h2>${t}</h2>${acts?`<button class="iconbtn" type="button" data-act="dup" aria-label="Дублировать" title="Дублировать (⌘D)">${ic.dup}</button><button class="iconbtn" type="button" data-act="del" aria-label="Удалить" title="Удалить (Delete)">${ic.del}</button>`:""}</div>`}
 const roomThumb=id=>{const r=ROOMS.find(x=>x[0]===id),out=["garden","terrace"].includes(id);
   return `<svg viewBox="0 0 48 38" aria-hidden="true"><rect width="48" height="38" fill="var(--fig-top)"/>${out?'<circle cx="12" cy="12" r="9" fill="var(--fig-l)"/><circle cx="34" cy="10" r="10" fill="var(--fig-r)"/>':`<rect x="5" y="5" width="12" height="17" rx="2" fill="var(--panel)"/>`}${["kitchen","cafe","bakery","bar"].includes(id)?'<rect x="22" y="9" width="22" height="2.5" fill="var(--fig-r)"/><rect x="22" y="16" width="22" height="2.5" fill="var(--fig-r)"/>':""}${id==="living"?'<rect x="22" y="17" width="20" height="8" rx="3" fill="var(--fig-r)"/>':""}${id==="winter"?'<path d="M36 5 43 24H29Z" fill="var(--fig-r)"/>':""}${["restaurant","bar","winter"].includes(id)?'<circle cx="26" cy="7" r="2.5" fill="var(--detail)"/><circle cx="34" cy="5" r="2" fill="var(--detail)"/>':'<circle cx="40" cy="6" r="2.5" fill="var(--detail)"/>'}<rect y="28" width="48" height="10" fill="var(--fig-l)"/></svg>`};
 function fontRow(slot,label){const [st,txt]=fontStat(slot);return `<div class="scn-font"><span class="scn-fdot ${st}"></span><span><b>${label}</b><small>${txt}</small></span><button class="btn ghost sm" type="button" data-font="${slot}">${FONT[slot]?"Заменить":"Загрузить"}</button></div>`}
 function drawInsp(){const el=$("scnInsp"),o=selObj();let h="";
-  if(SEL==="bg"){const b=SC.bg,u=SC.under;h=head("Фон")+sec("",seg("bg.kind",[["solid","Цвет"],["grad","Градиент"],["room","Интерьер"]],b.kind,"Тип фона"));
-    if(b.kind==="solid")h+=sec("Цвет",pal("bg.color",b.color));
+  if(SEL==="bg"){const b=SC.bg,u=SC.under;h=head("Фон")+sec("Тип фона",seg("bg.kind",[["solid","Цвет"],["grad","Градиент"],["room","Интерьер"]],b.kind,"Тип фона"),I_.bgkind);
+    if(b.kind==="solid")h+=sec("Цвет",pal("bg.color",b.color),I_.tone);
     if(b.kind==="grad"){const lab=b.gdir==="h"?["Слева","Справа"]:b.gdir==="radial"?["Центр","Края"]:["Сверху","Снизу"];
-      h+=sec("Направление",seg("bg.gdir",[["v","Вертикаль"],["h","Горизонталь"],["radial","Из центра"]],b.gdir,"Направление градиента"))
-        +sec("Цвета",`<div class="gsort scn-stops" role="radiogroup" aria-label="Какой цвет меняем">${[["g1",lab[0]],["g2",lab[1]]].map(([k,t])=>`<button type="button" role="radio" data-a="bg.stop" data-v="${k}" aria-checked="${b.stop===k}"><i style="background:${tone(b[k])}"></i>${t}</button>`).join("")}</div>`+pal("bg."+b.stop,b[b.stop]))}
+      h+=sec("Направление",seg("bg.gdir",[["v","Вертикаль"],["h","Горизонталь"],["radial","Из центра"]],b.gdir,"Направление градиента"),I_.gdir)
+        +sec("Цвета",`<div class="gsort scn-stops" role="radiogroup" aria-label="Какой цвет меняем">${[["g1",lab[0]],["g2",lab[1]]].map(([k,t])=>`<button type="button" role="radio" data-a="bg.stop" data-v="${k}" aria-checked="${b.stop===k}"><i style="background:${tone(b[k])}"></i>${t}</button>`).join("")}</div>`+pal("bg."+b.stop,b[b.stop]),I_.stops)}
     if(b.kind!=="room")h+=sec("",rng("bg.tone","Тон",-.5,.5,.02,b.tone||0,FMT["bg.tone"]));
-    if(b.kind==="room")h+=sec("Интерьер",cards("bg.room",ROOMS.map(r=>r[0]),b.room,id=>ROOMS.find(r=>r[0]===id)[1],{svg:roomThumb},5))
-      +sec("Время",seg("bg.time",[["day","День"],["evening","Вечер"]],b.time,"Время"))+sec("Размытие",seg("bg.blur",[["strong","Сильное"],["light","Лёгкое"]],b.blur,"Размытие"));
+    if(b.kind==="room")h+=sec("Интерьер",cards("bg.room",ROOMS.map(r=>r[0]),b.room,id=>ROOMS.find(r=>r[0]===id)[1],{svg:roomThumb},5),I_.room)
+      +sec("Время",seg("bg.time",[["day","День"],["evening","Вечер"]],b.time,"Время"),I_.time)+sec("Размытие",seg("bg.blur",[["strong","Сильное"],["light","Лёгкое"]],b.blur,"Размытие"),I_.blur);
     h+=sec("Под текстом",seg("under.kind",[["none","Нет"],["panel","Плашка"],["fade","Растушёвка"]],u.kind,"Подложка под текст")
       +(u.kind==="none"?`<p class="scn-note">Спокойная зона слева, чтобы текст читался: ровная плашка или мягкий переход в фон.</p>`
-        :sws("under.col",["#FFFFFF","#F7F3EC","#F2E8D5",lighten(effBg()[0],.55),"#2A1A10","#1E2A23"],u.col)+rng("under.w","Ширина",.15,.8,.01,u.w,FMT["under.w"])+`<p class="scn-note">Край подложки можно тянуть на холсте.</p>`))}
-  else if(SEL==="base"){const b=SC.base;h=head("Подставка")+sec("",seg("base.kind",[["none","Нет"],["surface","Поверхность"],["table","Стол"],["pod","Подиум"]],b.kind,"Подставка"));
+        :`<div class="scn-chips"><button class="scn-c" type="button" data-a="under.col" data-v="auto" aria-pressed="${u.col==="auto"}"><i style="background:${underAuto()}"></i>В цвет фона</button></div>`
+          +sws("under.col",["#FFFFFF","#F7F3EC","#F2E8D5","#2A1A10","#1E2A23"],u.col==="auto"?null:u.col)+rng("under.w","Ширина",.15,.8,.01,u.w,FMT["under.w"])+`<p class="scn-note">Край подложки можно тянуть на холсте.</p>`),I_.under)}
+  else if(SEL==="base"){const b=SC.base;h=head("Подставка")+sec("На чём стоят продукты",seg("base.kind",[["none","Нет"],["surface","Поверхность"],["table","Стол"],["pod","Подиум"]],b.kind,"Подставка"),I_.base);
     if(b.kind==="none")h+=`<p class="scn-note">Продукты стоят на бесшовном фоне. Выберите поверхность, стол или подиум — на холсте появится подставка, её можно двигать и менять ширину.</p>`;
     if(b.kind==="surface"){const ids=SURF.filter(s=>!s.x).map(s=>s.id),sf=find(SURF,b.surf)||SURF[0];
       h+=sec("Материал",cards("base.surf",ids,b.surf,id=>find(SURF,id).t,{bg:id=>{const s=find(SURF,id),v=(b.sv||{})[id]||(s.vars?s.def:s.color);return `url(&quot;data:image/svg+xml;utf8,${encodeURIComponent(s.draw(v,"#FFFFFF")).replace(/'/g,"%27")}&quot;)`}},4));
@@ -4935,27 +4971,29 @@ function drawInsp(){const el=$("scnInsp"),o=selObj();let h="";
       h+=sec("Подиум",cards("base.pod",ids,b.pod,id=>find(PODS,id).t,{svg:id=>`<svg viewBox="0 0 48 38" aria-hidden="true"><ellipse cx="24" cy="27" rx="16" ry="4" fill="var(--fig-r)"/><rect x="8" y="${id==="minimal"?23:17}" width="32" height="${id==="minimal"?4:10}" fill="var(--fig-r)"/><ellipse cx="24" cy="${id==="minimal"?23:17}" rx="16" ry="4" fill="var(--fig-top)"/>${id==="geo"?'<rect x="30" y="7" width="9" height="9" fill="var(--fig-l)"/>':""}${id==="natural"?'<ellipse cx="38" cy="30" rx="5" ry="3" fill="var(--fig-l)"/>':""}${id==="gloss"?'<rect x="12" y="18" width="2" height="8" fill="var(--panel)"/>':""}<rect x="20" y="${id==="minimal"?9:3}" width="8" height="12" rx="2" fill="var(--detail)"/></svg>`},3))
         +sec("Форма",chips("base.pShape",PSHAPE.map(x=>[x[0],x[1]]),b.pShape))+sec("Ярусы",seg("base.tiers",[["1","1"],["2","2"],["3","3"]],String(b.tiers),"Ярусы"))
         +sec("Цвет",sws("base.pCol",PODSW,b.pCol))+sec("",rng("base.w","Ширина",.12,1,.01,b.w,FMT.w))}}
-  else if(o&&o.k==="prod"){h=head(`Продукт ${numOf(o)}`,true)+PGROUPS.map(([g,ids])=>sec(g,cards("type",ids,o.type,id=>PT[id].t,{svg:id=>mini(PT[id])},colsFor(ids.length)))).join("")
-    +sec("Что это",`<input class="scn-in" type="text" data-a="name" value="${escA(o.name||"")}" maxlength="80" placeholder="Как на фото-референсе" aria-label="Что это за продукт">`)
-    +sec("Фото-референс",seg("ref",[["1","Фото 1"],["2","Фото 2"],["3","Фото 3"],["4","Фото 4"]],String(o.ref||1),"Номер фото-референса"))
-    +sec("",sw("hero","Главный продукт",heroOf()===o,"Самый заметный в кадре"))
-    +sec(["plate","bowl"].includes(o.type)?"Цвет посуды":o.type==="glass"?"Цвет напитка":"Цвет упаковки",sws("col",PKCOL,o.col,"Как на фото"))
-    +sec("",rng("h","Размер",.04,1,.01,o.h,FMT.h)+rng("rot","Наклон",-45,45,1,o.rot||0,FMT.rot))}
-  else if(o&&o.k==="dec"){h=head(`Декор ${numOf(o)}`,true)+DGROUPS.map(([g,ids])=>sec(g,cards("type",ids,o.type,id=>DT[id].t,{svg:id=>mini(DT[id])},4))).join("")
-    +sec("",sw("many","Россыпь",o.many,"Несколько штук вокруг точки")+sw("blur","Не в фокусе",o.blur,"Мягко размыт, как на переднем плане"))
+  else if(o&&o.k==="prod"){const nP=prods().length;h=head(`Продукт ${numOf(o)}`,true)+PGROUPS.map(([g,ids],i)=>sec(g,cards("type",ids,o.type,id=>PT[id].t,{svg:id=>mini(PT[id])},colsFor(ids.length)),i?"":I_.ptype)).join("")
+    +sec("Что это",`<input class="scn-in" type="text" data-a="name" value="${escA(o.name||"")}" maxlength="80" placeholder="Например: сыр в вакуумной упаковке" aria-label="Что это за продукт">`,I_.pname)
+    +(nP>1?sec("С какого фото",seg("ref",Array.from({length:Math.min(4,nP)},(_,i)=>[String(i+1),`Фото ${i+1}`]),String(o.ref||1),"С какого фото"),I_.ref):"")
+    +(nP>1?sec("Акцент",swts(sw("hero","Главный продукт",heroOf()===o,"Самый заметный в кадре")),I_.hero):"")
+    +sec(["plate","bowl"].includes(o.type)?"Цвет посуды":o.type==="glass"?"Цвет напитка":"Цвет упаковки",sws("col",PKCOL,o.col,"Как на фото"),I_.pcol)
+    +sec("Размер и наклон",rng("h","Размер",.04,1,.01,o.h,FMT.h)+rng("rot","Наклон",-45,45,1,o.rot||0,FMT.rot),I_.size)}
+  else if(o&&o.k==="dec"){h=head(`Декор ${numOf(o)}`,true)+DGROUPS.map(([g,ids],i)=>sec(g,cards("type",ids,o.type,id=>DT[id].t,{svg:id=>mini(DT[id])},4),i?"":I_.dtype)).join("")
+    +sec("Как выглядит",swts(sw("many","Россыпь",o.many,"Несколько штук вокруг точки")+sw("blur","Не в фокусе",o.blur,"Мягко размыт, как на переднем плане")),I_.dopts)
     +sec("Цвет",sws("col",[DT[o.type].col,...PKCOL.slice(0,9)],o.col||DT[o.type].col))
-    +sec("",rng("h","Размер",.02,.6,.005,o.h,FMT.h)+rng("rot","Наклон",-90,90,1,o.rot||0,FMT.rot))}
+    +sec("Размер и наклон",rng("h","Размер",.02,.6,.005,o.h,FMT.h)+rng("rot","Наклон",-90,90,1,o.rot||0,FMT.rot),I_.size)}
   else if(o&&o.k==="txt"){const R=TROLE[o.role],pp=isPP();
-    h=head(`Текст ${numOf(o).slice(1)}`,true)+sec("",seg("role",Object.keys(TROLE).map(k=>[k,TROLE[k].t]),o.role,"Роль текста"))
-    +sec("Текст",`<textarea class="scn-in" data-a="text" rows="${o.role==="tag"||o.role==="price"?1:2}" maxlength="120" placeholder="${escA(R.ph)}" aria-label="Текст">${escA(o.text||"")}</textarea>`+(o.role==="head"?sw("caps","Заглавными",o.caps!==false,"Анафора набирается капсом, цифры — Ubuntu Bold"):""))
+    h=head(`Текст ${numOf(o).slice(1)}`,true)+sec("Кто рисует текст",seg("txtMode",[["render","Генератор"],["space","Наберу в Figma"]],SC.txtMode,"Кто рисует текст"),I_.tmode)
+    +sec("Роль",seg("role",Object.keys(TROLE).map(k=>[k,TROLE[k].t]),o.role,"Роль текста"),I_.role)
+    +sec("Текст",`<textarea class="scn-in" data-a="text" rows="${o.role==="tag"||o.role==="price"?1:2}" maxlength="120" placeholder="${escA(R.ph)}" aria-label="Текст">${escA(o.text||"")}</textarea>`+(o.role==="head"?swts(sw("caps","Заглавными",o.caps!==false,"Анафора набирается капсом, цифры — Ubuntu Bold")):""))
     +(o.role==="tag"?sec("Цвет плашки",sws("tagCol",["#D9534F","#F0B92A","#3E7D4F","#2F5D9E","#2A1A10","#FFFFFF"],o.tagCol||"#D9534F")):sec("Цвет",seg("ink",[["auto","Авто"],["light","Белый"],["dark","Тёмный"],["custom","Свой"]],o.ink||"auto","Цвет текста")+(o.ink==="custom"?sws("inkC",["#2A1A10","#FFFFFF","#C8102E","#3E7D4F"],o.inkC):"")))
-    +sec("",pp?rng("px","Кегль на баннере",R.rng[0],R.rng[1],1,pxOf(o),FMT.px):rng("size","Кегль",.015,.25,.001,o.size,FMT.size))
+    +sec("Кегль",pp?rng("px","На баннере 1100×600",R.rng[0],R.rng[1],1,pxOf(o),FMT.px):rng("size","Доля кадра",.015,.25,.001,o.size,FMT.size),pp?I_.px:"")
     +sec("Шрифты",fontRow("ana","Анафора · заголовок")+fontRow("ub","Ubuntu · цифры и текст")+`<input type="file" id="scnFontIn" accept=".otf,.ttf,.woff,.woff2" hidden><p class="scn-note">Файл шрифта хранится только в этом браузере. С ним холст и набросок рисуют настоящими буквами — генератор копирует их из наброска.</p>`)}
   el.innerHTML=h}
 
 /* ---------- изменения ---------- */
 function setVal(a,v){const o=selObj();
   if(a==="bg.stop"){SC.bg.stop=v;return}
+  if(a==="txtMode"){SC.txtMode=v;return}
   if(a.startsWith("bg.")){const k=a.slice(3);SC.bg[k]=k==="tone"?+v:v;return}
   if(a.startsWith("under.")){const k=a.slice(6);SC.under[k]=k==="w"?+v:v;if(k==="kind"&&v!=="none"&&SC.under.w<.15)SC.under.w=isPP()?BX(560):.46;return}
   if(a.startsWith("base.")){const k=a.slice(5),b=SC.base;
@@ -4973,9 +5011,9 @@ function setVal(a,v){const o=selObj();
   if(a==="col"&&o.k==="dec"&&v===DT[o.type].col){o.col=null;return}
   if(a==="role"){o.size=isPP()?sizeOfPx(TROLE[v].px):TROLE[v].px/600*.95;o.role=v;return}
   o[a]=v===""?null:v}
-const REINSP=new Set(["bg.kind","bg.gdir","bg.stop","under.kind","base.kind","base.surf","base.pod","type","role","ink","hero","caps"]);
+const REINSP=new Set(["txtMode","under.col","bg.kind","bg.gdir","bg.stop","under.kind","base.kind","base.surf","base.pod","type","role","ink","hero","caps"]);
 function commit(reInsp){save();draw();drawLayers();if(reInsp)drawInsp();outSoon()}
-function all(){save();draw();drawLayers();drawInsp();drawOut();syncBar()}
+function all(){save();draw();drawLayers();drawInsp();drawOut();syncBar();drawRules()}
 function bindInsp(){const el=$("scnInsp");
   el.addEventListener("click",e=>{const act=e.target.closest("[data-act]");if(act){act.dataset.act==="dup"?dup():del();return}
     const tab=e.target.closest("[data-pg]");if(tab){PALG[tab.dataset.pa]=+tab.dataset.pg;drawInsp();const f=el.querySelector(`[data-pa="${tab.dataset.pa}"][data-pg="${tab.dataset.pg}"]`);if(f)f.focus();return}
@@ -5096,6 +5134,12 @@ function popPick(v){const kind=$("scnPop").dataset.kind;
   if(kind==="light"){const was=SC.light.id;SC.light.id=v;all();popOpen(POP,true);const f=$("scnPop").querySelector(`[data-pv="${v}"]`);if(f)f.focus({preventScroll:true});if(was==="auto"&&v!=="auto")$("scnPop").scrollTop=0;return}
   if(kind==="ratio"){const [m,id]=[v.slice(0,v.indexOf(":")),v.slice(v.indexOf(":")+1)];setFrame(m==="pp",id);if(m==="pp"&&(crop().w<1||crop().h<1)){all();popOpen(POP,true);const f=$("scnPop").querySelector(`[data-pv="${v}"]`);if(f)f.focus();return}}
   popClose(true);all()}
+function drawRules(){const r=SC.rules,on=RULES.filter(x=>r[x[0]]).length;
+  $("scnRules").innerHTML=RULES.map(([k,t,d])=>`<label class="tg"><input type="checkbox" role="switch" data-rule="${k}" ${r[k]?"checked":""}><span>${t}<small>${d}</small></span></label>`).join("");
+  $("scnRulesStat").textContent=on===RULES.length?"Всё включено":`Включено ${on} из ${RULES.length}`;const o=!$("scnRules").classList.contains("clip");$("scnRulesL").textContent=o?"Свернуть":"Все настройки";$("scnRulesHead").setAttribute("aria-expanded",String(o))}
+function bindRules(){$("scnRulesHead").addEventListener("click",()=>{$("scnRules").classList.toggle("clip");drawRules()});
+  $("scnRules").addEventListener("focusin",()=>{if($("scnRules").classList.contains("clip")){$("scnRules").classList.remove("clip");drawRules()}});
+  $("scnRules").addEventListener("change",e=>{const k=e.target.dataset.rule;if(!k)return;snap();SC.rules[k]=e.target.checked;save();drawRules();const f=$("scnRules").querySelector(`[data-rule="${k}"]`);if(f)f.focus();outSoon();toast(e.target.checked?"Правило включено":"Правило выключено")})}
 function bindBar(){const bar=$("scnPage").querySelector(".scn-bar");
   bar.addEventListener("click",e=>{const a=e.target.closest("[data-add]");if(a){add(a.dataset.add);return}
     const m=e.target.closest("[data-menu]");if(m){e.stopPropagation();popOpen(m);return}
@@ -5115,7 +5159,7 @@ function bindBar(){const bar=$("scnPage").querySelector(".scn-bar");
 
 /* ---------- набросок: сцена в её цветах, без номеров, рамок и направляющих ---------- */
 async function png(){const btn=$("scnPng");btn.disabled=true;
-  try{const {W,H,body}=sceneSVG(),k=1600/W,css=await fontCSS(),
+  try{const {W,H,body}=sceneSVG(true),k=1600/W,css=await fontCSS(),
     s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W*k}" height="${H*k}">${css?`<style>${css}</style>`:""}${body}</svg>`,
     url=URL.createObjectURL(new Blob([s],{type:"image/svg+xml"})),img=new Image();
     await new Promise((ok,no)=>{img.onload=ok;img.onerror=no;img.src=url});await new Promise(r=>setTimeout(r,60));
@@ -5131,6 +5175,7 @@ function fromBuilder(){try{drawPreview()}catch(e){}const L=drawPreview.last,f=fr
   SC.light=Object.assign(f.light,{id:S.light||"auto",side:S.lside||"left",soft:S.lsoft||"soft",temp:S.ltemp||"neutral"});
   const bnr=S.bnr&&S.bnr.on;SC.frame=bnr?{pp:true,gen:S.bnr.gen||"16:9",ratio:"16:9",edge:"extend"}:S.ratio==="16:9"?{pp:true,gen:"16:9",ratio:"16:9",edge:"extend"}:{pp:false,gen:"16:9",ratio:S.ratio==="auto"?"1:1":S.ratio,edge:"extend"};
   SC.bg=Object.assign(f.bg,S.bg==="solid"?{kind:"solid",color:S.color}:S.bg==="grad"?{kind:"grad",g1:S.gmode==="pal"?lighten(S.gbase,.38):S.g1,g2:S.gmode==="pal"?S.gbase:S.g2,gdir:S.gdir==="radial"?"radial":"v"}:{kind:"room",room:"studio"});
+  SC.rules=Object.fromEntries(RULES.map(([k])=>[k,typeof S[k]==="boolean"?S[k]:true]));
   SC.objs=SC.objs.filter(o=>o.k!=="prod");
   if(L){L.P.forEach((p,i)=>{const it=S.src==="text"&&S.items[p.i]||null,type=PT[p.ty]?p.ty:"jar";
       SC.objs.splice(i,0,{id:uid(),k:"prod",type,x:cl(p.x/L.W,0,1),y:cl(p.by/L.H,0,1),h:cl(p.h/L.H,.04,1),rot:p.rot||0,col:okHex(p.col)?p.col:null,name:it&&it.what?String(it.what):"",ref:S.src==="text"?1:i+1,hero:i===0})});
@@ -5147,7 +5192,7 @@ function fromBuilder(){try{drawPreview()}catch(e){}const L=drawPreview.last,f=fr
 /* ---------- жизненный цикл ---------- */
 const PKCOL=["#FFFFFF","#2B2B2B","#C8102E","#E57A2B","#F2C14E","#3E7D4F","#2F5D9E","#7A4E9C","#8C5A3C","#C9A24A"];
 let BOUND=false;
-function bind(){if(BOUND)return;BOUND=true;svg=$("scnSvg");bindCanvas();bindInsp();bindBar();document.addEventListener("keydown",onKey);fontsInit();
+function bind(){if(BOUND)return;BOUND=true;svg=$("scnSvg");bindCanvas();bindInsp();bindBar();bindRules();document.addEventListener("keydown",onKey);fontsInit();
   if("ResizeObserver" in window)new ResizeObserver(()=>{if(!$("scnPage").hidden)draw()}).observe(svg)}
 function show(){bind();if(!LOADED){LOADED=true;if(!load()){fromBuilder();if(!prods().length)SC.objs.push({id:uid(),k:"prod",type:"jar",x:BX(820),y:.8,h:.34,rot:0,col:null,name:"",ref:1,hero:true})}}
   PREV=[];all()}
