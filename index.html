@@ -1659,6 +1659,13 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 @media (max-width:700px){.cptcard{align-self:end;border-radius:24px 24px 0 0}.cgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (prefers-reduced-motion:reduce){.cptc,.qcard .tprom{transition:none}.cptc:hover{transform:none}}
 
+/* phone: profile + settings menus open as a bottom sheet instead of a popover anchored to the button */
+@media (max-width:700px){
+  .topbar .upop,.topbar #setPop{position:fixed;left:0;right:0;top:auto;bottom:0;width:auto;max-width:none;max-height:85dvh;overflow:auto;overscroll-behavior:contain;border-radius:24px 24px 0 0;border-left:0;border-right:0;border-bottom:0;padding:12px 8px calc(16px + env(safe-area-inset-bottom,0px));z-index:100;box-shadow:0 0 0 100vmax rgba(10,14,12,.45);animation:sheetin var(--t-slow) var(--ease)}
+  .topbar .upop .grab,.topbar #setPop .grab{margin:0 auto 8px}
+  .topbar:has(.upop:not([hidden])),.topbar:has(#setPop:not([hidden])){z-index:110}
+}
+@media (max-width:700px) and (prefers-reduced-motion:reduce){.topbar .upop,.topbar #setPop{animation:none}}
 </style>
 
 <div class="glow" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
@@ -3149,7 +3156,10 @@ function sheetSwipe(panel,close){let y0=null,dy=0;const mq=matchMedia("(max-widt
   panel.addEventListener("touchmove",e=>{if(y0==null)return;dy=Math.max(0,e.touches[0].clientY-y0);panel.style.transform=dy?`translateY(${dy}px)`:""},{passive:true});
   panel.addEventListener("touchend",()=>{if(y0==null)return;y0=null;panel.style.transition="transform .25s var(--ease)";if(dy>90){panel.style.transform="translateY(100%)";setTimeout(()=>{close();panel.style.transform="";panel.style.transition=""},220)}else panel.style.transform=""})}
 document.querySelectorAll(".hpanel,.donecard").forEach(el=>{const g=document.createElement("span");g.className="grab";g.setAttribute("aria-hidden","true");el.prepend(g)});
-sheetSwipe(document.querySelector(".hpanel"),()=>histOpen(false));sheetSwipe(document.querySelector(".donecard"),()=>doneClose());
+sheetSwipe(document.querySelector(".hpanel"),()=>histOpen(false));
+[$("uPop"),$("setPop")].forEach(el=>{const g=document.createElement("span");g.className="grab";g.setAttribute("aria-hidden","true");el.prepend(g)});
+sheetSwipe($("uPop"),()=>{$("uPop").hidden=true;$("uBtn").setAttribute("aria-expanded","false")});
+sheetSwipe($("setPop"),()=>{if(!$("setPop").hidden)$("setBtn").click()});sheetSwipe(document.querySelector(".donecard"),()=>doneClose());
 
 /* a11y: keep keyboard focus inside the topmost open dialog */
 document.addEventListener("keydown",e=>{if(e.key!=="Tab")return;
