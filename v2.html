@@ -1670,6 +1670,7 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 @media (max-width:700px) and (prefers-reduced-motion:reduce){.topbar .upop,.topbar #setPop{animation:none}}
 /* ===== v2 · этап 1: свод HIG и доступность ===== */
 .grid>.card.off{order:99}
+.catmore{margin-top:6px;color:var(--accent-text);border-style:dashed;width:auto!important;display:inline-flex!important;align-self:flex-start}
 .isecs{display:flex;flex-direction:column;gap:28px}.isech{font-size:20px;margin:0 0 12px}.isech small{font:500 13px var(--f-body);color:var(--muted);margin-left:6px}
 .gmbody{overflow:auto;padding:0 4px 16px 0;display:flex;flex-direction:column;gap:16px;overscroll-behavior:contain}.gmlead{margin:0;color:var(--muted);font-size:14px}.gmbody h3{font-size:17px;margin:0 0 6px}.gmbody h3 small{font:500 12px var(--f-body);color:var(--muted);margin-left:6px}.gmbody ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:14px}.gmadm{background:var(--warn-bg);border-radius:12px;padding:12px}
 #cpt .cptcard.plain .cimgh,#cpt .cptcard.plain #cImgs,#cpt .cptcard.plain #cImgHint{display:none}
@@ -1954,7 +1955,7 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
           <label class="tg"><input type="checkbox" role="switch" id="avoid"><span>Список запретов<small>Без водяных знаков, лишнего текста и дублей.</small></span></label>
         </div>
       </div>
-      <div class="sub"><div class="subh"><h3>Категория</h3><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Подсказывает нейросети, как сделать продукт аппетитным: мясо — сочным, молочное — свежим, выпечку — румяной. Для алкоголя подача сдержанная, без людей.</p></div></details></div><div class="seg" id="cats" role="group" aria-label="Категории, можно несколько"></div><small class="hint">Можно выбрать несколько. «Другой предмет» — если в кадре не еда и не упаковка (техника, косметика, посуда…): в промте он станет «объектом».</small></div>
+      <div class="sub"><div class="subh"><h3>Категория</h3><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Подсказывает нейросети, как сделать продукт аппетитным: мясо — сочным, молочное — свежим, выпечку — румяной. Для алкоголя подача сдержанная, без людей.</p></div></details></div><div class="seg" id="cats" role="group" aria-label="Категории, можно несколько"></div><small class="hint">Можно выбрать несколько. «Другое» — если в кадре не еда и не упаковка (техника, косметика, посуда…): в промте он станет «объектом».</small></div>
       <div class="sub"><div class="subh"><h3>Усилить</h3><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Дополнительные указания к главному объекту. Можно включить несколько. Работают с любой категорией.</p></div></details></div><div class="seg" id="enh" role="group" aria-label="Усилить, можно несколько"></div></div>
     </section>
 
@@ -2286,6 +2287,7 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
     <div class="gmbody">
       <p class="gmlead">GENA собирает промт для Nano Banana или GPT Image. Фото продукта вы прикладываете в нейросеть сами — GENA описывает сцену вокруг него.</p>
       <section><h3>Идеи <small>главный экран</small></h3><ul>
+        <li><b>Разделы</b> — типы баннеров КуулКлевер: ПП (персональные предложения) 1100×600, широкий 21:9, вертикальный в карточку товара, плитка в каталог МП, баннер в каталог, сторис, СММ, виджет МП, «КК рекомендует», карточка товара.</li>
         <li><b>Готовые сцены коллег</b> по задачам и продуктам. Открыли → выбрали формат → «Скопировать промт».</li>
         <li><b>Эталон</b> — лучшие сцены, отобранные администратором. Хорошо получаются с первого раза.</li>
         <li><b>Поменять: Свет · Фон · Ракурс</b> — сцена откроется в Конструкторе на нужном шаге.</li>
@@ -2826,7 +2828,7 @@ const TILT=[
  {id:"right",t:"Все вправо",d:"Единый поток",rot:[16,16,16],p:"All objects share the same orientation: every object is rotated and tilted in the same direction, leaning about 10–20° to the right, as if the whole arrangement is gently turning to the right together, creating one smooth unified flow from left to right."},
  {id:"fan",t:"Веером",d:"Мягкая дуга",rot:[-14,0,14],p:"The objects fan out in one gentle arc, like a spread hand of cards: the central object stays upright and sits slightly higher, the objects on each side tilt outward about 10–15° and sit a little lower, all following one smooth symmetrical curve with even spacing."},
  {id:"varied",x:true,t:"Каждый по-своему",d:"Динамика",rot:[-22,14,-6],p:"Each object is rotated at its own angle for a dynamic, playful feel."}];
-const CATS=[["none","Без категории"],["meat","Мясо и гриль"],["dairy","Молочное"],["ready","Готовая еда"],["bakery","Выпечка и десерты"],["produce","Овощи и фрукты"],["alcohol","Вино и алкоголь"],["drinks","Напитки"],["other","Другой предмет"]];
+const CATS=[["none","Без категории"],["meat","Мясо и птица"],["deli","Колбасы и деликатесы"],["semi","Полуфабрикаты и гриль"],["fish","Рыба и морепродукты"],["ready","Готовая еда и кулинария"],["dairy","Молочное и сыры"],["bakery","Хлеб и выпечка"],["desserts","Торты и десерты"],["produce","Овощи, фрукты, зелень"],["grocery","Бакалея"],["sauces","Соусы и специи"],["preserves","Консервы и заготовки"],["snacks","Снеки и орехи"],["drinks","Напитки"],["tea","Чай и кофе"],["alcohol","Алкоголь"],["sets","Наборы и подарки"],["other","Другое"]];
 const GAP=[["tight","Вплотную","Spacing: the objects are packed tightly, touching and overlapping, almost no air between them."],["close","Близко","Spacing: the objects sit close together with small, even gaps."],["airy","Свободно","Spacing: generous, even air between the objects; they never touch."],["wide","Много воздуха","Spacing: wide, airy gaps between the objects, each one isolated by clear empty space."]];
 const MIRRORABLE=["thirds","golden","diag","tri"];
 const POSE={stand:["one","group","sapart"],float:["onefly","cluster","apart"],lie:["lone","lgroup","lapart","lcheck","lknoll","lrow","lring"]};
@@ -2840,7 +2842,17 @@ const ENH=[["sharp","Чёткость деталей","Crisp micro-detail on the
 const CATP={meat:"Meat looks fresh and juicy: natural marbling, moist surface, deep natural red and appetizing seared crust where cooked; never grey, dry or plastic.",
  dairy:"Dairy looks clean and fresh: creamy texture, pure milky whites, light natural condensation on chilled packaging.",
  ready:"Ready meals look freshly cooked and homemade: warm, appetizing, visible natural textures, gentle steam where appropriate.",
- bakery:"Baked goods and desserts look freshly baked: golden crust, soft airy crumb, delicate glaze and a few natural crumbs.",
+ bakery:"Bread and baked goods look freshly baked: golden crust, soft airy crumb and a few natural crumbs.",
+ desserts:"Cakes and desserts look fresh and delicate: clean cut layers, glossy glaze, smooth cream and precise decoration.",
+ deli:"Sausages and deli meats look fresh and appetizing: clean slices with natural marbling, moist surface, rich natural color; never dry or plastic.",
+ semi:"Semi-finished and grill products look fresh and ready to cook: natural raw textures, clean edges, appetizing color; cooked items have an even golden crust.",
+ fish:"Fish and seafood look ocean-fresh: moist glistening surface, clear natural color, firm texture, on crushed ice where appropriate.",
+ grocery:"Grocery staples look clean and premium: neat grains, pasta or oil with crisp texture and true-to-life color, tidy packaging.",
+ sauces:"Sauces and spices look rich and vivid: glossy sauce with natural thickness, vibrant spice colors and textures, a few appetizing drips or scattered grains.",
+ preserves:"Preserves and pantry jars look homemade and appetizing: clear glass, rich color of the contents, natural textures visible through the jar.",
+ snacks:"Snacks and nuts look crunchy and fresh: crisp textures, natural golden tones, a few pieces casually scattered.",
+ tea:"Tea and coffee look aromatic and premium: rich color of the brew, fine texture of leaves or beans, gentle steam where appropriate.",
+ sets:"Gift sets look festive and premium: neatly arranged items, clean packaging, an elegant, generous presentation.",
  produce:"Fruits and vegetables look farm-fresh: crisp, vivid natural colors, natural imperfections and tiny droplets of water.",
  alcohol:"Alcohol is presented in a restrained, premium way: the bottle and glass are the focus, the liquid looks clear and rich with realistic reflections. No people, no drinking, no party scenes.",
  drinks:"Drinks look fresh and chilled: clear liquid, realistic condensation droplets, crisp reflections."};
@@ -3084,7 +3096,9 @@ void PAL.map(g=>({g:g.g,c:g.c.filter(x=>!["#FFFFFF","#F7F7F7"].includes(x[1]))})
 $("gdir").innerHTML=GDIR.map(([v,l])=>`<button class="chip" type="button" data-v="${v}" aria-pressed="false">${l}</button>`).join("");
 $("decor").innerHTML=cardsHTML(DECOR,decorSVG);
 const chipHTML=list=>list.map(([v,l])=>`<button class="chip" type="button" data-v="${v}" aria-pressed="false">${l}</button>`).join("");
-$("cats").innerHTML=chipHTML(CATS);$("gapSeg").innerHTML=chipHTML(GAP);bindPick($("gapSeg"),"gap");$("enh").innerHTML=chipHTML(ENH);
+$("cats").innerHTML=chipHTML(CATS);{const C=$("cats"),b=document.createElement("button");b.type="button";b.className="chip catmore";b.setAttribute("aria-expanded","false");C.after(b);
+ const sync=()=>{const open=b.getAttribute("aria-expanded")==="true";let i=0;C.querySelectorAll("[data-v]").forEach(x=>{i++;x.hidden=!open&&i>9&&x.getAttribute("aria-pressed")!=="true"});const n=[...C.querySelectorAll("[data-v]")].filter(x=>x.hidden).length;b.textContent=open?"Свернуть":`Ещё категории (${n})`;b.hidden=!open&&!n};
+ b.addEventListener("click",()=>{b.setAttribute("aria-expanded",String(b.getAttribute("aria-expanded")!=="true"));sync()});C.addEventListener("click",()=>setTimeout(sync,0));window.__catSync=sync;setTimeout(sync,0)}$("gapSeg").innerHTML=chipHTML(GAP);bindPick($("gapSeg"),"gap");$("enh").innerHTML=chipHTML(ENH);
 $("cats").addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(!b)return;const v=b.dataset.v;
   if(v==="none")S.cats=[];else S.cats=S.cats.includes(v)?S.cats.filter(x=>x!==v):[...S.cats,v];update()});
 $("enh").addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(!b)return;const v=b.dataset.v;S.enh=S.enh.includes(v)?S.enh.filter(x=>x!==v):[...S.enh,v];update()});
@@ -4302,7 +4316,7 @@ $("labShare").addEventListener("click",()=>{userMenu(false);shareOpen()});
 
 /* ===== IDEAS (Simple mode): витрина готовых сцен, бенто по формату ===== */
 const ITASK={pp:{t:"Баннер ПП 1100×600",f:["16:9"]},wide:{t:"Широкий баннер 21:9",f:["21:9"]},pdp:{t:"Вертикальный в карточку товара",f:["9:16"]},mptile:{t:"Плитка в каталог МП",f:["3:2"]},catalog:{t:"Баннер в каталог",f:["1:1"]},story:{t:"Сторис",f:["9:16"]},smm:{t:"СММ",f:["1:1","4:5"]},widget:{t:"Виджет МП",f:["1:1"]},kkrec:{t:"КК рекомендует",f:["3:2"]},card:{t:"Карточка товара",f:["1:1"]}};
-const IPROD={drinks:"Напитки",alcohol:"Алкоголь",grocery:"Бакалея",sweets:"Сладкое и выпечка",dairy:"Молочное",sets:"Наборы и подарки"};
+const IPROD=Object.fromEntries(CATS.filter(c=>c[0]!=="none").map(c=>[c[0],c[1]]));
 const IDEA={rows:[],sc:{},task:null,prod:null,cur:null,fmt:null,at:0};
 let IADM={task:null,prod:null};
 const LIKE_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9zM7 11l4-8a2.5 2.5 0 0 1 2.5 3L13 10h5.6a2 2 0 0 1 2 2.4l-1.4 6A2 2 0 0 1 17.3 20H7"/></svg>';
