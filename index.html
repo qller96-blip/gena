@@ -2671,7 +2671,7 @@ const DEF={gap:"close",mirror:false,cats:[],enh:[],table:false,tOcc:"plain",tSha
 const freshS=()=>JSON.parse(JSON.stringify(DEF));
 let S=freshS();
 try{const s=JSON.parse(localStorage.getItem("ppc-v7")||"null");if(s)S=Object.assign(freshS(),s)}catch(e){}
-function migrate(){
+function migrate(){if(Array.isArray(S.cats))S.cats=S.cats.filter(c=>CATS.some(x=>x[0]===c));if(Array.isArray(S.enh))S.enh=S.enh.filter(k=>ENH.some(x=>x[0]===k));
   S.sv=Object.assign({},S.sv||{});if(!Array.isArray(S.items)||!S.items.length)S.items=freshS().items;S.items=S.items.slice(0,5);
   const m={lwood:["wood","oak"],dwood:["wood","walnut"],wmarble:["marble","carrara"],bmarble:["marble","nero"]};
   if(m[S.surface]){S.sv[m[S.surface][0]]=m[S.surface][1];S.surface=m[S.surface][0]}
