@@ -1670,6 +1670,7 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 @media (max-width:700px) and (prefers-reduced-motion:reduce){.topbar .upop,.topbar #setPop{animation:none}}
 /* ===== v2 · этап 1: свод HIG и доступность ===== */
 .grid>.card.off{order:99}
+#cpt .cptcard.plain .cimgh,#cpt .cptcard.plain #cImgs,#cpt .cptcard.plain #cImgHint{display:none}
 .ihead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}.itools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 /* v2 · окно просмотра */
 .vbg{position:absolute;inset:-60px;background:#0e1110 center/cover no-repeat;filter:blur(48px) saturate(1.1) brightness(.62);transform:scale(1.1);z-index:0;pointer-events:none}
@@ -2268,7 +2269,7 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
       <button class="btn ghost" type="button" id="cApply">Открыть в конструкторе</button>
       <div class="amenu"><button class="iconbtn" type="button" id="cMore" aria-label="Ещё действия" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5.5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18.5" cy="12" r="1.8"/></svg></button>
         <div class="cpop" id="cPop" role="menu" hidden>
-          <button type="button" role="menuitem" class="mitem" id="cGrab">Взять настройки из конструктора</button>
+          <button type="button" role="menuitem" class="mitem" id="cGrab">Обновить настройками из конструктора</button>
           <button type="button" role="menuitem" class="mitem" id="cPromote">Перевести в шаблоны команды</button>
           <button type="button" role="menuitem" class="mitem warn" id="cDel">Удалить концепт</button>
         </div></div></div>
@@ -3638,7 +3639,7 @@ function drawTemplates(){
   if(!L.length&&(qt==="mine"||qt==="pending")){g.innerHTML=`<p class="tempty">${qt==="mine"?"Своих шаблонов пока нет. Сохраните сцену через «•••» → «Сохранить шаблон».":"Нет шаблонов на проверке."}</p>`;return}
   if(!L.length){g.innerHTML=test?`<p class="tempty">Тестовых шаблонов нет. Сохраните сцену с отметкой «Тестовый» — она появится здесь и в «Идеях» как концепт.</p>`:`<p class="tempty">Пока пусто. Получилось хорошо — нажмите «В шаблоны» под промтом.</p>`;return}
   g.innerHTML=L.map(t=>{const mine=Cloud.user&&t.author_id===Cloud.user.id,can=mine||Cloud.admin;
-    return `<div class="qcard" role="button" tabindex="0" data-tp="${escA(t.id)}"><div class="qthumb"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div><div class="qmeta"><b>${escA(t.name)}</b><small>${t.from_analytics?'<span class="pop">Популярное</span> ':""}${t.test?`${t.images.length?t.images.length+" фото · ":""}${fmtDate(t.created_at)}`:`${escA(t.author_name||"Коллега")}${mine?" (вы)":""} · ${fmtDate(t.created_at)}`}</small></div>${can?`<button class="tdel" type="button" data-del="${escA(t.id)}">Удалить</button>`:""}${t.test?`<button class="tprom" type="button" data-promote="${escA(t.id)}">В команду</button>`:""}${!t.test&&mine&&t.scope==="mine"?`<button class="tprom" type="button" data-share="${escA(t.id)}">Предложить команде</button>`:""}${!t.test&&t.scope==="pending"&&Cloud.admin?`<button class="tprom" type="button" data-approve="${escA(t.id)}">Одобрить</button>`:!t.test&&t.scope==="pending"&&mine?`<span class="tstate">На проверке</span>`:""}</div>`}).join("");
+    return `<div class="qcard" role="button" tabindex="0" data-tp="${escA(t.id)}"><div class="qthumb"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div><div class="qmeta"><b>${escA(t.name)}</b><small>${t.from_analytics?'<span class="pop">Популярное</span> ':""}${t.test?`${t.images.length?t.images.length+" фото · ":""}${fmtDate(t.created_at)}`:`${escA(t.author_name||"Коллега")}${mine?" (вы)":""} · ${fmtDate(t.created_at)}`}</small></div>${can?`<button class="tdel" type="button" data-edit="${escA(t.id)}">Изменить</button>`:""}${t.test?`<button class="tprom" type="button" data-promote="${escA(t.id)}">В команду</button>`:""}${!t.test&&mine&&t.scope==="mine"?`<button class="tprom" type="button" data-share="${escA(t.id)}">Предложить команде</button>`:""}${!t.test&&t.scope==="pending"&&Cloud.admin?`<button class="tprom" type="button" data-approve="${escA(t.id)}">Одобрить</button>`:!t.test&&t.scope==="pending"&&mine?`<span class="tstate">На проверке</span>`:""}</div>`}).join("");
   const keep=S;
   try{L.forEach((t,i)=>{const c=g.children[i],st=JSON.parse(JSON.stringify(keep));Object.assign(st,JSON.parse(JSON.stringify(t.scene||{})));st.sv=Object.assign({},keep.sv,(t.scene||{}).sv||{});
     S=st;autofix();drawPreview({pv:c.querySelector(".pv"),floor:c.querySelector(".pvfloor"),svg:c.querySelector("svg"),leg:null,mw:150,mh:96,px:"t"+i})})}finally{S=keep}}
@@ -3647,7 +3648,7 @@ function applyTemplate(id){const t=TPL.find(x=>x.id===id);if(!t)return;const sna
   Object.assign(S,JSON.parse(JSON.stringify(t.scene||{})));S.sv=Object.assign({},JSON.parse(snap).sv,(t.scene||{}).sv||{});S.preset=null;drawLights();update();logEvent("template",{template:t.name});
   toastUndo(`Шаблон «${t.name}» применён`,()=>{S=JSON.parse(snap);drawLights();renderProds();update()})}
 let delT;
-$("tgrid").addEventListener("click",async e=>{const d=e.target.closest("[data-del]");
+$("tgrid").addEventListener("click",async e=>{const ed=e.target.closest("[data-edit]");if(ed){e.stopPropagation();cptOpen(ed.dataset.edit);return}const d=e.target.closest("[data-del]");
   if(d){e.stopPropagation();if(d.dataset.arm!=="1"){d.dataset.arm="1";d.textContent="Точно удалить?";clearTimeout(delT);delT=setTimeout(()=>{d.dataset.arm="";d.textContent="Удалить"},3500);return}
     const {error}=await Cloud.sb.from("templates").delete().eq("id",d.dataset.del);if(error){toast("Не получилось удалить шаблон")}else{toast("Шаблон удалён");loadTemplates()}return}
   const pr=e.target.closest("[data-promote]");if(pr){e.stopPropagation();promoteTemplate(pr.dataset.promote,pr);return}
@@ -5803,7 +5804,7 @@ async function drawConcepts(){const sec=$("cptSec");if(true){sec.hidden=true;ret
   G.querySelectorAll(".cptc").forEach(b=>{const h=b.querySelector(".hthumb");if(h){const t=TPL.find(x=>x.id===b.dataset.cpt);miniPreview(h,t.scene,"cp"+t.id.slice(0,6),180,112)}})}
 $("cptGrid").addEventListener("click",e=>{const b=e.target.closest("[data-cpt]");if(b)cptOpen(b.dataset.cpt)});
 
-function cptOpen(id){const t=TPL.find(x=>x.id===id);if(!t)return;CPT.cur={id,task:t.task||null,product:t.product||null};
+function cptOpen(id){const t=TPL.find(x=>x.id===id);if(!t)return;CPT.cur={id,task:t.task||null,product:t.product||null};const card=document.querySelector("#cpt .cptcard");card.classList.toggle("plain",!t.test);$("cptDlgH").textContent=t.test?"Тестовый шаблон":"Шаблон";$("cPromote").hidden=!t.test||!Cloud.admin;
   $("cName").value=t.name;$("cNote").value=t.note||"";$("cErr").textContent="";cptMenu(false);
   $("cptScene").innerHTML=`<div class="hthumb">${pvBox}</div><div class="achips">${sceneChips(t.scene).slice(0,8).map(x=>`<i>${escA(x)}</i>`).join("")}</div>`;
   miniPreview($("cptScene").querySelector(".hthumb"),t.scene,"cptd",72,72);
@@ -5852,20 +5853,20 @@ $("cImgs").addEventListener("click",async e=>{const t=CPT.cur&&TPL.find(x=>x.id=
 $("cSave").addEventListener("click",async()=>{const c=CPT.cur;if(!c)return;const name=$("cName").value.trim();if(!name){$("cErr").textContent="Добавьте название.";$("cName").focus();return}
   const b=$("cSave");b.disabled=true;const {error}=await Cloud.sb.from("templates").update({name,task:c.task,product:c.product,note:$("cNote").value.trim()||null,updated_at:new Date().toISOString()}).eq("id",c.id);b.disabled=false;
   if(error){$("cErr").textContent="Не получилось сохранить: "+(error.message||"");return}
-  toast(`Концепт «${name}» сохранён`);await loadTemplates()});
+  toast(`Шаблон «${name}» сохранён`);await loadTemplates()});
 $("cApply").addEventListener("click",()=>{const c=CPT.cur;if(!c)return;const id=c.id;cptClose();go("builder");applyTemplate(id)});
 function cptMenu(o){$("cPop").hidden=!o;$("cMore").setAttribute("aria-expanded",String(o));if(o)$("cPop").querySelector(".mitem").focus();else $("cPop").querySelectorAll("[data-arm]").forEach(x=>{x.dataset.arm="";x.textContent=x.dataset.t||x.textContent})}
 $("cMore").addEventListener("click",e=>{e.stopPropagation();cptMenu($("cPop").hidden)});
 document.addEventListener("click",e=>{if(!$("cPop").hidden&&!e.target.closest("#cPop,#cMore"))cptMenu(false)});
 let cmT;function cptArm(b,t){if(b.dataset.arm==="1")return true;b.dataset.t=b.dataset.t||b.textContent;b.dataset.arm="1";b.textContent=t;clearTimeout(cmT);cmT=setTimeout(()=>{b.dataset.arm="";b.textContent=b.dataset.t},3500);return false}
-$("cGrab").addEventListener("click",async e=>{const c=CPT.cur;if(!c||!cptArm(e.currentTarget,"Заменить настройки концепта?"))return;const t=TPL.find(x=>x.id===c.id),old=t.scene;
+$("cGrab").addEventListener("click",async e=>{const c=CPT.cur;if(!c||!cptArm(e.currentTarget,"Заменить настройки шаблона?"))return;const t=TPL.find(x=>x.id===c.id),old=t.scene;
   const {error}=await Cloud.sb.from("templates").update({scene:sceneOf(S),updated_at:new Date().toISOString()}).eq("id",c.id);cptMenu(false);
   if(error){toast("Не получилось обновить настройки");return}
-  toastUndo("Настройки концепта обновлены из конструктора",async()=>{await Cloud.sb.from("templates").update({scene:old}).eq("id",c.id);await loadTemplates()});await loadTemplates();if(CPT.cur)cptOpen(c.id)});
+  toastUndo("Настройки шаблона обновлены из конструктора",async()=>{await Cloud.sb.from("templates").update({scene:old}).eq("id",c.id);await loadTemplates()});await loadTemplates();if(CPT.cur)cptOpen(c.id)});
 $("cPromote").addEventListener("click",async e=>{const c=CPT.cur;if(!c||!cptArm(e.currentTarget,"Показать всем?"))return;cptMenu(false);const id=c.id;cptClose();CPT.cur=null;await promoteTemplate(id,null)});
-$("cDel").addEventListener("click",async e=>{const c=CPT.cur;if(!c||!cptArm(e.currentTarget,"Точно удалить? Картинки тоже"))return;const t=TPL.find(x=>x.id===c.id);cptMenu(false);
+$("cDel").addEventListener("click",async e=>{const c=CPT.cur;if(!c||!cptArm(e.currentTarget,"Точно удалить?"))return;const t=TPL.find(x=>x.id===c.id);cptMenu(false);
   const {error}=await Cloud.sb.from("templates").delete().eq("id",c.id);if(error){toast("Не получилось удалить");return}
-  const fs=(t.images||[]).flatMap(x=>[x.p,x.t]);if(fs.length)await Cloud.sb.storage.from("works").remove(fs);cptClose();toast(`Концепт «${t.name}» удалён`);loadTemplates()});
+  const fs=(t.images||[]).flatMap(x=>[x.p,x.t]);if(fs.length)await Cloud.sb.storage.from("works").remove(fs);cptClose();toast(`Шаблон «${t.name}» удалён`);loadTemplates()});
 $("cptClose").addEventListener("click",cptClose);
 $("cpt").addEventListener("click",e=>{if(e.target===$("cpt"))cptClose()});
 document.addEventListener("keydown",e=>{if(e.key!=="Escape"||$("cpt").hidden)return;if(!$("cPop").hidden){cptMenu(false);$("cMore").focus();return}cptClose()});
