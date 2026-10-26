@@ -2775,7 +2775,7 @@ function syncProds(){
 
 const DECOR=[
  {id:"none",t:"Нет",d:"Только продукт",n:0,p:"No decor or props at all: only the product(s) and the background."},
- {id:"few",t:"Мало",d:"2–3 предмета",n:3,p:"Add only 2–3 small decor elements, placed close to the products as quiet accents."},
+ {id:"few",t:"Мало",d:"2–4 предмета",n:3,p:"Add only 2–4 small decor elements thematically related to the product, placed asymmetrically close to the products as quiet accents, never covering them; decor takes no more than 20% of the frame."},
  {id:"bal",t:"Баланс",d:"5–7 предметов",n:6,p:"Add a balanced amount of decor: about 5–7 elements arranged around the products with clear breathing room between them."},
  {id:"rich",t:"Много",d:"10+ предметов",n:12,p:"Add abundant decor: 10 or more elements layered in the foreground and background, rich yet organized, with some elements partly out of focus at the frame edges."}
 ];
@@ -2803,7 +2803,8 @@ const ENH=[["sharp","Чёткость деталей","Crisp micro-detail on the
  ["gloss","Блики и глянец","Beautiful controlled specular highlights: clean glossy reflections and bright rim highlights that define the object's form, no blown-out areas."],
  ["vivid","Сочность цвета","Rich, saturated, true-to-life colors with deep contrast, vibrant but natural, never oversaturated or neon."],
  ["texture","Фактура материала","Tactile material rendering: visible grain, weave, brushed or matte finishes exactly as the real material looks."],
- ["hero","Премиальная подача","Hero-object treatment: immaculate, flawless surfaces, no dust, scratches or fingerprints, polished commercial finish."]];
+ ["hero","Премиальная подача","Hero-object treatment: immaculate, flawless surfaces, no dust, scratches or fingerprints, polished commercial finish."],
+ ["retouch","Аппетитная ретушь","Professional food retouching: make the food and products look fresher, juicier and more appetizing, as in premium food advertising, while keeping their real shape, color and texture."]];
 const CATP={meat:"Meat looks fresh and juicy: natural marbling, moist surface, deep natural red and appetizing seared crust where cooked; never grey, dry or plastic.",
  dairy:"Dairy looks clean and fresh: creamy texture, pure milky whites, light natural condensation on chilled packaging.",
  ready:"Ready meals look freshly cooked and homemade: warm, appetizing, visible natural textures, gentle steam where appropriate.",
@@ -3212,7 +3213,7 @@ function sections(){
   out.push(["COMPOSITION",c]);
 
   const nothing=" Nothing else in the scene: no table, no surface, no board, no packaging, no extra props, no shapes, no text.";
-  if(S.bg==="solid")out.push(["BACKGROUND",`Flat, even, seamless ${cname(S.color)} background, almost uniform, with only a barely visible soft gradient, no texture, no horizon line.${dc.n===0?nothing:""}`]);
+  if(S.bg==="solid")out.push(["BACKGROUND",`Flat, perfectly even, seamless matte ${cname(S.color)} background: no texture, no pattern, no gradient, no vignette, no horizon line.${dc.n===0?nothing:""}`]);
   else if(S.bg==="grad"){
     const pi=S.gmode==="pal"?pinfo(S.gbase):null,a=S.gmode==="pal"?lighten(S.gbase,.38):S.g1,b=S.gmode==="pal"?S.gbase:S.g2,nm=pi?pi[2]+" ":"";
     const g={vert:`Seamless smooth vertical ${nm}gradient background: from a lighter ${a} at the top to ${b} at the bottom`,diag:`Seamless smooth diagonal ${nm}gradient background: a lighter ${a} in the top-left corner flowing into ${b} in the bottom-right`,radial:`Seamless smooth radial ${nm}gradient background: a lighter ${a} soft glow right behind the products, fading into ${b} toward the edges`}[S.gdir];
@@ -3245,6 +3246,7 @@ function sections(){
   if(S.light==="auto")out.push(["LIGHT",st.light]);
   else{const lt=find(LIGHTS,S.light),K=S.lside==="right"?"right":"left",F=K==="left"?"right":"left";
     let l=lt.p.replaceAll("{K}",K).replaceAll("{F}",F);
+    if(S.angle==="top"&&S.light==="key45")l=`Soft directional light from the upper-${K} corner of the frame at about 45°: natural soft shadows fall toward the lower-${F} corner, giving gentle volume and depth; no harsh shadows, no blown-out highlights.`;
     if(!(S.light==="tent"||S.light==="window")||S.lsoft==="soft")l+=" "+LSOFT_P[S.lsoft];
     l+=" "+LTEMP_P[S.ltemp];
     out.push(["LIGHT",l]);}
@@ -3288,8 +3290,8 @@ const PRESETS=[
   set:{style:"fintech",angle:"side",place:"center",grid:"golden",tilt:"left",fill:"70",noCrop:true,light:"auto",dof:"all",bg:"grad",gmode:"pal",gbase:"#E2E8F5",gdir:"diag",decor:"few",shadow:"ao",ratio:"1:1",pod:"none"}},
  {id:"grid",t:"Вертикальный баннер в карточку товара",d:"Продукты внизу, на деревянном столе",tags:["9:16","Дерево"],kind:"stand",
   set:{style:"home",angle:"slight",place:"bottom",grid:"golden",tilt:"none",fill:"70",noCrop:true,light:"auto",dof:"all",bg:"scene",surface:"wood",sv:{wood:"oak"},decor:"few",shadow:"soft",ratio:"9:16",pod:"none"}},
- {id:"mp",t:"Плитка в приложении",d:"Вид сверху, ровный светлый фон",tags:["3:2","Сверху"],kind:"stand",
-  set:{style:"catalog",angle:"top",place:"center",grid:"free",tilt:"none",fill:"70",noCrop:true,light:"key45",lside:"left",lsoft:"soft",ltemp:"neutral",dof:"all",bg:"solid",color:"#F7F7F7",decor:"none",shadow:"soft",ratio:"3:2",pod:"none"}},
+ {id:"mp",t:"Плитка в приложении",d:"Вид сверху, пастельный фон, декор по теме",tags:["3:2","Сверху"],kind:"lie",
+  set:{style:"catalog",angle:"top",place:"center",grid:"thirds",tilt:"none",fill:"70",noCrop:true,light:"key45",lside:"left",lsoft:"soft",ltemp:"neutral",dof:"all",bg:"solid",color:"#F7DCD2",decor:"few",decorAuto:true,enh:["retouch"],shadow:"soft",ratio:"3:2",pod:"none",table:false}},
  {id:"social34",t:"Пост 3:4 · живой стол",d:"Стол у окна, мягкий фон",tags:["3:4","Живой фон"],kind:"stand",
   set:{style:"home",angle:"e45",place:"center",grid:"golden",tilt:"none",fill:"70",noCrop:true,light:"window",lside:"left",lsoft:"soft",ltemp:"warm",dof:"shallow",bg:"scene",surface:"wood",sv:{wood:"walnut"},decor:"rich",shadow:"soft",ratio:"3:4",pod:"none"}},
  {id:"social11",t:"Пост 1:1 · солнце",d:"Тени листвы, лён, декор",tags:["1:1","Солнце"],kind:"stand",
@@ -3301,7 +3303,7 @@ function presetState(pr,base){
   const st=JSON.parse(JSON.stringify(base));Object.assign(st,JSON.parse(JSON.stringify(pr.set)));st.sv=Object.assign({},base.sv,pr.set.sv||{});
   if(st.gmode==="pal"&&pr.set.gbase){st.g1=lighten(st.gbase,.38);st.g2=st.gbase}
   const multi=st.src==="text"?st.items.length>1:find(ARR,base.arr).multi;
-  st.arr=pr.kind==="float"?(multi?"cluster":"onefly"):(multi?"group":"one");
+  st.arr=pr.kind==="float"?(multi?"cluster":"onefly"):pr.kind==="lie"?(multi?"lgroup":"lone"):(multi?"group":"one");
   const keep=S;S=st;try{autofix()}finally{S=keep}
   return st}
 /* v2: стартовая сцена — «Баннер ПП» (Р7) */
