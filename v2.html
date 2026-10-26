@@ -1670,6 +1670,7 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 @media (max-width:700px) and (prefers-reduced-motion:reduce){.topbar .upop,.topbar #setPop{animation:none}}
 /* ===== v2 · этап 1: свод HIG и доступность ===== */
 .grid>.card.off{order:99}
+.isecs{display:flex;flex-direction:column;gap:28px}.isech{font-size:20px;margin:0 0 12px}.isech small{font:500 13px var(--f-body);color:var(--muted);margin-left:6px}
 .gmbody{overflow:auto;padding:0 4px 16px 0;display:flex;flex-direction:column;gap:16px;overscroll-behavior:contain}.gmlead{margin:0;color:var(--muted);font-size:14px}.gmbody h3{font-size:17px;margin:0 0 6px}.gmbody h3 small{font:500 12px var(--f-body);color:var(--muted);margin-left:6px}.gmbody ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:14px}.gmadm{background:var(--warn-bg);border-radius:12px;padding:12px}
 #cpt .cptcard.plain .cimgh,#cpt .cptcard.plain #cImgs,#cpt .cptcard.plain #cImgHint{display:none}
 .ihead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}.itools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -3321,11 +3322,11 @@ const PRESETS=[
   set:{style:"fintech",angle:"side",place:"center",grid:"golden",tilt:"left",fill:"70",noCrop:true,light:"auto",dof:"all",bg:"grad",gmode:"pal",gbase:"#E2E8F5",gdir:"diag",decor:"few",shadow:"ao",ratio:"1:1",pod:"none"}},
  {id:"grid",t:"Вертикальный баннер в карточку товара",d:"Продукты внизу, на деревянном столе",tags:["9:16","Дерево"],kind:"stand",
   set:{style:"home",angle:"slight",place:"bottom",grid:"golden",tilt:"none",fill:"70",noCrop:true,light:"auto",dof:"all",bg:"scene",surface:"wood",sv:{wood:"oak"},decor:"few",shadow:"soft",ratio:"9:16",pod:"none"}},
- {id:"mp",t:"Плитка в приложении",d:"Вид сверху, пастельный фон, декор по теме",tags:["3:2","Сверху"],kind:"lie",
+ {id:"mp",t:"Плитка в каталог МП",d:"Вид сверху, пастельный фон, декор по теме",tags:["3:2","Сверху"],kind:"lie",
   set:{style:"catalog",angle:"top",place:"center",grid:"thirds",tilt:"none",fill:"70",noCrop:true,light:"key45",lside:"left",lsoft:"soft",ltemp:"neutral",dof:"all",bg:"solid",color:"#F7DCD2",decor:"few",decorAuto:true,enh:["retouch"],shadow:"soft",ratio:"3:2",pod:"none",table:false}},
- {id:"social34",t:"Пост 3:4 · живой стол",d:"Стол у окна, мягкий фон",tags:["3:4","Живой фон"],kind:"stand",
-  set:{style:"home",angle:"e45",place:"center",grid:"golden",tilt:"none",fill:"70",noCrop:true,light:"window",lside:"left",lsoft:"soft",ltemp:"warm",dof:"shallow",bg:"scene",surface:"wood",sv:{wood:"walnut"},decor:"rich",shadow:"soft",ratio:"3:4",pod:"none"}},
- {id:"social11",t:"Пост 1:1 · солнце",d:"Тени листвы, лён, декор",tags:["1:1","Солнце"],kind:"stand",
+ {id:"social34",t:"СММ 4:5 · живой стол",d:"Стол у окна, мягкий фон",tags:["4:5","Живой фон"],kind:"stand",
+  set:{style:"home",angle:"e45",place:"center",grid:"golden",tilt:"none",fill:"70",noCrop:true,light:"window",lside:"left",lsoft:"soft",ltemp:"warm",dof:"shallow",bg:"scene",surface:"wood",sv:{wood:"walnut"},decor:"rich",shadow:"soft",ratio:"4:5",pod:"none"}},
+ {id:"social11",t:"СММ 1:1 · солнце",d:"Тени листвы, лён, декор",tags:["1:1","Солнце"],kind:"stand",
   set:{style:"sun",angle:"slight",place:"center",grid:"diag",tilt:"none",fill:"70",noCrop:true,light:"key45",lside:"left",lsoft:"hard",ltemp:"warm",dof:"all",bg:"scene",surface:"linen",sv:{linen:"#F4F1EA"},decor:"bal",shadow:"hard",ratio:"1:1",pod:"none"}}
 ];
 const SCENE_KEYS=["gap","mirror","table","tOcc","tShape","tSize","tMat","tCloth","tTone","bgText","style","angle","arr","place","grid","tilt","fill","light","lside","lsoft","ltemp","dof","bg","color","gbase","gdir","gmode","g1","g2","surface","sv","decor","shadow","ratio","pod","podShape","podTiers","podCol","noCrop"];
@@ -4300,7 +4301,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("share").hidden)
 $("labShare").addEventListener("click",()=>{userMenu(false);shareOpen()});
 
 /* ===== IDEAS (Simple mode): витрина готовых сцен, бенто по формату ===== */
-const ITASK={banner:{t:"Баннер на сайт",f:["16:9","21:9"]},card:{t:"Карточка товара",f:["1:1","3:4"]},story:{t:"Сторис",f:["9:16"]},post:{t:"Пост",f:["4:5","1:1"]},catalog:{t:"Каталог и меню",f:["3:2","1:1"]},white:{t:"Продукт на белом",f:["1:1","4:5"]},season:{t:"Сезонная акция",f:["16:9","1:1","9:16"]},deck:{t:"Для презентации",f:["16:9"]}};
+const ITASK={pp:{t:"Баннер ПП 1100×600",f:["16:9"]},wide:{t:"Широкий баннер 21:9",f:["21:9"]},pdp:{t:"Вертикальный в карточку товара",f:["9:16"]},mptile:{t:"Плитка в каталог МП",f:["3:2"]},catalog:{t:"Баннер в каталог",f:["1:1"]},story:{t:"Сторис",f:["9:16"]},smm:{t:"СММ",f:["1:1","4:5"]},widget:{t:"Виджет МП",f:["1:1"]},kkrec:{t:"КК рекомендует",f:["3:2"]},card:{t:"Карточка товара",f:["1:1"]}};
 const IPROD={drinks:"Напитки",alcohol:"Алкоголь",grocery:"Бакалея",sweets:"Сладкое и выпечка",dairy:"Молочное",sets:"Наборы и подарки"};
 const IDEA={rows:[],sc:{},task:null,prod:null,cur:null,fmt:null,at:0};
 let IADM={task:null,prod:null};
@@ -4310,7 +4311,7 @@ const ideaPlural=(n,a)=>a[(n%100>4&&n%100<20)?2:[2,0,1,1,1,2][Math.min(n%10,5)]]
 /* формат — по реальным пропорциям картинки, а не по настройке сцены */
 const nearRatio=(w,h)=>{const a=w/h;let best=RATIOS[0],d=1e9;RATIOS.forEach(r=>{const x=Math.abs(Math.log(a*r[2]/r[1]));if(x<d){d=x;best=r}});return best[0]};
 const fmtShape=f=>({"1:1":"sq","3:4":"port","4:5":"port","2:3":"story","9:16":"story","16:9":"wide","3:2":"wide","21:9":"ultra"})[f]||"sq";
-const fmtTask=f=>({"16:9":"banner","21:9":"banner","3:2":"banner","1:1":"card","3:4":"card","9:16":"story","2:3":"story","4:5":"post"})[f]||"card";
+const fmtTask=f=>({"16:9":"pp","21:9":"wide","3:2":"mptile","1:1":"card","3:4":"card","9:16":"story","2:3":"story","4:5":"smm"})[f]||"card";
 function fmtIcon(f){const [a,b]=f.split(":").map(Number),k=16/Math.max(a,b),w=a*k,h=b*k;
   return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="${(12-w/2).toFixed(1)}" y="${(12-h/2).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="2"/></svg>`}
 const ideaAutoTitle=r=>{const sc=r.scene||{},st=valLabel("style",sc.style)||"Сцена",an=sc.angle?valLabel("angle",sc.angle):"";return an&&an!==sc.angle?`${st} · ${an.toLowerCase()}`:st};
@@ -4356,7 +4357,7 @@ function drawIdeas(){
   const rows=all.filter(r=>(!IDEA.task||r.task===IDEA.task)&&(!IDEA.prod||r.prod===IDEA.prod)).filter(r=>$("ideaPick").hidden||!pick.includes(r)).sort((a,b)=>a.hid-b.hid),G=$("ideaGrid");
   $("ideaAllH").textContent=IDEA.task?ITASK[IDEA.task].t:IDEA.prod?IPROD[IDEA.prod]:($("ideaPick").hidden?"Все сцены":"Ещё сцены");
   $("ideaCount").textContent=rows.length?`${rows.length} ${ideaPlural(rows.length,["сцена","сцены","сцен"])}`:"";G.removeAttribute("aria-busy");
-  G.innerHTML=rows.length?rows.map(r=>ideaTile(r,true)).join(""):SO==="mine"?`<div class="iempty"><b>Вы ещё ничего не опубликовали</b><p>Скопируйте промт, сгенерируйте картинку и поделитесь удачной — коллеги смогут повторить сцену.</p><button class="btn" type="button" data-ishare>Поделиться работой</button></div>`:`<div class="iempty"><b>Здесь пока пусто</b><p>Сцены появятся, когда коллеги опубликуют удачные генерации.</p></div>`}
+  const grouped=!IDEA.task&&rows.length>0;G.className=grouped?"isecs":"igrid";G.innerHTML=grouped?Object.keys(ITASK).map(k=>[k,rows.filter(r=>r.task===k)]).filter(x=>x[1].length).map(([k,rs])=>`<section class="isec"><h3 class="isech">${escA(ITASK[k].t)} <small>${rs.length}</small></h3><div class="igrid">${rs.map(r=>ideaTile(r,true)).join("")}</div></section>`).join(""):rows.length?rows.map(r=>ideaTile(r,true)).join(""):SO==="mine"?`<div class="iempty"><b>Вы ещё ничего не опубликовали</b><p>Скопируйте промт, сгенерируйте картинку и поделитесь удачной — коллеги смогут повторить сцену.</p><button class="btn" type="button" data-ishare>Поделиться работой</button></div>`:`<div class="iempty"><b>Здесь пока пусто</b><p>Сцены появятся, когда коллеги опубликуют удачные генерации.</p></div>`}
 
 $("ideaTasks").addEventListener("click",e=>{const b=e.target.closest("[data-itask]");if(!b)return;IDEA.task=b.dataset.itask||null;IDEA.prod=null;drawIdeas();drawConcepts()});
 $("ideaProds").addEventListener("click",e=>{const b=e.target.closest("[data-iprod]");if(!b)return;IDEA.prod=b.dataset.iprod||null;drawIdeas()});
@@ -4381,7 +4382,7 @@ function ideaFill(){const r=IDEA.cur;$("iTitle").textContent=r.ttl;$("iAuthor").
   const ch=sceneChips(r.scene||{});$("iWhat").textContent=[ch[0],ch[2],ch[3]].filter(Boolean).join(" · ");noteFill($("iNote"),r);
   ideaFmtDraw();$("iLike").setAttribute("aria-pressed",String(GAL.liked.has(r.id)));$("iLikeN").textContent=r.likes;
   $("iAdm").hidden=!Cloud.admin;if(Cloud.admin)ideaAdmFill()}
-const FMTL=(f,task)=>task==="banner"&&f==="16:9"?"Баннер ПП 1100×600":({"21:9":"Широкий баннер","16:9":"Баннер 16:9","1:1":"Квадрат","3:4":"Карточка 3:4","4:5":"Пост 4:5","9:16":"Сторис 9:16","3:2":"Альбом 3:2","2:3":"Портрет 2:3"})[f]||f;
+const FMTL=(f,task)=>task==="pp"&&f==="16:9"?"Баннер ПП 1100×600":({"21:9":"Широкий баннер","16:9":"Баннер 16:9","1:1":"Квадрат","3:4":"Карточка 3:4","4:5":"Пост 4:5","9:16":"Сторис 9:16","3:2":"Альбом 3:2","2:3":"Портрет 2:3"})[f]||f;
 function ideaFmtDraw(){const r=IDEA.cur,fs=[...new Set([r.fmt,...ITASK[r.task].f])];if(!fs.includes(IDEA.fmt))IDEA.fmt=r.fmt;
   const one=fs.length<2;$("iFmt").hidden=one;$("iFmtOne").hidden=!one;$("iFmtOne").innerHTML=one?fmtIcon(r.fmt)+FMTL(r.fmt,r.task):"";
   $("iFmt").innerHTML=one?"":fs.map(f=>`<button type="button" role="radio" data-fmt="${f}" aria-checked="${f===IDEA.fmt}" tabindex="${f===IDEA.fmt?0:-1}">${fmtIcon(f)}${FMTL(f,r.task)}</button>`).join("");
