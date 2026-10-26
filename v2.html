@@ -1670,6 +1670,7 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 @media (max-width:700px) and (prefers-reduced-motion:reduce){.topbar .upop,.topbar #setPop{animation:none}}
 /* ===== v2 · этап 1: свод HIG и доступность ===== */
 .grid>.card.off{order:99}
+.gmbody{overflow:auto;padding:0 4px 16px 0;display:flex;flex-direction:column;gap:16px;overscroll-behavior:contain}.gmlead{margin:0;color:var(--muted);font-size:14px}.gmbody h3{font-size:17px;margin:0 0 6px}.gmbody h3 small{font:500 12px var(--f-body);color:var(--muted);margin-left:6px}.gmbody ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:14px}.gmadm{background:var(--warn-bg);border-radius:12px;padding:12px}
 #cpt .cptcard.plain .cimgh,#cpt .cptcard.plain #cImgs,#cpt .cptcard.plain #cImgHint{display:none}
 .ihead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}.itools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 /* v2 · окно просмотра */
@@ -1862,7 +1863,7 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
           <div class="umode" hidden><span>Режим</span><div class="gsort" id="labMode" role="radiogroup" aria-label="Режим конструктора"><button type="button" role="radio" data-md="simple" aria-checked="false">Простой</button><button type="button" role="radio" data-md="pro" aria-checked="false">Про</button></div></div>
           <button class="opt uopt" type="button" id="labShare"><span>Показать напоминание «Делитесь»</span></button></div>
         <div class="ugrp"><p class="uapph">Работа</p>
-          <button class="opt uopt uhist" type="button" id="uHist"><span>Мои промты</span></button><button class="opt uopt" type="button" id="uOnb"><span>Как работать</span></button><button class="opt uopt" type="button" id="uFb"><span>Нашли проблему?</span></button>
+          <button class="opt uopt uhist" type="button" id="uHist"><span>Мои промты</span></button><button class="opt uopt" type="button" id="uOnb"><span>Как работать</span></button><button class="opt uopt" type="button" id="uMap"><span>Карта GENA: что где и зачем</span></button><button class="opt uopt" type="button" id="uFb"><span>Нашли проблему?</span></button>
           <label class="tg uopt utg"><input type="checkbox" role="switch" id="uDone"><span>Окно оценки после каждого копирования</span></label></div>
         <div class="ugrp uapp"><p class="uapph">Оформление</p>
           <div class="gsort uthm" id="uThm" role="radiogroup" aria-label="Тема"><button type="button" role="radio" data-th="light" aria-checked="false">Светлая</button><button type="button" role="radio" data-th="dark" aria-checked="false">Тёмная</button><button type="button" role="radio" data-th="auto" aria-checked="false">Авто</button></div>
@@ -2278,6 +2279,36 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
 <div class="zv" id="zv" role="dialog" aria-modal="true" aria-label="Просмотр изображения" hidden><div class="zstage" id="zStage"><img id="zImg" alt="" draggable="false"></div>
   <div class="ztop"><span class="zcount" id="zCount"></span><span class="zsp"></span><button class="zb" type="button" id="zOut" aria-label="Уменьшить">−</button><button class="zb zpct" type="button" id="zFit" aria-label="Вписать в экран">100%</button><button class="zb" type="button" id="zIn" aria-label="Увеличить">+</button><button class="zb" type="button" id="zX" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <button class="zb znav zprev" type="button" id="zPrev" aria-label="Предыдущая"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button class="zb znav znext" type="button" id="zNext" aria-label="Следующая"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button><p class="zhint">Колесо или щипок — масштаб, перетаскивание — сдвиг, двойной клик — 2× / вписать</p></div>
+<div class="fbwrap chwrap" id="gmap" role="dialog" aria-modal="true" aria-labelledby="gmH" hidden>
+  <div class="fbcard chcard gmcard">
+    <div class="fbhead"><h2 id="gmH">Карта GENA</h2><button class="iconbtn" type="button" id="gmClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="gmbody">
+      <p class="gmlead">GENA собирает промт для Nano Banana или GPT Image. Фото продукта вы прикладываете в нейросеть сами — GENA описывает сцену вокруг него.</p>
+      <section><h3>Идеи <small>главный экран</small></h3><ul>
+        <li><b>Готовые сцены коллег</b> по задачам и продуктам. Открыли → выбрали формат → «Скопировать промт».</li>
+        <li><b>Эталон</b> — лучшие сцены, отобранные администратором. Хорошо получаются с первого раза.</li>
+        <li><b>Поменять: Свет · Фон · Ракурс</b> — сцена откроется в Конструкторе на нужном шаге.</li>
+        <li><b>Лупа</b> или клик по картинке — рассмотреть крупно, колесом или щипком приблизить.</li>
+        <li><b>Полезные · Новые · Мои</b> и <b>«Поделиться работой»</b> — опубликовать свою удачную генерацию.</li></ul></section>
+      <section><h3>Конструктор <small>для точной настройки</small></h3><ul>
+        <li><b>Начните с готового</b>: «Сценарии» — заготовки под форматы КуулКлевер; «Мои» — ваши шаблоны; «Команды» — одобренные шаблоны коллег.</li>
+        <li><b>Шаги 01–08</b> — продукт, стиль, фон, подставка, композиция, ракурс, свет, финиш. Жёлтая точка — шаг изменён. Клавиши 1–8 — переход к шагу.</li>
+        <li><b>Промт</b> справа: «Скопировать» (⌘/Ctrl+Enter). В «•••» — «Сохранить шаблон» и «Сбросить».</li>
+        <li><b>Сохранить шаблон</b>: «Только мне» или «Предложить команде» — после одобрения увидят все. Свои шаблоны можно «Изменить».</li></ul></section>
+      <section><h3>Макет <small>точная расстановка</small></h3><ul>
+        <li>Расставьте продукты, декор и текст на холсте. «Промт и набросок» копирует промт и скачивает картинку-раскладку — её прикладывают в нейросеть последней.</li></ul></section>
+      <section><h3>Мои промты <small>иконка с часами</small></h3><ul>
+        <li>Каждый скопированный промт сохраняется. Поставьте оценку результату, лучшие — опубликуйте в «Идеи».</li></ul></section>
+      <section class="gmadm" hidden><h3>Только для администратора</h3><ul>
+        <li><b>Смотреть как</b> — увидеть GENA глазами пользователя; переключатель остаётся, чтобы вернуться.</li>
+        <li><b>Версия: Текущая / v2</b> — v2 видите только вы, коллеги работают в текущей.</li>
+        <li><b>На проверке</b> — шаблоны, которые коллеги предложили команде: «Одобрить».</li>
+        <li><b>Тестовые</b> — черновики шаблонов, видны только вам; «В команду», когда проверены.</li>
+        <li><b>Витрина</b> в окне идеи — название, задача, продукт, «Эталон» и скрытие сцены.</li>
+        <li><b>Аналитика и доступ</b> — что копируют чаще всего, пароль команды, отзывы.</li></ul></section>
+    </div>
+  </div>
+</div>
 <div id="toast" role="status" hidden></div>
 <div class="hwrap" id="hist" role="dialog" aria-modal="true" aria-labelledby="histTitle" hidden>
   <div class="hpanel">
@@ -3441,6 +3472,9 @@ document.addEventListener("keydown",e=>{if($("zv").hidden)return;if(e.key==="Esc
 const ideaShareOpen=()=>{HIST.filter=HIST.rows.some(r=>r.rating>=4&&!(HIST.published&&HIST.published.has(r.id)))?"best":HIST.rows.some(r=>!r.rating)?"new":"all";histOpen(true)};
 $("ideaShare").addEventListener("click",ideaShareOpen);$("ideaGrid").addEventListener("click",e=>{if(e.target.closest("[data-ishare]"))ideaShareOpen()});
 $("ideaSort").addEventListener("click",e=>{const b=e.target.closest("[data-is]");if(!b)return;IDEA.sort=b.dataset.is;IDEA.task=null;IDEA.prod=null;drawIdeas()});
+function gmOpen(o){$("gmap").hidden=!o;document.body.classList.toggle("locked",o);if(o){document.querySelector("#gmap .gmadm").hidden=!Cloud.admin;$("gmClose").focus()}}
+$("uMap").addEventListener("click",()=>{$("uPop").hidden=true;$("uBtn").setAttribute("aria-expanded","false");gmOpen(true)});$("gmClose").addEventListener("click",()=>gmOpen(false));
+$("gmap").addEventListener("click",e=>{if(e.target===$("gmap"))gmOpen(false)});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("gmap").hidden)gmOpen(false)});
 /* ----- version switch (admin only): index.html ↔ v2.html ----- */
 const GENA_FILE="v2";
 $("labVer").addEventListener("click",e=>{const b=e.target.closest("[data-gv]");if(!b||b.dataset.gv===GENA_FILE)return;try{localStorage.setItem("gena-v2",b.dataset.gv==="v2"?"1":"0")}catch(err){}location.href=(b.dataset.gv==="v2"?"v2.html":"index.html")+location.hash});
