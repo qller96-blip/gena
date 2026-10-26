@@ -1670,6 +1670,21 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 @media (max-width:700px) and (prefers-reduced-motion:reduce){.topbar .upop,.topbar #setPop{animation:none}}
 /* ===== v2 · этап 1: свод HIG и доступность ===== */
 .grid>.card.off{order:99}
+body:has(#uPop:not([hidden])) .fbfab{display:none}
+.ietalon{position:absolute;left:50%;top:12px;transform:translateX(-50%);font-size:12px;font-weight:650;padding:4px 10px;border-radius:999px;background:var(--detail);color:#272E32}
+.getalon{display:inline-block;font-style:normal;font-size:11px;font-weight:650;padding:2px 8px;border-radius:999px;background:var(--detail);color:#272E32;margin-bottom:4px}
+.tscope{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 4px}.tstate{font-size:12px;color:var(--muted);padding:4px 8px}
+.topbar .upop{width:300px;z-index:70}
+.upop .ugrp{margin:6px 6px 0;padding:10px 0 6px;border-top:1px solid var(--line);border-bottom:0;display:flex;flex-direction:column;gap:2px}
+.upop .ugrp .uapph{margin:0 8px 4px}
+.upop .ugrp .umode{padding:4px 8px}
+.upop .ugrp>.uopt,.upop .ugrp>.utg{margin:0;padding-left:8px;padding-right:8px}
+.upop .uapp .gsort,.upop .uapp .uaccw,.upop .uapp .ubgt{margin:4px 8px}
+.uas{display:flex;flex-direction:column;align-items:stretch;gap:6px;margin:8px 6px 2px;padding:10px;border-radius:12px;background:var(--warn-bg);color:var(--warn-ink);font-size:12px;font-weight:600}
+.uas .gsort{display:grid;grid-template-columns:1fr 1fr}.uas .gsort button{justify-content:center}
+.asuser .uas{background:var(--accent-soft);color:var(--ink)}
+.uout{margin-top:6px}
+
 #summary .chg{background:var(--accent-soft);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 50%,transparent)}
 .gfilt{flex-direction:column;align-items:flex-start;gap:8px}.gfrow{display:flex;flex-wrap:wrap;gap:6px}
 .iprod{display:grid;gap:6px}.iprod input{font:inherit;font-size:14px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);min-height:44px;box-sizing:border-box}
@@ -1798,16 +1813,20 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
     </div>
     <button class="hbtn" type="button" id="histBtn" hidden aria-haspopup="dialog" aria-expanded="false" aria-controls="hist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3 4v4.5h4.5"/><path d="M12 7.5V12l3 2"/></svg><span class="hl">Мои промты</span><b class="badge" id="histBadge" hidden aria-label="без оценки">0</b></button>
     <div class="uwrap" id="uwrap" hidden><button class="ubtn" type="button" id="uBtn" aria-haspopup="true" aria-expanded="false" aria-controls="uPop" aria-label="Профиль"><span id="uIni">?</span></button>
-      <div class="pop upop" id="uPop" hidden><p class="uwho"><b id="uName"></b><small id="uMail"></small></p><button class="opt uopt" type="button" id="uAdmin" hidden><span>Аналитика и доступ</span></button><button class="opt uopt" type="button" id="uOnb"><span>Как работать</span></button><div class="uapp"><p class="uapph">Оформление</p>
-        
-        <div class="gsort uthm" id="uThm" role="radiogroup" aria-label="Тема"><button type="button" role="radio" data-th="light" aria-checked="false">Светлая</button><button type="button" role="radio" data-th="dark" aria-checked="false">Тёмная</button><button type="button" role="radio" data-th="auto" aria-checked="false">Авто</button></div>
-        <div class="uaccw"><div class="uacc" id="uAcc" role="radiogroup" aria-label="Акцентный цвет"><button type="button" role="radio" data-ac="sage" title="Шалфей" aria-label="Шалфей"></button><button type="button" role="radio" data-ac="graphite" title="Графит" aria-label="Графит"></button><button type="button" role="radio" data-ac="ocean" title="Океан" aria-label="Океан"></button><button type="button" role="radio" data-ac="terra" title="Терракота" aria-label="Терракота"></button><button type="button" role="radio" data-ac="plum" title="Слива" aria-label="Слива"></button><button type="button" role="radio" data-ac="mint" title="Мята" aria-label="Мята"></button><button type="button" role="radio" data-ac="indigo" title="Индиго" aria-label="Индиго"></button><button type="button" role="radio" data-ac="rose" title="Роза" aria-label="Роза"></button><button type="button" role="radio" data-ac="ochre" title="Охра" aria-label="Охра"></button><button type="button" role="radio" data-ac="slate" title="Сланец" aria-label="Сланец"></button></div><span class="uaccn" id="uAccN"></span></div><div class="ubgt" id="uBg"><label class="tg"><input type="checkbox" role="switch" id="bgColor"><span>Цветной фон</span></label><label class="tg"><input type="checkbox" role="switch" id="bgMove"><span>Движение фона и сфер</span></label></div></div>
-        <div class="ulab" id="uLab" hidden><p class="uapph">Лаборатория <em>видно только вам</em></p>
-        <div class="umode"><span>Версия</span><div class="gsort" id="labVer" role="radiogroup" aria-label="Версия GENA"><button type="button" role="radio" data-gv="v1" aria-checked="false">Текущая</button><button type="button" role="radio" data-gv="v2" aria-checked="true">v2</button></div></div>
-        <div class="umode" hidden><span>Режим</span><div class="gsort" id="labMode" role="radiogroup" aria-label="Режим конструктора"><button type="button" role="radio" data-md="simple" aria-checked="false">Простой</button><button type="button" role="radio" data-md="pro" aria-checked="false">Про</button></div></div>
-        <button class="opt uopt" type="button" id="labShare"><span>Показать напоминание «Делитесь»</span></button>
-</div>
-        <label class="tg uopt utg"><input type="checkbox" role="switch" id="uDone"><span>Окно оценки после каждого копирования</span></label><button class="opt uopt uhist" type="button" id="uHist"><span>Мои промты</span></button><button class="opt uopt" type="button" id="uFb"><span>Нашли проблему?</span></button><button class="opt uopt" type="button" id="uOut"><span>Выйти</span></button></div></div>
+      <div class="pop upop" id="uPop" hidden><p class="uwho"><b id="uName"></b><small id="uMail"></small></p>
+        <div class="uas" id="uAsW" hidden><span>Смотреть как</span><div class="gsort" id="uAs" role="radiogroup" aria-label="Смотреть GENA как"><button type="button" role="radio" data-as="admin" aria-checked="true">Админ</button><button type="button" role="radio" data-as="user" aria-checked="false">Пользователь</button></div></div>
+        <div class="ugrp ulab" id="uLab" hidden><p class="uapph">Администрирование <em>видно только вам</em></p>
+          <button class="opt uopt" type="button" id="uAdmin" hidden><span>Аналитика и доступ</span></button>
+          <div class="umode"><span>Версия</span><div class="gsort" id="labVer" role="radiogroup" aria-label="Версия GENA"><button type="button" role="radio" data-gv="v1" aria-checked="false">Текущая</button><button type="button" role="radio" data-gv="v2" aria-checked="true">v2</button></div></div>
+          <div class="umode" hidden><span>Режим</span><div class="gsort" id="labMode" role="radiogroup" aria-label="Режим конструктора"><button type="button" role="radio" data-md="simple" aria-checked="false">Простой</button><button type="button" role="radio" data-md="pro" aria-checked="false">Про</button></div></div>
+          <button class="opt uopt" type="button" id="labShare"><span>Показать напоминание «Делитесь»</span></button></div>
+        <div class="ugrp"><p class="uapph">Работа</p>
+          <button class="opt uopt uhist" type="button" id="uHist"><span>Мои промты</span></button><button class="opt uopt" type="button" id="uOnb"><span>Как работать</span></button><button class="opt uopt" type="button" id="uFb"><span>Нашли проблему?</span></button>
+          <label class="tg uopt utg"><input type="checkbox" role="switch" id="uDone"><span>Окно оценки после каждого копирования</span></label></div>
+        <div class="ugrp uapp"><p class="uapph">Оформление</p>
+          <div class="gsort uthm" id="uThm" role="radiogroup" aria-label="Тема"><button type="button" role="radio" data-th="light" aria-checked="false">Светлая</button><button type="button" role="radio" data-th="dark" aria-checked="false">Тёмная</button><button type="button" role="radio" data-th="auto" aria-checked="false">Авто</button></div>
+          <div class="uaccw"><div class="uacc" id="uAcc" role="radiogroup" aria-label="Акцентный цвет"><button type="button" role="radio" data-ac="sage" title="Шалфей" aria-label="Шалфей"></button><button type="button" role="radio" data-ac="graphite" title="Графит" aria-label="Графит"></button><button type="button" role="radio" data-ac="ocean" title="Океан" aria-label="Океан"></button><button type="button" role="radio" data-ac="terra" title="Терракота" aria-label="Терракота"></button><button type="button" role="radio" data-ac="plum" title="Слива" aria-label="Слива"></button><button type="button" role="radio" data-ac="mint" title="Мята" aria-label="Мята"></button><button type="button" role="radio" data-ac="indigo" title="Индиго" aria-label="Индиго"></button><button type="button" role="radio" data-ac="rose" title="Роза" aria-label="Роза"></button><button type="button" role="radio" data-ac="ochre" title="Охра" aria-label="Охра"></button><button type="button" role="radio" data-ac="slate" title="Сланец" aria-label="Сланец"></button></div><span class="uaccn" id="uAccN"></span></div><div class="ubgt" id="uBg"><label class="tg"><input type="checkbox" role="switch" id="bgColor"><span>Цветной фон</span></label><label class="tg"><input type="checkbox" role="switch" id="bgMove"><span>Движение фона и сфер</span></label></div></div>
+        <div class="ugrp uout"><button class="opt uopt" type="button" id="uOut"><span>Выйти</span></button></div></div></div>
     <button class="iconbtn" type="button" id="thBtn" aria-label="Сменить тему"><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
   </div>
 </div>
@@ -1823,7 +1842,7 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
 
   <section class="quick" id="quick" aria-labelledby="qTitle">
     <div class="qhead"><h2 id="qTitle">Начните с готового</h2>
-      <div class="gsort qtabs" role="tablist" aria-label="Готовые настройки"><button type="button" role="tab" data-qt="kk" aria-selected="true">Сценарии</button><button type="button" role="tab" data-qt="team" id="qtTeam" aria-selected="false" hidden>Шаблоны команды</button><button type="button" role="tab" data-qt="test" id="qtTest" aria-selected="false" hidden>Тестовые<i id="qtTestN"></i></button></div>
+      <div class="gsort qtabs" role="tablist" aria-label="Готовые настройки"><button type="button" role="tab" data-qt="kk" aria-selected="true">Сценарии</button><button type="button" role="tab" data-qt="mine" id="qtMine" aria-selected="false" hidden>Мои</button><button type="button" role="tab" data-qt="team" id="qtTeam" aria-selected="false" hidden>Команды</button><button type="button" role="tab" data-qt="pending" id="qtPend" aria-selected="false" hidden>На проверке<i id="qtPendN"></i></button><button type="button" role="tab" data-qt="test" id="qtTest" aria-selected="false" hidden>Тестовые<i id="qtTestN"></i></button></div>
       <p id="qSub">Один клик настраивает все шаги, продукт остаётся вашим.</p>
       <div class="qnav"><button class="iconbtn" type="button" data-qs="-1" aria-label="Прокрутить назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button><button class="iconbtn" type="button" data-qs="1" aria-label="Прокрутить вперёд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button></div></div>
     <div class="qrow" id="qrow"><div class="qgrid" id="qgrid"></div>
@@ -2068,7 +2087,7 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
       <button class="btn" id="copy" type="button">Скопировать промт</button>
       <div class="amenu"><button class="iconbtn amorebtn" type="button" id="actMore" aria-haspopup="menu" aria-expanded="false" aria-controls="actPop" aria-label="Ещё действия" title="Ещё действия"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5.5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18.5" cy="12" r="1.8"/></svg></button>
         <div class="pop apop" id="actPop" role="menu" hidden>
-          <button class="mitem" id="tOpen" type="button" role="menuitem" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg><span><b>В шаблоны команды</b><small>Сохранить настройки сцены для всех</small></span></button>
+          <button class="mitem" id="tOpen" type="button" role="menuitem" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8v8M8 12h8"/></svg><span><b>Сохранить шаблон</b><small>Себе или предложить команде</small></span></button>
           <button class="mitem" id="undoLast" type="button" role="menuitem" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg><span><b>Вернуть как было</b><small id="undoLastT"></small></span></button>
           <hr class="msep" role="separator">
           <button class="mitem" id="reset" type="button" role="menuitem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></svg><span><b id="resetT">Сбросить</b><small>Вернуть все шаги к исходным</small></span></button>
@@ -2077,7 +2096,7 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
       <span class="count" id="count"></span>
     </div>
     <div class="sharetip" id="shareTip" hidden><span class="stico" aria-hidden="true">★</span><p><b>Удачно вышло?</b> Оцените и поделитесь — коллеги возьмут сцену за основу.</p><div class="stact"><button class="btn sm" type="button" id="stOpen">Оценить</button><button class="stx" type="button" id="stX" aria-label="Скрыть подсказку">Позже</button></div></div>
-    <form class="tsave" id="tSave" hidden><label class="lbl" for="tName">Название шаблона</label><div class="trow"><input type="text" id="tName" maxlength="48" placeholder="Например: баннер 21:9, мясо на доске" required><button class="btn" type="submit">Сохранить</button><button class="btn ghost" type="button" id="tCancel">Отмена</button></div><small class="hint">Сохраняются настройки сцены, без продукта.</small><label class="tg tsavetest" id="tTestW" hidden><input type="checkbox" role="switch" id="tTest" checked><span>Тестовый<small>Виден только вам и попадает в «Идеи» как концепт. В команду — когда проверите.</small></span></label></form>
+    <form class="tsave" id="tSave" hidden><label class="lbl" for="tName">Название шаблона</label><div class="trow"><input type="text" id="tName" maxlength="48" placeholder="Например: баннер 21:9, мясо на доске" required><button class="btn" type="submit">Сохранить</button><button class="btn ghost" type="button" id="tCancel">Отмена</button></div><div class="tscope"><span class="lbl">Кому видно</span><div class="gsort" id="tScope" role="radiogroup" aria-label="Кому видно"><button type="button" role="radio" data-sc="mine" aria-checked="true">Только мне</button><button type="button" role="radio" data-sc="share" aria-checked="false">Предложить команде</button></div></div><small class="hint" id="tScopeHint">Сохраняются настройки сцены, без продукта. Шаблон увидите только вы.</small><label class="tg tsavetest" id="tTestW" hidden><input type="checkbox" role="switch" id="tTest" checked><span>Тестовый<small>Виден только вам и попадает в «Идеи» как концепт. В команду — когда проверите.</small></span></label></form>
     <div class="summary" id="summary"></div>
     <div class="pvbox" id="pvbox">
       <div class="pvhead"><span>Схема сцены</span><div class="rwrap"><button class="rbtn" type="button" id="rBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="ratios" title="Соотношение сторон кадра"><i class="ri" id="rIco"></i><b id="rVal">1:1</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button><div class="rpop" id="ratios" role="listbox" aria-label="Формат кадра" hidden></div></div><button class="pvtog" type="button" id="pvTog" aria-expanded="true" aria-controls="pvw">Скрыть</button></div>
@@ -3221,9 +3240,9 @@ const PRESETS=[
   set:{style:"photo",angle:"slight",place:"center",grid:"free",tilt:"none",fill:"60",noCrop:true,light:"auto",dof:"all",bg:"grad",gmode:"pal",gbase:"#F9EBD6",gdir:"radial",decor:"few",shadow:"float",ratio:"1:1",pod:"none"}},
  {id:"fintech",t:"3D с наклоном",d:"3D-рендер, парят с наклоном",tags:["1:1","3D"],kind:"float",
   set:{style:"fintech",angle:"side",place:"center",grid:"golden",tilt:"left",fill:"70",noCrop:true,light:"auto",dof:"all",bg:"grad",gmode:"pal",gbase:"#E2E8F5",gdir:"diag",decor:"few",shadow:"ao",ratio:"1:1",pod:"none"}},
- {id:"grid",t:"Баннер в грид",d:"Продукты внизу, на деревянном столе",tags:["9:16","Дерево"],kind:"stand",
+ {id:"grid",t:"Вертикальный баннер в карточку товара",d:"Продукты внизу, на деревянном столе",tags:["9:16","Дерево"],kind:"stand",
   set:{style:"home",angle:"slight",place:"bottom",grid:"golden",tilt:"none",fill:"70",noCrop:true,light:"auto",dof:"all",bg:"scene",surface:"wood",sv:{wood:"oak"},decor:"few",shadow:"soft",ratio:"9:16",pod:"none"}},
- {id:"mp",t:"Карточка маркетплейса",d:"Вид сверху, ровный светлый фон",tags:["3:2","Сверху"],kind:"stand",
+ {id:"mp",t:"Плитка в приложении",d:"Вид сверху, ровный светлый фон",tags:["3:2","Сверху"],kind:"stand",
   set:{style:"catalog",angle:"top",place:"center",grid:"free",tilt:"none",fill:"70",noCrop:true,light:"key45",lside:"left",lsoft:"soft",ltemp:"neutral",dof:"all",bg:"solid",color:"#F7F7F7",decor:"none",shadow:"soft",ratio:"3:2",pod:"none"}},
  {id:"social34",t:"Пост 3:4 · живой стол",d:"Стол у окна, мягкий фон",tags:["3:4","Живой фон"],kind:"stand",
   set:{style:"home",angle:"e45",place:"center",grid:"golden",tilt:"none",fill:"70",noCrop:true,light:"window",lside:"left",lsoft:"soft",ltemp:"warm",dof:"shallow",bg:"scene",surface:"wood",sv:{wood:"walnut"},decor:"rich",shadow:"soft",ratio:"3:4",pod:"none"}},
@@ -3319,6 +3338,9 @@ document.querySelectorAll('body>.fbwrap').forEach(w=>{const card=w.firstElementC
   const x=card.querySelector('#onbX,#iClose,#wClose,#fbClose,#pubClose,#cptClose,#chX,#shX,#doneClose,[id$="Close"]');
   if(x)sheetSwipe(card,()=>x.click())});
 {const a=$("aside"),g=document.createElement("span");g.className="grab v2grab asidegrab";g.setAttribute("aria-hidden","true");a.prepend(g);sheetSwipe(a,()=>sheet(false))}
+$("uAs").addEventListener("click",e=>{const b=e.target.closest("[data-as]");if(!b||b.getAttribute("aria-checked")==="true")return;try{localStorage.setItem("gena-viewas",b.dataset.as)}catch(err){}location.reload()});
+$("tScope").addEventListener("click",e=>{const b=e.target.closest("[data-sc]");if(!b)return;$("tScope").querySelectorAll("[data-sc]").forEach(x=>x.setAttribute("aria-checked",String(x===b)));$("tScopeHint").textContent=b.dataset.sc==="mine"?"Сохраняются настройки сцены, без продукта. Шаблон увидите только вы.":Cloud.admin?"Сохраняются настройки сцены, без продукта. Шаблон сразу увидит команда.":"Сохраняются настройки сцены, без продукта. Шаблон увидит команда после одобрения администратором."});
+{const f=()=>{document.querySelector("#tSave .tscope").hidden=!$("tTestW").hidden&&$("tTest").checked;$("tScopeHint").hidden=document.querySelector("#tSave .tscope").hidden};$("tTest").addEventListener("change",f);$("tOpen").addEventListener("click",()=>setTimeout(f,0))}
 /* ----- version switch (admin only): index.html ↔ v2.html ----- */
 const GENA_FILE="v2";
 $("labVer").addEventListener("click",e=>{const b=e.target.closest("[data-gv]");if(!b||b.dataset.gv===GENA_FILE)return;try{localStorage.setItem("gena-v2",b.dataset.gv==="v2"?"1":"0")}catch(err){}location.href=(b.dataset.gv==="v2"?"v2.html":"index.html")+location.hash});
@@ -3349,7 +3371,7 @@ $("onbDots").addEventListener("click",e=>{const b=e.target.closest("[data-go]");
 document.addEventListener("keydown",e=>{if($("onb").hidden)return;if(e.key==="Escape")onbClose();if(e.key==="ArrowRight")onbGo(ONB.i+1);if(e.key==="ArrowLeft")onbGo(ONB.i-1)});
 /* ----- quick start tabs + row scroll ----- */
 function qTab(t){$("quick").dataset.qt=t;$("quick").querySelectorAll("[data-qt]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.qt===t)));
-  $("qSub").textContent=t==="team"?"Удачные настройки коллег. Сохраните свои кнопкой «В шаблоны» под промтом.":t==="test"?"Видны только вам. Проверьте шаблон на продукте, затем переведите в шаблоны команды.":"Один клик настраивает все шаги, продукт остаётся вашим.";
+  $("qSub").textContent=t==="mine"?"Ваши сохранённые сцены. Удачную можно предложить команде.":t==="pending"?"Шаблоны коллег ждут вашего решения.":t==="team"?"Удачные настройки коллег, одобренные администратором.":t==="test"?"Видны только вам. Проверьте шаблон на продукте, затем переведите в шаблоны команды.":"Один клик настраивает все шаги, продукт остаётся вашим.";
   if((t==="team"||t==="test")&&Cloud.user)drawTemplates();qEdges()}
 const qGrid=()=>/^(team|test)$/.test($("quick").dataset.qt)?$("tgrid"):$("qgrid");
 function qEdges(){const g=qGrid(),r=$("qrow"),max=g.scrollWidth-g.clientWidth-2;r.classList.toggle("l",g.scrollLeft>2);r.classList.toggle("r",g.scrollLeft<max);
@@ -3496,7 +3518,7 @@ async function onSession(session){
   if(!Cloud.user){location.replace("index.html"+location.hash);return}if(!Cloud.user){Cloud.profile=null;Cloud.admin=false;labApply();$("uwrap").hidden=true;$("histBtn").hidden=true;$("viewNav").hidden=true;$("qtTeam").hidden=true;qTab("kk");route();$("fbOpen").hidden=true;$("tpl").hidden=true;$("tOpen").hidden=true;gateMode(gate.mode);gateShow("form");return}
   gateShow("off");$("uwrap").hidden=false;$("fbOpen").hidden=false;try{localStorage.setItem("gena-known","1")}catch(e){}
   const [{data:prof},{data:adm}]=await Promise.all([Cloud.sb.from("profiles").select("name,email,role").eq("id",Cloud.user.id).maybeSingle(),Cloud.sb.rpc("is_admin")]);
-  Cloud.profile=prof||{name:"",email:Cloud.user.email};Cloud.admin=adm===true;if(!Cloud.admin){location.replace("index.html"+location.hash);return}
+  Cloud.profile=prof||{name:"",email:Cloud.user.email};Cloud.admin=adm===true;if(!Cloud.admin){location.replace("index.html"+location.hash);return}Cloud.realAdmin=true;{let as="admin";try{as=localStorage.getItem("gena-viewas")||"admin"}catch(e){}if(as==="user")Cloud.admin=false;$("uAsW").hidden=false;$("uAs").querySelectorAll("[data-as]").forEach(b=>b.setAttribute("aria-checked",String(b.dataset.as===as)));document.documentElement.classList.toggle("asuser",as==="user")}
   const nm=Cloud.profile.name||Cloud.user.email.split("@")[0];
   labApply();$("uName").textContent=nm;$("uMail").textContent=Cloud.user.email;$("uIni").textContent=nm.trim().charAt(0).toUpperCase()||"?";$("uAdmin").hidden=!Cloud.admin;$("uOnb").hidden=false;
   $("tpl").hidden=false;$("qtTeam").hidden=false;$("qtTest").hidden=!Cloud.admin;$("tTestW").hidden=!Cloud.admin;$("tOpen").hidden=false;loadTemplates();
@@ -3507,18 +3529,19 @@ async function onSession(session){
 /* ----- team templates ----- */
 async function loadTemplates(){
   const q=cols=>Cloud.sb.from("templates").select(cols).order("created_at",{ascending:false}).limit(120);
-  let {data,error}=await q("id,name,scene,author_id,author_name,from_analytics,created_at,test,task,product,note,images");
+  let {data,error}=await q("id,name,scene,author_id,author_name,from_analytics,created_at,test,task,product,note,images,scope");
   Cloud.noTest=!!error;if(error)({data,error}=await q("id,name,scene,author_id,author_name,from_analytics,created_at"));
   {const off=!Cloud.admin||Cloud.noTest;$("qtTest").hidden=off;$("tTestW").hidden=off;$("tTest").checked=!off;if(off&&$("quick").dataset.qt==="test")qTab("team")}
   if(error){$("tgrid").innerHTML=`<p class="tempty">Не удалось загрузить шаблоны. Обновите страницу.</p>`;return}
-  TPL=(data||[]).map(t=>Object.assign(t,{test:!!t.test,images:Array.isArray(t.images)?t.images:[]}));
+  TPL=(data||[]).map(t=>Object.assign(t,{test:!!t.test,scope:t.scope||"team",images:Array.isArray(t.images)?t.images:[]}));$("qtMine").hidden=!Cloud.user;$("qtPend").hidden=!Cloud.admin;{const np=TPL.filter(t=>t.scope==="pending"&&!t.test).length;$("qtPendN").textContent=np?" "+np:""}
   const n=TPL.filter(t=>t.test).length;$("qtTestN").textContent=n?" "+n:"";
   drawTemplates();if(!$("ideaPage").hidden)drawConcepts()}
 function drawTemplates(){
-  const g=$("tgrid"),test=$("quick").dataset.qt==="test"&&Cloud.admin,L=TPL.filter(t=>t.test===test);
+  const g=$("tgrid"),qt=$("quick").dataset.qt,test=qt==="test"&&Cloud.admin,me=Cloud.user&&Cloud.user.id,L=TPL.filter(t=>test?t.test:!t.test&&(qt==="mine"?t.author_id===me&&t.scope!=="team":qt==="pending"?Cloud.admin&&t.scope==="pending":t.scope==="team"));
+  if(!L.length&&(qt==="mine"||qt==="pending")){g.innerHTML=`<p class="tempty">${qt==="mine"?"Своих шаблонов пока нет. Сохраните сцену через «•••» → «Сохранить шаблон».":"Нет шаблонов на проверке."}</p>`;return}
   if(!L.length){g.innerHTML=test?`<p class="tempty">Тестовых шаблонов нет. Сохраните сцену с отметкой «Тестовый» — она появится здесь и в «Идеях» как концепт.</p>`:`<p class="tempty">Пока пусто. Получилось хорошо — нажмите «В шаблоны» под промтом.</p>`;return}
   g.innerHTML=L.map(t=>{const mine=Cloud.user&&t.author_id===Cloud.user.id,can=mine||Cloud.admin;
-    return `<div class="qcard" role="button" tabindex="0" data-tp="${escA(t.id)}"><div class="qthumb"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div><div class="qmeta"><b>${escA(t.name)}</b><small>${t.from_analytics?'<span class="pop">Популярное</span> ':""}${t.test?`${t.images.length?t.images.length+" фото · ":""}${fmtDate(t.created_at)}`:`${escA(t.author_name||"Коллега")}${mine?" (вы)":""} · ${fmtDate(t.created_at)}`}</small></div>${can?`<button class="tdel" type="button" data-del="${escA(t.id)}">Удалить</button>`:""}${t.test?`<button class="tprom" type="button" data-promote="${escA(t.id)}">В команду</button>`:""}</div>`}).join("");
+    return `<div class="qcard" role="button" tabindex="0" data-tp="${escA(t.id)}"><div class="qthumb"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div><div class="qmeta"><b>${escA(t.name)}</b><small>${t.from_analytics?'<span class="pop">Популярное</span> ':""}${t.test?`${t.images.length?t.images.length+" фото · ":""}${fmtDate(t.created_at)}`:`${escA(t.author_name||"Коллега")}${mine?" (вы)":""} · ${fmtDate(t.created_at)}`}</small></div>${can?`<button class="tdel" type="button" data-del="${escA(t.id)}">Удалить</button>`:""}${t.test?`<button class="tprom" type="button" data-promote="${escA(t.id)}">В команду</button>`:""}${!t.test&&mine&&t.scope==="mine"?`<button class="tprom" type="button" data-share="${escA(t.id)}">Предложить команде</button>`:""}${!t.test&&t.scope==="pending"&&Cloud.admin?`<button class="tprom" type="button" data-approve="${escA(t.id)}">Одобрить</button>`:!t.test&&t.scope==="pending"&&mine?`<span class="tstate">На проверке</span>`:""}</div>`}).join("");
   const keep=S;
   try{L.forEach((t,i)=>{const c=g.children[i],st=JSON.parse(JSON.stringify(keep));Object.assign(st,JSON.parse(JSON.stringify(t.scene||{})));st.sv=Object.assign({},keep.sv,(t.scene||{}).sv||{});
     S=st;autofix();drawPreview({pv:c.querySelector(".pv"),floor:c.querySelector(".pvfloor"),svg:c.querySelector("svg"),leg:null,mw:150,mh:96,px:"t"+i})})}finally{S=keep}}
@@ -3531,6 +3554,8 @@ $("tgrid").addEventListener("click",async e=>{const d=e.target.closest("[data-de
   if(d){e.stopPropagation();if(d.dataset.arm!=="1"){d.dataset.arm="1";d.textContent="Точно удалить?";clearTimeout(delT);delT=setTimeout(()=>{d.dataset.arm="";d.textContent="Удалить"},3500);return}
     const {error}=await Cloud.sb.from("templates").delete().eq("id",d.dataset.del);if(error){toast("Не получилось удалить шаблон")}else{toast("Шаблон удалён");loadTemplates()}return}
   const pr=e.target.closest("[data-promote]");if(pr){e.stopPropagation();promoteTemplate(pr.dataset.promote,pr);return}
+  const sh=e.target.closest("[data-share]");if(sh){e.stopPropagation();const {error}=await Cloud.sb.from("templates").update({scope:"pending",updated_at:new Date().toISOString()}).eq("id",sh.dataset.share);if(error)toast("Не получилось: "+(error.message||""));else{toast("Отправили на проверку — после одобрения шаблон увидит команда");loadTemplates()}return}
+  const ap=e.target.closest("[data-approve]");if(ap){e.stopPropagation();const id=ap.dataset.approve,t=TPL.find(x=>x.id===id);const {error}=await Cloud.sb.from("templates").update({scope:"team",updated_at:new Date().toISOString()}).eq("id",id);if(error)toast("Не получилось: "+(error.message||""));else{toastUndo(`«${t?t.name:"Шаблон"}» теперь в шаблонах команды`,async()=>{await Cloud.sb.from("templates").update({scope:"pending"}).eq("id",id);loadTemplates()});loadTemplates()}return}
   const c=e.target.closest("[data-tp]");if(c)applyTemplate(c.dataset.tp)});
 let promT;
 async function promoteTemplate(id,btn){const t=TPL.find(x=>x.id===id);if(!t||!Cloud.admin)return;
@@ -3547,10 +3572,10 @@ $("tOpen").addEventListener("click",()=>{actMenu(false);$("tSave").hidden=false;
 $("tCancel").addEventListener("click",()=>{$("tSave").hidden=true});
 $("tSave").addEventListener("submit",async e=>{e.preventDefault();const name=$("tName").value.trim();if(!name||!Cloud.sb)return;
   const btn=$("tSave").querySelector('button[type=submit]');btn.disabled=true;
-  const test=Cloud.admin&&$("tTest").checked,row={name,scene:sceneOf(S)};if(test)row.test=true;
+  const test=Cloud.admin&&$("tTest").checked,share=$("tScope").querySelector('[aria-checked="true"]').dataset.sc==="share",row={name,scene:sceneOf(S),scope:test?"team":share?(Cloud.admin?"team":"pending"):"mine"};if(test)row.test=true;
   const {error}=await Cloud.sb.from("templates").insert(row);btn.disabled=false;
   if(error){toast("Не получилось сохранить шаблон: "+(error.message||""));return}
-  $("tName").value="";$("tSave").hidden=true;$("tOpen").hidden=false;toast(test?`Тестовый шаблон «${name}» сохранён — видите только вы`:`Шаблон «${name}» сохранён для команды`);await loadTemplates();qTab(test?"test":"team");$("tpl").scrollIntoView({behavior:"smooth",block:"nearest"})});
+  $("tName").value="";$("tSave").hidden=true;$("tOpen").hidden=false;toast(test?`Тестовый шаблон «${name}» сохранён — видите только вы`:row.scope==="team"?`Шаблон «${name}» сохранён для команды`:row.scope==="pending"?`Шаблон «${name}» отправлен на проверку, пока он в «Моих»`:`Шаблон «${name}» сохранён в «Мои»`);await loadTemplates();qTab(test?"test":row.scope==="team"?"team":"mine");$("tpl").scrollIntoView({behavior:"smooth",block:"nearest"})});
 
 /* ----- analytics: what designers copy ----- */
 const ANA_KEYS=[["style","Стиль",STYLES],["ratio","Формат",null],["angle","Ракурс",ANGLES],["arr","Расстановка",ARR],["place","Место в кадре",PLACE],["grid","Схема",GRIDS],["fill","Масштаб",FILL],["bg","Фон",BGMODES],["decor","Декор",DECOR],["shadow","Тень",SHADOWS],["light","Свет",LIGHTS],["pod","Подиум",PODS],["dof","Резкость",DOF]];
@@ -3861,7 +3886,7 @@ function go(v){const want=v==="gallery"?"#gallery":v==="ideas"?"#ideas":v==="sce
 /* Simple: «Идеи» — главный экран; конструктор живёт на #build. Pro: как раньше */
 function route(){const h=location.hash;
   const sc=!!(window.Scene&&Scene.on());
-  const v=!Cloud.user?"builder":h==="#gallery"?"gallery":h==="#scene"&&sc?"scene":h==="#ideas"?"ideas":h==="#build"?"builder":!h?HOME():"builder";
+  const v=!Cloud.user?"builder":h==="#gallery"?"gallery":h==="#scene"&&sc?"scene":h==="#ideas"?"ideas":h==="#build"?"builder":!h?"ideas":"builder";
   document.body.classList.toggle("v-gallery",v==="gallery");document.body.classList.toggle("v-ideas",v==="ideas");document.body.classList.toggle("v-scene",v==="scene");$("galPage").hidden=v!=="gallery";$("ideaPage").hidden=v!=="ideas";$("scnPage").hidden=v!=="scene";
   const N=$("viewNav");N.querySelector('[data-view="ideas"]').hidden=false;N.querySelector('[data-view="gallery"]').hidden=false;N.querySelector('[data-view="scene"]').hidden=!sc;
   N.querySelectorAll("[data-view]").forEach(a=>a.setAttribute("aria-current",String(a.dataset.view===v)));
@@ -3869,13 +3894,13 @@ function route(){const h=location.hash;
   if(v==="ideas"){loadIdeas();drawConcepts();window.scrollTo(0,0)}
   if(v==="scene"){Scene.show();window.scrollTo(0,0)}}
 window.addEventListener("hashchange",route);
-$("viewNav").addEventListener("click",e=>{const a=e.target.closest("[data-view]");if(!a)return;e.preventDefault();const v=a.dataset.view;if(v==="ideas"||v==="builder"){try{localStorage.setItem("gena-home",v)}catch(err){}}go(v)});
+$("viewNav").addEventListener("click",e=>{const a=e.target.closest("[data-view]");if(!a)return;e.preventDefault();go(a.dataset.view)});
 async function signed(paths){const need=paths.filter(p=>p&&!GAL.urls[p]);if(need.length){const {data}=await Cloud.sb.storage.from("works").createSignedUrls(need,3600);(data||[]).forEach(d=>{if(d.signedUrl)GAL.urls[d.path]=d.signedUrl})}}
 async function loadGallery(){
   if(!Cloud.sb)return;$("galGrid").setAttribute("aria-busy","true");
   let q=Cloud.sb.from("publications").select("id,user_id,author_name,title,usage,note,scene,prompt,rating,image_path,thumb_path,w,h,likes,created_at").order(GAL.sort==="top"?"likes":"created_at",{ascending:false}).limit(120);
   const [{data},{data:lk}]=await Promise.all([q,Cloud.sb.from("publication_likes").select("publication_id").eq("user_id",Cloud.user.id)]);
-  GAL.rows=data||[];GAL.liked=new Set((lk||[]).map(x=>x.publication_id));if(!GAL.sc){const {data:sc}=await Cloud.sb.from("showcase").select("publication_id,task,product");GAL.sc=Object.fromEntries((sc||[]).map(x=>[x.publication_id,x]))}
+  GAL.rows=data||[];GAL.liked=new Set((lk||[]).map(x=>x.publication_id));if(!GAL.sc){const {data:sc}=await Cloud.sb.from("showcase").select("publication_id,task,product,featured");GAL.sc=Object.fromEntries((sc||[]).map(x=>[x.publication_id,x]))}
   await signed(GAL.rows.map(r=>r.thumb_path));drawGallery()}
 function galTask(r){const sc=(GAL.sc||{})[r.id]||{};return ITASK[sc.task]?sc.task:fmtTask(nearRatio(r.w||1,r.h||1))}
 function galProd(r){const sc=(GAL.sc||{})[r.id]||{};return IPROD[sc.product]?sc.product:null}
@@ -3892,7 +3917,7 @@ function drawGallery(){drawGalFilt();
     const on=GAL.liked.has(r.id);
     return `<div class="gtile ${cls}" role="button" tabindex="0" data-pub="${escA(r.id)}" aria-label="${escA((r.title||"Работа")+", автор "+(r.author_name||"коллега"))}"><img src="${escA(GAL.urls[r.thumb_path]||"")}" alt="" loading="lazy" decoding="async">
       <span class="gtop"><button class="gbtn${on?" on":""}" type="button" data-ga="like" aria-pressed="${on}" title="Полезно"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M7 11v9H4v-9zM7 11l4-8a2.5 2.5 0 0 1 2.5 3L13 10h5.6a2 2 0 0 1 2 2.4l-1.4 6A2 2 0 0 1 17.3 20H7"/></svg><b>${r.likes}</b></button><button class="gbtn" type="button" data-ga="copy" title="Скопировать промт" aria-label="Скопировать промт"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></button></span>
-      <span class="gcap"><span class="gtx"><b>${escA(r.title||r.author_name||"Работа")}</b><small>${escA([ITASK[galTask(r)].t,r.author_name||fmtDate(r.created_at)].join(" · "))}</small></span><em class="glike${on?" on":""}">${r.likes}</em><button class="gapply" type="button" data-ga="apply">${pair?"Открыть макет":"Взять эту сцену"}</button></span></div>`}).join("")}
+      <span class="gcap"><span class="gtx">${((GAL.sc||{})[r.id]||{}).featured?'<i class="getalon">Эталон</i>':""}<b>${escA(r.title||r.author_name||"Работа")}</b><small>${escA([ITASK[galTask(r)].t,r.author_name||fmtDate(r.created_at)].join(" · "))}</small></span><em class="glike${on?" on":""}">${r.likes}</em><button class="gapply" type="button" data-ga="apply">${pair?"Открыть макет":"Взять эту сцену"}</button></span></div>`}).join("")}
 $("galSort").addEventListener("click",e=>{const b=e.target.closest("[data-gs]");if(!b)return;if(b.dataset.gs==="mine"){GAL.mine=true;drawGallery();return}GAL.mine=false;GAL.sort=b.dataset.gs;loadGallery()});
 $("galGrid").addEventListener("click",e=>{const t=e.target.closest("[data-pub]");if(!t)return;const a=e.target.closest("[data-ga]"),r=GAL.rows.find(x=>x.id===t.dataset.pub);
   if(a&&r){e.stopPropagation();if(a.dataset.ga==="apply")applyPub(r);if(a.dataset.ga==="copy")copyPub(r);if(a.dataset.ga==="like")likePub(r);return}workOpen(t.dataset.pub)});
@@ -4173,8 +4198,8 @@ async function loadIdeas(force){
   drawIdeas()}
 
 function ideaTile(r,grid){const src=(grid&&ideaBig(r)&&GAL.urls[r.image_path])||GAL.urls[r.thumb_path]||"",sub=ITASK[r.task].t+(r.prod?" · "+IPROD[r.prod]:"");
-  return `<button type="button" class="it${r.hid?" off":""}" data-f="${r.shape}" data-idea="${escA(r.id)}" style="--ar:${+r.w||1}/${+r.h||1}" aria-label="${escA(`${r.ttl}. ${sub}, формат ${r.fmt}`)}"><img src="${escA(src)}" alt="" loading="lazy" decoding="async">`+
-    `<span class="ifmt" aria-hidden="true">${fmtIcon(r.fmt)}${r.fmt}</span>${r.likes?`<span class="ilk" aria-hidden="true">${LIKE_SVG}${r.likes}</span>`:""}${r.hid?'<span class="ihid" aria-hidden="true">Скрыта</span>':""}`+
+  return `<button type="button" class="it${r.hid?" off":""}" data-f="${r.shape}" data-idea="${escA(r.id)}" style="--ar:${+r.w||1}/${+r.h||1}" aria-label="${escA(`${r.feat?"Эталон. ":""}${r.ttl}. ${sub}, формат ${r.fmt}`)}"><img src="${escA(src)}" alt="" loading="lazy" decoding="async">`+
+    `<span class="ifmt" aria-hidden="true">${fmtIcon(r.fmt)}${r.fmt}</span>${r.feat?'<span class="ietalon" aria-hidden="true">Эталон</span>':""}${r.likes?`<span class="ilk" aria-hidden="true">${LIKE_SVG}${r.likes}</span>`:""}${r.hid?'<span class="ihid" aria-hidden="true">Скрыта</span>':""}`+
     `<span class="icap" aria-hidden="true"><b>${escA(r.ttl)}</b><small>${escA(sub)}</small></span></button>`}
 
 function drawIdeas(){
