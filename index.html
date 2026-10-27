@@ -1666,6 +1666,19 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
   .topbar:has(.upop:not([hidden])),.topbar:has(#setPop:not([hidden])){z-index:110}
 }
 @media (max-width:700px) and (prefers-reduced-motion:reduce){.topbar .upop,.topbar #setPop{animation:none}}
+/* ----- prank: personal message, one user only (rows guarded by RLS) ----- */
+.pkcard{width:min(460px,100%);padding:16px;gap:12px;align-items:stretch;text-align:center}
+.pkcard img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:16px;background:var(--line)}
+.pkcard h2{font-size:20px;margin:4px 0 0}
+.pkcard .btn{min-height:44px}
+@media (max-width:700px){#prank{place-items:end center;padding:0}#prank .pkcard{width:100%;border-radius:24px 24px 0 0;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));animation:sheetin .35s var(--ease)}}
+.apk{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.apk .apkimg{width:120px;height:120px;border-radius:12px;background:var(--line) center/cover no-repeat;flex:none;display:grid;place-items:center;font-size:12px;color:var(--muted);text-align:center;padding:8px}
+.apk .apkr{display:flex;flex-direction:column;gap:12px;flex:1;min-width:220px}
+.apk .apkrow{display:flex;align-items:center;gap:12px;font-size:14px}
+.apk .apkbtns{display:flex;gap:8px;flex-wrap:wrap}
+.apk .apkbtns .btn{min-height:44px}
+
 </style>
 
 <div class="glow" aria-hidden="true"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
@@ -2240,6 +2253,7 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
   <div class="admin-in"><div class="admhead"><h2 id="admTitle">Аналитика</h2><span class="hint">видна только администратору</span><button class="iconbtn" type="button" id="admClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div id="admBody"></div></div>
 </div>
 <button class="fbfab" type="button" id="fbOpen" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4.5h12a2.5 2.5 0 0 1 2.5 2.5v7.5a2.5 2.5 0 0 1-2.5 2.5h-5.2L8.5 20v-3H6a2.5 2.5 0 0 1-2.5-2.5V7A2.5 2.5 0 0 1 6 4.5z"/><path d="M12 8v3.6"/><circle cx="12" cy="14" r="1" fill="currentColor" stroke="none"/></svg><span>Нашли проблему?</span></button>
+<div class="fbwrap" id="prank" role="dialog" aria-modal="true" aria-labelledby="pkH" hidden><div class="fbcard pkcard"><h2 id="pkH">Персональное сообщение</h2><img id="pkImg" alt="Картинка-сюрприз"><button class="btn" type="button" id="pkOk">Понятно</button></div></div>
 <div class="fbwrap" id="fb" role="dialog" aria-modal="true" aria-labelledby="fbTitle" hidden>
   <form class="fbcard" id="fbForm" novalidate>
     <div class="fbhead"><h2 id="fbTitle">Что неудобно?</h2><button class="iconbtn" type="button" id="fbClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
@@ -3363,8 +3377,43 @@ async function onSession(session){
   labApply();$("uName").textContent=nm;$("uMail").textContent=Cloud.user.email;$("uIni").textContent=nm.trim().charAt(0).toUpperCase()||"?";$("uAdmin").hidden=!Cloud.admin;$("uOnb").hidden=false;
   $("tpl").hidden=false;$("qtTeam").hidden=false;$("qtTest").hidden=!Cloud.admin;$("tTestW").hidden=!Cloud.admin;$("tOpen").hidden=false;loadTemplates();
   $("histBtn").hidden=false;$("viewNav").hidden=false;loadHistory();route();setTimeout(shareAuto,9000);
-  if(prof&&!prof.role)setTimeout(()=>{if(!Cloud.profile.role){$("roleAsk").hidden=false;document.body.classList.add("locked")}},1200);setTimeout(onbAuto,1500);
+  if(prof&&!prof.role)setTimeout(()=>{if(!Cloud.profile.role){$("roleAsk").hidden=false;document.body.classList.add("locked")}},1200);setTimeout(onbAuto,1500);setTimeout(prankCheck,2500);
 }
+
+
+/* ----- prank: shown to the one user whose enabled row RLS lets him read ----- */
+const PRANK={shown:false,row:null,uid:null};
+function prankOpen(url){$("pkImg").src=url;$("prank").hidden=false;document.body.classList.add("locked");$("pkOk").focus()}
+function prankClose(){if($("prank").hidden)return;$("prank").hidden=true;$("pkImg").removeAttribute("src");if(![...document.querySelectorAll('[role="dialog"][aria-modal="true"]')].some(d=>!d.hidden))document.body.classList.remove("locked")}
+$("pkOk").addEventListener("click",prankClose);$("prank").addEventListener("click",e=>{if(e.target===$("prank"))prankClose()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("prank").hidden){e.preventDefault();prankClose()}});
+async function prankCheck(tries){if(PRANK.shown||!Cloud.user)return;
+  if([...document.querySelectorAll('[role="dialog"][aria-modal="true"]')].some(d=>!d.hidden)){if((tries||0)<20)setTimeout(()=>prankCheck((tries||0)+1),3000);return}
+  const {data}=await Cloud.sb.from("pranks").select("image_path").eq("user_id",Cloud.user.id).eq("enabled",true).maybeSingle();
+  if(!data||!data.image_path)return;const {data:s}=await Cloud.sb.storage.from("pranks").createSignedUrl(data.image_path,600);
+  if(s&&s.signedUrl){PRANK.shown=true;prankOpen(s.signedUrl)}}
+async function prankAdmin(){const box=$("apkBox");if(!box)return;
+  const {data:p}=await Cloud.sb.from("profiles").select("id,name").eq("email","yaroslav.ivanov@coolclever.ru").maybeSingle();
+  if(!p){box.innerHTML='<p class="tempty">Ярослав ещё не зарегистрирован.</p>';return}PRANK.uid=p.id;
+  let {data:r}=await Cloud.sb.from("pranks").select("user_id,enabled,image_path").eq("user_id",p.id).maybeSingle();
+  if(!r){const ins=await Cloud.sb.from("pranks").insert({user_id:p.id,enabled:false}).select().single();r=ins.data}
+  PRANK.row=r||{user_id:p.id,enabled:false,image_path:null};prankAdminDraw()}
+async function prankAdminDraw(){const r=PRANK.row,box=$("apkBox");if(!box||!r)return;
+  box.innerHTML=`<div class="apk"><div class="apkimg" id="apkImg">${r.image_path?"":"Картинки пока нет"}</div><div class="apkr">
+    <label class="apkrow"><span class="bnrsw"><input type="checkbox" role="switch" id="apkOn" ${r.enabled?"checked":""}></span><span>Показывать при каждом входе</span></label>
+    ${r.enabled&&!r.image_path?'<p class="hint">Включено, но картинки нет: окно не появится, пока не загрузите.</p>':""}
+    <div class="apkbtns"><label class="btn ghost" for="apkFile">${r.image_path?"Заменить картинку":"Загрузить картинку"}</label><input type="file" id="apkFile" accept="image/jpeg,image/png,image/webp,image/gif" class="sr">${r.image_path?'<button class="btn ghost" type="button" id="apkPrev">Посмотреть, как увидит он</button>':""}</div></div></div>`;
+  if(r.image_path){const {data:s}=await Cloud.sb.storage.from("pranks").createSignedUrl(r.image_path,3600);const el=$("apkImg");if(s&&s.signedUrl&&el){el.style.backgroundImage=`url("${s.signedUrl}")`;el.dataset.url=s.signedUrl}}}
+document.addEventListener("change",async e=>{
+  if(e.target.id==="apkOn"){const v=e.target.checked;const {error}=await Cloud.sb.from("pranks").update({enabled:v,updated_at:new Date().toISOString()}).eq("user_id",PRANK.uid);
+    if(error){e.target.checked=!v;toast("Не получилось: "+error.message);return}PRANK.row.enabled=v;toast(v?"Прикол включён: увидит при следующем входе":"Прикол выключен");prankAdminDraw()}
+  if(e.target.id==="apkFile"){const f=e.target.files&&e.target.files[0];if(!f)return;if(f.size>10485760){toast("Картинка больше 10 МБ");return}
+    const ext=(f.type.split("/")[1]||"jpg").replace("jpeg","jpg"),path=`${PRANK.uid}/${Date.now()}.${ext}`,old=PRANK.row.image_path;
+    const up=await Cloud.sb.storage.from("pranks").upload(path,f,{contentType:f.type,upsert:false});if(up.error){toast("Не получилось загрузить: "+up.error.message);return}
+    const {error}=await Cloud.sb.from("pranks").update({image_path:path,updated_at:new Date().toISOString()}).eq("user_id",PRANK.uid);
+    if(error){await Cloud.sb.storage.from("pranks").remove([path]);toast("Не получилось: "+error.message);return}
+    if(old)await Cloud.sb.storage.from("pranks").remove([old]);PRANK.row.image_path=path;toast("Картинка обновлена");prankAdminDraw()}});
+document.addEventListener("click",e=>{if(e.target.id==="apkPrev"){const u=$("apkImg")&&$("apkImg").dataset.url;if(u)prankOpen(u)}});
 
 /* ----- team templates ----- */
 async function loadTemplates(){
@@ -3476,8 +3525,10 @@ function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
       <form class="amk" data-ri="${i}"><input type="text" maxlength="60" required placeholder="Название шаблона" aria-label="Название шаблона"><button class="btn" type="submit">Сделать шаблоном</button></form></div></div>`).join(""):'<p class="tempty">Оценок пока нет. Дизайнеры ставят их в «Мои промты» после генерации.</p>'}</div></section>
    <section><h3>Какие настройки выбирают</h3><div class="agrid">${pop}</div></section>
    <section><h3>Команда</h3>${(()=>{const m=new Map();profiles.forEach(p=>{const r=p.role||"Не указано";m.set(r,(m.get(r)||0)+1)});const cu=new Map();copies.forEach(e=>{const pr=profiles.find(x=>x.id===e.user_id),r=(pr&&pr.role)||"Не указано";cu.set(r,(cu.get(r)||0)+1)});return `<div class="aroles">${[...m].sort((a,b)=>b[1]-a[1]).map(([r,n])=>`<span><b>${escA(r)}</b> ${n} ${plur(n,"человек","человека","человек")} · ${cu.get(r)||0} промтов</span>`).join("")}</div>`})()}<div class="atable"><table><thead><tr><th>Имя</th><th>Роль</th><th>Почта</th><th class="n">Промтов</th><th>Любимый стиль</th><th>Последний раз</th></tr></thead><tbody>${per.map(r=>`<tr><td>${escA(r.name)}</td><td>${escA(r.role)}</td><td>${escA(r.email)}</td><td class="n">${r.n}</td><td>${escA(r.fav)}</td><td>${r.last?fmtDate(r.last):"—"}</td></tr>`).join("")||'<tr><td colspan="6">Пока никто не зарегистрировался</td></tr>'}</tbody></table></div></section>
+   <section><h3>Прикол для Ярика</h3><p class="hint">Видит только Ярослав: доступ к окну и картинке закрыт правилами базы для всех остальных.</p><div id="apkBox"><p class="hint">Загружаю…</p></div></section>
    <section><h3>Пароль команды</h3><p class="hint">С ним регистрируются новые дизайнеры, с любой почтой. Смена пароля не выкидывает тех, кто уже зарегистрирован: они входят со старым.</p>
     <form class="aadd" id="aPw"><input type="text" id="aPwNew" minlength="8" required placeholder="Новый пароль, от 8 символов" aria-label="Новый пароль команды" autocomplete="off"><button class="btn" type="submit">Сменить</button></form></section>`;
+  prankAdmin();
   $("admBody").querySelectorAll("[data-shot]").forEach(async a=>{const {data}=await Cloud.sb.storage.from("feedback").createSignedUrl(a.dataset.shot,3600);if(data&&data.signedUrl){a.href=data.signedUrl;a.style.backgroundImage=`url("${data.signedUrl}")`;a.textContent=""}});
   const keep=S;
   try{ADM.combos.forEach((c,i)=>{const el=$("admBody").querySelectorAll(".acombo")[i],st=JSON.parse(JSON.stringify(keep));Object.assign(st,JSON.parse(JSON.stringify(c.scene)));S=st;autofix();
