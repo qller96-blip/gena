@@ -3,7 +3,7 @@
 :root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>GENA v2</title>
 <meta name="description" content="Конструктор промтов для продуктовых сцен КуулКлевер">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20viewBox%3D%220%200%20120%20120%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20fill%3D%22%23FFF6E3%22%20d%3D%22M26%2050C24%2092%2042%20109%2060%20109C78%20109%2096%2092%2094%2050Z%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23282F33%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20stroke-width%3D%225.5%22%20d%3D%22M25%2054C25%2093%2044%20109%2060%20109C76%20109%2095%2093%2095%2054%22/%3E%3Cpath%20stroke-width%3D%224.5%22%20d%3D%22M25%2067C16%2065%2015%2082%2026%2084M95%2067C104%2065%20105%2082%2094%2084%22/%3E%3Cpath%20stroke-width%3D%224.5%22%20d%3D%22M49%2093Q60%20100%2071%2093%22/%3E%3C/g%3E%3Cpath%20fill%3D%22%23282F33%22%20d%3D%22M22%2061C15%2028%2038%2010%2061%2010C87%2010%20106%2027%2098%2061C96%2054%2091%2049%2085%2046C72%2050%2048%2050%2034%2047C28%2050%2024%2055%2022%2061Z%22/%3E%3Cpath%20fill%3D%22%23282F33%22%20d%3D%22M92%2019C98%2016%20104%2020%20102%2026C101%2029%2098%2030%2095%2029Z%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23F0B92A%22%20stroke-width%3D%225.5%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%2228%22%20y%3D%2259%22%20width%3D%2227%22%20height%3D%2222%22%20rx%3D%228%22/%3E%3Crect%20x%3D%2265%22%20y%3D%2259%22%20width%3D%2227%22%20height%3D%2222%22%20rx%3D%228%22/%3E%3Cpath%20d%3D%22M55%2067H65%22/%3E%3C/g%3E%3Ccircle%20cx%3D%2242%22%20cy%3D%2270.5%22%20r%3D%223.6%22%20fill%3D%22%23282F33%22/%3E%3Ccircle%20cx%3D%2278%22%20cy%3D%2270.5%22%20r%3D%223.6%22%20fill%3D%22%23282F33%22/%3E%3C/svg%3E">
+<link rel="icon" href="favicon.svg?v=2" type="image/svg+xml"><link rel="icon" href="favicon-32.png?v=2" sizes="32x32" type="image/png"><link rel="alternate icon" href="favicon.ico?v=2" sizes="16x16 32x32 48x48"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400..700&family=Onest:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -1669,6 +1669,28 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 @media (prefers-reduced-motion:reduce){.scn-dcard{animation:none}}
 @media (max-width:980px){.scn-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:600px){.scn-head{flex-direction:column}.scn-steps{grid-template-columns:1fr 1fr}.scn-steps li{padding:8px;gap:8px}.scn-steps li.key{grid-column:1/-1}.scn-steps li:not(.key) small{display:none}.scn-steps b{font-size:13px}.scn-dlg{place-items:end stretch;padding:0}.scn-dcard{border-radius:24px 24px 0 0;max-height:92dvh}.scn-dcard .grab{display:block;width:36px;height:5px;border-radius:999px;background:var(--line);align-self:center;margin:-12px 0 -4px}.scn-dcard>.btn{align-self:stretch}.scn-row2{grid-template-columns:1fr}}
+.hs-l{-webkit-mask-image:linear-gradient(90deg,transparent,#000 40px);mask-image:linear-gradient(90deg,transparent,#000 40px)}
+.hs-r{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 40px),transparent)}
+.hs-l.hs-r{-webkit-mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 40px),transparent);mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 40px),transparent)}
+.hs-drag{cursor:grabbing;user-select:none}.hs-drag *{pointer-events:none}
+/* v2.1: вкладки панели Макета, подбор к интерьеру */
+.gsort button[role="tab"][aria-selected="true"]{background:var(--panel);color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.scn-tabs{position:sticky;top:0;z-index:3;box-shadow:0 0 0 8px var(--panel)}
+.scn-tabs button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:36px}
+.scn-tabs button small{font-size:11px;font-weight:600;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--sunk);color:var(--muted);display:inline-grid;place-items:center;box-sizing:border-box}
+.scn-tabs button[aria-selected="true"] small{background:var(--accent-soft);color:var(--accent-text,var(--ink))}
+@media (max-width:980px){.scn-tabs{position:static;box-shadow:none}}
+.scn-pick{display:flex;flex-wrap:wrap;gap:6px}.scn-pick .scn-lay span{max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.scn-plus{padding:4px;width:36px;justify-content:center}.scn-plus svg{width:18px;height:18px}
+.scn-empty{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:8px 0}.scn-empty b{font-size:15px}
+.card{position:relative}.card[data-rec]::after{content:"";position:absolute;top:10px;right:10px;width:8px;height:8px;border-radius:999px;background:var(--detail);box-shadow:0 0 0 2px var(--panel)}#rtime .chip svg{width:16px;height:16px;flex:none}
+.roomprev{overflow:hidden;padding:0}.roomprev svg{width:100%;height:100%;display:block}
+#rstyle,#rtone,#rtime{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}#rstyle .chip,#rtone .chip,#rtime .chip{justify-content:center}
+.scn-chips.bal{display:grid;grid-template-columns:repeat(var(--c,3),minmax(0,1fr))}.scn-chips.bal .scn-c{justify-content:center;padding:4px 8px}
+@media (max-width:700px){#rstyle,#rtone,#rtime{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.scn-card{position:relative}.scn-card[data-rec]::after{content:"";position:absolute;top:8px;right:8px;width:8px;height:8px;border-radius:999px;background:var(--detail);box-shadow:0 0 0 2px var(--panel)}
+.scn-chips .scn-c svg{width:16px;height:16px;flex:none;color:var(--muted)}.scn-chips .scn-c[aria-pressed="true"] svg{color:var(--ink)}
+.scn-grp2{display:contents}
 .scn-link{all:unset;cursor:pointer;align-self:flex-start;font-size:13px;font-weight:550;color:var(--accent-text,var(--accent));padding:4px 0;min-height:28px}.scn-link:hover{text-decoration:underline}.scn-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 /* ---- test templates + concepts ---- */
 .qcard .tprom{all:unset;cursor:pointer;position:absolute;top:12px;right:12px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--accent);color:var(--accent-ink);box-shadow:0 1px 4px rgba(0,0,0,.15);opacity:0;transition:opacity var(--t-fast) var(--ease)}
@@ -2074,12 +2096,22 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
         <div class="bgideas" id="bgIdeas"><span class="hint">Идеи:</span><button type="button" class="chip sm">светлый мрамор у окна, утро</button><button type="button" class="chip sm">грубая деревянная доска, размытая кухня позади</button><button type="button" class="chip sm">льняная скатерть, мягкие тени листвы</button><button type="button" class="chip sm">тёмный камень, тёплый боковой свет, дымка</button><button type="button" class="chip sm">песок и гладкие морские камни</button></div>
         <small class="hint">Можно по-русски. Текст попадёт в промт как описание фона, а свет, ракурс и стиль возьмутся из других шагов.</small>
       </div>
+      <div class="panel" id="bgRoom" hidden>
+        <div class="grid sm" id="rooms"></div>
+        <div class="sub"><div class="subh"><h3>Стиль</h3><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Стиль помещения: мебель, фасады и детали. «Любой» — нейросеть решит сама.</p></div></details></div><div class="seg" id="rstyle" role="group" aria-label="Стиль помещения"></div></div>
+        <div class="sub"><div class="subh"><h3>Тон отделки</h3><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Примерный цвет фасадов, стен и декора — не фильтр на картинку. Так задний план дружит с продуктом и столешницей. <b>Авто</b> — отделка подстраивается под столешницу.</p></div></details></div><div class="seg" id="rtone" role="group" aria-label="Тон отделки"></div></div>
+        <div class="sub"><div class="subh"><h3>Время суток</h3></div><div class="seg" id="rtime" role="group" aria-label="Время суток"></div></div>
+        <div class="sub"><div class="subh"><h3>Размытие</h3></div><div class="seg" id="rblur" role="group" aria-label="Размытие помещения"></div></div>
+        <p class="hint" id="roomTop" hidden>Ракурс «Сверху»: помещения в кадре не видно, в промт пойдёт только поверхность.</p>
+      </div>
       <div class="panel" id="bgScene" hidden>
+        <div class="subh" id="sfHead" hidden><h3>Столешница</h3><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Столешница и помещение пишутся в промт как одно пространство: одна камера, один горизонт и общий свет — перспектива не разъезжается. Точкой отмечены поверхности, которые подходят к интерьеру.</p></div></details></div>
         <div class="grid sm" id="surfaces"></div>
         <div class="spanel" id="surfPanel">
           <div class="sbig" id="surfBig"></div>
           <div class="sinfo"><h4 id="surfName"></h4><p id="surfDesc"></p><div class="sctl" id="surfCtl"></div><p class="sprompt"><span>В промт</span><code id="surfEn"></code></p></div>
         </div>
+        <div class="toggles subgap" id="sfTg"><label class="tg" id="sfFullW"><input type="checkbox" role="switch" id="sfFull"><span>На весь фон<small>Материал уходит вверх до края кадра, без горизонта.</small></span></label><label class="tg" id="sfSyncW"><input type="checkbox" role="switch" id="sfSync"><span>Подбирать к интерьеру<small>Столешница меняется вместе с помещением.</small></span></label></div>
       </div>
       <hr class="divider">
       <div class="sub">
@@ -2277,7 +2309,7 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
         <div class="scn-ctool"><span id="scnFrameInfo"></span><button class="scn-tgl" type="button" id="scnGuides" aria-pressed="true" title="Направляющие (G)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9.5 4v16M4 9.5h16" stroke-dasharray="2 2.4"/></svg>Направляющие</button></div>
         <svg id="scnSvg" xmlns="http://www.w3.org/2000/svg" tabindex="0" role="application" aria-roledescription="холст макета" aria-label="Холст макета. Стрелки двигают выбранный объект, Shift — шагом крупнее, Delete удаляет, G — направляющие."></svg>
         <p class="scn-warn" id="scnWarn" role="status" hidden></p></div>
-      <div class="scn-layers" id="scnLayers" role="group" aria-label="Объекты сцены"></div>
+      <div class="scn-layers" id="scnLayers" role="group" aria-label="Объекты сцены" hidden></div>
       <p class="scn-hint"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V6.5a1.5 1.5 0 0 1 3 0V12M11 11V5a1.5 1.5 0 0 1 3 0v6M14 11V6.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-1a5 5 0 0 1-4.2-2.3L4 14.5a1.6 1.6 0 0 1 2.6-1.8L8 14"/></svg>Тяните объекты, круглая ручка — размер</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.5V5a1.5 1.5 0 0 1 1.5-1.5h7.5l8 8-9 9z"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/></svg>Подпишите фигуру — нейросеть нарисует именно это</span><span class="kb"><kbd>G</kbd> направляющие · <kbd>Delete</kbd> удалить · <kbd>⌘D</kbd> копия · <kbd>⌘Z</kbd> отменить</span></p>
       <div class="tgbox scn-extra"><div class="tghead scn-xhead"><span class="tgico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l1.6 4.4 4.4 1.6-4.4 1.6L12 15.5l-1.6-4.4L6 9.5l4.4-1.6z"/><path d="M18.5 15l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg></span><span class="tgt"><b>Декор от нейросети</b><small id="scnXStat"></small></span>
           <span class="scn-xinf"><details class="info"><summary aria-label="Подробнее">i</summary><div><p>Нейросеть сама добавит предметы по теме продукта: ингредиенты, травы, посуду. Ваши объекты на макете останутся на местах, а зона текста — чистой. Нужен конкретный предмет в конкретном месте — поставьте его вручную через «+ Декор».</p></div></details></span>
@@ -2303,8 +2335,8 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
       <div class="scn-dhead"><h2 id="scnHelpT">Как работает «Макет»</h2><button class="iconbtn" type="button" id="scnHelpX" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
       <p class="scn-dlead">Вы рисуете простую схему кадра — где что стоит. GENA пишет по ней точный промт и делает картинку-набросок. Нейросеть превращает фигуры в настоящие продукты и предметы.</p>
       <ol class="scn-dsteps">
-        <li><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><div><b>1. Соберите макет</b><p>Кнопки <i class="scn-k">+ Продукт</i> <i class="scn-k">+ Декор</i> <i class="scn-k">+ Текст</i> добавляют фигуры. Тяните их по холсту, круглая ручка меняет размер. Клик по фону или подставке открывает их настройки справа.</p></div></li>
-        <li><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.5V5a1.5 1.5 0 0 1 1.5-1.5h7.5l8 8-9 9z"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/></svg></span><div><b>2. Подпишите фигуры</b><p>В поле <i class="scn-k">Подпись: что это</i> напишите, что должно стоять на месте фигуры — «сыр в вакуумной упаковке», «веточка розмарина». Нейросеть нарисует именно это. Нужного декора нет в списке — возьмите <i class="scn-k">Свой предмет</i>.</p></div></li>
+        <li><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span><div><b>1. Соберите макет</b><p>Кнопки <i class="scn-k">+ Продукт</i> <i class="scn-k">+ Декор</i> <i class="scn-k">+ Текст</i> добавляют фигуры. Тяните их по холсту, круглая ручка меняет размер. Всё настраивается справа во вкладках «Сцена · Продукты · Декор · Текст»; клик по фигуре на холсте сразу открывает её вкладку.</p></div></li>
+        <li><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 12.5V5a1.5 1.5 0 0 1 1.5-1.5h7.5l8 8-9 9z"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/></svg></span><div><b>2. Подпишите фигуры</b><p>В поле <i class="scn-k">Что это</i> напишите, что должно стоять на месте фигуры — «сыр в вакуумной упаковке», «веточка розмарина». Нейросеть нарисует именно это. Нужного декора нет в списке — возьмите <i class="scn-k">Свой предмет</i>.</p></div></li>
         <li><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9.5 4v16M4 9.5h16" stroke-dasharray="2 2.4"/></svg></span><div><b>3. Для ПП включите кадр «ПП»</b><p>Жёлтые направляющие показывают баннер 1100×600: слева колонка текста, справа зона продуктов. Если объект вылез за сетку, под холстом появится подсказка.</p></div></li>
         <li><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h14M12 6v13M9 19h6"/></svg></span><div><b>4. Текст: нейросеть или вы</b><p>Нейросеть рисует текст сразу, но размер держит приблизительно. Для точной типографики выберите <i class="scn-k">Наберу сам</i> — место останется пустым, текст наберёте в Figma.</p></div></li>
         <li class="key"><span class="scn-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19h14"/></svg></span><div><b>5. Нажмите «Промт и набросок»</b><p>Промт скопируется в буфер, а картинка-набросок скачается. <b>Набросок обязателен</b>: по нему нейросеть понимает расстановку и шрифты.</p></div></li>
@@ -2692,6 +2724,7 @@ const BGMODES=[
  {id:"solid",t:"Цвет",d:"Ровный фон одного цвета"},
  {id:"grad",t:"Градиент",d:"Мягкий переход цвета"},
  {id:"scene",t:"Поверхность",d:"Стол, камень, ткань"},
+ {id:"room",t:"Интерьер",d:"Помещение за столом"},
  {id:"text",t:"Своими словами",d:"Опишите фон текстом"}
 ];
 const PAL=[
@@ -2773,15 +2806,15 @@ const SW={linen:["#E7E0D3","#F4F1EA","#D9CBB0","#C9D3C0","#B9C7D6","#E3C7C2","#8
   concrete:["#B9B8B3","#DAD8D2","#8E8D88","#5E5F5E","#C4B5A3","#A9B4B8"]};
 const SURF=[
  {id:"wood",t:"Дерево",d:"Столешница с волокнами",vars:WOOD,def:"oak",draw:v=>thWood(v),en:v=>`a ${WOOD[v][3]} wooden tabletop with visible natural grain`,ru:v=>WOOD[v][4]+", видны волокна и стыки досок."},
- {id:"marble",t:"Мрамор",d:"Полированный камень",vars:MARBLE,def:"carrara",draw:v=>thMarble(v),en:v=>`a polished ${MARBLE[v][3]}`,ru:v=>"Полированный мрамор. "+MARBLE[v][4]+"."},
- {id:"linen",t:"Лён",d:"Скатерть с мягкими складками",color:"#E7E0D3",draw:c=>thLinen(c),en:c=>`a natural linen tablecloth in ${cname(c)} with soft folds and visible weave`,ru:()=>"Льняная скатерть: матовая, с заметным плетением и мягкими складками."},
+ {id:"marble",t:"Мрамор",d:"Камень с прожилками",vars:MARBLE,def:"carrara",draw:v=>thMarble(v),en:v=>`a polished ${MARBLE[v][3]}`,ru:v=>"Полированный мрамор. "+MARBLE[v][4]+"."},
+ {id:"linen",t:"Лён",d:"Мягкие складки",color:"#E7E0D3",draw:c=>thLinen(c),en:c=>`a natural linen tablecloth in ${cname(c)} with soft folds and visible weave`,ru:()=>"Льняная скатерть: матовая, с заметным плетением и мягкими складками."},
  {id:"silk",t:"Шёлк",d:"Глянцевые волны ткани",color:"#E9D6DC",draw:c=>thSilk(c),en:c=>`flowing ${cname(c)} satin silk fabric with soft glossy folds`,ru:()=>"Шёлк или атлас: блестящие волны и мягкие блики."},
  {id:"tile",t:"Плитка",d:"Глазурь и тонкие швы",color:"#9FC3C7",grout:"#FFFFFF",draw:(c,g)=>thTile(c,g),en:(c,g)=>`glazed ${cname(c)} square ceramic tiles with thin ${cname(g)} grout lines`,ru:()=>"Квадратная глазурованная плитка с тонкими швами. Цвет плитки и затирки настраивается."},
- {id:"terrazzo",t:"Терраццо",d:"Основа с цветной крошкой",color:"#EDE8E1",draw:c=>thTerrazzo(c),en:c=>`a ${cname(c)} terrazzo surface with small multicolored stone chips`,ru:()=>"Шлифованная плита с вкраплениями цветной каменной крошки."},
+ {id:"terrazzo",t:"Терраццо",d:"Цветная крошка",color:"#EDE8E1",draw:c=>thTerrazzo(c),en:c=>`a ${cname(c)} terrazzo surface with small multicolored stone chips`,ru:()=>"Шлифованная плита с вкраплениями цветной каменной крошки."},
  {id:"concrete",t:"Бетон",d:"Микроцемент с порами",color:"#B9B8B3",draw:c=>thConcrete(c),en:c=>`a smooth ${cname(c)} micro-cement concrete surface with fine pores`,ru:()=>"Гладкий микроцемент: матовый, с мелкими порами и лёгкой неоднородностью."},
  {id:"metal",x:true,t:"Металл",d:"Шлифованный лист",vars:METAL,def:"steel",draw:v=>thMetal(v),en:v=>`a ${METAL[v][2]} surface with fine linear brushing`,ru:v=>`Шлифованный металл (${METAL[v][1].toLowerCase()}): тонкие полосы и мягкий блик.`},
  {id:"slate",x:true,t:"Сланец",d:"Тёмная матовая плита",draw:()=>thSlate(),en:()=>"a dark matte slate board with fine layered texture",ru:()=>"Тёмный сланец: матовый, со слоистой фактурой. Хорош для сыров и мяса."},
- {id:"stone",t:"Травертин",d:"Пористый натуральный камень",draw:()=>thStone(),en:()=>"a natural travertine stone surface with porous texture",ru:()=>"Бежевый травертин: натуральный камень с порами и полосами."},
+ {id:"stone",t:"Травертин",d:"Пористый камень",draw:()=>thStone(),en:()=>"a natural travertine stone surface with porous texture",ru:()=>"Бежевый травертин: натуральный камень с порами и полосами."},
  {id:"kraft",x:true,t:"Крафт",d:"Мятая бумага",draw:()=>thKraft(),en:()=>"crumpled brown kraft paper",ru:()=>"Коричневая крафт-бумага с заломами. Фермерский, эко-настрой."},
  {id:"glass",x:true,t:"Стекло",d:"Зеркальная поверхность",draw:()=>thGlass(),en:()=>"a glossy reflective glass surface mirroring the products",ru:()=>"Глянцевое стекло: продукт отражается в поверхности."},
  {id:"sand",x:true,t:"Песок",d:"Мелкий песок с рябью",draw:()=>thSand(),en:()=>"fine smooth beach sand with gentle ripples",ru:()=>"Мелкий песок с мягкой рябью. Летние и пляжные сцены."}
@@ -2820,6 +2853,115 @@ const TSHAPE=[["round","Круглый","a round"],["rect","Прямоуголь
 const TSIZE=[["small","Маленький","small cafe-size","fits 2"],["dining","Обеденный","family dining-size","fits 4–6"],["long","Длинный","long banquet","for a feast"]];
 const TMAT=[["oak","Светлое дерево","light oak wood with visible grain","#D9B98C"],["walnut","Тёмное дерево","dark walnut wood","#7A5136"],["marble","Мрамор","white marble with soft grey veins","#EDEBE7"],["glass","Стекло","clear glass with soft reflections","#CFE3E8"],["metal","Металл","brushed steel","#B7BCC0"]];
 const TCLOTH=[["none","Без скатерти","","",""],["linen","Лён","a {c} linen tablecloth with soft natural creases","#F4F1EA","white"],["white","Гладкая","a crisp smooth {c} tablecloth","#FFFFFF","white"],["check","Клетка","a {c}-and-white gingham tablecloth","#E9B9B5","red"],["velvet","Бархат","a deep {c} velvet tablecloth","#6E1F2E","burgundy"],["lace","Кружево","a {c} lace tablecloth","#F2E8D5","cream"]];
+/* ---------- ИНТЕРЬЕР: общий словарь Конструктора и Макета (v2.1) ---------- */
+WOOD.aged=["#9C8468","#5E4A36","Старое","weathered reclaimed wood with knots and fine cracks","Состаренное дерево с сучками и трещинками"];
+MARBLE.calacatta=["#F6F3EE","#B59A6A","Калакатта","white Calacatta marble with bold warm grey-gold veins","Белый с крупными тёплыми прожилками"];
+const QUARTZ={white:["#F4F2EE","#CFCBC4","Белый","white","Белый кварц: ровный, с мелкой крошкой"],cream:["#ECE3D3","#C8B89E","Кремовый","warm cream","Тёплый кремовый кварц"],grey:["#B8B7B3","#8A8985","Серый","mid grey","Спокойный серый кварц"],black:["#2A2B2D","#5A5B5E","Чёрный","black","Чёрный кварц с лёгкой искрой"]};
+const GRANITE={black:["#2C2D2F","#9A9B9D","Чёрный","black granite with fine silver flecks","Чёрный гранит с серебристой искрой"],grey:["#9A9894","#3E3D3B","Серый","grey granite with black-and-white speckles","Серый гранит в крапинку"],sand:["#CDBBA2","#6E5D4A","Песочный","warm sand-beige granite with dark speckles","Тёплый песочный гранит"]};
+const thSpeck=(b,f,seed,n,big)=>{const R=srnd(seed),id="sf"+(++__sid);let o=`<rect width="120" height="80" fill="${b}"/>`;
+  for(let i=0;i<n;i++)o+=`<circle cx="${(R()*120).toFixed(1)}" cy="${(R()*80).toFixed(1)}" r="${(.3+R()*big).toFixed(2)}" fill="${R()>.35?f:(hexLum(b)>.5?"#FFFFFF":"#000000")}" opacity="${(.35+R()*.5).toFixed(2)}"/>`;
+  return sfWrap(o+`<rect width="120" height="80" fill="url(#${id}g)"/>`,`<linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".06"/></linearGradient>`)};
+const thQuartz=v=>{const [b,f]=QUARTZ[v]||QUARTZ.white;return thSpeck(b,f,13,420,.16)};
+const thGranite=v=>{const [b,f]=GRANITE[v]||GRANITE.black;return thSpeck(b,f,17,260,1.3)};
+const thButcher=()=>{const R=srnd(21);let o=`<rect width="120" height="80" fill="#B88F62"/>`;
+  for(let y=0;y<80;y+=10)for(let x=-(y/10%2)*8;x<120;x+=16){const c=shadeHex("#C49A6A",(R()-.5)*.34);o+=`<rect x="${x+.5}" y="${y+.5}" width="15" height="9" rx="1" fill="${c}"/><ellipse cx="${x+8}" cy="${y+5}" rx="${2+R()*3}" ry="${1+R()*1.6}" fill="none" stroke="${shadeHex(c,-.2)}" stroke-width=".5" opacity=".7"/>`}
+  return sfWrap(o)};
+const thLacquer=c=>{const id="sf"+(++__sid);return sfWrap(`<rect width="120" height="80" fill="${c}"/><rect width="120" height="80" fill="url(#${id}g)"/><polygon points="18,0 44,0 26,80 0,80" fill="#fff" opacity=".22"/>`,`<linearGradient id="${id}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".12"/></linearGradient>`)};
+const thParchment=()=>{const R=srnd(23);let o=`<rect width="120" height="80" fill="#EEE3CC"/>`;
+  for(let i=0;i<14;i++){const x=R()*120,y=R()*80,a=R()*3.14;o+=`<line x1="${x}" y1="${y}" x2="${x+Math.cos(a)*(14+R()*20)}" y2="${y+Math.sin(a)*(10+R()*14)}" stroke="${R()>.5?"#D8C9A8":"#FFF8EA"}" stroke-width="${.6+R()*1.2}" opacity=".8"/>`}return sfWrap(o)};
+const thRattan=()=>{let o=`<rect width="120" height="80" fill="#C9A878"/>`;
+  for(let y=0;y<80;y+=8)for(let x=0;x<120;x+=8){const h=(x/8+y/8)%2;o+=`<rect x="${x+1}" y="${y+2.5}" width="6" height="3" rx="1.5" fill="${h?"#E2C79B":"#B38E5C"}" transform="rotate(${h?0:90} ${x+4} ${y+4})"/>`}return sfWrap(o)};
+SW.lacquer=["#E8C4B8","#F3E3C8","#C9DCCB","#BFD2E6","#E9D7EE","#F2C14E","#C8102E","#2E4A3E","#1F2A44","#2A2B2D"];
+{const at=(id,o,after)=>SURF.splice(SURF.findIndex(s=>s.id===after)+1,0,o);
+ at(0,{id:"quartz",t:"Кварц",d:"Ровный, без прожилок",vars:QUARTZ,def:"white",draw:v=>thQuartz(v),en:v=>`a ${QUARTZ[v][3]} engineered quartz worktop, smooth with a fine even speckle and a soft satin sheen`,ru:v=>QUARTZ[v][4]+", без прожилок, с мягким блеском."},"marble");
+ at(0,{id:"granite",t:"Гранит",d:"Камень в крапинку",vars:GRANITE,def:"black",draw:v=>thGranite(v),en:v=>`a polished ${GRANITE[v][3]} worktop`,ru:v=>GRANITE[v][4]+", полированный."},"quartz");
+ at(0,{id:"butcher",t:"Торцевая доска",d:"Шахматка брусков",draw:()=>thButcher(),en:()=>"a thick end-grain butcher-block wooden worktop with a checkerboard of wood blocks",ru:()=>"Толстая доска из торцевых брусков. Мясо, сыры, хлеб."},"wood");
+ at(0,{id:"lacquer",t:"Цветной лак",d:"Глянцевая плоскость",color:"#E8C4B8",draw:c=>thLacquer(c),en:c=>`a smooth glossy lacquered ${cname(c)} surface with soft reflections`,ru:()=>"Гладкая глянцевая плоскость любого цвета с мягкими отражениями."},"concrete");
+ at(0,{id:"parchment",x:true,t:"Пергамент",d:"Бумага для выпечки",draw:()=>thParchment(),en:()=>"crinkled baking parchment paper laid flat",ru:()=>"Мятая бумага для выпечки. Пекарня, сэндвичи, уличная еда."},"kraft");
+ at(0,{id:"rattan",x:true,t:"Ротанг",d:"Плетёная салфетка",draw:()=>thRattan(),en:()=>"a natural woven rattan placemat",ru:()=>"Плетёная салфетка из ротанга. Пикник, лето, эко."},"parchment")}
+TMAT.push(["quartz","Кварц","white engineered quartz","#F1EFEB"],["concrete","Бетон","smooth grey micro-cement","#B9B8B3"],["aged","Старое дерево","weathered reclaimed wood","#9C8468"]);
+
+/* помещения: [id, подпись, английский, [цвет верха, цвет низа], редкое] */
+const ROOMS=[["kitchen","Кухня","a home kitchen with cabinets and a worktop along the back wall",["#EFEAE2","#D6CDC0"]],["living","Гостиная","a cosy living room with a sofa and house plants",["#ECE4DA","#C9BBA9"]],["dining","Столовая","a dining room with a sideboard and a pendant lamp over the table",["#E9E1D6","#BFAE98"]],
+ ["cafe","Кафе","a cosy cafe with a counter and shelves",["#E6D8C5","#BBA285"]],["restaurant","Ресторан","an elegant restaurant with tables and pendant lamps",["#8A7360","#4A3B30"]],["bar","Бар","a wine bar with bottles on wooden shelves",["#6B5547","#2F241E"]],
+ ["bakery","Пекарня","a rustic bakery with bread on wooden shelves",["#F0E3CD","#D1B58E"]],["garden","Сад","a lush summer garden with greenery",["#DCE8D2","#93AE7E"]],["winter","Праздник","a festive winter room with a decorated fir tree and string lights",["#E3E8EE","#B4BFCB"]],["studio","Студия","a minimal photo studio with a light plaster wall",["#F2F0EC","#D8D4CE"]],
+ ["window","У окна","a bright corner by a large window with sheer curtains",["#F4F3EF","#DCD8CF"],1],["deli","Лавка","a gourmet deli shop with shelves of jars, oils and cheeses",["#E4D6C1","#9C8060"],1],["terrace","Терраса","a sunny outdoor terrace with potted plants",["#EAF0F2","#C5CFC1"],1],["cellar","Погреб","a wine cellar with brick vaults and oak barrels",["#7A5E4A","#3A2A20"],1],["country","Дача","a country-house veranda with wooden walls and a garden view",["#E8DCC6","#A9916E"],1]];
+const OUTDOOR=["garden","terrace"];
+/* стиль помещения: [id, подпись, английский] */
+const RSTYLE=[["auto","Любой",""],["scandi","Сканди","Scandinavian style: light wood, white walls, simple lines, linen textiles"],["modern","Современный","modern contemporary style: handleless fronts, clean lines, hidden lighting"],["classic","Классика","classic style: framed shaker doors, mouldings, brass details"],["loft","Лофт","industrial loft style: exposed brick, black metal, concrete, filament bulbs"],["rustic","Рустик","rustic farmhouse style: rough wooden beams, open shelves, ceramics, wicker baskets"],["provence","Прованс","French Provence style: painted wood, soft pastel tones, dried lavender, wrought iron"],["med","Италия","Italian Mediterranean style: white lime plaster, terracotta, olive wood, soft arches"],["japandi","Джапанди","Japandi style: calm minimalism, pale oak, paper lamps, muted earthy tones"]];
+/* тон обстановки: [id, подпись, фасады, детали, английский] — не фильтр, а цвет отделки */
+const RTONE=[["auto","Авто","","",""],["light","Светлый","#F3F0EA","#D9CBB0","white and warm-white fronts and walls with pale oak accents"],["beige","Бежевый","#E3D3BC","#A8865E","warm beige and cream finishes with natural oak"],["sage","Шалфей","#A9B79C","#C8A45C","sage-green cabinet fronts and decor with brass details"],["blue","Синий","#4E6680","#E9E2D4","dusty navy-blue fronts with cream walls"],["terra","Терракота","#C2694A","#E8D5BE","terracotta and clay tones with warm wood"],["graphite","Графит","#3A3D40","#B7A182","graphite and black fronts with warm wood and soft brass"],["walnut","Орех","#6E4932","#E6DDD0","dark walnut wood fronts with off-white walls"],["blush","Пудровый","#E7CFC8","#F3ECE4","powder-pink and soft cream finishes"]];
+/* время суток: [id, подпись, английский, затемнение холста, оттенок] */
+const RTIME=[["morning","Утро","in the early morning: fresh soft light from a window, slightly cool, long gentle shadows",-.02,"#DCE6F2"],["day","День","in soft natural daylight",0,""],["golden","Закат","at golden hour: warm low sun through the window, long warm shadows and glowing highlights",-.12,"#F3B46A"],["evening","Вечер","in the evening, lit by warm lamps, with glowing bokeh lights",-.42,"#F3C27A"],["night","Ночь","at night: a dark, moody room lit only by a few warm lamps and candles, deep shadows, glowing bokeh",-.62,"#F0A85A"]];
+const envRoom=id=>ROOMS.find(r=>r[0]===id)||ROOMS[0],envTone=id=>RTONE.find(t=>t[0]===id)||RTONE[0],envStyle=id=>RSTYLE.find(t=>t[0]===id)||RSTYLE[0],envTime=id=>RTIME.find(t=>t[0]===id)||RTIME[1];
+function mixHex(a,b,t){const p=h=>{const n=parseInt(String(h).slice(1),16);return [n>>16,n>>8&255,n&255]},A=p(a),B=p(b);if(A.some(isNaN)||B.some(isNaN))return a;return "#"+A.map((c,i)=>Math.round(c+(B[i]-c)*t).toString(16).padStart(2,"0")).join("").toUpperCase()}
+/* цвета помещения на холсте: база комнаты → тон отделки → время суток */
+function envCols(env,surfCol){const r=envRoom(env.room),t=envTone(env.tone),tm=envTime(env.time);let c=r[3].slice();
+  if(t[2])c=[mixHex(c[0],t[3]&&hexLum(t[2])<.45?t[3]:lighten(t[2],.25),.5),mixHex(c[1],t[2],.6)];else if(surfCol)c=[c[0],mixHex(c[1],surfCol,.35)];
+  if(tm[4])c=c.map(x=>mixHex(x,tm[4],.12));return c.map(x=>tm[3]?shadeHex(x,tm[3]):x)}
+
+/* подбор столешницы к интерьеру: тон важнее стиля, стиль важнее помещения */
+const PICK_TONE={light:[["marble","carrara"],["wood","bleached"],["quartz","white"]],beige:[["wood","oak"],["stone"],["linen","#E7E0D3"]],sage:[["wood","oak"],["terrazzo","#EDE8E1"],["marble","carrara"]],blue:[["marble","carrara"],["wood","bleached"],["quartz","white"]],
+  terra:[["wood","oak"],["stone"],["tile","#E7C6B8"]],graphite:[["wood","walnut"],["slate"],["marble","nero"],["granite","black"]],walnut:[["wood","walnut"],["marble","calacatta"],["quartz","white"]],blush:[["marble","rosa"],["quartz","white"],["linen","#E3C7C2"]]};
+const PICK_STYLE={scandi:[["wood","bleached"],["quartz","white"],["linen","#F4F1EA"]],modern:[["quartz","white"],["concrete","#DAD8D2"],["marble","carrara"]],classic:[["marble","calacatta"],["wood","walnut"],["marble","carrara"]],loft:[["concrete","#8E8D88"],["butcher"],["wood","aged"]],
+  rustic:[["wood","aged"],["butcher"],["linen","#D9CBB0"]],provence:[["wood","bleached"],["linen","#F4F1EA"],["tile","#F2F0EA"]],med:[["terrazzo","#EDE8E1"],["stone"],["tile","#2E5E5A"]],japandi:[["wood","oak"],["concrete","#DAD8D2"],["stone"]]};
+const PICK_ROOM={kitchen:[["quartz","white"],["wood","oak"],["marble","carrara"]],living:[["wood","oak"],["marble","carrara"],["linen","#E7E0D3"]],dining:[["wood","walnut"],["linen","#F4F1EA"],["marble","carrara"]],cafe:[["wood","oak"],["marble","carrara"],["terrazzo","#EDE8E1"]],
+  restaurant:[["marble","carrara"],["wood","walnut"],["linen","#F4F1EA"]],bar:[["wood","walnut"],["slate"],["marble","nero"]],bakery:[["wood","oak"],["parchment"],["linen","#E7E0D3"]],garden:[["wood","aged"],["stone"],["linen","#E7E0D3"]],winter:[["wood","walnut"],["linen","#F4F1EA"],["marble","carrara"]],
+  studio:[["concrete","#DAD8D2"],["quartz","white"],["linen","#E7E0D3"]],window:[["marble","carrara"],["wood","bleached"],["linen","#F4F1EA"]],deli:[["butcher"],["marble","carrara"],["slate"]],terrace:[["stone"],["wood","oak"],["tile","#F2F0EA"]],cellar:[["wood","aged"],["slate"],["stone"]],country:[["wood","aged"],["linen","#E7E0D3"],["butcher"]]};
+const pickKey=p=>p[0]+"|"+(p[1]||"");
+function envPicks(env){const sc={},add=(L,w)=>(L||[]).forEach((p,i)=>{const k=pickKey(p);sc[k]=(sc[k]||{p,s:0});sc[k].s+=w*(3-i)});
+  add(PICK_TONE[env.tone],3);add(PICK_STYLE[env.style],2);add(PICK_ROOM[env.room],1);
+  return Object.values(sc).sort((a,b)=>b.s-a.s).map(x=>x.p).filter(p=>SURF.some(s=>s.id===p[0])).slice(0,3)}
+/* та же поверхность — материалом стола (Стол в Макете и Конструкторе) */
+function pickMat(p){const m={wood:{bleached:"oak",oak:"oak",walnut:"walnut",wenge:"walnut",aged:"aged"},marble:"marble",quartz:"quartz",concrete:"concrete",granite:"marble",slate:"walnut",butcher:"oak",stone:"marble",terrazzo:"marble",metal:"metal",glass:"glass"}[p[0]];return typeof m==="object"?m[p[1]]||"oak":m||"oak"}
+const surfVal=(sf,sv)=>(sv||{})[sf.id]||(sf.vars?sf.def:sf.color);
+function surfShort(sf,v){return sf.vars?`${sf.t.toLowerCase()} · ${sf.vars[v][sf.id==="metal"?1:2].toLowerCase()}`:sf.t.toLowerCase()}
+
+/* ---------- промт: помещение, единая перспектива, ансамбль ---------- */
+function roomEn(env){const r=envRoom(env.room),st=envStyle(env.style),t=envTone(env.tone),tm=envTime(env.time);
+  return `${r[2]}${st[2]?", in "+st[2]:""}${t[4]?"; finishes and decor: "+t[4]:""}, ${tm[2]}`}
+function blurEn(b){return b==="light"?"softly out of focus but still recognisable":"heavily out of focus with creamy bokeh, only shapes and colours readable"}
+/* где горизонт (уровень глаз камеры) относительно кадра; e — высота камеры в градусах */
+function horizonEn(e,H){if(e>=80)return "";
+  if(e>=30)return "The camera looks down at the tabletop from above: the horizon (camera eye level) lies above the top edge of the frame, so mostly the tabletop and the lower part of the room are visible, and the room's vertical lines converge slightly downward.";
+  if(e<=-2)return `The camera sits low, just above the tabletop level and looking slightly up: the horizon (camera eye level) runs ${H!=null?`at y ${H}%`:"low in the frame"}, the tabletop reads as a thin strip, and the room rises behind the products.`;
+  if(e<=6)return `The camera is at eye level with the products: the horizon (camera eye level) runs ${H!=null?`at y ${H}%`:"through the middle of the products"}, the tabletop is seen almost edge-on as a thin strip, and the back wall stands straight behind.`;
+  return `The camera looks slightly down at the tabletop: the horizon (camera eye level) runs ${H!=null?`at y ${H}%, above the far edge of the tabletop`:"above the far edge of the tabletop, behind the upper part of the products"}.`}
+function persEn(o){/* o: {room, support:"surface"|"table"|"pod"|"none", e, H, E, vx} */
+  const sup=o.support==="table"?"the table":o.support==="pod"?"the podium":"the tabletop",out=[];
+  out.push(`One continuous real space, photographed with one camera from one position: ${o.support==="table"?"the table stands on the floor of this room":o.support==="pod"?"the podium stands on the floor of this room":o.support==="none"?"the products stand inside this room":"the tabletop is the near end of a worktop or table that stands inside this room"}, not a separate layer pasted in front of a backdrop.`);
+  if(o.e<80){out.push(`The back of the room is seen straight-on (one-point perspective): its back wall, cabinets and shelves run parallel to the image plane, with no room corner and no side wall slanting into the frame.`);
+    out.push(horizonEn(o.e,o.H));
+    out.push(`All receding lines — the side edges of ${sup}, the floor and the room — converge to one vanishing point on that horizon${o.vx!=null?`, at about x ${o.vx}%, behind the products`:", behind the products"}.`);
+    if(o.support==="surface"&&o.E!=null)out.push(`The far edge of the tabletop, where it meets the room, sits at y ${o.E}%; it is perfectly horizontal and lies below the horizon.`);
+    out.push(`Scale follows distance: background furniture is clearly farther away and smaller than ${sup}; worktops and tables in the background sit at the same physical height as ${sup}, so their tops line up just below the horizon and never tower above it. No gap, step or drop between ${sup} and the room behind it.`)}
+  return out.filter(Boolean).join(" ")}
+function harmEn(env,surfEnText,isTable){const t=envTone(env.tone),noun=isTable?"table":"tabletop";
+  return t[4]?`The ${noun} and the room are one designed interior: ${surfEnText} complements the room's ${t[4].split(" with ")[0]}, with the same colour temperature and light, and the room's decor repeats the tones of the ${noun} so foreground and background feel like one place.`
+    :`The room's finishes and decor are chosen to complement ${surfEnText}: the same material family or a calm neighbouring tone, the same colour temperature, so foreground and background feel like one designed interior.`}
+const CAM_ELEV={front:0,profile:0,hero:-8,dutch:12,macro:20,slight:18,side:10,e45:45,hq:38,iso:35,top:90};
+/* свет «по стилю» в интерьере берётся из времени суток — один источник на продукт и комнату */
+const ROOMLIGHT={morning:"Soft, slightly cool morning daylight from a window on one side; gentle long shadows",day:"Soft natural daylight from a large window on one side, gentle fill from the room",golden:"Warm low golden-hour sunlight from a window on one side, long warm shadows and glowing rim highlights on the products",evening:"Warm evening lamplight from pendant and table lamps, soft pools of light, cosy contrast",night:"Dim night ambience lit by a few warm lamps and candles close to the products, deep soft shadows, glowing highlights"};
+const roomLightEn=t=>(ROOMLIGHT[t]||ROOMLIGHT.day)+". The same light falls on the products, the tabletop and the room: matching direction, colour temperature and shadow softness, with no separate studio lighting on the products.";
+const fullEn=surfEnText=>`SURFACE AS BACKDROP: ${surfEnText} fills the entire frame. The same material continues seamlessly from the bottom edge up to the top edge as one continuous sweep (an infinity cove made of this material), with no horizon line, no wall, no room and no visible edge or seam, so the products sit inside one uniform material world.`;
+
+/* миниатюра помещения: плоские серые фигуры и один жёлтый акцент */
+const roomThumb=id=>{const out=OUTDOOR.includes(id),F=(x,y,w,h,f,rx)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}"${rx?` rx="${rx}"`:""} fill="var(--fig-${f})"/>`;
+  let s=`<svg viewBox="0 0 48 38" aria-hidden="true"><rect width="48" height="38" fill="var(--fig-top)"/>`;
+  if(out)s+=`<circle cx="12" cy="12" r="9" fill="var(--fig-l)"/><circle cx="34" cy="10" r="10" fill="var(--fig-r)"/>`;
+  else if(id==="cellar")s+=`<path d="M4 28V14a10 10 0 0 1 20 0v14M24 28V14a10 10 0 0 1 20 0v14" fill="none" stroke="var(--fig-r)" stroke-width="2.5"/><rect x="16" y="20" width="16" height="8" rx="4" fill="var(--fig-l)"/>`;
+  else if(id==="window")s+=F(8,4,32,20,"l",2)+`<path d="M24 4v20M8 14h32" stroke="var(--fig-top)" stroke-width="1.6"/>`;
+  else s+=F(5,5,12,17,"top",2).replace('var(--fig-top)','var(--panel)');
+  if(["kitchen","cafe","bakery","bar","deli"].includes(id))s+=F(22,9,22,2.5,"r")+F(22,16,22,2.5,"r");
+  if(id==="living")s+=F(22,17,20,8,"r",3);
+  if(id==="dining")s+=F(24,16,16,2.5,"r")+`<path d="M32 2v6" stroke="var(--fig-r)" stroke-width="1.4"/><circle cx="32" cy="9" r="2" fill="var(--fig-r)"/>`;
+  if(id==="country")s+=`<path d="M22 6h22M22 11h22M22 16h22M22 21h22" stroke="var(--fig-r)" stroke-width="1.6"/>`;
+  if(id==="winter")s+=`<path d="M36 5 43 24H29Z" fill="var(--fig-r)"/>`;
+  s+=["restaurant","bar","winter","cellar"].includes(id)?`<circle cx="26" cy="7" r="2.5" fill="var(--detail)"/><circle cx="34" cy="5" r="2" fill="var(--detail)"/>`:`<circle cx="40" cy="6" r="2.5" fill="var(--detail)"/>`;
+  return s+F(0,28,48,10,"l")+`</svg>`};
+const toneDot=t=>t[2]?`linear-gradient(135deg,${t[2]} 0 55%,${t[3]} 55% 100%)`:"conic-gradient(#F3F0EA 0 25%,#A9B79C 0 50%,#C2694A 0 75%,#3A3D40 0)";
+const TIME_IC={morning:'<path d="M4 17h16M7.5 17a4.5 4.5 0 0 1 9 0M12 8.5V6M6.2 11.2 4.8 9.8M17.8 11.2l1.4-1.4"/>',day:'<circle cx="12" cy="12" r="3.6"/><path d="M12 4v2M12 18v2M4 12h2M18 12h2M6.3 6.3l1.4 1.4M16.3 16.3l1.4 1.4M6.3 17.7l1.4-1.4M16.3 7.7l1.4-1.4"/>',golden:'<path d="M4 16h16M8 16a4 4 0 0 1 8 0M7 20h10"/>',evening:'<path d="M9 4h6l-1 5h-4z"/><path d="M12 9v9M8.5 20h7"/>',night:'<path d="M18.5 14.5A7 7 0 1 1 9.5 5.5a5.5 5.5 0 0 0 9 9z"/>'};
+const timeIc=id=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${TIME_IC[id]||""}</svg>`;
 /* оттенок ткани: null — родной цвет ткани */
 const CTONES=[["#FFFFFF","Белый","white"],["#F2E8D5","Сливочный","cream"],["#D8C4A0","Бежевый","sand beige"],["#A9BBCB","Серо-голубой","dusty blue"],["#9CAF88","Шалфей","sage green"],["#C2694A","Терракота","terracotta"],["#6E1F2E","Бордо","burgundy"],["#33393D","Графит","charcoal grey"]];
 function clothEn(c){const t=S.tTone&&CTONES.find(x=>x[0]===S.tTone);let col=t?t[2]:S.tTone?`${S.tTone}-coloured`:c[4];if(c[0]==="check"&&col==="white")col="light grey";return c[2].replace("{c}",col)}
@@ -2971,7 +3113,7 @@ const DOF=[
 const RATIOS=[["21:9",21,9],["1:1",1,1],["4:5",4,5],["3:4",3,4],["2:3",2,3],["9:16",9,16],["16:9",16,9],["3:2",3,2]];
 
 /* ---------- STATE ---------- */
-const DEF={gap:"close",mirror:false,cats:[],enh:[],table:false,tOcc:"plain",tShape:"round",tSize:"dining",tMat:"oak",tCloth:"none",tTone:null,bnr:{on:false,kick:"",head:"",sub:"",price:"",tone:"auto",color:"#2A1A10",mode:"grid",ref:false,hs:null,ss:null,ps:null,tag:"text",tagCol:"#FFFFFF",gen:"16:9"},bgText:"",style:"fintech",angle:"e45",arr:"cluster",place:"center",grid:"golden",tilt:"left",fill:"70",light:"auto",lcount:"all",lside:"left",lsoft:"soft",ltemp:"neutral",noCrop:true,dof:"all",objList:"",isolate:true,keepWare:true,scale:true,food:false,bg:"grad",color:"#F3D9E4",g1:"#F4F6FB",g2:"#E2E8F5",gbase:"#E2E8F5",gdir:"radial",gmode:"pal",surface:"lwood",decor:"few",decorAuto:true,shadow:"ao",ratio:"1:1",cat:"none",product:"",props:"",src:"photo",items:[{type:"cup",mat:"matte",color:"#F5F5F2",what:"",label:"",details:""}],sv:{},pod:"none",podShape:"cyl",podTiers:"2",podCol:"bg",rebuild:true,keepProduct:true,keepText:true,avoid:true};
+const DEF={gap:"close",mirror:false,cats:[],enh:[],table:false,tOcc:"plain",tShape:"round",tSize:"dining",tMat:"oak",tCloth:"none",tTone:null,bnr:{on:false,kick:"",head:"",sub:"",price:"",tone:"auto",color:"#2A1A10",mode:"grid",ref:false,hs:null,ss:null,ps:null,tag:"text",tagCol:"#FFFFFF",gen:"16:9"},bgText:"",style:"fintech",angle:"e45",arr:"cluster",place:"center",grid:"golden",tilt:"left",fill:"70",light:"auto",lcount:"all",lside:"left",lsoft:"soft",ltemp:"neutral",noCrop:true,dof:"all",objList:"",isolate:true,keepWare:true,scale:true,food:false,bg:"grad",color:"#F3D9E4",g1:"#F4F6FB",g2:"#E2E8F5",gbase:"#E2E8F5",gdir:"radial",gmode:"pal",surface:"lwood",env:{room:"kitchen",style:"auto",tone:"auto",time:"day",blur:"strong"},sfFull:false,sfSync:true,decor:"few",decorAuto:true,shadow:"ao",ratio:"1:1",cat:"none",product:"",props:"",src:"photo",items:[{type:"cup",mat:"matte",color:"#F5F5F2",what:"",label:"",details:""}],sv:{},pod:"none",podShape:"cyl",podTiers:"2",podCol:"bg",rebuild:true,keepProduct:true,keepText:true,avoid:true};
 const freshS=()=>JSON.parse(JSON.stringify(DEF));
 let S=freshS();
 try{const s=JSON.parse(localStorage.getItem("ppc-v7")||"null");if(s)S=Object.assign(freshS(),s)}catch(e){}
@@ -3173,10 +3315,31 @@ $("place").innerHTML=cardsHTML(PLACE,placeSVG);
 $("grids").innerHTML=cardsHTML(GRIDS,gridSVG);
 $("shadows").innerHTML=cardsHTML(SHADOWS,shadowSVG);
 $("bgmode").innerHTML=BGMODES.map(o=>{
-  const prev=o.id==="solid"?`<div class="surf" style="background:#F3D9E4"></div>`:o.id==="grad"?`<div class="surf" style="background:radial-gradient(circle at 50% 45%,#F4F6FB,#E2E8F5 78%)"></div>`:o.id==="text"?`<div class="surf bgtxt"><svg viewBox="0 0 120 80" aria-hidden="true"><text x="22" y="52" font-size="34" font-weight="600" fill="currentColor" font-family="Inter Tight,system-ui,sans-serif">Aa</text><rect x="74" y="26" width="2.5" height="32" rx="1.2" fill="var(--detail)"/><rect x="22" y="62" width="58" height="3" rx="1.5" fill="currentColor" opacity=".25"/></svg></div>`:`<div class="sfw">${thWood("oak")}</div>`;
+  const prev=o.id==="solid"?`<div class="surf" style="background:#F3D9E4"></div>`:o.id==="grad"?`<div class="surf" style="background:radial-gradient(circle at 50% 45%,#F4F6FB,#E2E8F5 78%)"></div>`:o.id==="text"?`<div class="surf bgtxt"><svg viewBox="0 0 120 80" aria-hidden="true"><text x="22" y="52" font-size="34" font-weight="600" fill="currentColor" font-family="Inter Tight,system-ui,sans-serif">Aa</text><rect x="74" y="26" width="2.5" height="32" rx="1.2" fill="var(--detail)"/><rect x="22" y="62" width="58" height="3" rx="1.5" fill="currentColor" opacity=".25"/></svg></div>`:o.id==="room"?`<div class="surf roomprev">${roomThumb("kitchen").replace('<svg viewBox="0 0 48 38"','<svg viewBox="0 0 48 38" preserveAspectRatio="xMidYMid slice"')}</div>`:`<div class="sfw">${thWood("oak")}</div>`;
   return `<button class="card" type="button" data-v="${o.id}" aria-pressed="false">${prev}<div class="meta"><span class="t">${o.t}</span><span class="d">${o.d}</span></div></button>`}).join("");
 $("surfaces").innerHTML=SURF.map(o=>`<button class="card${o.x?" xo":""}" type="button" data-v="${o.id}" aria-pressed="false"><div class="sfw" data-sf="${o.id}"></div><div class="meta"><span class="t" style="font-size:13px">${o.t}</span><span class="d">${o.d}</span></div></button>`).join("");
 $("pods").innerHTML=cardsHTML(PODS,podSVG);
+/* интерьер в конструкторе — тот же словарь, что в Макете */
+const roomC=()=>S.bg==="room"&&S.angle!=="top";
+$("rooms").innerHTML=cardsHTML(ROOMS.map(r=>({id:r[0],t:r[1],x:!!r[4]})),o=>roomThumb(o.id).replace('<svg viewBox="0 0 48 38"','<svg class="fig" viewBox="0 0 48 38" preserveAspectRatio="xMidYMid slice"'));
+$("rstyle").innerHTML=RSTYLE.map(([v,l])=>`<button class="chip" type="button" data-v="${v}" aria-pressed="false">${l}</button>`).join("");
+$("rtone").innerHTML=RTONE.map(t=>`<button class="chip" type="button" data-v="${t[0]}" aria-pressed="false"><span class="dot" style="background:${toneDot(t)};box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)"></span>${t[1]}</button>`).join("");
+$("rtime").innerHTML=RTIME.map(t=>`<button class="chip" type="button" data-v="${t[0]}" aria-pressed="false">${timeIc(t[0])}${t[1]}</button>`).join("");
+$("rblur").innerHTML=[["strong","Сильное"],["light","Лёгкое"]].map(([v,l])=>`<button class="chip" type="button" data-v="${v}" aria-pressed="false">${l}</button>`).join("");
+function roomSync(say){if(!S.sfSync||S.bg!=="room")return;const p=envPicks(S.env)[0];if(!p)return;
+  if(S.table){S.tMat=pickMat(p);if(say)toast("Стол к интерьеру: "+(TMAT.find(x=>x[0]===S.tMat)||TMAT[0])[1].toLowerCase())}
+  else{S.surface=p[0];if(p[1])S.sv=Object.assign({},S.sv,{[p[0]]:p[1]});const sf=find(SURF,p[0]);if(say)toast("Столешница к интерьеру: "+surfShort(sf,sfVal(sf.id)))}}
+[["rooms","room"],["rstyle","style"],["rtone","tone"],["rtime","time"],["rblur","blur"]].forEach(([el,k])=>$(el).addEventListener("click",e=>{const b=e.target.closest("[data-v]");if(!b)return;S.env=Object.assign({},S.env,{[k]:b.dataset.v});if(k!=="time"&&k!=="blur")roomSync(true);update()}));
+$("bgmode").addEventListener("click",e=>{if(e.target.closest('[data-v="room"]')&&S.sfSync){roomSync(true);update()}});
+const roomManual=()=>{if(S.bg==="room"&&S.sfSync){S.sfSync=false;toast("Подбор к интерьеру выключен — выбрано вручную");update()}};
+["surfaces","surfCtl","tMat"].forEach(id=>$(id).addEventListener("click",e=>{if(e.target.closest("[data-v],[data-sv]"))roomManual()}));
+$("sfFull").addEventListener("change",e=>{S.sfFull=e.target.checked;update()});
+$("sfSync").addEventListener("change",e=>{S.sfSync=e.target.checked;if(S.sfSync)roomSync(true);update()});
+function syncRoom(){const on=S.bg==="room";$("bgRoom").hidden=!on;$("sfHead").hidden=!on;$("sfFullW").hidden=S.bg!=="scene"||!!S.table;$("sfSyncW").hidden=!on;
+  if(!on)$("surfaces").querySelectorAll("[data-rec]").forEach(b=>b.removeAttribute("data-rec"));
+  if(!on&&S.bg!=="scene")return;$("sfFull").checked=!!S.sfFull;$("sfSync").checked=S.sfSync!==false;
+  if(!on)return;const E=S.env||DEF.env;mark($("rooms"),E.room);mark($("rstyle"),E.style);mark($("rtone"),E.tone);mark($("rtime"),E.time);mark($("rblur"),E.blur);$("roomTop").hidden=S.angle!=="top";
+  const rec=new Set(envPicks(E).map(p=>p[0]));$("surfaces").querySelectorAll("[data-v]").forEach(b=>b.toggleAttribute("data-rec",rec.has(b.dataset.v)))}
 $("podCols").innerHTML=`<button class="pcbg" type="button" data-pc="bg" aria-pressed="false"><i id="podBgDot"></i>В тон фона</button>`+PODSW.map(h=>`<button class="sw sm" type="button" data-pc="${h}" title="${h}" aria-label="Цвет ${h}" aria-pressed="false" style="background:${h}"></button>`).join("");
 /* palettes are drawn by renderPal() */ void PAL.map(g=>`<div class="palgroup"><span class="palname">${g.g}</span><div class="swatches">${g.c.map(([n,h])=>`<button class="sw" type="button" data-c="${h}" title="${n} · ${h}" aria-label="${n}" aria-pressed="false" style="background:${h}"></button>`).join("")}</div></div>`).join("");
 void PAL.map(g=>({g:g.g,c:g.c.filter(x=>!["#FFFFFF","#F7F7F7"].includes(x[1]))})).map(g=>`<div class="palgroup"><span class="palname">${g.g}</span><div class="swatches">${g.c.map(([n,h])=>`<button class="sw" type="button" data-gb="${h}" title="${n} · ${lighten(h,.38)} → ${h}" aria-label="Градиент ${n}" aria-pressed="false"></button>`).join("")}</div></div>`).join("");
@@ -3329,7 +3492,7 @@ function sections(){
   let o=ar.p;
   const pat=ar.lay&&!["lone","lgroup"].includes(ar.id);
   if(ar.multi&&!pat)o+=" One hero product sits in front as the clear focal point; the other items support it from behind and the sides, each still clearly recognizable.";
-  if(ar.float){o+=" "+find(TILT,S.tilt).p;if(S.food)o+=" Any liquid surface stays physically level relative to gravity.";if(S.bg==="scene")o+=" They float above the surface, not resting on it.";}
+  if(ar.float){o+=" "+find(TILT,S.tilt).p;if(S.food)o+=" Any liquid surface stays physically level relative to gravity.";if(S.bg==="scene"||S.bg==="room")o+=" They float above the surface, not resting on it.";}
   const ol=S.objList.split("\n").map(x=>x.trim()).filter(Boolean);
   if(ol.length)o+="\nObjects within the group:\n"+ol.map((x,i)=>`${i+1}. ${x}`).join("\n");
   if(ar.multi){if(S.gap==="airy"||S.gap==="wide")o=o.replace(/,? ?(slightly overlapping|nestle into each other and partially overlap|nestling into each other and partially overlapping)/g,"");o+=" "+GAP.find(x=>x[0]===S.gap)[2]}
@@ -3353,10 +3516,14 @@ function sections(){
     out.push(["BACKGROUND",`${g}, soft and even with no banding, no texture, no horizon line.${dc.n===0?nothing:""}`]);}
   else if(S.bg==="text"){const d=(S.bgText||"").trim();
     out.push(["BACKGROUND",d?`Background and setting exactly as the designer describes it (translate to English if needed): "${d}". Render it photographically, consistent with the light, camera angle and style above; keep it supportive so it never competes with the products.${dc.n===0?" No extra props beyond what is described.":""}`:`A simple, tasteful background that suits the products, soft and uncluttered.${dc.n===0?nothing:""}`])}
-  else{
-    let b=S.table?`Behind and around the table: a softly blurred setting with ${sfEn()} tones.`:`${ar.float?"Below the products is":"The products sit on"} ${sfEn()}.`;
-    if(side)b+=" Surface details stay near the products; the open side stays simple and soft.";
+  else{const rm=roomC(),full=S.bg==="scene"&&S.sfFull&&!S.table;
+    let b=S.table?(rm?"The table stands inside the room described below.":`Behind and around the table: a softly blurred setting with ${sfEn()} tones.`):`${ar.float?"Below the products is":"The products sit on"} ${sfEn()}${rm?", the near end of a worktop or table inside the room described below":""}.`;
+    if(full)b+=" "+fullEn("This surface").replace(/^SURFACE AS BACKDROP: /,"");
+    if(side)b+=rm?" The open side stays calm and low-detail.":" Surface details stay near the products; the open side stays simple and soft.";
     out.push(["SCENE",b]);
+    if(rm){const E=S.env,m=TMAT.find(x=>x[0]===S.tMat)||TMAT[0];
+      out.push(["BACKGROUND",`${roomEn(E)}, ${blurEn(E.blur)}, so the products stay the sharp hero.`]);
+      out.push(["SPACE AND PERSPECTIVE",persEn({support:S.table?"table":S.pod!=="none"?"pod":"surface",e:CAM_ELEV[S.angle]??18,H:null,E:null,vx:null})+" "+harmEn(E,S.table?`the ${m[2]} table`:sfEn(),!!S.table)])}
   }
 
   if(dc.n===0)out.push(["DECOR",dc.p]);
@@ -3366,7 +3533,7 @@ function sections(){
     if(S.props.trim())t+=` Must include: ${S.props.trim()}.`;
     if(!S.decorAuto&&!S.props.trim())t+=" Decor elements relate to the product's category and use.";
     t+=` Decor is rendered in exactly the same visual style as the scene (${st.kind==="3D-рендер"?"3D-rendered with the same materials and finish":"real photographed objects"}), under the same light, in a palette harmonized with the product.`;
-    t+=ar.float?(S.tilt==="left"||S.tilt==="right"?" Decor floats as part of the group and leans in the same direction.":" Decor floats together with the products at varied depths."):(S.bg==="scene"?" Decor rests naturally on the surface around the products.":" Decor sits on the same ground plane around the products.");
+    t+=ar.float?(S.tilt==="left"||S.tilt==="right"?" Decor floats as part of the group and leans in the same direction.":" Decor floats together with the products at varied depths."):(S.bg==="scene"||S.bg==="room"?" Decor rests naturally on the surface around the products.":" Decor sits on the same ground plane around the products.");
     if(side)t+=" Decor stays on the product side and never fills the open area.";
     t+=" The products remain the clear hero; decor never covers the products or their labels.";
     out.push(["DECOR",t]);
@@ -3374,9 +3541,9 @@ function sections(){
 
   {const pe=podEn();if(pe)out.push(["PODIUM",pe])}
   {const te=tableEn();if(te)out.push(["TABLE",te])}
-  const env=S.bg==="solid"?`the ${cname(S.color)} background`:S.bg==="grad"?(S.gmode==="pal"?`the ${cname(S.gbase)} gradient background`:`the ${S.g1}–${S.g2} background`):S.bg==="text"?"the described background":"the surrounding scene";
+  const env=S.bg==="solid"?`the ${cname(S.color)} background`:S.bg==="grad"?(S.gmode==="pal"?`the ${cname(S.gbase)} gradient background`:`the ${S.g1}–${S.g2} background`):S.bg==="text"?"the described background":roomC()?"the surrounding room":"the surrounding scene";
   out.push(["STYLE",st.look.replace("{ENV}",env)]);
-  if(S.light==="auto")out.push(["LIGHT",st.light]);
+  if(S.light==="auto")out.push(["LIGHT",roomC()?roomLightEn(S.env.time):st.light]);
   else{const lt=find(LIGHTS,S.light),K=S.lside==="right"?"right":"left",F=K==="left"?"right":"left";
     let l=lt.p.replaceAll("{K}",K).replaceAll("{F}",F);
     if(S.angle==="top"&&S.light==="key45")l=`Soft directional light from the upper-${K} corner of the frame at about 45°: natural soft shadows fall toward the lower-${F} corner, giving gentle volume and depth; no harsh shadows, no blown-out highlights.`;
@@ -3394,7 +3561,7 @@ function sections(){
   if(gr.p&&!pat)key.push({thirds:"rule of thirds",golden:"golden-ratio balance",sym:"strict symmetry",diag:"diagonal flow",tri:"triangular build"}[gr.id]);
   if(noCrop)key.push("fully inside the frame, nothing cropped");
   if(S.pod!=="none")key.push(find(PODS,S.pod).t==="Мягкие"?"soft rounded podiums":"display podiums");
-  key.push(S.bg==="scene"?sfEn():S.bg==="solid"?`plain ${S.color} background`:S.bg==="text"?"background as described":"plain gradient background");
+  key.push(S.bg==="scene"||S.bg==="room"?sfEn()+(roomC()?` in ${envRoom(S.env.room)[2]}`:""):S.bg==="solid"?`plain ${S.color} background`:S.bg==="text"?"background as described":"plain gradient background");
   if(an.id==="top"){key.unshift("STRICT 90° TOP-DOWN VIEW, camera pointing straight down");
     const ci=out.findIndex(x=>x[0]==="CAMERA");if(ci>1){const c=out.splice(ci,1)[0];out.splice(1,0,c)}
     out[0][1]="Strict overhead flat lay: the camera looks straight down at exactly 90°. "+out[0][1];
@@ -3631,7 +3798,7 @@ if("ResizeObserver" in window)new ResizeObserver(qEdges).observe($("qrow"));
 qTab("kk");
 
 /* ---------- EXPERIMENTAL OPTIONS: hidden until asked ---------- */
-["arr","grids","shadows","tilt","pods","surfaces"].forEach(id=>{const g=$(id),xs=g.querySelectorAll(".xo"),n=xs.length;if(!n)return;if(n===1){xs[0].classList.remove("xo");return}
+["arr","grids","shadows","tilt","pods","surfaces","rooms"].forEach(id=>{const g=$(id),xs=g.querySelectorAll(".xo"),n=xs.length;if(!n)return;if(n===1){xs[0].classList.remove("xo");return}
   const b=document.createElement("button");b.type="button";b.className="more";b.setAttribute("aria-expanded","false");
   b.innerHTML=`<span>Ещё варианты (${n})</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>`;
   b.addEventListener("click",()=>{const o=!g.classList.contains("showx");g.classList.toggle("showx",o);b.setAttribute("aria-expanded",String(o));b.querySelector("span").textContent=o?"Скрыть экспериментальные":`Ещё варианты (${n})`});
@@ -3876,7 +4043,7 @@ const valLabel=(k,v)=>{const L=(ANA_KEYS.find(x=>x[0]===k)||[])[2];if(k==="ratio
 const isScn=sc=>!!(sc&&sc.mode==="scene"&&sc.sc);
 function sceneChips(sc){if(isScn(sc))return ["Макет",valLabel("style",sc.style),sc.ratio,valLabel("angle",sc.angle),`Объектов: ${sc.n||0}`].filter(Boolean);const out=[valLabel("style",sc.style),sc.ratio==="auto"?"Формат авто":sc.ratio,valLabel("angle",sc.angle),valLabel("arr",sc.arr),valLabel("place",sc.place)];
   if(sc.grid&&sc.grid!=="free")out.push(valLabel("grid",sc.grid));
-  out.push(sc.bg==="scene"?(find(SURF,sc.surface)||{t:"Поверхность"}).t:sc.bg==="grad"?"Градиент":sc.bg==="text"?"Свой фон":"Цвет");
+  out.push(sc.bg==="room"?"Интерьер: "+envRoom((sc.env||{}).room)[1].toLowerCase():sc.bg==="scene"?(find(SURF,sc.surface)||{t:"Поверхность"}).t:sc.bg==="grad"?"Градиент":sc.bg==="text"?"Свой фон":"Цвет");
   if(sc.pod&&sc.pod!=="none")out.push("Подиум: "+valLabel("pod",sc.pod).toLowerCase());
   if(sc.table)out.push("Стол: "+((TOCC.find(x=>x.id===sc.tOcc)||TOCC[0]).t).toLowerCase());
   out.push("Масштаб "+sc.fill+"%");return out}
@@ -4070,7 +4237,7 @@ function closeAdmin(){$("adm").hidden=true;document.body.classList.remove("locke
 $("admClose").addEventListener("click",closeAdmin);
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("adm").hidden)closeAdmin()});
 let ADM={combos:[],rated:[],rc:[]};
-const comboKey=sc=>JSON.stringify(COMBO_KEYS.map(k=>k==="surface"&&sc.bg!=="scene"||k==="gbase"&&sc.bg!=="grad"||k==="color"&&sc.bg!=="solid"?null:sc[k]));
+const comboKey=sc=>JSON.stringify(COMBO_KEYS.map(k=>k==="surface"&&sc.bg!=="scene"&&sc.bg!=="room"||k==="gbase"&&sc.bg!=="grad"||k==="color"&&sc.bg!=="solid"?null:sc[k]));
 const plur=(n,a,b,c)=>{const m=n%100,k=n%10;return m>10&&m<20?c:k===1?a:k>1&&k<5?b:c};
 function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
   const copies=events.filter(e=>e.kind==="copy"),names=Object.fromEntries(profiles.map(p=>[p.id,p.name||p.email]));
@@ -4078,7 +4245,7 @@ function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
   const tiles=[["Дизайнеров",profiles.length],["Активны за 7 дней",new Set(copies.filter(e=>+new Date(e.created_at)>week).map(e=>e.user_id)).size],["Скопировано промтов",copies.length],["За 7 дней",copies.filter(e=>+new Date(e.created_at)>week).length]];
   // popular combinations
   const combos=new Map();
-  copies.forEach(e=>{const sc=e.scene||{},key=JSON.stringify(COMBO_KEYS.map(k=>k==="surface"&&sc.bg!=="scene"||k==="gbase"&&sc.bg!=="grad"||k==="color"&&sc.bg!=="solid"?null:sc[k]));
+  copies.forEach(e=>{const sc=e.scene||{},key=JSON.stringify(COMBO_KEYS.map(k=>k==="surface"&&sc.bg!=="scene"&&sc.bg!=="room"||k==="gbase"&&sc.bg!=="grad"||k==="color"&&sc.bg!=="solid"?null:sc[k]));
     const c=combos.get(key)||{n:0,users:new Set(),scene:sc,last:e.created_at};c.n++;c.users.add(e.user_id);combos.set(key,c)});
   ADM.combos=[...combos.values()].sort((a,b)=>b.users.size-a.users.size||b.n-a.n).slice(0,8);
   // rated scenes
@@ -4133,6 +4300,23 @@ $("admBody").addEventListener("click",async e=>{const r=e.target.closest("[data-
   if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Точно убрать?";return}
   const {error}=await Cloud.sb.from("allowed_emails").delete().eq("email",b.dataset.rm);if(error){toast("Не получилось: "+error.message)}else{toast("Почта убрана из списка. Уже созданный аккаунт продолжит работать");openAdmin()}});
 
+/* ----- горизонтальные ленты: колесо мыши и перетаскивание листают вбок, края мягко гаснут ----- */
+(function(){const SEL=".itasks,.irow,.qrow .qgrid,.atabs,.steps";
+  const max=el=>el.scrollWidth-el.clientWidth;
+  function upd(el){const m=max(el);el.classList.toggle("hs-l",m>1&&el.scrollLeft>2);el.classList.toggle("hs-r",m>1&&el.scrollLeft<m-2)}
+  const ro=new ResizeObserver(es=>es.forEach(x=>upd(x.target)));
+  function scan(){document.querySelectorAll(SEL).forEach(el=>{if(!el.__hs){el.__hs=1;ro.observe(el);el.addEventListener("scroll",()=>upd(el),{passive:true});new MutationObserver(()=>requestAnimationFrame(()=>upd(el))).observe(el,{childList:true,subtree:true})}upd(el)})}
+  const strip=t=>{const el=t&&t.closest&&t.closest(SEL);return el&&max(el)>1?el:null};
+  document.addEventListener("wheel",e=>{if(e.defaultPrevented||e.ctrlKey||Math.abs(e.deltaX)>=Math.abs(e.deltaY))return;const el=strip(e.target);if(!el)return;
+    const d=e.deltaY*(e.deltaMode===1?32:e.deltaMode===2?el.clientWidth:1),m=max(el);
+    if(d<0&&el.scrollLeft<=0||d>0&&el.scrollLeft>=m-1)return;
+    e.preventDefault();el.scrollLeft=Math.max(0,Math.min(m,el.scrollLeft+d))},{passive:false});
+  let D=null;
+  document.addEventListener("pointerdown",e=>{if(e.pointerType!=="mouse"||e.button)return;const el=strip(e.target);if(el)D={el,x:e.clientX,l:el.scrollLeft,moved:false}});
+  document.addEventListener("pointermove",e=>{if(!D)return;const dx=e.clientX-D.x;if(!D.moved&&Math.abs(dx)<6)return;D.moved=true;D.el.classList.add("hs-drag");D.el.scrollLeft=D.l-dx});
+  document.addEventListener("pointerup",()=>{if(!D)return;const d=D;D=null;d.el.classList.remove("hs-drag");if(d.moved){const stop=ev=>{ev.stopPropagation();ev.preventDefault()};d.el.addEventListener("click",stop,{capture:true,once:true});setTimeout(()=>d.el.removeEventListener("click",stop,{capture:true}),0)}});
+  scan();addEventListener("hashchange",()=>setTimeout(scan,60));addEventListener("load",scan);setTimeout(scan,1500);window.__hsScan=scan})();
+
 /* ----- start ----- */
 (async()=>{
   gateMode(gate.mode);
@@ -4147,7 +4331,7 @@ $("admBody").addEventListener("click",async e=>{const r=e.target.closest("[data-
 let __surfCtlFor="",__sfCache={};
 function syncSurf(){
   SURF.forEach(o=>{const key=o.id+"|"+sfVal(o.id)+"|"+(o.id==="tile"?sfGrout():"");if(__sfCache[o.id]!==key){const el=document.querySelector(`.sfw[data-sf="${o.id}"]`);if(el)el.innerHTML=sfThumb(o.id);__sfCache[o.id]=key}});
-  if(S.bg!=="scene")return;
+  if(S.bg!=="scene"&&S.bg!=="room")return;
   const sf=find(SURF,S.surface),v=sfVal(sf.id);
   $("surfBig").innerHTML=sfThumb(sf.id);$("surfName").textContent=sf.t;$("surfDesc").textContent=sf.ru(v);$("surfEn").textContent=sfEn();
   if(__surfCtlFor!==sf.id){__surfCtlFor=sf.id;let h="";
@@ -4173,8 +4357,8 @@ function syncPod(){
 function mark(el,v){el.querySelectorAll("[data-v]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===v)))}
 
 /* step dots: which steps differ from the defaults */
-const STEP_KEYS={"s-ref":["src","cats","enh","product","items","isolate","keepWare","scale","food","rebuild","keepProduct","keepText","avoid"],"s-style":["style"],"s-bg":["bg","color","g1","g2","gbase","gdir","gmode","surface","sv","decor","decorAuto","props","bgText"],"s-pod":["pod","podShape","podTiers","podCol","table","tOcc","tShape","tSize","tMat","tCloth","tTone"],"s-comp":["gap","mirror","arr","place","grid","fill","tilt","objList","noCrop"],"s-cam":["angle"],"s-light":["light","lcount","lside","lsoft","ltemp"],"s-fin":["shadow","dof"]};
-const stepRel=k=>({surface:S.bg==="scene",sv:S.bg==="scene",color:S.bg==="solid",g1:S.bg==="grad",g2:S.bg==="grad",gbase:S.bg==="grad",gdir:S.bg==="grad",gmode:S.bg==="grad",bgText:S.bg==="text",podShape:S.pod!=="none",podTiers:S.pod!=="none",podCol:S.pod!=="none"})[k]??true;
+const STEP_KEYS={"s-ref":["src","cats","enh","product","items","isolate","keepWare","scale","food","rebuild","keepProduct","keepText","avoid"],"s-style":["style"],"s-bg":["bg","color","g1","g2","gbase","gdir","gmode","surface","sv","env","sfFull","sfSync","decor","decorAuto","props","bgText"],"s-pod":["pod","podShape","podTiers","podCol","table","tOcc","tShape","tSize","tMat","tCloth","tTone"],"s-comp":["gap","mirror","arr","place","grid","fill","tilt","objList","noCrop"],"s-cam":["angle"],"s-light":["light","lcount","lside","lsoft","ltemp"],"s-fin":["shadow","dof"]};
+const stepRel=k=>({surface:S.bg==="scene"||S.bg==="room",sv:S.bg==="scene"||S.bg==="room",env:S.bg==="room",sfFull:S.bg==="scene",sfSync:S.bg==="room",color:S.bg==="solid",g1:S.bg==="grad",g2:S.bg==="grad",gbase:S.bg==="grad",gdir:S.bg==="grad",gmode:S.bg==="grad",bgText:S.bg==="text",podShape:S.pod!=="none",podTiers:S.pod!=="none",podCol:S.pod!=="none"})[k]??true;
 function stepDirty(){$("steps").querySelectorAll("[data-t]").forEach(b=>{const ks=(STEP_KEYS[b.dataset.t]||[]).filter(stepRel),d=ks.some(k=>JSON.stringify(S[k]??null)!==JSON.stringify(DEF[k]??null));
   b.classList.toggle("dirty",d);b.title=b.title.replace(/ · изменено$/,"")+(d?" · изменено":"")})}
 
@@ -4185,6 +4369,8 @@ function fitGrids(){if(innerWidth<=700)return;document.querySelectorAll("main .g
   const c=Math.ceil(n/rows);g.style.setProperty("--n",c)})}
 addEventListener("resize",fitGrids);document.addEventListener("click",e=>{if(e.target.closest(".more,.adv summary,[data-v]"))requestAnimationFrame(fitGrids)});
 function update(){
+  if(!S.env)S.env=Object.assign({},DEF.env);
+  if(!SURF.some(x=>x.id===S.surface)){const mm={lwood:["wood","oak"],dwood:["wood","walnut"],wmarble:["marble","carrara"],bmarble:["marble","nero"]}[S.surface];if(mm){S.sv=Object.assign({},S.sv,{[mm[0]]:mm[1]});S.surface=mm[0]}else S.surface="wood"}
   S.cat=S.cats[0]||"none";S.food=S.cats.some(c=>c!=="other");
   const notes=autofix(),cr=rules();
   mark($("styles"),S.style);mark($("angles"),S.angle);mark($("arr"),S.arr);{const ps=poseOf(S.arr);$("poseSeg").querySelectorAll("[data-pose]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.pose===ps)));
@@ -4200,7 +4386,7 @@ function update(){
    $("gradRead").innerHTML=`<i style="background:${gradCss(ga,gb,S.gdir)}"></i><span>${gi?`<b>${gi[0]}</b>`:"Свои цвета"}</span><code>${ga} → ${gb}</code>`;}
   mark($("srcSeg"),S.src);$("cats").querySelectorAll("[data-v]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v==="none"?!S.cats.length:S.cats.includes(b.dataset.v))));$("enh").querySelectorAll("[data-v]").forEach(b=>b.setAttribute("aria-pressed",String(S.enh.includes(b.dataset.v))));["rebuild","isolate","keepProduct"].forEach(id=>{$(id).closest(".tg").hidden=S.src==="text"});$("srcText").hidden=S.src!=="text";$("srcPhoto").hidden=S.src==="text";syncProds();
   mark($("pods"),S.pod);mark($("podShape"),S.podShape);mark($("podTiers"),S.podTiers);syncPod();syncTable();syncSurf();
-  $("bgText").hidden=S.bg!=="text";if($("bgTextIn").value!==(S.bgText||""))$("bgTextIn").value=S.bgText||"";$("bgSolid").hidden=S.bg!=="solid";$("bgGrad").hidden=S.bg!=="grad";$("bgScene").hidden=S.bg!=="scene";
+  $("bgText").hidden=S.bg!=="text";if($("bgTextIn").value!==(S.bgText||""))$("bgTextIn").value=S.bgText||"";$("bgSolid").hidden=S.bg!=="solid";$("bgGrad").hidden=S.bg!=="grad";$("bgScene").hidden=S.bg!=="scene"&&S.bg!=="room";syncRoom();
   if($("product").value!==S.product)$("product").value=S.product;
   if($("props").value!==S.props)$("props").value=S.props;
   if($("objList").value!==S.objList)$("objList").value=S.objList;
@@ -4219,7 +4405,7 @@ function update(){
   if(prev){first=$("out").querySelector(".sec.chg");if(first){const o=$("out"),top=first.getBoundingClientRect().top-o.getBoundingClientRect().top+o.scrollTop,vis=top>=o.scrollTop&&top+20<=o.scrollTop+o.clientHeight;if(!vis&&o.scrollHeight>o.clientHeight)o.scrollTo({top:Math.max(0,top-12),behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})}}
   stepDirty();requestAnimationFrame(fitGrids);
   const n=plain().length;$("count").textContent=n+" симв.";
-  const bgL=S.bg==="text"?"Фон: свой текст":S.bg==="solid"?"Фон "+((pinfo(S.color)||[S.color])[0]):S.bg==="grad"?"Градиент "+(S.gmode==="pal"?(pinfo(S.gbase)||[""])[0]:"свой"):sfLabel();
+  const bgL=S.bg==="text"?"Фон: свой текст":S.bg==="solid"?"Фон "+((pinfo(S.color)||[S.color])[0]):S.bg==="grad"?"Градиент "+(S.gmode==="pal"?(pinfo(S.gbase)||[""])[0]:"свой"):S.bg==="room"?envRoom(S.env.room)[1]+" · "+sfLabel().toLowerCase():sfLabel();
   const chips=[...(S.product&&S.product.trim()?[["Продукт: "+(S.product.trim().length>22?S.product.trim().slice(0,21)+"…":S.product.trim()),"s-ref"]]:[]),...S.cats.map(c=>[find(CATS,c)[1],"s-ref"]),...S.enh.map(k=>[ENH.find(x=>x[0]===k)[1],"s-ref"]),...(S.src==="text"?[[S.items.length===1?"Продукт: описание":`Продуктов: ${S.items.length}`,"s-ref"]]:[]),[find(STYLES,S.style).t,"s-style"],["Свет: "+find(LIGHTS,S.light).t.toLowerCase(),"s-light"],[find(ANGLES,S.angle).t,"s-cam"],[ar.t,"s-comp"],...(ar.float?[[find(TILT,S.tilt).t,"s-comp"]]:[]),[find(PLACE,S.place).t,"s-comp"],[find(GRIDS,S.grid).t,"s-comp"],[bgL,"s-bg"],...(S.pod!=="none"?[["Подиум: "+find(PODS,S.pod).t.toLowerCase(),"s-pod"]]:[]),...(S.table?[["Стол: "+find(TOCC,S.tOcc).t.toLowerCase(),"s-pod"]]:[]),["Декор: "+find(DECOR,S.decor).t.toLowerCase(),"s-bg"],...(S.decor!=="none"&&String(S.props||"").trim()?[["Обязательно: "+(S.props.trim().length>22?S.props.trim().slice(0,21)+"…":S.props.trim()),"s-bg"]]:[]),["Масштаб "+S.fill+"%","s-comp"],["Тень: "+shd.t.toLowerCase(),"s-fin"],["Резкость: "+(find(DOF,S.dof)||{t:S.dof}).t.toLowerCase(),"s-fin"],[S.ratio==="auto"?"Формат авто":S.ratio,"pvbox"]];
   {const prev=window.__sumPrev;window.__sumPrev=new Set(chips.map(c=>c[0]));$("summary").innerHTML=chips.map(([l,t])=>`<button type="button" data-t="${t}"${prev&&!prev.has(l)?' class="chg"':""}>${esc(l)}</button>`).join("")}
   syncRatio();syncTg();syncBnr();drawPreview();if($("qgrid").childElementCount)syncPresets();if(window.Hero)Hero.setLabels(chips.map(c=>c[0]));
@@ -4576,6 +4762,11 @@ function bnrPatch(out){const L=bnrLay(),b=S.bnr,g=bnrGen(),c=bnrCrop(g),q=s=>`"$
 
 /* ----- «Что нового»: только изменения для всех, без админских. Новая версия — первой строкой ----- */
 const CHANGELOG=[
+ ["2.1","29 октября",["Интерьер стал общим для Макета и Конструктора: 15 помещений, стиль (сканди, лофт, прованс…), тон отделки и время суток — утро, день, закат, вечер, ночь.",
+  "Столешница и помещение теперь описываются как одно пространство: одна камера, один горизонт и общий свет. Перспектива больше не разъезжается, а на холсте Макета видна линия уровня глаз.",
+  "«Подбирать к интерьеру»: столешница меняется вместе с помещением, подходящие отмечены точкой. Новые поверхности — кварц, гранит, торцевая доска, цветной лак, пергамент, ротанг.",
+  "Свитч «На весь фон»: материал поверхности уходит вверх до края кадра, без горизонта.",
+  "Макет: всё настраивается справа во вкладках «Сцена · Продукты · Декор · Текст». Ленты с типами баннеров листаются колесом мыши. У вкладки браузера появилась иконка."]],
  ["2.0","29 октября",["Главный экран — «Идеи»: готовые сцены коллег одной сеткой. Фильтр сверху — по типу баннера КуулКлевер и по продукту.",
   "Откройте сцену, выберите формат, при желании впишите свой продукт и нажмите «Скопировать промт». Нужно тоньше — «Открыть в конструкторе» или «Поменять: свет, фон, ракурс».",
   "В окне сцены видна оценка автора и счётчик «Полезно».",
@@ -4879,7 +5070,7 @@ function drawPreview(T){
 
   /* background */
   const fl=T.floor,ga=S.gmode==="pal"?lighten(S.gbase,.38):S.g1,gb=S.gmode==="pal"?S.gbase:S.g2;
-  if(S.bg==="scene"){const sf=find(SURF,S.surface);pv.style.background="linear-gradient(#EFEDE9,#D9D6D0)";fl.hidden=false;fl.style.background=`url("data:image/svg+xml;utf8,${encodeURIComponent(sfThumb(sf.id))}") center/cover`;fl.style.height=(PV_FLOOR[an.id]||45)+"%"}
+  if(S.bg==="scene"||S.bg==="room"){const sf=find(SURF,S.surface),rc=S.bg==="room"?envCols(S.env,null):null;pv.style.background=S.sfFull&&S.bg==="scene"?`url("data:image/svg+xml;utf8,${encodeURIComponent(sfThumb(sf.id))}") center/cover`:rc?`linear-gradient(${rc[0]},${rc[1]})`:"linear-gradient(#EFEDE9,#D9D6D0)";fl.hidden=!!(S.sfFull&&S.bg==="scene");fl.style.background=`url("data:image/svg+xml;utf8,${encodeURIComponent(sfThumb(sf.id))}") center/cover`;fl.style.height=(PV_FLOOR[an.id]||45)+"%"}
   else{fl.hidden=true;pv.style.background=S.bg==="solid"?S.color:S.bg==="text"?"linear-gradient(165deg,#F2EFEA,#DCD6CD)":gradCss(ga,gb,S.gdir)}
 
   /* light: key side and source glyphs */
@@ -5495,29 +5686,35 @@ const pxOf=o=>Math.round(o.size/crop().h*BN.H);
 const sizeOfPx=px=>px/BN.H*crop().h;
 
 /* ---------- фон ---------- */
-const ROOMS=[["kitchen","Кухня","a modern home kitchen interior",["#EFEAE2","#D6CDC0"]],["living","Гостиная","a cosy living room interior with a sofa and house plants",["#ECE4DA","#C9BBA9"]],["restaurant","Ресторан","an elegant restaurant interior with tables and pendant lamps",["#8A7360","#4A3B30"]],["cafe","Кафе","a cosy cafe interior with a counter and shelves",["#E6D8C5","#BBA285"]],["bar","Бар","a wine bar interior with bottles on wooden shelves",["#6B5547","#2F241E"]],
- ["bakery","Пекарня","a rustic bakery interior with bread on wooden shelves",["#F0E3CD","#D1B58E"]],["garden","Сад","a lush summer garden with greenery",["#DCE8D2","#93AE7E"]],["terrace","Терраса","a sunny outdoor terrace with potted plants",["#EAF0F2","#C5CFC1"]],["winter","Праздник","a festive winter interior with a decorated fir tree and string lights",["#E3E8EE","#B4BFCB"]],["studio","Студия","a minimal photo studio with a light plaster wall",["#F2F0EC","#D8D4CE"]]];
 const tone=c=>{const t=+SC.bg.tone||0;return t?shadeHex(c,t):c};
-const effBg=()=>{const b=SC.bg;return b.kind==="solid"?[tone(b.color)]:b.kind==="grad"?[tone(b.g1),tone(b.g2)]:roomCols()};
+const effBg=()=>{const b=SC.bg;if(fullOn()){const c=surfCol()||"#D8C9B0";return [lighten(c,.08),c]}return b.kind==="solid"?[tone(b.color)]:b.kind==="grad"?[tone(b.g1),tone(b.g2)]:roomCols()};
 /* «в цвет фона»: тон подложки берётся из фона, чтобы переход был незаметен */
 function underCol(){return SC.under.col==="auto"?underAuto():SC.under.col}
 function underAuto(){const b=SC.bg,E=effBg();
   if(b.kind==="solid")return E[0];if(b.kind==="grad")return b.gdir==="h"?E[0]:b.gdir==="radial"?E[1]:shadeHex(E[0],(hexLum(E[0])+hexLum(E[1]))/2>.5?.15:-.1);
-  return b.time==="evening"?shadeHex(E[1],-.55):lighten(E[0],.45)}
-function roomCols(){const r=ROOMS.find(x=>x[0]===SC.bg.room)||ROOMS[0],ev=SC.bg.time==="evening";return r[3].map(c=>ev?shadeHex(c,-.42):c)}
+  return ["evening","night"].includes(b.time)?shadeHex(E[1],-.55):lighten(E[0],.45)}
+const surfOn=()=>SC.base.kind==="surface",fullOn=()=>surfOn()&&!!SC.base.full,roomOn=()=>SC.bg.kind==="room"&&!fullOn();
+const curSurf=()=>find(SURF,SC.base.surf)||SURF[0];
+function surfCol(){if(!surfOn()){if(SC.base.kind==="table"){const m=TMAT.find(x=>x[0]===SC.base.tMat);return m&&m[3]}return null}const sf=curSurf(),v=surfVal(sf,SC.base.sv);return sf.vars?sf.vars[v][0]:v}
+const envSc=()=>({room:SC.bg.room,style:SC.bg.style||"auto",tone:SC.bg.tone2||"auto",time:SC.bg.time,blur:SC.bg.blur});
+function roomCols(){const e=envSc();return envCols(e,envTone(e.tone)[2]?null:surfCol())}
+/* уровень глаз камеры (горизонт), % кадра; null — за кадром или вид сверху */
+function horizonY(){const e=elev();if(e>=30)return null;const b=SC.base,h=heroOf(),mid=h?h.y-h.h*.5:.5,E=b.kind==="surface"?b.y:b.kind!=="none"?b.y-.04:.62;
+  if(e<=-2)return cl(h?h.y-h.h*.2:E,.1,.95);if(e<=6)return cl(Math.min(mid,E-.03),.08,.9);return cl(Math.min(E-.16,mid-.05),.04,.85)}
+function vanishX(){const P=prods();if(!P.length)return SC.base.x;const xs=P.map(o=>o.x);return (Math.min(...xs)+Math.max(...xs))/2}
 
 /* ---------- свет ---------- */
 const lightOf=()=>find(LIGHTS,SC.light.id)||LIGHTS[0];
-function lightLabel(){const l=lightOf();return l.id==="auto"?l.t:`${l.t}${l.sym?"":SC.light.side==="right"?" · справа":" · слева"}`}
-function lightEn(st){const L=SC.light;if(L.id==="auto")return st.light;const lt=lightOf(),K=L.side==="right"?"right":"left",F=K==="left"?"right":"left";
+function lightLabel(){const l=lightOf();return l.id==="auto"?(roomOn()&&!isTop()?"Как в комнате":l.t):`${l.t}${l.sym?"":SC.light.side==="right"?" · справа":" · слева"}`}
+function lightEn(st){const L=SC.light;if(L.id==="auto")return roomOn()&&!isTop()?roomLightEn(SC.bg.time):st.light;const lt=lightOf(),K=L.side==="right"?"right":"left",F=K==="left"?"right":"left";
   let l=lt.p.replaceAll("{K}",K).replaceAll("{F}",F);if(!(L.id==="tent"||L.id==="window")||L.soft==="soft")l+=" "+LSOFT_P[L.soft];return l+" "+LTEMP_P[L.temp]}
 
 /* ---------- состояние ---------- */
 const RULES=[["keepProduct","Сохранить продукт","Форма, цвета и материалы как на фото."],["keepText","Сохранить надписи","Логотип и текст упаковки без искажений."],["keepWare","Сохранить посуду","Тарелка, доска или бокал с фото остаются."],["isolate","Убрать лишнее","Руки, приборы, салфетки и фон с фото не переносятся."],["rebuild","Создавать заново","Без вклейки: продукт перерисовывается под сцену."],["scale","Реальные пропорции","Настоящие размеры предметов относительно друг друга."],["avoid","Список запретов","Без водяных знаков, лишнего текста и дублей."]];
 const fresh=()=>({v:2,extra:{on:false,n:"few",props:""},rules:Object.fromEntries(RULES.map(r=>[r[0],true])),txtMode:"render",frame:{pp:true,gen:"16:9",ratio:"16:9",edge:"extend"},guides:true,style:"fintech",angle:"slight",light:{id:"auto",side:"left",soft:"soft",temp:"neutral"},fmt:"text",sketch:true,
-  bg:{kind:"solid",color:"#E3E4E4",tone:0,g1:"#F4F1EC",g2:"#D6D0C6",gdir:"v",stop:"g1",room:"kitchen",time:"day",blur:"strong"},
+  bg:{kind:"solid",color:"#E3E4E4",tone:0,g1:"#F4F1EC",g2:"#D6D0C6",gdir:"v",stop:"g1",room:"kitchen",style:"auto",tone2:"auto",time:"day",blur:"strong"},
   under:{kind:"none",col:"auto",w:.46},
-  base:{kind:"none",x:.62,y:.8,w:.52,surf:"wood",sv:{},tMat:"oak",tCloth:"none",tShape:"round",pod:"soft",pShape:"cyl",pCol:"#FFFFFF",tiers:1},
+  base:{kind:"none",x:.62,y:.8,w:.52,surf:"wood",sv:{},full:false,sync:true,tMat:"oak",tCloth:"none",tShape:"round",pod:"soft",pShape:"cyl",pCol:"#FFFFFF",tiers:1},
   objs:[]});
 let SC=fresh(),SEL="bg",DRAG=null,UNDO=[],REDO=[],LOADED=false,PREV=[],PALG={};
 function adopt(d){const f=fresh();if(d.v===1){d.frame={pp:false,gen:"16:9",ratio:d.ratio||"16:9",edge:"extend"};d.v=2}
@@ -5550,17 +5747,22 @@ function mini(I,pal=FIG){const s=Math.min(40/I.W,40/(100-I.top)),h=(100-I.top)*s
 
 /* ---------- отрисовка ---------- */
 function bgSVG(W,H){const b=SC.bg,E=effBg();
+  if(fullOn())return `<rect width="${W}" height="${H}" fill="${E[1]}"/>`;
   if(b.kind==="solid")return `<rect width="${W}" height="${H}" fill="${E[0]}"/>`;
   if(b.kind==="grad")return `<rect width="${W}" height="${H}" fill="url(#scG)"/>`;
-  const ev=b.time==="evening",bl=b.blur==="light"?10:24,r=b.room,k=ev?-.35:0,c=x=>shadeHex(x,k);
+  const tm=envTime(b.time),ev=["evening","night"].includes(b.time),bl=b.blur==="light"?10:24,r=b.room,k=tm[3]*.85,c=x=>shadeHex(x,k),T=envTone(b.tone2),fr=T[2]?shadeHex(T[2],k):c("#A88E70"),R=(x,y,w,h,f,o)=>`<rect x="${W*x}" y="${H*y}" width="${W*w}" height="${H*h}" fill="${f}"${o?` opacity="${o}"`:""}/>`;
   let s=`<rect width="${W}" height="${H}" fill="url(#scG)"/><g filter="url(#scBl${bl})" opacity="${b.blur==="light"?.9:.75}">`;
-  if(["garden","terrace"].includes(r))s+=`<circle cx="${W*.2}" cy="${H*.3}" r="${H*.22}" fill="${c("#9DB58A")}"/><circle cx="${W*.75}" cy="${H*.22}" r="${H*.26}" fill="${c("#86A374")}"/><rect y="${H*.62}" width="${W}" height="${H*.38}" fill="${c(r==="garden"?"#7E9A68":"#D7CBB7")}"/>`;
-  else{s+=`<rect x="${W*.07}" y="${H*.08}" width="${W*.2}" height="${H*.44}" rx="8" fill="${ev?"#3A3532":"#FFFFFF"}" opacity=".85"/>`;
-    if(["kitchen","cafe","bakery","bar"].includes(r))s+=`<rect x="${W*.4}" y="${H*.2}" width="${W*.5}" height="${H*.04}" fill="${c("#A88E70")}"/><rect x="${W*.4}" y="${H*.38}" width="${W*.5}" height="${H*.04}" fill="${c("#A88E70")}"/><rect x="0" y="${H*.6}" width="${W}" height="${H*.4}" fill="${c("#B9AE9E")}" opacity=".6"/>`;
-    if(r==="living")s+=`<rect x="${W*.45}" y="${H*.45}" width="${W*.4}" height="${H*.2}" rx="20" fill="${c("#A79A88")}"/><circle cx="${W*.92}" cy="${H*.35}" r="${H*.1}" fill="${c("#86A374")}"/>`;
+  if(OUTDOOR.includes(r))s+=`<circle cx="${W*.2}" cy="${H*.3}" r="${H*.22}" fill="${c("#9DB58A")}"/><circle cx="${W*.75}" cy="${H*.22}" r="${H*.26}" fill="${c("#86A374")}"/>`+R(0,.62,1,.38,c(r==="garden"?"#7E9A68":"#D7CBB7"));
+  else if(r==="cellar")s+=`<path d="M${W*.05} ${H*.62}V${H*.3}a${W*.2} ${H*.24} 0 0 1 ${W*.4} 0V${H*.62}M${W*.5} ${H*.62}V${H*.3}a${W*.2} ${H*.24} 0 0 1 ${W*.4} 0V${H*.62}" fill="none" stroke="${c("#9A6B4F")}" stroke-width="${H*.05}"/>`+`<ellipse cx="${W*.7}" cy="${H*.52}" rx="${W*.09}" ry="${H*.1}" fill="${c("#7A5136")}"/>`;
+  else{s+=r==="window"?R(.2,.05,.6,.55,ev?"#3A3532":"#FFFFFF",.9):R(.07,.08,.2,.44,ev?"#3A3532":"#FFFFFF",.85);
+    if(["kitchen","cafe","bakery","bar","deli"].includes(r))s+=R(.4,.2,.5,.04,fr)+R(.4,.38,.5,.04,fr)+R(0,.6,1,.4,c("#B9AE9E"),.6);
+    if(r==="living")s+=`<rect x="${W*.45}" y="${H*.45}" width="${W*.4}" height="${H*.2}" rx="20" fill="${T[2]?fr:c("#A79A88")}"/><circle cx="${W*.92}" cy="${H*.35}" r="${H*.1}" fill="${c("#86A374")}"/>`;
+    if(r==="dining")s+=R(.42,.4,.46,.18,fr)+`<circle cx="${W*.62}" cy="${H*.14}" r="${H*.05}" fill="${ev?"#FFD58A":c("#CFC6B8")}"/>`;
+    if(r==="country")for(let i=0;i<6;i++)s+=R(0,.06+i*.1,1,.02,fr,.7);
     if(r==="winter")s+=`<path d="M${W*.78} ${H*.1}L${W*.9} ${H*.6}H${W*.66}Z" fill="${c("#4F7A5A")}"/>`;
-    if(r==="restaurant")s+=`<rect x="${W*.35}" y="${H*.5}" width="${W*.6}" height="${H*.06}" fill="${c("#6B5040")}"/>`}
-  if(ev||["restaurant","bar","winter"].includes(r))for(let i=0;i<9;i++){const x=W*(.32+((i*37)%60)/100),y=H*(.08+((i*23)%30)/100);s+=`<circle cx="${x}" cy="${y}" r="${H*(.025+(i%3)*.012)}" fill="#FFD58A" opacity=".85"/>`}
+    if(r==="restaurant")s+=R(.35,.5,.6,.06,c("#6B5040"))}
+  if(b.time==="golden")s+=`<circle cx="${W*.85}" cy="${H*.2}" r="${H*.28}" fill="#F3B46A" opacity=".5"/>`;
+  if(ev||["restaurant","bar","winter","cellar"].includes(r))for(let i=0;i<9;i++){const x=W*(.32+((i*37)%60)/100),y=H*(.08+((i*23)%30)/100);s+=`<circle cx="${x}" cy="${y}" r="${H*(.025+(i%3)*.012)}" fill="#FFD58A" opacity="${b.time==="night"?.95:.85}"/>`}
   return s+"</g>"}
 function underSVG(W,H){const u=SC.under;if(u.kind==="none")return "";const w=u.w*W;
   return u.kind==="panel"?`<rect width="${w}" height="${H}" fill="${underCol()}"/>`:`<rect width="${w}" height="${H}" fill="url(#scU)"/>`}
@@ -5570,7 +5772,7 @@ function cyl(x,y,w,h,fill,E){const rx=w/2,ry=Math.max(2,rx*E);return `<path d="M
 function blk(x,y,w,h,fill,E){const d=Math.max(4,w*E*.5);return `<rect x="${x-w/2}" y="${y+d/2}" width="${w}" height="${h}" fill="${shadeHex(fill,-.14)}"/><path d="M${x-w/2} ${y+d/2}H${x+w/2}L${x+w/2-w*.06} ${y-d/2}H${x-w/2+w*.06}Z" fill="${fill}" stroke="#000" stroke-opacity=".1"/>`}
 function baseSVG(W,H){const b=SC.base;if(b.kind==="none")return "";const bx=b.x*W,by=b.y*H,bw=b.w*W,E=ell();let s="";
   if(b.kind==="surface"){const sf=find(SURF,b.surf)||SURF[0],v=(b.sv||{})[sf.id]||(sf.vars?sf.def:sf.color);
-    const y0=isTop()?0:by;s=`<image href="data:image/svg+xml;utf8,${encodeURIComponent(sf.draw(v,"#FFFFFF"))}" x="0" y="${y0}" width="${W}" height="${H-y0}" preserveAspectRatio="xMidYMid slice"/>${isTop()?"":`<rect x="0" y="${by}" width="${W}" height="${Math.min(H-by,H*.12)}" fill="url(#scFade)"/>`}`;
+    const y0=isTop()||b.full?0:by;s=`<image href="data:image/svg+xml;utf8,${encodeURIComponent(sf.draw(v,"#FFFFFF"))}" x="0" y="${y0}" width="${W}" height="${H-y0}" preserveAspectRatio="xMidYMid slice"/>${isTop()||b.full?"":`<rect x="0" y="${by}" width="${W}" height="${Math.min(H-by,H*.12)}" fill="url(#scFade)"/>`}`;
     return `<g data-id="base">${s}</g>`}
   if(b.kind==="table"){const m=TMAT.find(x=>x[0]===b.tMat)||TMAT[0],c=TCLOTH.find(x=>x[0]===b.tCloth)||TCLOTH[0],col=c[0]!=="none"?c[3]:m[3],
       ry=Math.max(H*.02,bw*.5*E),th=H*.022,sq=b.tShape==="rect"||b.tShape==="square",lk=shadeHex(m[3],-.28),st=' stroke="#000" stroke-opacity=".12"';
@@ -5671,6 +5873,7 @@ function sceneSVG(ex){const {W,H}=dims(),c=crop(),ord=SC.objs.filter(o=>o.k!=="t
 function guidesSVG(W,H,c){let s="";const x0=c.x*W,y0=c.y*H,x1=(c.x+c.w)*W,y1=(c.y+c.h)*H,fs=Math.max(11,H*.022);
   if(isPP()&&SC.frame.edge!=="white"&&(c.w<1||c.h<1))s+=`<path d="M0 0H${W}V${H}H0Z M${x0} ${y0}V${y1}H${x1}V${y0}Z" fill="#000" fill-opacity=".38" fill-rule="evenodd" pointer-events="none"/>`;
   if(!SC.guides)return s;
+  {const hy=roomOn()&&!isTop()&&SC.base.kind!=="none"?horizonY():null;if(hy!=null){const y=hy*H;s+=`<g pointer-events="none"><line x1="0" y1="${y}" x2="${W}" y2="${y}" stroke="#FFFFFF" stroke-opacity=".8" stroke-width="2"/><line x1="0" y1="${y}" x2="${W}" y2="${y}" stroke="#2F7FA8" stroke-width="1.4" stroke-dasharray="3 5"/><text x="${W-8}" y="${y-6}" text-anchor="end" font-family="Onest,Arial,sans-serif" font-size="${fs}" font-weight="600" fill="${lumAvg(effBg())<.5?"#BFE3F5":"#1F5F80"}">УРОВЕНЬ ГЛАЗ КАМЕРЫ</text></g>`}}
   const ln=(a,b,c2,d)=>`<line x1="${a}" y1="${b}" x2="${c2}" y2="${d}"/>`;let g="";
   if(isPP()){const X=px=>BX(px)*W,Y=py=>BY(py)*H;
     s+=`<rect x="${X(96)}" y="${Y(192)}" width="${X(530)-X(96)}" height="${Y(456)-Y(192)}" fill="#F0B92A" fill-opacity=".08" pointer-events="none"/>`;
@@ -5717,17 +5920,25 @@ const col=h=>cname(h);
 function bgEn(){const b=SC.bg,E=effBg();let t;
   if(b.kind==="solid")t=`a seamless ${col(E[0])} studio backdrop`;
   else if(b.kind==="grad")t=b.gdir==="radial"?`a smooth radial gradient backdrop: ${col(E[0])} in the centre fading to ${col(E[1])} at the edges`:b.gdir==="h"?`a smooth horizontal gradient backdrop from ${col(E[0])} on the left to ${col(E[1])} on the right`:`a smooth vertical gradient backdrop from ${col(E[0])} at the top to ${col(E[1])} at the bottom`;
-  else{const r=ROOMS.find(x=>x[0]===b.room)||ROOMS[0];t=`${r[2]} ${b.time==="evening"?"in the evening, lit by warm lamps, with glowing bokeh lights":"in soft natural daylight"}, ${b.blur==="light"?"softly out of focus but still recognisable":"heavily out of focus with creamy bokeh, only shapes and colours readable"}, so the products stay the sharp hero`}
+  else t=`${roomEn(envSc())}, ${blurEn(b.blur)}, so the products stay the sharp hero`;
+  if(fullOn())t="the same material as the support, continuing seamlessly up to the top edge (see SUPPORT): no separate backdrop, wall or room";
   const u=SC.under,uc=u.col==="auto"?`${col(underCol())}, a tone taken from the background itself so it blends in seamlessly,`:col(u.col);
   if(u.kind==="panel")t+=`. A flat solid ${uc} panel covers the left part of the image from the left edge to x ${pc(u.w)}%, full height, with a crisp straight vertical edge (split layout); the scene lives to the right of it and does not overlap the panel`;
   if(u.kind==="fade")t+=`. A soft ${uc} gradient fade covers the left side: solid ${col(underCol())} from the left edge to about x ${pc(u.w*.55)}%, smoothly fading to fully transparent by x ${pc(u.w)}%, with no visible edge, so the text sits on a calm even area`;
   return t}
 function baseEn(){const b=SC.base;if(b.kind==="none")return "";
-  if(b.kind==="surface"){const sf=find(SURF,b.surf)||SURF[0],v=(b.sv||{})[sf.id]||(sf.vars?sf.def:sf.color);return `${sf.en(v,"#FFFFFF")} fills the lower part of the frame, from y ${pc(b.y)}% down to the bottom edge; its far edge (horizon) sits at y ${pc(b.y)}%`}
+  if(b.kind==="surface"){const sf=find(SURF,b.surf)||SURF[0],v=(b.sv||{})[sf.id]||(sf.vars?sf.def:sf.color),en=sf.en(v,"#FFFFFF");
+    if(b.full)return fullEn(en).replace(/^SURFACE AS BACKDROP: /,"").replace(/\.$/,"");
+    return roomOn()?`${en} fills the lower part of the frame, from y ${pc(b.y)}% down to the bottom edge; its far edge, where it meets the room, sits at y ${pc(b.y)}%`:`${en} fills the lower part of the frame, from y ${pc(b.y)}% down to the bottom edge; its far edge (horizon) sits at y ${pc(b.y)}%`}
   if(b.kind==="table"){const sh=TSHAPE.find(x=>x[0]===b.tShape)||TSHAPE[0],m=TMAT.find(x=>x[0]===b.tMat)||TMAT[0],c=TCLOTH.find(x=>x[0]===b.tCloth)||TCLOTH[0];
     return `${sh[2]} table with a tabletop of ${m[2]}`+(c[0]!=="none"?`, covered with ${c[2].replace("{c}",c[4])}`:"")+`; the tabletop is centred at x ${pc(b.x)}%, its top surface at y ${pc(b.y)}%, about ${pc(b.w)}% of the frame width wide`}
   const p=find(PODS,b.pod)||PODS[1],sh=PSHAPE.find(x=>x[0]===b.pShape)||PSHAPE[0],n=+b.tiers||1;
   return `${p.en||"a display podium"}, shaped as ${sh[2]}${n>1?`, ${n} tiers stacked`:", one tier"}${p.color?`, colour ${col(b.pCol)}`:""}; the top surface is centred at x ${pc(b.x)}%, at y ${pc(b.y)}%, about ${pc(b.w)}% of the frame width wide`}
+function spaceSc(){if(!roomOn()||isTop())return "";const b=SC.base,H=horizonY(),sup=b.kind,sf=curSurf(),v=surfVal(sf,b.sv);
+  let t=persEn({support:sup,e:elev(),H:H==null?null:pc(H),E:sup==="surface"?pc(b.y):null,vx:pc(vanishX())});
+  if(sup==="surface")t+=" "+harmEn(envSc(),sf.en(v,"#FFFFFF"),false);
+  else if(sup==="table"){const m=TMAT.find(x=>x[0]===b.tMat)||TMAT[0];t+=" "+harmEn(envSc(),`the ${m[2]} table`,true)}
+  return t}
 function onWhat(o){const b=SC.base,bx=boxOf(o),pose=poseOf(o),sup=(b.kind==="table"||b.kind==="pod")&&o.x>b.x-b.w/2&&o.x<b.x+b.w/2?(b.kind==="table"?"the table":"the podium"):b.kind==="surface"?"the surface":"the ground";
   if(pose==="float")return `levitates in mid-air above ${sup}, clearly not touching it, with a soft diffused shadow on ${sup} below to show the height`;
   if(pose==="lie")return isTop()?`lies flat on ${sup} with its label facing up toward the camera`:`lies on its side on ${sup}, its long axis horizontal`;
@@ -5748,7 +5959,7 @@ function prodEn(o){const I=PT[o.type],what=(o.name||"").trim();
   if(o.col)t+=`, ${["plate","bowl"].includes(o.type)?"tableware":o.type==="glass"?"drink":"packaging"} colour ${col(o.col)}`;
   return {hero:heroOf()===o,t}}
 function spec(){const st=find(STYLES,SC.style)||STYLES[0],an=find(ANGLES,SC.angle)||ANGLES[0],E=effBg(),
-  env=SC.bg.kind==="room"?"the surrounding interior":SC.bg.kind==="grad"?`the ${col(E[1])} gradient background`:`the ${col(E[0])} background`;
+  env=fullOn()?"the surrounding surface":SC.bg.kind==="room"?"the surrounding interior":SC.bg.kind==="grad"?`the ${col(E[1])} gradient background`:`the ${col(E[0])} background`;
   return {st,an,look:st.look.replace("{ENV}",env)}}
 const P1=v=>Math.round(v*1000)/10;
 function bannerEn(){if(!isPP())return null;const c=crop(),g=gen(),X=px=>P1(BX(px)),Y=py=>P1(BY(py)),white=SC.frame.edge==="white";
@@ -5796,6 +6007,7 @@ function promptText(){const {st,an,look}=spec(),P=prods(),Dc=decs(),T=txts(),out
   out.push(["CAMERA",an.p]);
   out.push(["BACKGROUND",bgEn()+"."]);
   {const be=baseEn();if(be)out.push(["SUPPORT",be.charAt(0).toUpperCase()+be.slice(1)+"."])}
+  {const sp=spaceSc();if(sp)out.push(["SPACE AND PERSPECTIVE",sp])}
   if(P.length)out.push(["PRODUCTS",`${P.length} product${P.length>1?"s":""}. `+P.map(o=>{const {hero,t}=prodEn(o);return `${nm(o)}${hero&&P.length>1?" (hero, the most prominent)":""}: ${t}. Position x ${pc(o.x)}%, y ${pc(o.y)}% (${where(o.x,o.y-o.h/2)}); height ≈ ${pc(o.h)}% of the image${poseOf(o)==="lie"?" (its length when lying)":""}; ${rotEn(o.rot)}${poseOf(o)==="lie"?"":", label facing the camera"}; ${onWhat(o)}.`}).join(" ")]);
   if(Dc.length)out.push(["DECOR",Dc.map(o=>{const what=decWhat(o);return `${nm(o)}: ${o.many?"a small scattered cluster of "+what.replace(/^an? /,""):what}${o.col&&o.col!==DT[o.type].col&&o.type!=="custom"?` in ${col(o.col)}`:""} at x ${pc(o.x)}%, y ${pc(o.y)}%, height ≈ ${pc(o.h)}% of the image, ${rotEn(o.rot)}, ${onWhat(o)}${o.blur?", softly out of focus":""}.`}).join(" ")+" Decor stays secondary and never covers the product labels."]);
   {const xe=extraEn();if(xe)out.push(["EXTRA DECOR",xe])}
@@ -5814,7 +6026,7 @@ function promptJSON(){const {st,an,look}=spec(),P=prods(),Dc=decs(),T=txts(),ov=
     references:Object.assign({product_photos:P.length?"attached product photos, referred to by number":"none"},SC.sketch?{layout_mockup:sketchEn()}:{}),
     frame:Object.assign({format:bn?bn.size:`Aspect ratio ${SC.frame.ratio}.`,coordinates:"x, y in % of the generated image from the top-left corner; for objects (x, y) is where the base touches its support; height in % of image height; lower in frame = closer to camera"},bn?{banner:bn.lay}:{}),
     render:st.open,camera:an.p,background:bgEn()};
-  const be=baseEn();if(be)j.support=be;
+  const be=baseEn();if(be)j.support=be;{const sp=spaceSc();if(sp)j.space_and_perspective=sp}
   if(P.length)j.products=P.map(o=>{const {hero,t}=prodEn(o),r={id:+numOf(o),what:t,position:{x:pc(o.x),y:pc(o.y)},height:pc(o.h)+"%",orientation:rotEn(o.rot)+(poseOf(o)==="lie"?"":", label facing the camera"),support:onWhat(o)};if(hero&&P.length>1)r.role="hero, the most prominent";return r});
   if(Dc.length)j.decor=Dc.map(o=>{const what=decWhat(o),r={id:numOf(o),what:(o.many?"a small scattered cluster of "+what.replace(/^an? /,""):what)+(o.col&&o.col!==DT[o.type].col&&o.type!=="custom"?` in ${col(o.col)}`:""),position:{x:pc(o.x),y:pc(o.y)},height:pc(o.h)+"%",orientation:rotEn(o.rot),support:onWhat(o)};if(o.blur)r.focus="softly out of focus";return r});
   {const xe=extraEn();if(xe)j.extra_decor=xe}
@@ -5833,16 +6045,13 @@ function drawOut(){const t=prompt(),L=t.split("\n"),old=new Set(PREV);
 let outT=0;const outSoon=()=>{clearTimeout(outT);outT=setTimeout(drawOut,160)};
 
 /* ---------- слои ---------- */
-function drawLayers(){const b=SC.base,chip=(id,i,ico,t)=>`<button class="scn-lay" type="button" data-sel="${id}" aria-pressed="${SEL===id}"><i>${i}</i>${ico}${escA(t)}</button>`;
-  $("scnLayers").innerHTML=chip("bg","Ф","",({solid:"Фон: цвет",grad:"Фон: градиент",room:"Фон: "+((ROOMS.find(r=>r[0]===SC.bg.room)||ROOMS[0])[1]).toLowerCase()})[SC.bg.kind])
-    +chip("base","П","",b.kind==="none"?"Подставка: нет":"Подставка: "+({surface:"поверхность",table:"стол",pod:"подиум"})[b.kind])
-    +SC.objs.map(o=>chip(o.id,numOf(o),o.k==="txt"?"":mini(o.k==="prod"?PT[o.type]:DT[o.type]),o.k==="prod"?((o.name||"").trim()||PT[o.type].t):o.k==="dec"?((o.name||"").trim()||DT[o.type].t):(txtLines(o)[0]||TROLE[o.role].t))).join("")}
+function drawLayers(){/* выбор объектов переехал во вкладки панели справа */}
 
 /* ---------- инспектор ---------- */
 const ic={dup:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"/></svg>',
   del:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 13h8l1-13"/></svg>',
   up:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 19h14"/></svg>'};
-const I_={"bgkind": "<b>Цвет</b> — ровный студийный фон. <b>Градиент</b> — плавный переход двух цветов. <b>Интерьер</b> — размытое помещение за продуктом: генератор нарисует его сам, на холсте только намёк.", "tone": "Делает выбранный цвет светлее или темнее, не меняя оттенок. Удобно подогнать фон под упаковку.", "gdir": "Как идёт переход: сверху вниз, слева направо или из центра к краям.", "stops": "Выберите, какой край градиента меняете, затем цвет в палитре.", "room": "Какое помещение угадывается за продуктом. Это фон, а не стол: на чём стоят продукты — в «Подставке».", "time": "<b>Вечер</b> — тёплые лампы и огоньки боке, <b>день</b> — мягкий дневной свет из окна.", "blur": "<b>Сильное</b> — от интерьера остаются пятна света и цвета, продукт выделяется сильнее. <b>Лёгкое</b> — помещение узнаётся.", "under": "Спокойная зона под текстом, чтобы он читался на любом фоне. <b>Плашка</b> — ровная заливка с чётким краем, как сплит-макет. <b>Растушёвка</b> — заливка плавно уходит в фон. <b>В цвет фона</b> подбирает тон из самого фона, чтобы переход был незаметен.", "base": "На чём стоят продукты. <b>Поверхность</b> — столешница до горизонта. <b>Стол</b> — отдельный стол со скатертью. <b>Подиум</b> — студийные постаменты. Продукты на столе или подиуме двигаются вместе с ним.", "ptype": "Форма упаковки на этом месте. Нужна, чтобы генератор понял, что здесь стоит и какого оно размера. Сам продукт он возьмёт с вашего фото.", "pname":"Подпись превращает фигуру в конкретный предмет: что напишете, то нейросеть и нарисует на этом месте. Например «сыр в вакуумной упаковке». Подпись видна на холсте.",
+const I_={"bgkind": "<b>Цвет</b> — ровный студийный фон. <b>Градиент</b> — плавный переход двух цветов. <b>Интерьер</b> — размытое помещение за продуктом: генератор нарисует его сам, на холсте только намёк.", "tone": "Делает выбранный цвет светлее или темнее, не меняя оттенок. Удобно подогнать фон под упаковку.", "gdir": "Как идёт переход: сверху вниз, слева направо или из центра к краям.", "stops": "Выберите, какой край градиента меняете, затем цвет в палитре.", "room": "Какое помещение угадывается за продуктом. Столешница и помещение пишутся в промт как одно пространство с одной камерой и одним горизонтом, поэтому перспектива не разъезжается.", "time": "<b>Утро</b> — свежий прохладный свет из окна. <b>День</b> — мягкий дневной. <b>Закат</b> — тёплое низкое солнце. <b>Вечер</b> — лампы и огоньки боке. <b>Ночь</b> — тёмная комната, тёплые лампы и свечи.", "rstyle": "Стиль помещения: мебель, фасады и детали. «Любой» — нейросеть решит сама.", "rtone": "Примерный цвет фасадов, стен и декора — не фильтр на картинку. Так задний план дружит с продуктом и столешницей. <b>Авто</b> — отделка подстраивается под выбранную столешницу.", "blur": "<b>Сильное</b> — от интерьера остаются пятна света и цвета, продукт выделяется сильнее. <b>Лёгкое</b> — помещение узнаётся.", "under": "Спокойная зона под текстом, чтобы он читался на любом фоне. <b>Плашка</b> — ровная заливка с чётким краем, как сплит-макет. <b>Растушёвка</b> — заливка плавно уходит в фон. <b>В цвет фона</b> подбирает тон из самого фона, чтобы переход был незаметен.", "base": "На чём стоят продукты. <b>Поверхность</b> — столешница до дальнего края, а с «На весь фон» — до верха кадра. <b>Стол</b> — отдельный стол со скатертью. <b>Подиум</b> — студийные постаменты. Продукты на столе или подиуме двигаются вместе с ним.", "ptype": "Форма упаковки на этом месте. Нужна, чтобы генератор понял, что здесь стоит и какого оно размера. Сам продукт он возьмёт с вашего фото.", "pname":"Подпись превращает фигуру в конкретный предмет: что напишете, то нейросеть и нарисует на этом месте. Например «сыр в вакуумной упаковке». Подпись видна на холсте.",
  "dname":"Подпись превращает фигуру в конкретный предмет: что напишете, то нейросеть и нарисует на этом месте — например «веточка розмарина» или «бокал игристого». Для «Своего предмета» подпись обязательна.",
  "extra":"Нейросеть сама добавит предметы по теме продукта: ингредиенты, травы, посуду. Ваши объекты на макете останутся на местах, а зона текста — чистой.",
  "pose":"<b>Стоит</b> — на подставке или на полу. <b>Парит</b> — висит в воздухе, тень падает ниже: для динамичных промо. <b>Лежит</b> — на боку, как батончик или бутылка на столе. Поднять или опустить объект можно и просто перетаскиванием.",
@@ -5855,7 +6064,8 @@ const swts=h=>`<div class="toggles swt scn-one">${h}</div>`;
 function cards(a,ids,cur,lab,thumb,cols){return `<div class="scn-cards" style="--c:${cols||Math.min(6,ids.length)}">${ids.map(id=>`<button class="scn-card" type="button" data-a="${a}" data-v="${id}" aria-pressed="${id===cur}"><span class="th"${thumb.bg?` style="background-image:${thumb.bg(id)}"`:""}>${thumb.svg?thumb.svg(id):""}</span><span>${escA(lab(id))}</span></button>`).join("")}</div>`}
 const colsFor=n=>n<=6?n:n%5===0?5:4;
 function seg(a,opts,cur,label){return `<div class="gsort" role="radiogroup" aria-label="${label}">${opts.map(([v,t])=>`<button type="button" role="radio" data-a="${a}" data-v="${v}" aria-checked="${String(v)===String(cur)}">${t}</button>`).join("")}</div>`}
-function chips(a,opts,cur,dot){return `<div class="scn-chips">${opts.map(([v,t,c])=>`<button class="scn-c" type="button" data-a="${a}" data-v="${v}" aria-pressed="${v===cur}">${dot&&c?`<i style="background:${c}"></i>`:""}${t}</button>`).join("")}</div>`}
+const balC=(n,L)=>n<=2?n:L>9||n===4?2:3;
+function chips(a,opts,cur,dot){return `<div class="scn-chips bal" style="--c:${balC(opts.length,Math.max(...opts.map(o=>String(o[1]).length)))}">${opts.map(([v,t,c])=>`<button class="scn-c" type="button" data-a="${a}" data-v="${v}" aria-pressed="${v===cur}">${dot&&c?`<i style="background:${c}"></i>`:""}${t}</button>`).join("")}</div>`}
 const okHex=c=>/^#[0-9a-f]{6}$/i.test(c||"");
 function sws(a,list,cur,none){return `<div class="scn-sws">${none?`<button class="scn-sw none" type="button" data-a="${a}" data-v="" aria-pressed="${!cur}" aria-label="${none}" title="${none}"></button>`:""}${list.map(c=>`<button class="scn-sw" type="button" data-a="${a}" data-v="${c}" aria-pressed="${!!cur&&c.toLowerCase()===String(cur).toLowerCase()}" style="background:${c}" aria-label="${escA(cname(c))}" title="${escA(cname(c))}"></button>`).join("")}<input type="color" data-a="${a}" value="${okHex(cur)?cur:"#888888"}" aria-label="Свой цвет" title="Свой цвет"></div>`}
 /* полная палитра: группы-вкладки как в конструкторе */
@@ -5866,46 +6076,80 @@ function rng(a,label,min,max,step,v,f){return `<label class="scn-rng"><span>${la
 const FMT={lh:v=>(+v).toFixed(2).replace(".",","),ls:v=>(v>0?"+":"")+Math.round(v*100)/100+" em",h:v=>pc(v)+"% кадра",rot:v=>(Math.round(v)||0)+"°",size:v=>pc(v)+"% кадра",px:v=>Math.round(v)+" px",w:v=>pc(v)+"% ширины","bg.tone":v=>!+v?"как в палитре":(v>0?"светлее ":"темнее ")+Math.abs(Math.round(v*100))+"%","under.w":v=>"до "+pc(v)+"% кадра"};
 function sw(a,label,on,note){return `<label class="tg"><input type="checkbox" role="switch" data-a="${a}" ${on?"checked":""}><span>${label}${note?`<small>${note}</small>`:""}</span></label>`}
 function head(t,acts){return `<div class="scn-ih"><h2>${t}</h2>${acts?`<button class="iconbtn" type="button" data-act="dup" aria-label="Дублировать" title="Дублировать (⌘D)">${ic.dup}</button><button class="iconbtn" type="button" data-act="del" aria-label="Удалить" title="Удалить (Delete)">${ic.del}</button>`:""}</div>`}
-const roomThumb=id=>{const r=ROOMS.find(x=>x[0]===id),out=["garden","terrace"].includes(id);
-  return `<svg viewBox="0 0 48 38" aria-hidden="true"><rect width="48" height="38" fill="var(--fig-top)"/>${out?'<circle cx="12" cy="12" r="9" fill="var(--fig-l)"/><circle cx="34" cy="10" r="10" fill="var(--fig-r)"/>':`<rect x="5" y="5" width="12" height="17" rx="2" fill="var(--panel)"/>`}${["kitchen","cafe","bakery","bar"].includes(id)?'<rect x="22" y="9" width="22" height="2.5" fill="var(--fig-r)"/><rect x="22" y="16" width="22" height="2.5" fill="var(--fig-r)"/>':""}${id==="living"?'<rect x="22" y="17" width="20" height="8" rx="3" fill="var(--fig-r)"/>':""}${id==="winter"?'<path d="M36 5 43 24H29Z" fill="var(--fig-r)"/>':""}${["restaurant","bar","winter"].includes(id)?'<circle cx="26" cy="7" r="2.5" fill="var(--detail)"/><circle cx="34" cy="5" r="2" fill="var(--detail)"/>':'<circle cx="40" cy="6" r="2.5" fill="var(--detail)"/>'}<rect y="28" width="48" height="10" fill="var(--fig-l)"/></svg>`};
 function fontRow(slot,label){const [st,txt]=fontStat(slot);return `<div class="scn-font"><span class="scn-fdot ${st}"></span><span><b>${label}</b><small>${txt}</small></span><button class="btn ghost sm" type="button" data-font="${slot}">${FONT[slot]?"Заменить":"Загрузить"}</button></div>`}
 const AL_IC={left:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 10h10M4 14h16M4 18h10"/></svg>',center:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 10h10M4 14h16M7 18h10"/></svg>',right:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M10 10h10M4 14h16M10 18h10"/></svg>'};
 function segIc(a,opts,cur,label){return `<div class="gsort scn-icseg" role="radiogroup" aria-label="${label}">${opts.map(([v,t,ic])=>`<button type="button" role="radio" data-a="${a}" data-v="${v}" aria-checked="${String(v)===String(cur)}" aria-label="${t}" title="${t}">${ic}</button>`).join("")}</div>`}
-function drawInsp(){const el=$("scnInsp"),o=selObj();let h="";
-  if(SEL==="bg"){const b=SC.bg,u=SC.under;h=head("Фон")+sec("Тип фона",seg("bg.kind",[["solid","Цвет"],["grad","Градиент"],["room","Интерьер"]],b.kind,"Тип фона"),I_.bgkind);
-    if(b.kind==="solid")h+=sec("Цвет",pal("bg.color",b.color),I_.tone);
+/* вкладки панели: Сцена · Продукты · Декор · Текст — всё настраивается в одном месте */
+const XO={},LASTSEL={};
+function tabOf(){if(SEL==="bg"||SEL==="base")return "scene";if(String(SEL).startsWith("tab:"))return SEL.slice(4);const o=selObj();return o?o.k:"scene"}
+const KIND={prod:["Продукты","Продуктов пока нет","Добавьте фигуру, затем подпишите, что это за продукт.","Продукт"],dec:["Декор","Декора пока нет","Травы, ягоды, посуда — или включите «Декор от нейросети» под холстом.","Декор"],txt:["Текст","Текста пока нет","Заголовок, подзаголовок, цена или плашка.","Текст"]};
+const listOf=k=>k==="prod"?prods():k==="dec"?decs():txts();
+function tabsHTML(){const t=tabOf();
+  return `<div class="gsort scn-tabs" role="tablist" aria-label="Что настраиваем">${[["scene","Сцена"],["prod"],["dec"],["txt"]].map(([k,l])=>{const n=k==="scene"?0:listOf(k).length;return `<button type="button" role="tab" data-tab="${k}" aria-selected="${t===k}">${l||KIND[k][0]}${n?`<small>${n}</small>`:""}</button>`}).join("")}</div>`}
+const objName=o=>o.k==="prod"?((o.name||"").trim()||PT[o.type].t):o.k==="dec"?((o.name||"").trim()||DT[o.type].t):(txtLines(o)[0]||TROLE[o.role].t);
+function pickHTML(k){const L=listOf(k);
+  return `<div class="scn-pick" role="group" aria-label="${KIND[k][0]}">${L.map(o=>`<button class="scn-lay" type="button" data-sel="${o.id}" aria-pressed="${SEL===o.id}"><i>${numOf(o)}</i>${o.k==="txt"?"":mini(o.k==="prod"?PT[o.type]:DT[o.type])}<span>${escA(objName(o))}</span></button>`).join("")}<button class="scn-lay scn-plus" type="button" data-add="${k}" aria-label="Добавить: ${KIND[k][3].toLowerCase()}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></button></div>`}
+function emptyHTML(k){return `<div class="scn-empty"><b>${KIND[k][1]}</b><p class="scn-note">${KIND[k][2]}</p><button class="btn scn-add" type="button" data-add="${k}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>${KIND[k][3]}</button></div>`}
+/* карточки с «Ещё варианты (N)»; rec — подходящие к интерьеру отмечены точкой */
+function cardsX(a,ids,more,cur,lab,thumb,cols,key,rec){const open=XO[key]||more.includes(cur),show=open?ids.concat(more):ids,R=rec||new Set();
+  return `<div class="scn-cards" style="--c:${cols}">${show.map(id=>`<button class="scn-card" type="button" data-a="${a}" data-v="${id}" aria-pressed="${id===cur}"${R.has(id)?' data-rec="1"':""}${R.has(id)?' aria-description="Подходит к интерьеру"':""}><span class="th"${thumb.bg?` style="background-image:${thumb.bg(id)}"`:""}>${thumb.svg?thumb.svg(id):""}</span><span>${escA(lab(id))}</span></button>`).join("")}</div>`
+    +(more.length&&!more.includes(cur)?`<button class="scn-link" type="button" data-xo="${key}" aria-expanded="${!!open}">${open?"Свернуть":`Ещё варианты (${more.length})`}</button>`:"")}
+const sfThumbBg=(id,sv)=>{const s=find(SURF,id),v=(sv||{})[id]||(s.vars?s.def:s.color);return `url(&quot;data:image/svg+xml;utf8,${encodeURIComponent(s.draw(v,"#FFFFFF")).replace(/'/g,"%27")}&quot;)`};
+function sceneInsp(){const b=SC.bg,B=SC.base,u=SC.under,room=b.kind==="room",top=isTop();let h=head("Сцена");
+  /* под продуктами */
+  let g=seg("base.kind",[["none","Нет"],["surface","Поверхность"],["table","Стол"],["pod","Подиум"]],B.kind,"На чём стоят продукты");
+  const picks=room&&!B.full?envPicks(envSc()):[],recS=new Set(picks.map(p=>p[0]));
+  if(B.kind==="none")g+=`<p class="scn-note">${room?"Без подставки продукты стоят на полу помещения — обычно нужна столешница.":"Продукты стоят на бесшовном фоне."}</p>`;
+  if(B.kind==="surface"){const vis=SURF.filter(s=>!s.x).map(s=>s.id),more=SURF.filter(s=>s.x).map(s=>s.id),sf=curSurf();
+    g+=cardsX("base.surf",vis,more,B.surf,id=>find(SURF,id).t,{bg:id=>sfThumbBg(id,B.sv)},4,"surf",recS);
+    if(sf.vars)g+=chips("base.sv",Object.keys(sf.vars).map(k=>[k,sf.vars[k][sf.id==="metal"?1:2],sf.vars[k][0]]),surfVal(sf,B.sv),true);
+    else if(sf.color)g+=pal("base.sv",surfVal(sf,B.sv));
+    g+=swts(sw("base.full","На весь фон",B.full,"Материал уходит вверх до края кадра, без горизонта")+(room&&!B.full?sw("base.sync","Подбирать к интерьеру",B.sync,"Столешница меняется вместе с помещением"):""));
+    if(picks.length&&!B.sync)g+=`<p class="scn-note">Точкой отмечены поверхности, которые подходят к интерьеру.</p>`;
+    if(!B.full&&!top)g+=`<p class="scn-note">Перетащите поверхность вверх или вниз, чтобы сдвинуть её дальний край.</p>`}
+  if(B.kind==="table")g+=sec("Форма",chips("base.tShape",TSHAPE.map(x=>[x[0],x[1]]),B.tShape))+sec("Столешница",chips("base.tMat",TMAT.map(x=>[x[0],x[1],x[3]]),B.tMat,true)+(room?swts(sw("base.sync","Подбирать к интерьеру",B.sync,"Материал стола меняется вместе с помещением")):""))
+    +sec("Скатерть",chips("base.tCloth",TCLOTH.map(x=>[x[0],x[1],x[3]]),B.tCloth,true))+sec("",rng("base.w","Ширина",.2,1.4,.01,B.w,FMT.w));
+  if(B.kind==="pod"){const ids=PODS.filter(p=>p.id!=="none").map(p=>p.id);
+    g+=sec("Подиум",cards("base.pod",ids,B.pod,id=>find(PODS,id).t,{svg:id=>`<svg viewBox="0 0 48 38" aria-hidden="true"><ellipse cx="24" cy="27" rx="16" ry="4" fill="var(--fig-r)"/><rect x="8" y="${id==="minimal"?23:17}" width="32" height="${id==="minimal"?4:10}" fill="var(--fig-r)"/><ellipse cx="24" cy="${id==="minimal"?23:17}" rx="16" ry="4" fill="var(--fig-top)"/>${id==="geo"?'<rect x="30" y="7" width="9" height="9" fill="var(--fig-l)"/>':""}${id==="natural"?'<ellipse cx="38" cy="30" rx="5" ry="3" fill="var(--fig-l)"/>':""}${id==="gloss"?'<rect x="12" y="18" width="2" height="8" fill="var(--panel)"/>':""}<rect x="20" y="${id==="minimal"?9:3}" width="8" height="12" rx="2" fill="var(--detail)"/></svg>`},3))
+      +sec("Форма",chips("base.pShape",PSHAPE.map(x=>[x[0],x[1]]),B.pShape))+sec("Ярусы",seg("base.tiers",[["1","1"],["2","2"],["3","3"]],String(B.tiers),"Ярусы"))
+      +sec("Цвет",sws("base.pCol",PODSW,B.pCol))+sec("",rng("base.w","Ширина",.12,1,.01,B.w,FMT.w))}
+  h+=`<div class="scn-grp2" id="scnGBase">`+sec("Под продуктами",g,I_.base)+`</div>`;
+  /* позади */
+  if(B.kind==="surface"&&B.full)h+=sec("Позади",`<p class="scn-note">Фон — продолжение поверхности. Чтобы вернуть цвет, градиент или интерьер, выключите «На весь фон».</p>`);
+  else{let q=seg("bg.kind",[["solid","Цвет"],["grad","Градиент"],["room","Интерьер"]],b.kind,"Что позади");
+    if(b.kind==="solid")q+=pal("bg.color",b.color)+rng("bg.tone","Тон",-.5,.5,.02,b.tone||0,FMT["bg.tone"]);
     if(b.kind==="grad"){const lab=b.gdir==="h"?["Слева","Справа"]:b.gdir==="radial"?["Центр","Края"]:["Сверху","Снизу"];
-      h+=sec("Направление",seg("bg.gdir",[["v","Вертикаль"],["h","Горизонталь"],["radial","Из центра"]],b.gdir,"Направление градиента"),I_.gdir)
-        +sec("Цвета",`<div class="gsort scn-stops" role="radiogroup" aria-label="Какой цвет меняем">${[["g1",lab[0]],["g2",lab[1]]].map(([k,t])=>`<button type="button" role="radio" data-a="bg.stop" data-v="${k}" aria-checked="${b.stop===k}"><i style="background:${tone(b[k])}"></i>${t}</button>`).join("")}</div>`+pal("bg."+b.stop,b[b.stop]),I_.stops)}
-    if(b.kind!=="room")h+=sec("",rng("bg.tone","Тон",-.5,.5,.02,b.tone||0,FMT["bg.tone"]));
-    if(b.kind==="room")h+=sec("Интерьер",cards("bg.room",ROOMS.map(r=>r[0]),b.room,id=>ROOMS.find(r=>r[0]===id)[1],{svg:roomThumb},5),I_.room)
-      +sec("Время",seg("bg.time",[["day","День"],["evening","Вечер"]],b.time,"Время"),I_.time)+sec("Размытие",seg("bg.blur",[["strong","Сильное"],["light","Лёгкое"]],b.blur,"Размытие"),I_.blur);
-    h+=sec("Под текстом",seg("under.kind",[["none","Нет"],["panel","Плашка"],["fade","Растушёвка"]],u.kind,"Подложка под текст")
+      q+=sec("Направление",seg("bg.gdir",[["v","Вертикаль"],["h","Горизонталь"],["radial","Из центра"]],b.gdir,"Направление градиента"),I_.gdir)
+        +sec("Цвета",`<div class="gsort scn-stops" role="radiogroup" aria-label="Какой цвет меняем">${[["g1",lab[0]],["g2",lab[1]]].map(([k,t])=>`<button type="button" role="radio" data-a="bg.stop" data-v="${k}" aria-checked="${b.stop===k}"><i style="background:${tone(b[k])}"></i>${t}</button>`).join("")}</div>`+pal("bg."+b.stop,b[b.stop]),I_.stops)+rng("bg.tone","Тон",-.5,.5,.02,b.tone||0,FMT["bg.tone"])}
+    if(room){if(top)q+=`<p class="scn-note">Ракурс «Сверху»: помещения в кадре не видно, в промт пойдёт только поверхность.</p>`;
+      q+=cardsX("bg.room",ROOMS.filter(r=>!r[4]).map(r=>r[0]),ROOMS.filter(r=>r[4]).map(r=>r[0]),b.room,id=>envRoom(id)[1],{svg:roomThumb},5,"room")
+        +sec("Стиль",chips("bg.style",RSTYLE.map(x=>[x[0],x[1]]),b.style||"auto").replace(/--c:\d/,"--c:3"),I_.rstyle)
+        +sec("Тон отделки",`<div class="scn-chips bal" style="--c:3">${RTONE.map(t=>`<button class="scn-c" type="button" data-a="bg.tone2" data-v="${t[0]}" aria-pressed="${(b.tone2||"auto")===t[0]}"><i style="background:${toneDot(t)}"></i>${t[1]}</button>`).join("")}</div>`,I_.rtone)
+        +sec("Время суток",`<div class="scn-chips bal" style="--c:3">${RTIME.map(t=>`<button class="scn-c" type="button" data-a="bg.time" data-v="${t[0]}" aria-pressed="${b.time===t[0]}">${timeIc(t[0])}${t[1]}</button>`).join("")}</div>`,I_.time)
+        +sec("Размытие",seg("bg.blur",[["strong","Сильное"],["light","Лёгкое"]],b.blur,"Размытие"),I_.blur)}
+    h+=sec("Позади",q,I_.bgkind)}
+  h+=sec("Под текстом",seg("under.kind",[["none","Нет"],["panel","Плашка"],["fade","Растушёвка"]],u.kind,"Подложка под текст")
       +(u.kind==="none"?`<p class="scn-note">Спокойная зона слева, чтобы текст читался: ровная плашка или мягкий переход в фон.</p>`
         :`<div class="scn-chips"><button class="scn-c" type="button" data-a="under.col" data-v="auto" aria-pressed="${u.col==="auto"}"><i style="background:${underAuto()}"></i>В цвет фона</button></div>`
-          +sws("under.col",["#FFFFFF","#F7F3EC","#F2E8D5","#2A1A10","#1E2A23"],u.col==="auto"?null:u.col)+rng("under.w","Ширина",.15,.8,.01,u.w,FMT["under.w"])+`<p class="scn-note">Край подложки можно тянуть на холсте.</p>`),I_.under)}
-  else if(SEL==="base"){const b=SC.base;h=head("Подставка")+sec("На чём стоят продукты",seg("base.kind",[["none","Нет"],["surface","Поверхность"],["table","Стол"],["pod","Подиум"]],b.kind,"Подставка"),I_.base);
-    if(b.kind==="none")h+=`<p class="scn-note">Продукты стоят на бесшовном фоне. Выберите поверхность, стол или подиум — на холсте появится подставка, её можно двигать и менять ширину.</p>`;
-    if(b.kind==="surface"){const ids=SURF.filter(s=>!s.x).map(s=>s.id),sf=find(SURF,b.surf)||SURF[0];
-      h+=sec("Материал",cards("base.surf",ids,b.surf,id=>find(SURF,id).t,{bg:id=>{const s=find(SURF,id),v=(b.sv||{})[id]||(s.vars?s.def:s.color);return `url(&quot;data:image/svg+xml;utf8,${encodeURIComponent(s.draw(v,"#FFFFFF")).replace(/'/g,"%27")}&quot;)`}},4));
-      if(sf.vars)h+=sec("Оттенок",chips("base.sv",Object.keys(sf.vars).map(k=>[k,sf.vars[k][sf.id==="metal"?1:2],sf.vars[k][0]]),(b.sv||{})[sf.id]||sf.def,true));
-      else if(sf.color)h+=sec("Цвет",pal("base.sv",(b.sv||{})[sf.id]||sf.color));
-      h+=`<p class="scn-note">Перетащите поверхность вверх или вниз, чтобы сдвинуть линию горизонта.</p>`}
-    if(b.kind==="table")h+=sec("Форма",chips("base.tShape",TSHAPE.map(x=>[x[0],x[1]]),b.tShape))+sec("Столешница",chips("base.tMat",TMAT.map(x=>[x[0],x[1],x[3]]),b.tMat,true))
-      +sec("Скатерть",chips("base.tCloth",TCLOTH.map(x=>[x[0],x[1],x[3]]),b.tCloth,true))+sec("",rng("base.w","Ширина",.2,1.4,.01,b.w,FMT.w));
-    if(b.kind==="pod"){const ids=PODS.filter(p=>p.id!=="none").map(p=>p.id);
-      h+=sec("Подиум",cards("base.pod",ids,b.pod,id=>find(PODS,id).t,{svg:id=>`<svg viewBox="0 0 48 38" aria-hidden="true"><ellipse cx="24" cy="27" rx="16" ry="4" fill="var(--fig-r)"/><rect x="8" y="${id==="minimal"?23:17}" width="32" height="${id==="minimal"?4:10}" fill="var(--fig-r)"/><ellipse cx="24" cy="${id==="minimal"?23:17}" rx="16" ry="4" fill="var(--fig-top)"/>${id==="geo"?'<rect x="30" y="7" width="9" height="9" fill="var(--fig-l)"/>':""}${id==="natural"?'<ellipse cx="38" cy="30" rx="5" ry="3" fill="var(--fig-l)"/>':""}${id==="gloss"?'<rect x="12" y="18" width="2" height="8" fill="var(--panel)"/>':""}<rect x="20" y="${id==="minimal"?9:3}" width="8" height="12" rx="2" fill="var(--detail)"/></svg>`},3))
-        +sec("Форма",chips("base.pShape",PSHAPE.map(x=>[x[0],x[1]]),b.pShape))+sec("Ярусы",seg("base.tiers",[["1","1"],["2","2"],["3","3"]],String(b.tiers),"Ярусы"))
-        +sec("Цвет",sws("base.pCol",PODSW,b.pCol))+sec("",rng("base.w","Ширина",.12,1,.01,b.w,FMT.w))}}
-  else if(o&&o.k==="prod"){const nP=prods().length;h=head(`Продукт ${numOf(o)}`,true)+PGROUPS.map(([g,ids],i)=>sec(g,cards("type",ids,o.type,id=>PT[id].t,{svg:id=>mini(PT[id])},colsFor(ids.length)),i?"":I_.ptype)).join("")
-    +sec("Подпись: что это",`<input class="scn-in" type="text" data-a="name" value="${escA(o.name||"")}" maxlength="80" placeholder="Например: сыр в вакуумной упаковке" aria-label="Подпись: что это за продукт">`,I_.pname)
-    +(nP>1?sec("С какого фото",seg("ref",Array.from({length:Math.min(4,nP)},(_,i)=>[String(i+1),`Фото ${i+1}`]),String(o.ref||1),"С какого фото"),I_.ref):"")
-    +(nP>1?sec("Акцент",swts(sw("hero","Главный продукт",heroOf()===o,"Самый заметный в кадре")),I_.hero):"")
+          +sws("under.col",["#FFFFFF","#F7F3EC","#F2E8D5","#2A1A10","#1E2A23"],u.col==="auto"?null:u.col)+rng("under.w","Ширина",.15,.8,.01,u.w,FMT["under.w"])+`<p class="scn-note">Край подложки можно тянуть на холсте.</p>`),I_.under);
+  return h}
+/* формы продукта и декора: основная группа сразу, остальные — за «Ещё варианты» */
+function typeCards(o){const G=o.k==="prod"?PGROUPS:DGROUPS,T=o.k==="prod"?PT:DT,first=G[0][1],more=G.slice(1).flatMap(g=>g[1]);
+  return cardsX("type",first,more,o.type,id=>T[id].t,{svg:id=>mini(T[id])},o.k==="prod"?5:4,o.k)}
+function drawInsp(){const el=$("scnInsp"),o=selObj(),tab=tabOf();let h=tabsHTML();
+  if(tab!=="scene"&&!listOf(tab).length){el.innerHTML=h+emptyHTML(tab);return}
+  if(tab!=="scene")h+=pickHTML(tab);
+  if(tab==="scene")h+=sceneInsp();
+  else if(o&&o.k==="prod"){const nP=prods().length;h+=head(`Продукт ${numOf(o)}`,true)
+    +sec("Что это",`<input class="scn-in" type="text" data-a="name" value="${escA(o.name||"")}" maxlength="80" placeholder="Например: сыр в вакуумной упаковке" aria-label="Что это за продукт">`,I_.pname)
+    +sec("Форма",typeCards(o),I_.ptype)
     +sec("Положение",seg("pose",[["stand","Стоит"],["float","Парит"],["lie","Лежит"]],poseOf(o),"Положение")+(nP>1?`<button class="scn-link" type="button" data-act="poseall">Так же для всех: ${({stand:"стоят",float:"парят",lie:"лежат"})[poseOf(o)]}</button>`:""),I_.pose)
     +sec(["plate","bowl"].includes(o.type)?"Цвет посуды":o.type==="glass"?"Цвет напитка":"Цвет упаковки",sws("col",PKCOL,o.col,"Как на фото"),I_.pcol)
-    +sec("Размер и наклон",rng("h","Размер",.04,1,.01,o.h,FMT.h)+rng("rot","Наклон",-45,45,1,o.rot||0,FMT.rot),I_.size)}
-  else if(o&&o.k==="dec"){h=head(`Декор ${numOf(o)}`,true)+DGROUPS.map(([g,ids],i)=>sec(g,cards("type",ids,o.type,id=>DT[id].t,{svg:id=>mini(DT[id])},4),i?"":I_.dtype)).join("")
-    +sec(o.type==="custom"?"Подпись: что это — обязательно":"Подпись: что это",`<input class="scn-in${o.type==="custom"&&!(o.name||"").trim()?" need":""}" type="text" data-a="name" value="${escA(o.name||"")}" maxlength="80" placeholder="${o.type==="custom"?"Например: бокал игристого":"Необязательно: уточните, например «долька лайма»"}" aria-label="Подпись: что это">`,I_.dname)
+    +sec("Размер и наклон",rng("h","Размер",.04,1,.01,o.h,FMT.h)+rng("rot","Наклон",-45,45,1,o.rot||0,FMT.rot),I_.size)
+    +(nP>1?sec("С какого фото",seg("ref",Array.from({length:Math.min(4,nP)},(_,i)=>[String(i+1),`Фото ${i+1}`]),String(o.ref||1),"С какого фото"),I_.ref)+sec("Акцент",swts(sw("hero","Главный продукт",heroOf()===o,"Самый заметный в кадре")),I_.hero):"")}
+  else if(o&&o.k==="dec"){h+=head(`Декор ${numOf(o)}`,true)
+    +sec(o.type==="custom"?"Что это — обязательно":"Что это",`<input class="scn-in${o.type==="custom"&&!(o.name||"").trim()?" need":""}" type="text" data-a="name" value="${escA(o.name||"")}" maxlength="80" placeholder="${o.type==="custom"?"Например: бокал игристого":"Необязательно: уточните, например «долька лайма»"}" aria-label="Что это">`,I_.dname)
+    +sec("Форма",typeCards(o),I_.dtype)
     +sec("Положение",seg("pose",[["stand","Стоит"],["float","Парит"],["lie","Лежит"]],poseOf(o),"Положение")+(decs().length>1?`<button class="scn-link" type="button" data-act="poseall">Так же для всех: ${({stand:"стоят",float:"парят",lie:"лежат"})[poseOf(o)]}</button>`:""),I_.pose)
     +sec("Как выглядит",swts(sw("many","Россыпь",o.many,"Несколько штук вокруг точки")+sw("blur","Не в фокусе",o.blur,"Мягко размыт, как на переднем плане")),I_.dopts)
     +(o.type==="custom"?"":sec("Цвет",sws("col",[DT[o.type].col,...PKCOL.slice(0,9)],o.col||DT[o.type].col)))
@@ -5926,17 +6170,29 @@ function setPose(o,v){const was=poseOf(o),g=groundY(o),b=SC.base,onSup=Math.abs(
   if(v==="float"&&was!=="float"&&onSup)o.y=Math.max(.05,o.y-.1);
   if(v!=="float"&&was==="float"){const gy=(b.kind==="table"||b.kind==="pod")&&o.x>b.x-b.w/2&&o.x<b.x+b.w/2?b.y:o.y;o.y=gy}
   o.pose=v}
+/* столешница в тон интерьеру */
+function syncBase(say){const B=SC.base,p=envPicks(envSc())[0];if(!p||B.full)return;let t="";
+  if(B.kind==="surface"){B.surf=p[0];if(p[1])B.sv=Object.assign({},B.sv,{[p[0]]:p[1]});const sf=curSurf();t=surfShort(sf,surfVal(sf,B.sv))}
+  else if(B.kind==="table"){B.tMat=pickMat(p);t=(TMAT.find(x=>x[0]===B.tMat)||TMAT[0])[1].toLowerCase()}
+  if(say&&t)toast("Столешница к интерьеру: "+t)}
+function manualBase(){const B=SC.base;if(SC.bg.kind==="room"&&B.sync){B.sync=false;toast("Подбор к интерьеру выключен — выбрано вручную")}}
 function setVal(a,v){const o=selObj();
   if(a==="bg.stop"){SC.bg.stop=v;return}
   if(a==="txtMode"){SC.txtMode=v;return}
-  if(a.startsWith("bg.")){const k=a.slice(3);SC.bg[k]=k==="tone"?+v:v;return}
+  if(a.startsWith("bg.")){const k=a.slice(3);SC.bg[k]=k==="tone"?+v:v;
+    if(["room","style","tone2","kind"].includes(k)&&SC.bg.kind==="room"){const B=SC.base;
+      if(k==="kind"&&B.kind==="none"){setVal("base.kind","surface");B.sync=true}
+      if(B.sync)syncBase(true)}
+    return}
   if(a.startsWith("under.")){const k=a.slice(6);SC.under[k]=k==="w"?+v:v;if(k==="kind"&&v!=="none"&&SC.under.w<.15)SC.under.w=isPP()?BX(560):.46;return}
   if(a.startsWith("base.")){const k=a.slice(5),b=SC.base;
-    if(k==="sv"){b.sv=Object.assign({},b.sv,{[b.surf]:v});return}
+    if(k==="sv"){b.sv=Object.assign({},b.sv,{[b.surf]:v});manualBase();return}
+    if(k==="full"||k==="sync"){b[k]=!!v;if(k==="sync"&&v)syncBase(true);return}
+    if(k==="surf"||k==="tMat")manualBase();
     if(k==="kind"&&v!=="none"&&v!==b.kind){const P=prods(),ys=P.map(p=>p.y),xs=P.map(p=>p.x);
       b.y=v==="surface"?cl((P.length?Math.min(...ys):.7)-.12,.3,.85):cl(P.length?Math.max(...ys):.8,.4,.95);
       if(P.length&&v!=="surface"){b.x=(Math.min(...xs)+Math.max(...xs))/2;const sp=Math.max(...P.map(p=>boxOf(p).x1))-Math.min(...P.map(p=>boxOf(p).x0));b.w=cl(sp*(v==="table"?1.6:1.25),.2,v==="table"?1.2:1);P.forEach(p=>p.y=b.y)}}
-    b[k]=k==="w"||k==="tiers"?+v:v;return}
+    b[k]=k==="w"||k==="tiers"?+v:v;if(k==="kind"&&SC.bg.kind==="room"&&b.sync)syncBase(false);return}
   if(!o)return;
   if(a==="type"){if(o.k==="prod")o.h=cl(o.h/(PH[o.type]||.8)*(PH[v]||.8),.04,1);else{o.h=cl(o.h/(DH[o.type]||.12)*(DH[v]||.12),.02,.6);if(o.col===DT[o.type].col)o.col=null}o.type=v;return}
   if(a==="hero"){prods().forEach(p=>p.hero=false);o.hero=!!v;return}
@@ -5949,12 +6205,18 @@ function setVal(a,v){const o=selObj();
   if(a==="col"&&o.k==="dec"&&v===DT[o.type].col){o.col=null;return}
   if(a==="role"){o.size=isPP()?sizeOfPx(TROLE[v].px):TROLE[v].px/600*.95;o.role=v;return}
   o[a]=v===""?null:v}
-const REINSP=new Set(["pose","bold","align","txtMode","under.col","bg.kind","bg.gdir","bg.stop","under.kind","base.kind","base.surf","base.pod","type","role","ink","hero","caps"]);
+const REINSP=new Set(["base.full","base.sync","bg.room","bg.style","bg.tone2","bg.time","pose","bold","align","txtMode","under.col","bg.kind","bg.gdir","bg.stop","under.kind","base.kind","base.surf","base.pod","type","role","ink","hero","caps"]);
 function commit(reInsp){save();draw();drawLayers();if(reInsp)drawInsp();outSoon()}
 function all(){save();draw();drawLayers();drawInsp();drawOut();syncBar();drawRules();drawExtra();stepsSync()}
 function bindInsp(){const el=$("scnInsp");
+  el.addEventListener("keydown",e=>{const t=e.target.closest('[role="tab"]');if(!t||!["ArrowLeft","ArrowRight","Home","End"].includes(e.key))return;e.preventDefault();
+    const T=[...el.querySelectorAll('[role="tab"]')],i=T.indexOf(t),n=e.key==="Home"?0:e.key==="End"?T.length-1:(i+(e.key==="ArrowRight"?1:-1)+T.length)%T.length;openTab(T[n].dataset.tab)});
   el.addEventListener("click",e=>{const act=e.target.closest("[data-act]");if(act){const k=act.dataset.act;if(k==="poseall"){const o=selObj();snap();(o.k==="prod"?prods():decs()).forEach(x=>{if(x!==o)setPose(x,poseOf(o))});commit(true);toast("Положение применено ко всем");return}k==="dup"?dup():del();return}
     const tab=e.target.closest("[data-pg]");if(tab){PALG[tab.dataset.pa]=+tab.dataset.pg;drawInsp();const f=el.querySelector(`[data-pa="${tab.dataset.pa}"][data-pg="${tab.dataset.pg}"]`);if(f)f.focus();return}
+    const tb=e.target.closest("[data-tab]");if(tb){openTab(tb.dataset.tab);return}
+    const xo=e.target.closest("[data-xo]");if(xo){XO[xo.dataset.xo]=!XO[xo.dataset.xo];drawInsp();const f=el.querySelector(`[data-xo="${xo.dataset.xo}"]`);if(f)f.focus();return}
+    const ad=e.target.closest("[data-add]");if(ad){add(ad.dataset.add);return}
+    const sl=e.target.closest("[data-sel]");if(sl){select(sl.dataset.sel);const f=el.querySelector(`[data-sel="${sl.dataset.sel}"]`);if(f)f.focus();return}
     const fb=e.target.closest("[data-font]");if(fb){const inp=$("scnFontIn");inp.dataset.slot=fb.dataset.font;inp.click();return}
     const b=e.target.closest("button[data-a]");if(!b)return;const a=b.dataset.a;snap();setVal(a,b.dataset.v);
     commit(true);const f=el.querySelector(`[data-a="${a}"][data-v="${CSS.escape(b.dataset.v)}"]`);if(f)f.focus()});
@@ -5970,6 +6232,7 @@ function bindInsp(){const el=$("scnInsp");
     const a=t.dataset.a;if(!a)return;
     if(t.type==="checkbox"){snap();setVal(a,t.checked);commit(REINSP.has(a));return}
     if(t.type==="color")commit(true)})}
+function openTab(k){const L=k==="scene"?null:listOf(k);let id=k==="scene"?"bg":L.length?(L.find(o=>o.id===LASTSEL[k])||L[0]).id:"tab:"+k;select(id);const f=$("scnInsp").querySelector(`[data-tab="${k}"]`);if(f)f.focus()}
 function add(k){snap();const P=prods(),pp=isPP();let o;
   if(k==="prod"){const last=P[P.length-1],t=last?last.type:"jar",x=last?cl(last.x+.14,.08,.92):pp?BX(820):.62,y=last?last.y:(SC.base.kind==="none"?.8:SC.base.y);
     o={id:uid(),k:"prod",type:t,x,y,h:last?last.h*.85:.42*PH[t],rot:0,col:null,name:"",ref:last?Math.min(4,(last.ref||1)+1):1,hero:false}}
@@ -5981,7 +6244,7 @@ function dup(){const o=selObj();if(!o)return;snap();const c=JSON.parse(JSON.stri
   SC.objs.splice(SC.objs.indexOf(o)+1,0,c);SEL=c.id;all();toast("Копия добавлена")}
 function del(){const o=selObj();if(!o)return;const before=JSON.stringify(SC);snap();SC.objs=SC.objs.filter(x=>x!==o);SEL="bg";all();
   toastUndo("Объект удалён",()=>{SC=JSON.parse(before);SEL=o.id;all()})}
-function select(id){if(SEL===id)return;SEL=id;draw();drawLayers();drawInsp()}
+function select(id){if(SEL===id)return;SEL=id;const o=selObj();if(o)LASTSEL[o.k]=o.id;draw();drawLayers();drawInsp()}
 
 /* ---------- перетаскивание ---------- */
 function vb(e){const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const m=svg.getScreenCTM();return m?p.matrixTransform(m.inverse()):{x:0,y:0}}
@@ -6139,7 +6402,7 @@ function fromBuilder(){try{drawPreview()}catch(e){}const L=drawPreview.last,f=fr
   SC.style=S.style;SC.angle=find(ANGLES,S.angle)&&!find(ANGLES,S.angle).x?S.angle:"slight";
   SC.light=Object.assign(f.light,{id:S.light||"auto",side:S.lside||"left",soft:S.lsoft||"soft",temp:S.ltemp||"neutral"});
   const bnr=S.bnr&&S.bnr.on;SC.frame=bnr?{pp:true,gen:S.bnr.gen||"16:9",ratio:"16:9",edge:"extend"}:S.ratio==="16:9"?{pp:true,gen:"16:9",ratio:"16:9",edge:"extend"}:{pp:false,gen:"16:9",ratio:S.ratio==="auto"?"1:1":S.ratio,edge:"extend"};
-  SC.bg=Object.assign(f.bg,S.bg==="solid"?{kind:"solid",color:S.color}:S.bg==="grad"?{kind:"grad",g1:S.gmode==="pal"?lighten(S.gbase,.38):S.g1,g2:S.gmode==="pal"?S.gbase:S.g2,gdir:S.gdir==="radial"?"radial":"v"}:{kind:"room",room:"studio"});
+  SC.bg=Object.assign(f.bg,S.bg==="solid"?{kind:"solid",color:S.color}:S.bg==="grad"?{kind:"grad",g1:S.gmode==="pal"?lighten(S.gbase,.38):S.g1,g2:S.gmode==="pal"?S.gbase:S.g2,gdir:S.gdir==="radial"?"radial":"v"}:S.bg==="room"?{kind:"room",room:S.env.room,style:S.env.style,tone2:S.env.tone,time:S.env.time,blur:S.env.blur}:{kind:"room",room:"studio"});
   SC.rules=Object.fromEntries(RULES.map(([k])=>[k,typeof S[k]==="boolean"?S[k]:true]));
   SC.objs=SC.objs.filter(o=>o.k!=="prod");
   if(L){L.P.forEach((p,i)=>{const it=S.src==="text"&&S.items[p.i]||null,type=PT[p.ty]?p.ty:"jar";
@@ -6148,7 +6411,7 @@ function fromBuilder(){try{drawPreview()}catch(e){}const L=drawPreview.last,f=fr
       SC.base=Object.assign(f.base,{x:(Math.min(...xs)+Math.max(...xs))/2,y:Math.max(...ys),w:cl(sp*1.5,.2,1.2)});
       if(S.table)Object.assign(SC.base,{kind:"table",tMat:S.tMat,tCloth:S.tCloth,tShape:S.tShape});
       else if(S.pod&&S.pod!=="none")Object.assign(SC.base,{kind:"pod",pod:S.pod,pShape:S.podShape||"cyl",pCol:/^#/.test(S.podCol||"")?S.podCol:"#FFFFFF",tiers:+S.podTiers||1,w:cl(sp*1.25,.15,1)});
-      else if(S.bg==="scene")Object.assign(SC.base,{kind:"surface",surf:S.surface,sv:Object.assign({},S.sv||{}),y:cl(Math.min(...ys)-.14,.25,.8)});
+      else if(S.bg==="scene"||S.bg==="room")Object.assign(SC.base,{kind:"surface",surf:S.surface,sv:Object.assign({},S.sv||{}),full:S.bg==="scene"&&!!S.sfFull,sync:S.sfSync!==false,y:cl(Math.min(...ys)-.14,.25,.8)});
       if(S.table||S.pod&&S.pod!=="none")P.forEach(p=>p.y=SC.base.y)}}
   if(bnr&&Cloud.admin){SC.objs=SC.objs.filter(o=>o.k!=="txt");const b=S.bnr;
     if((b.head||"").trim())SC.objs.push({id:uid(),k:"txt",role:"head",text:b.head.trim(),x:BX(96),y:BY(192),size:sizeOfPx(64),ink:"auto",caps:true});
