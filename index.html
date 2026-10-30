@@ -1731,6 +1731,30 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 #surfPanel .sbig,#surfPanel .sprompt{display:none}#surfPanel{grid-template-columns:1fr!important;padding:12px 14px;margin-top:12px}#surfPanel h4{font-size:14px}#surfPanel p{margin:2px 0 8px;font-size:13px}
 #surfaces .card .d,#rooms .card .d,#decor .card .d{display:none}
 #sfHead,#bgRoom>.subh{margin-bottom:8px}
+.bbars{display:flex;flex-direction:column;gap:8px}.bbar{display:grid;grid-template-columns:minmax(110px,38%) 1fr 28px;align-items:center;gap:10px;font-size:13px}.bbar span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.bbar i{display:block;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--bad) var(--w),var(--sunk) var(--w))}.bbar b{font-variant-numeric:tabular-nums;font-size:12px;text-align:right}
+.abad{color:var(--bad)}.acard.awide{grid-column:1/-1}
+/* «Мои промты»: последний — синий, 4–5 — жёлтый, 1–3 — красный; фидбэк в одно нажатие */
+:root{--last:#2F7FD1;--bad:#D6453D}
+.hitem{position:relative;flex:none;grid-template-columns:80px minmax(0,1fr);gap:12px;padding:10px 12px 10px 14px;overflow:hidden}.hitem .hthumb{height:80px}
+.hitem::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:transparent}
+.hitem.h-good::before{background:var(--detail)}.hitem.h-bad::before{background:var(--bad)}
+.hitem.h-last{box-shadow:0 0 0 2px var(--last);border-color:transparent;background:color-mix(in srgb,var(--last) 5%,var(--panel))}
+.hlast{background:var(--last)!important;color:#fff!important}
+.hbody{display:flex;flex-direction:column;gap:6px;min-width:0}
+.hitem .hmeta .hdel{all:unset;cursor:pointer;width:32px;height:32px;margin:-6px -6px -6px 0;border-radius:10px;display:grid;place-items:center;color:var(--muted)}.hitem .hmeta .hdel svg{width:18px;height:18px}.hitem .hmeta .hdel:hover{color:var(--ink);background:var(--hover)}.hitem .hmeta .hdel[data-arm="1"]{width:auto;padding:0 10px;background:var(--warn-bg);color:var(--warn-ink);font-size:12px;font-weight:600}
+.hitem .achips i{font-size:11px}
+.htabs button{display:inline-flex;align-items:center;gap:6px}.htabs small{font-size:11px;color:var(--muted);font-weight:600}.htabs small:empty{display:none}
+.hdot{width:8px;height:8px;border-radius:50%;display:inline-block}.hdot.good{background:var(--detail)}.hdot.bad{background:var(--bad)}
+.fbk{display:flex;flex-direction:column;gap:8px;padding:8px 10px;border-radius:12px;background:var(--sunk)}
+.h-bad .fbk{background:color-mix(in srgb,var(--bad) 7%,var(--panel));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--bad) 22%,var(--line))}
+.fbkrow{display:flex;align-items:center;gap:8px 12px;flex-wrap:wrap}.fbkrow>span{font-size:12px;font-weight:600;color:var(--muted);white-space:nowrap}.fbkrow>span small{font-weight:400}
+.fbkgen button{font-size:12px;padding:4px 10px;min-height:30px}
+.fbkiss{align-items:flex-start;flex-direction:column}.fbks{flex-direction:row;align-items:center;justify-content:space-between;gap:12px;padding:6px 10px}.fbks span{font-size:12px;color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fbks .scn-link{flex:none;min-height:24px;padding:0}
+.fbkchips{display:flex;flex-wrap:wrap;gap:6px}
+.fbkc{all:unset;box-sizing:border-box;cursor:pointer;font-size:12px;font-weight:550;min-height:30px;padding:4px 10px;border-radius:999px;background:var(--panel);box-shadow:inset 0 0 0 1px var(--line);color:var(--ink);display:inline-flex;align-items:center;transition:background .2s cubic-bezier(.2,.8,.2,1)}
+.fbkc:hover{box-shadow:inset 0 0 0 1px var(--bad)}.fbkc[aria-pressed="true"]{background:var(--bad);color:#fff;box-shadow:none}.fbkc:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#doneFbk .fbk{margin-top:10px;text-align:left}#doneFbk:empty{display:none}
+@media (max-width:560px){.hitem{grid-template-columns:64px minmax(0,1fr)}.hitem .hthumb{height:64px}}
 /* плитки «Идей»: скелет, пока картинка грузится; картинка проявляется мягко */
 .it:not(.ld){background:linear-gradient(100deg,color-mix(in srgb,var(--line) 60%,var(--sunk)) 30%,var(--sunk) 50%,color-mix(in srgb,var(--line) 60%,var(--sunk)) 70%);background-size:300% 100%;animation:skSh2 1.6s cubic-bezier(.4,0,.2,1) infinite}
 .it img{opacity:0;filter:blur(8px);transform:scale(1.04);transition:opacity .6s cubic-bezier(.2,.8,.2,1),filter .7s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1)}
@@ -2565,8 +2589,8 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
 <div class="hwrap" id="hist" role="dialog" aria-modal="true" aria-labelledby="histTitle" hidden>
   <div class="hpanel">
     <div class="fbhead"><h2 id="histTitle">Мои промты</h2><button class="iconbtn" type="button" id="histClose" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-    <p class="hint hsub">Каждый скопированный промт сохраняется сюда с настройками. Хранятся последние 10, а оценённые на 4–5 остаются навсегда. Видны только вам и администратору.</p>
-    <div class="gsort htabs" id="histTabs" role="group" aria-label="Фильтр"><button type="button" data-hf="all" aria-pressed="true">Все</button><button type="button" data-hf="new" aria-pressed="false">Без оценки</button><button type="button" data-hf="best" aria-pressed="false">4–5 звёзд</button></div>
+    <p class="hint hsub">Каждый скопированный промт сохраняется сюда с настройками. Без оценки хранятся последние 10, оценённые — навсегда. Синим — последний скопированный, жёлтым — удачные, красным — неудачные. Видны только вам и администратору.</p>
+    <div class="gsort htabs" id="histTabs" role="group" aria-label="Фильтр"><button type="button" data-hf="all" aria-pressed="true">Все</button><button type="button" data-hf="new" aria-pressed="false">Без оценки <small></small></button><button type="button" data-hf="best" aria-pressed="false"><i class="hdot good"></i>4–5 <small></small></button><button type="button" data-hf="bad" aria-pressed="false"><i class="hdot bad"></i>1–3 <small></small></button></div>
     <ul class="hlist" id="histList"></ul>
   </div>
 </div>
@@ -2612,7 +2636,7 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
       <h2 id="doneH">Промт скопирован. Спасибо!</h2>
       <p id="doneLead">Вставьте его в нейросеть вместе с фото продукта. Когда будет результат, возвращайтесь: оцените генерацию и поделитесь удачной работой с командой.</p></div>
     <ol class="donesteps" id="doneSteps"><li class="on"><b>1</b>Сгенерируйте</li><li><b>2</b>Оцените</li><li><b>3</b>Поделитесь</li></ol>
-    <div class="donerate"><span class="lbl" id="doneQ">Как получилось?</span><div id="doneStars"></div><p class="hint" id="doneMsg"></p></div>
+    <div class="donerate"><span class="lbl" id="doneQ">Как получилось?</span><div id="doneStars"></div><div id="doneFbk"></div><p class="hint" id="doneMsg"></p></div>
     <div id="doneSlot"></div>
     <div class="donefoot"><button class="btn ghost" type="button" id="doneLater">Оценю позже</button>
       <label class="tg donenot"><input type="checkbox" role="switch" id="doneOff"><span>Не показывать после копирования</span></label>
@@ -4340,10 +4364,42 @@ function anaPanels(){const A=anaCompute(),per=ANA.days?`за ${ANA.days} дн.`:
       ${anaCard("Сценарии",`${per} · сколько раз выбрали`,hbars([...A.presN].sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,n])=>[(PRESETS.find(p=>p.id===k)||{t:k}).t,n])))}
       ${anaCard("Шаблоны команды",`${per} · сколько раз применили`,hbars([...A.tmplN].sort((a,b)=>b[1]-a[1]).slice(0,8)))}
     </div>`;
-  return {overview,ux,quality,people,scenes}}
+  let badP="";try{badP=badReport(A)}catch(e){badP=`<p class="hint">Не получилось посчитать: ${escA(e.message)}</p>`}
+  return {overview,ux,quality,bad:badP,people,scenes}}
 function topN(list,n){const m=new Map();list.filter(Boolean).forEach(x=>m.set(x,(m.get(x)||0)+1));return [...m].sort((a,b)=>b[1]-a[1]).slice(0,n)}
 
-const ATABS=[["overview","Обзор"],["ux","Удобство"],["quality","Качество"],["people","Люди"],["scenes","Сцены"],["fb","Отзывы"],["access","Доступ"]];
+/* ----- плохие промты: какие настройки чаще проваливаются и что ломается ----- */
+const BAD_KEYS=[["style","Стиль"],["angle","Ракурс"],["arr","Расстановка"],["bg","Фон"],["room","Интерьер"],["surface","Поверхность"],["light","Свет"],["place","Место в кадре"],["fill","Масштаб"],["shadow","Тень"],["support","Подставка"]];
+function badVals(sc){sc=sc||{};const o={};if(sc.mode==="scene"&&sc.sc){const c=sc.sc;o.style=c.style;o.angle=c.angle;o.bg=c.bg&&c.bg.kind;if(c.bg&&c.bg.kind==="room")o.room=c.bg.room;o.support=c.base&&c.base.kind;if(c.base&&c.base.kind==="surface")o.surface=c.base.surf;o.light=c.light&&c.light.id;return o}
+  ["style","angle","arr","bg","light","place","fill","shadow"].forEach(k=>{if(sc[k]!=null)o[k]=sc[k]});if(sc.bg==="scene"||sc.bg==="room")o.surface=sc.surface;if(sc.bg==="room"&&sc.env)o.room=sc.env.room;o.support=sc.table?"table":sc.pod&&sc.pod!=="none"?"pod":"none";return o}
+function badLabel(k,v){try{if(k==="style")return (find(STYLES,v)||{t:v}).t;if(k==="bg")return ({solid:"Цвет",grad:"Градиент",scene:"Поверхность",room:"Интерьер",text:"Своими словами"})[v]||v;
+  if(k==="room")return envRoom(v)[1];if(k==="surface")return (find(SURF,v)||{t:v}).t;if(k==="support")return ({none:"Без подставки",table:"Стол",pod:"Подиум",surface:"Поверхность"})[v]||v;if(k==="light"&&v==="auto")return "По стилю";return label(k,v)||v}catch(e){return v}}
+const issueRu=k=>(ISSUES.find(x=>x[0]===k)||[,k])[1];
+function badReport(A){const D=ANA.D,me=Cloud.user.id,since=ANA.days?Date.now()-ANA.days*864e5:0,keep=u=>!(ANA.exMe&&u===me);
+  const cp=D.ev.filter(e=>e.kind==="copy"&&keep(e.user_id)&&tms(e.created_at)>=since&&e.scene);
+  const rt=D.ev.filter(e=>e.kind==="retry"&&keep(e.user_id)&&tms(e.created_at)>=since);
+  const bad=D.hist.filter(h=>h.rating&&h.rating<=3&&keep(h.user_id)&&tms(h.used_at)>=since);
+  const st={},bump=(k,v,f,iss)=>{if(v==null||v==="")return;const id=k+"|"+v,x=st[id]=st[id]||{k,v,use:0,bad:0,retry:0,iss:{}};x[f]++;(iss||[]).forEach(i=>x.iss[i]=(x.iss[i]||0)+1)};
+  cp.forEach(e=>{const o=badVals(e.scene);Object.keys(o).forEach(k=>bump(k,o[k],"use"))});
+  bad.forEach(h=>{const o=badVals(h.scene);Object.keys(o).forEach(k=>bump(k,o[k],"bad",h.issues))});
+  rt.forEach(e=>{const o=badVals(e.scene);Object.keys(o).forEach(k=>bump(k,o[k],"retry"))});
+  const avg=cp.length?Math.min(1,(bad.length+rt.length)/cp.length):0,rows=Object.values(st).filter(x=>x.use>=3&&(x.bad+x.retry)>=2).map(x=>Object.assign(x,{rate:Math.min(1,(x.bad+x.retry)/x.use)})).filter(x=>x.rate>=avg*1.25&&x.rate-avg>=.08).sort((a,b)=>(b.rate-avg)*Math.sqrt(b.use)-(a.rate-avg)*Math.sqrt(a.use)).slice(0,10);
+  const tbl=rows.length?`<div class="atbl"><table><thead><tr><th>Настройка</th><th>Копий</th><th>Неудач</th><th>Доля</th><th>Чаще всего</th></tr></thead><tbody>${rows.map(x=>{const top=Object.entries(x.iss).sort((a,b)=>b[1]-a[1]).slice(0,2).map(([i,n])=>`${issueRu(i)} · ${n}`).join(", ");
+    return `<tr><td><small>${escA((BAD_KEYS.find(b=>b[0]===x.k)||[,x.k])[1])}</small><br><b>${escA(badLabel(x.k,x.v))}</b></td><td>${x.use}</td><td>${x.bad}${x.retry?` <small>+${x.retry} повт.</small>`:""}</td><td><b class="${x.rate>=.4?"abad":""}">${Math.round(x.rate*100)}%</b></td><td><small>${escA(top||"—")}</small></td></tr>`}).join("")}</tbody></table></div>`
+    :`<p class="hint">Пока ничего не выделяется. Настройка попадёт сюда, когда её скопируют 3+ раза, будет 2+ неудачи и доля неудач заметно выше средней.</p>`;
+  const isAll={},byGen={nano:{n:0,i:{}},gpt:{n:0,i:{}},other:{n:0,i:{}},"":{n:0,i:{}}};
+  bad.forEach(h=>{const g=byGen[h.gen||""];g.n++;(h.issues||[]).forEach(i=>{isAll[i]=(isAll[i]||0)+1;g.i[i]=(g.i[i]||0)+1})});
+  const mx=Math.max(1,...Object.values(isAll)),isBars=Object.keys(isAll).length?`<div class="bbars">${Object.entries(isAll).sort((a,b)=>b[1]-a[1]).map(([i,n])=>`<div class="bbar"><span>${escA(issueRu(i))}</span><i style="--w:${Math.round(n/mx*100)}%"></i><b>${n}</b></div>`).join("")}</div>`:`<p class="hint">Отметок «что не так» пока нет.</p>`;
+  const genLine=`<p class="hint">Неудачи по нейросетям: Nano Banana — ${byGen.nano.n}, GPT Image — ${byGen.gpt.n}, другая — ${byGen.other.n}, не указано — ${byGen[""].n}.</p>`;
+  const dk={};rt.forEach(e=>((e.meta&&e.meta.diff)||[]).forEach(k=>dk[k]=(dk[k]||0)+1));
+  const DKRU={style:"Стиль",angle:"Ракурс",arr:"Расстановка",bg:"Фон",color:"Цвет фона",g1:"Градиент",g2:"Градиент",gbase:"Градиент",gdir:"Градиент",surface:"Поверхность",sv:"Оттенок поверхности",env:"Интерьер",light:"Свет",lside:"Сторона света",lsoft:"Характер света",ltemp:"Температура света",place:"Место в кадре",fill:"Масштаб",grid:"Схема",shadow:"Тень",dof:"Резкость",decor:"Декор",pod:"Подиум",table:"Стол",ratio:"Формат",tilt:"Наклон",gap:"Воздух",mirror:"Акцент",enh:"Усилители",cats:"Категория",objs:"Объекты на холсте",base:"Подставка",frame:"Кадр",extra:"Декор от нейросети",rules:"Правила фото",txtMode:"Текст",under:"Подложка"};
+  const dkm={};Object.entries(dk).forEach(([k,n])=>{const r=DKRU[k]||k;dkm[r]=(dkm[r]||0)+n});const dmx=Math.max(1,...Object.values(dkm));
+  const retryBars=Object.keys(dkm).length?`<div class="bbars">${Object.entries(dkm).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,n])=>`<div class="bbar"><span>${escA(k)}</span><i style="--w:${Math.round(n/dmx*100)}%"></i><b>${n}</b></div>`).join("")}</div>`:`<p class="hint">Повторных попыток пока не было. Повтор — это новый промт в течение 20 минут после неоценённого, с 1–6 изменёнными настройками.</p>`;
+  return `<div class="kpis">${kpi("Неудачных (1–3)",fmtN(bad.length),null,null,"down","оценки за период")}${kpi("С отметкой «что не так»",bad.length?fmtPct(bad.filter(h=>(h.issues||[]).length).length/bad.length):"—",null,null,"up","доля неудач с причиной")}${kpi("Повторных попыток",fmtN(rt.length),null,null,"down","переделали сразу после копирования")}</div>
+    <div class="acols">${anaCard("Проблемные настройки",`Неудачи = оценки 1–3 + повторные попытки, к числу копирований. В среднем — ${Math.round(avg*100)}%; здесь только то, что проваливается заметно чаще`,tbl,"awide")}
+    ${anaCard("Что ломается","Отметки в оценке 1–3",isBars+genLine)}
+    ${anaCard("Что меняют при повторе","Какие настройки поправили, переделывая промт — подсказка, что не сработало",retryBars)}</div>`}
+const ATABS=[["overview","Обзор"],["ux","Удобство"],["quality","Качество"],["bad","Неудачи"],["people","Люди"],["scenes","Сцены"],["fb","Отзывы"],["access","Доступ"]];
 /* оболочка: вкладки, период, «без меня»; старые блоки раскладываются по вкладкам */
 function anaShell(){const body=$("admBody"),secs=[...body.children].filter(x=>x.tagName==="SECTION"),old=body.querySelector(":scope>.atiles");if(old)old.remove();
   const [fb,combos,rated,settings,team,prank,pw]=secs,unres=(ANA.D.fb||[]).filter(f=>!f.resolved).length;
@@ -4352,9 +4408,9 @@ function anaShell(){const body=$("admBody"),secs=[...body.children].filter(x=>x.
     <div class="aopts"><div class="gsort" role="radiogroup" aria-label="Период" id="aPer">${[[7,"7 дней"],[30,"30 дней"],[90,"90 дней"],[0,"Всё время"]].map(([d,t])=>`<button type="button" role="radio" data-days="${d}" aria-checked="${ANA.days===d}">${t}</button>`).join("")}</div>
     <label class="tg"><input type="checkbox" role="switch" id="aExMe"${ANA.exMe?" checked":""}><span>Без моих действий</span></label></div>`;
   const P=anaPanels(),pan=(k,html,nodes)=>{const d=document.createElement("div");d.className="apanel";d.id="apan-"+k;d.setAttribute("role","tabpanel");d.setAttribute("aria-labelledby","atab-"+k);d.hidden=ANA.tab!==k;if(html)d.innerHTML=html;(nodes||[]).filter(Boolean).forEach(n=>d.appendChild(n));return d};
-  body.innerHTML="";body.append(tools,pan("overview",P.overview),pan("ux",P.ux),pan("quality",P.quality,[rated]),pan("people",P.people,[team]),pan("scenes",P.scenes,[combos,settings]),pan("fb","",[fb]),pan("access","",[prank,pw]));
+  body.innerHTML="";body.append(tools,pan("overview",P.overview),pan("ux",P.ux),pan("quality",P.quality,[rated]),pan("bad",P.bad),pan("people",P.people,[team]),pan("scenes",P.scenes,[combos,settings]),pan("fb","",[fb]),pan("access","",[prank,pw]));
   anaWire()}
-function anaRefresh(){const P=anaPanels();["overview","ux"].forEach(k=>$("apan-"+k).innerHTML=P[k]);
+function anaRefresh(){const P=anaPanels();["overview","ux","bad"].forEach(k=>$("apan-"+k).innerHTML=P[k]);
   [["quality"],["people"],["scenes"]].forEach(([k])=>{const el=$("apan-"+k),keepNodes=[...el.children].filter(x=>x.tagName==="SECTION"&&!x.classList.contains("acard")&&!x.classList.contains("kpis"));const tmp=document.createElement("div");tmp.innerHTML=P[k];el.innerHTML="";[...tmp.children].forEach(n=>el.appendChild(n));keepNodes.forEach(n=>el.appendChild(n))});anaWire()}
 function anaTab(k,focus){ANA.tab=k;document.querySelectorAll("[data-atab]").forEach(b=>{const on=b.dataset.atab===k;b.setAttribute("aria-selected",String(on));b.tabIndex=on?0:-1;if(on&&focus)b.focus()});document.querySelectorAll(".apanel").forEach(p=>p.hidden=p.id!=="apan-"+k);$("adm").scrollTop=0}
 function anaWire(){document.querySelectorAll("#admBody .kpis").forEach(k=>k.style.setProperty("--n",k.children.length));document.querySelectorAll("#admBody .achart").forEach(ch=>{if(ch.dataset.w)return;ch.dataset.w="1";const tip=ch.querySelector(".atip"),B=JSON.parse(ch.dataset.bars);
@@ -4374,7 +4430,7 @@ async function openAdmin(){
     pageAll(()=>Cloud.sb.from("scene_events").select("user_id,kind,scene,meta,created_at").order("created_at",{ascending:false})),
     Cloud.sb.from("profiles").select("id,name,email,role,created_at"),
     Cloud.sb.from("feedback").select("id,author_name,text,screenshot,resolved,created_at,ua").order("created_at",{ascending:false}).limit(500),
-    pageAll(()=>Cloud.sb.from("prompt_history").select("id,user_id,scene,rating,used_at").not("rating","is",null).order("used_at",{ascending:false})),
+    pageAll(()=>Cloud.sb.from("prompt_history").select("id,user_id,scene,rating,used_at,gen,issues").not("rating","is",null).order("used_at",{ascending:false})),
     pageAll(()=>Cloud.sb.from("publication_likes").select("publication_id,user_id,created_at")),
     Cloud.sb.from("showcase").select("publication_id,title")]);
   ADM.rated=rh.data||[];
@@ -4405,7 +4461,7 @@ function renderAdmin(events,profiles,allowed,fbs){fbs=fbs||[];
   // setting popularity
   const pop=ANA_KEYS.map(([k,t])=>{const m=new Map();copies.forEach(e=>{const v=(e.scene||{})[k];if(v!=null)m.set(v,(m.get(v)||0)+1)});
     const rows=[...m.entries()].sort((a,b)=>b[1]-a[1]).slice(0,5),max=rows.length?rows[0][1]:1;
-    return `<div class="abox"><h4>${t}</h4>${rows.length?rows.map(([v,n])=>`<div class="abar"><span>${escA(valLabel(k,v))}</span><i style="--w:${(n/max*100).toFixed(1)}%"></i><b>${n}</b></div>`).join(""):'<p class="hint">Нет данных</p>'}</div>`}).join("");
+    return `<div class="abox"><h4>${t}</h4>${rows.length?rows.map(([v,n])=>`<div class="bbar"><span>${escA(valLabel(k,v))}</span><i style="--w:${(n/max*100).toFixed(1)}%"></i><b>${n}</b></div>`).join(""):'<p class="hint">Нет данных</p>'}</div>`}).join("");
   // per designer
   const per=profiles.map(p=>{const mine=copies.filter(e=>e.user_id===p.id),st=new Map();mine.forEach(e=>{const v=(e.scene||{}).style;st.set(v,(st.get(v)||0)+1)});
     const fav=[...st.entries()].sort((a,b)=>b[1]-a[1])[0];return {name:p.name||p.email,email:p.email,role:p.role||"—",n:mine.length,last:mine[0]?mine[0].created_at:null,fav:fav?valLabel("style",fav[0]):"—"}}).sort((a,b)=>b.n-a.n);
@@ -4618,27 +4674,44 @@ async function historyTouch(){
 }
 async function loadHistory(){
   if(!Cloud.sb||!Cloud.user)return;
-  const {data}=await Cloud.sb.from("prompt_history").select("id,state,scene,prompt,rating,used_at").eq("user_id",Cloud.user.id).order("used_at",{ascending:false}).limit(80);
+  const {data}=await Cloud.sb.from("prompt_history").select("id,state,scene,prompt,rating,used_at,gen,issues").eq("user_id",Cloud.user.id).order("used_at",{ascending:false}).limit(80);
   HIST.rows=data||[];
   const {data:pubs}=await Cloud.sb.from("publications").select("id,user_id,author_name,history_id,title,usage,note,rating,image_path,thumb_path,w,h,cap,extra").eq("user_id",Cloud.user.id);
   HIST.published=new Set((pubs||[]).map(p=>p.history_id));HIST.pubs=Object.fromEntries((pubs||[]).map(p=>[p.history_id,p]));
   syncNudge();
 }
 function histOpen(o){$("hist").hidden=!o;$("histBtn").setAttribute("aria-expanded",String(o));document.body.classList.toggle("locked",o);if(o){drawHistory();$("histClose").focus()}else $("histBtn").focus()}
+/* ----- фидбэк по результату: где генерировали и что не так (одно нажатие) ----- */
+const AIGEN=[["nano","Nano Banana"],["gpt","GPT Image"],["other","Другая"]];
+const ISSUES=[["product","Продукт исказился"],["label","Логотип, надписи"],["persp","Перспектива"],["bg","Фон"],["light","Свет"],["extra","Лишние предметы"],["comp","Композиция"],["color","Цвета"],["text","Текст баннера"],["collage","Похоже на вклейку"]];
+const genPref=()=>{try{return localStorage.getItem("gena-aigen")||""}catch(e){return ""}};
+function fbkHTML(r,full){const g=r.gen||genPref(),bad=r.rating&&r.rating<=3,I=r.issues||[];
+  if(!full&&bad&&I.length&&!FBK.open.has(r.id))return `<div class="fbk fbks" data-fh="${escA(r.id)}"><span>${escA([(AIGEN.find(x=>x[0]===r.gen)||[])[1],I.map(k=>(ISSUES.find(x=>x[0]===k)||[,k])[1]).join(", ")].filter(Boolean).join(" · "))}</span><button type="button" class="scn-link" data-fopen>Изменить</button></div>`;
+  return `<div class="fbk" data-fh="${escA(r.id)}"><div class="fbkrow"><span>Где генерировали</span><div class="gsort fbkgen" role="radiogroup" aria-label="Нейросеть">${AIGEN.map(([v,t])=>`<button type="button" role="radio" data-fgen="${v}" aria-checked="${g===v}">${t}</button>`).join("")}</div></div>`
+   +(bad?`<div class="fbkrow fbkiss"><span>Что не так? <small>можно несколько</small></span><div class="fbkchips">${ISSUES.map(([v,t])=>`<button type="button" class="fbkc" data-fiss="${v}" aria-pressed="${I.includes(v)}">${t}</button>`).join("")}</div></div>`:"")+`</div>`}
+const FBK={t:{},open:new Set()};
+function fbkRow(id){return HIST.rows.find(r=>r.id===id)||(DONE.hid===id?DONE.row:null)}
+function fbkSave(id,patch,label){const r=fbkRow(id);if(r)Object.assign(r,patch);
+  clearTimeout(FBK.t[id]);FBK.t[id]=setTimeout(async()=>{const x=fbkRow(id)||patch,body={gen:x.gen||null,issues:x.issues||[],feedback_at:new Date().toISOString()};
+    const {error}=await Cloud.sb.from("prompt_history").update(body).eq("id",id);if(error){toast("Не получилось сохранить отзыв");return}
+    track("issue",{hid:id,gen:body.gen,issues:body.issues,v:x.rating||null,mode:x.state&&x.state.mode==="scene"?"scene":"builder"});if(label)toast(label)},patch.issues?900:200)}
+document.addEventListener("click",e=>{const op=e.target.closest("[data-fopen]");if(op){const id=op.closest("[data-fh]").dataset.fh;FBK.open.add(id);if(!$("hist").hidden)drawHistory();return}const g=e.target.closest("[data-fgen]"),c=e.target.closest("[data-fiss]");if(!g&&!c)return;const box=e.target.closest("[data-fh]");if(!box)return;const id=box.dataset.fh,r=fbkRow(id)||{id,issues:[]};
+  if(g){const v=g.dataset.fgen;try{localStorage.setItem("gena-aigen",v)}catch(err){}box.querySelectorAll("[data-fgen]").forEach(b=>b.setAttribute("aria-checked",String(b===g)));fbkSave(id,{gen:v})}
+  if(c){const v=c.dataset.fiss,I=new Set(r.issues||[]);I.has(v)?I.delete(v):I.add(v);c.setAttribute("aria-pressed",String(I.has(v)));fbkSave(id,{issues:[...I],gen:r.gen||genPref()||null},I.size?"Спасибо! Учтём, чтобы улучшить промты":null)}});
 function drawHistory(){
-  const f=HIST.filter,rows=HIST.rows.filter(r=>f==="all"||(f==="new"?!r.rating:r.rating>=4));
-  $("histTabs").querySelectorAll("[data-hf]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.hf===f)));
+  const f=HIST.filter,last=HIST.rows[0]&&HIST.rows[0].id,rows=HIST.rows.filter(r=>f==="all"||(f==="new"?!r.rating:f==="bad"?r.rating&&r.rating<=3:r.rating>=4));
+  $("histTabs").querySelectorAll("[data-hf]").forEach(b=>{b.setAttribute("aria-pressed",String(b.dataset.hf===f));const n=b.dataset.hf==="all"?0:HIST.rows.filter(r=>b.dataset.hf==="new"?!r.rating:b.dataset.hf==="bad"?r.rating&&r.rating<=3:r.rating>=4).length;const sm=b.querySelector("small");if(sm)sm.textContent=n||""});
   const L=$("histList");
   if(!rows.length){L.innerHTML=`<p class="tempty">${HIST.rows.length?"Здесь пусто.":"Пока пусто. Скопируйте промт: он сохранится здесь вместе с настройками."}</p>`;return}
-  L.innerHTML=rows.map((r,i)=>{const pub=HIST.published&&HIST.published.has(r.id),can=r.rating>=4;
-    return `<li class="hitem" data-hid="${escA(r.id)}"><div class="hthumb">${pvBox}</div><div class="hbody">
-      <div class="hmeta"><small>${fmtWhen(r.used_at)}</small>${r.rating>=4?'<em class="hkeep">сохранён навсегда</em>':""}${pub?'<em class="hpub">опубликован</em>':""}</div>
-      <div class="achips">${sceneChips(r.scene).slice(0,6).map(x=>`<i>${escA(x)}</i>`).join("")}</div>
-      <div class="hrate"><span>${r.rating?"Ваша оценка":"Как получилось?"}</span>${starsHTML(r.rating,r.id)}</div>
+  L.innerHTML=rows.map((r,i)=>{const pub=HIST.published&&HIST.published.has(r.id),good=r.rating>=4,bad=r.rating&&r.rating<=3,isLast=r.id===last;
+    return `<li class="hitem${isLast?" h-last":""}${good?" h-good":bad?" h-bad":""}" data-hid="${escA(r.id)}"><div class="hthumb">${pvBox}</div><div class="hbody">
+      <div class="hmeta">${isLast?'<em class="hlast">Последний</em>':""}<small>${fmtWhen(r.used_at)}</small>${pub?'<em class="hpub">в «Идеях»</em>':""}<button class="hdel" type="button" data-hact="del" aria-label="Удалить из истории" title="Удалить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 13h8l1-13"/></svg></button></div>
+      <div class="achips">${sceneChips(r.scene).slice(0,4).map(x=>`<i>${escA(x)}</i>`).join("")}</div>
+      <div class="hrate"><span>${r.rating?"Оценка":"Как получилось?"}</span>${starsHTML(r.rating,r.id)}</div>
+      ${bad?fbkHTML(r):""}
       <div class="hact"><button class="btn sm" type="button" data-hact="apply">Применить</button><button class="btn ghost sm" type="button" data-hact="copy">Скопировать</button>
-      ${pub?`<button class="btn ghost sm" type="button" data-hact="edit">Редактировать публикацию</button>`:can?`<button class="btn ghost sm accent" type="button" data-hact="publish">Опубликовать работу</button>`:`<span class="hhint">Поставьте 4–5, чтобы опубликовать</span>`}
-      <button class="hdel" type="button" data-hact="del" aria-label="Удалить из истории">Удалить</button></div></div></li>`}).join("");
-  rows.forEach((r,i)=>miniPreview(L.children[i].querySelector(".hthumb"),r.scene,"h"+i,96,96));
+      ${pub?`<button class="btn ghost sm" type="button" data-hact="edit">Редактировать</button>`:good?`<button class="btn ghost sm accent" type="button" data-hact="publish">Опубликовать</button>`:""}</div></div></li>`}).join("");
+  rows.forEach((r,i)=>miniPreview(L.children[i].querySelector(".hthumb"),r.scene,"h"+i,80,80));
 }
 $("histBtn").addEventListener("click",()=>histOpen(true));
 $("histClose").addEventListener("click",()=>histOpen(false));
@@ -4649,7 +4722,8 @@ $("histList").addEventListener("click",async e=>{
   if(st){const id=st.dataset.h,v=+st.dataset.rate,row=HIST.rows.find(r=>r.id===id);const nv=row&&row.rating===v?null:v;
     const {error}=await Cloud.sb.from("prompt_history").update({rating:nv}).eq("id",id);if(error){toast("Не получилось сохранить оценку");return}
     if(row)row.rating=nv;track("rate",{v:nv,via:"history",hid:id,scn:!!(row&&isScn(row.state))});syncNudge();drawHistory();
-    if(nv>=4&&!(HIST.published&&HIST.published.has(id)))toast("Отлично! Теперь можно опубликовать работу в «Идеях»");return}
+    if(nv>=4&&!(HIST.published&&HIST.published.has(id)))toast("Отлично! Теперь можно опубликовать работу в «Идеях»");
+    if(nv&&nv<=3){if(!row.gen&&genPref())fbkSave(id,{gen:genPref()});const it=$("histList").querySelector(`[data-hid="${CSS.escape(id)}"] .fbkiss`);if(it)it.scrollIntoView({block:"nearest",behavior:"smooth"})}return}
   const b=e.target.closest("[data-hact]");if(!b)return;const li=b.closest("[data-hid]"),row=HIST.rows.find(r=>r.id===li.dataset.hid);if(!row)return;
   if(b.dataset.hact==="apply"&&isScn(row.state)){histOpen(false);Scene.open(row.state.sc);return}
   if(b.dataset.hact==="apply"){const snap=JSON.stringify(S);S=Object.assign(freshS(),JSON.parse(JSON.stringify(row.state)));migrate();S.preset=null;drawLights();renderProds();update();histOpen(false);go("builder");
@@ -4984,6 +5058,9 @@ function bnrPatch(out){const L=bnrLay(),b=S.bnr,g=bnrGen(),c=bnrCrop(g),q=s=>`"$
 
 /* ----- «Что нового»: только изменения для всех, без админских. Новая версия — первой строкой ----- */
 const CHANGELOG=[
+ ["2.5","30 октября",["«Мои промты» стали нагляднее: последний скопированный — синим, удачные (4–5) — жёлтой полосой, неудачные (1–3) — красной. Новый фильтр «1–3».",
+  "Оценили на 1–3 — отметьте в одно нажатие, где генерировали и что пошло не так: продукт, надписи, перспектива, свет и т. д. По этим отметкам мы чиним промты.",
+  "Оценённые промты больше не удаляются: без оценки по-прежнему хранятся последние 10."]],
  ["2.4","30 октября",["Новый тур «Как работает GENA»: Идеи, Конструктор, Макет и как делиться — коротко и с анимацией. Открывается из меню профиля и покажется всем один раз.",
   "Обновлены «Карта GENA» и подсказки «i» под текущий интерфейс.",
   "В «Схеме» снова видно «Слева / Справа» — с какой стороны главный акцент. Миниатюра «Без схемы» больше не отражается зеркально."]],
@@ -5250,10 +5327,11 @@ function confetti(from){if(matchMedia("(prefers-reduced-motion: reduce)").matche
 function doneSteps(n){[...$("doneSteps").children].forEach((li,i)=>{li.className=i<n?"ok":i===n?"on":""})}
 function doneStars(){$("doneStars").innerHTML=starsHTML(DONE.rating,DONE.hid||"",false).replace('class="stars"',`class="stars"${DONE.hid?"":' aria-disabled="true"'}`)}
 function slotPub(on){const body=$("pubBody");if(on){$("doneSlot").appendChild(body)}else if(body.parentElement!==$("pubForm"))$("pubForm").appendChild(body)}
-function doneOpen(copied,hidP){$("doneH").textContent=copied?"Промт скопирован. Спасибо!":"Промт выделен: нажмите ⌘C";DONE.hid=null;DONE.rating=null;slotPub(false);$("doneMsg").textContent="";$("doneQ").textContent="Как получилось?";doneSteps(0);doneStars();
+function doneFbk(){const el=$("doneFbk");if(!DONE.hid){el.innerHTML="";return}const h=HIST.rows.find(r=>r.id===DONE.hid);DONE.row=Object.assign(h||(DONE.row&&DONE.row.id===DONE.hid?DONE.row:{id:DONE.hid,issues:[]}),{rating:DONE.rating});if(!DONE.row.gen&&genPref())DONE.row.gen=genPref();el.innerHTML=fbkHTML(DONE.row,true)}
+function doneOpen(copied,hidP){$("doneH").textContent=copied?"Промт скопирован. Спасибо!":"Промт выделен: нажмите ⌘C";DONE.hid=null;DONE.rating=null;DONE.row=null;$("doneFbk").innerHTML="";slotPub(false);$("doneMsg").textContent="";$("doneQ").textContent="Как получилось?";doneSteps(0);doneStars();
   $("doneOff").checked=false;$("doneSnd").setAttribute("aria-pressed",String(prefGet("gena-sound",true)));
   $("done").hidden=false;$("done").querySelector(".donecard").classList.remove("rated");document.body.classList.add("locked");requestAnimationFrame(()=>confetti($("done").querySelector(".donebadge")));chime();$("doneLater").focus();
-  hidP.then(id=>{if(!id){$("doneMsg").textContent="История сейчас недоступна, оценку можно поставить позже в «Мои промты».";return}DONE.hid=id;doneStars()})}
+  hidP.then(id=>{if(!id){$("doneMsg").textContent="История сейчас недоступна, оценку можно поставить позже в «Мои промты».";return}DONE.hid=id;doneStars();doneFbk()})}
 function doneClose(){if($("doneOff").checked){prefSet("gena-done-always",false);$("uDone").checked=false;toast("Хорошо. Вернуть окно можно в меню профиля")}
   $("done").hidden=true;slotPub(false);document.body.classList.toggle("locked",!$("hist").hidden||!$("pub").hidden)}
 $("doneClose").addEventListener("click",doneClose);$("doneLater").addEventListener("click",doneClose);
@@ -5263,10 +5341,10 @@ $("doneSnd").addEventListener("click",()=>{const on=!prefGet("gena-sound",true);
 $("uDone").checked=prefGet("gena-done-always",false);$("uDone").addEventListener("change",e=>prefSet("gena-done-always",e.target.checked));
 $("doneStars").addEventListener("click",async e=>{const b=e.target.closest("[data-rate]");if(!b||!DONE.hid)return;const v=+b.dataset.rate;
   const {error}=await Cloud.sb.from("prompt_history").update({rating:v}).eq("id",DONE.hid);if(error){$("doneMsg").textContent="Не получилось сохранить оценку, попробуйте ещё раз";return}
-  DONE.rating=v;track("rate",{v,via:"done",hid:DONE.hid});doneStars();loadHistory();
+  DONE.rating=v;track("rate",{v,via:"done",hid:DONE.hid});doneStars();doneFbk();if(DONE.row.gen)fbkSave(DONE.hid,{gen:DONE.row.gen});loadHistory();
   $("done").querySelector(".donecard").classList.toggle("rated",v>=4);if(v>=4){$("doneQ").textContent="Отличный результат!";$("doneMsg").textContent="Промт сохранён навсегда. Добавьте картинку, и коллеги увидят её в «Идеях».";doneSteps(2);
     const row={id:DONE.hid,rating:v,scene:sceneOf(S)};PUB={row,items:[],edit:null,gone:[]};pubClear();$("pubMeta").hidden=false;$("pubDelW").hidden=true;$("pubSend").textContent="Опубликовать";$("pubErr").textContent="";pubFieldsClear();slotPub(true)}
-  else{$("doneQ").textContent="Спасибо за честную оценку";$("doneMsg").textContent=v<=2?"Попробуйте другой ракурс или свет: схема справа покажет, что поменяется.":"Промт останется среди последних 10 в «Мои промты».";doneSteps(2);$("doneSteps").lastElementChild.className="";slotPub(false)}});
+  else{$("doneQ").textContent="Спасибо за честную оценку";$("doneMsg").textContent="Отметьте, что пошло не так — по этим отметкам мы чиним промты. Оценка сохранится в «Мои промты».";doneSteps(2);$("doneSteps").lastElementChild.className="";slotPub(false)}});
 
 function copy(statusEl){
   const txt=plain();
