@@ -1733,7 +1733,7 @@ details.iadm>summary:focus-visible{outline:2px solid var(--accent);outline-offse
 .subh.hs{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.subh.hs .hsw{margin-left:auto}
 .hsw{display:inline-flex;align-items:center;gap:10px;min-height:44px;cursor:pointer;font-size:13px;font-weight:550;color:var(--ink)}
 .hsw.off{opacity:.45;cursor:default}.hsw small{display:block;font-weight:400;color:var(--muted);font-size:12px}
-#pub{z-index:110}
+#pub{z-index:110}.pubdelw{margin-left:auto}
 .imul{position:absolute;bottom:10px;right:10px;display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:999px;font-size:12px;font-weight:650;color:#fff;background:rgba(18,20,21,.5);-webkit-backdrop-filter:blur(10px) saturate(160%);backdrop-filter:blur(10px) saturate(160%);z-index:2}.imul svg{width:14px;height:14px}
 .it:hover .imul,.it:focus-visible .imul{opacity:0;transition:opacity .2s var(--ease)}
 .ipics{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:3;display:flex;gap:6px;max-width:calc(100% - 120px);overflow-x:auto;scrollbar-width:none;padding:6px;border-radius:16px;background:rgba(18,20,21,.45);-webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%)}
@@ -2540,7 +2540,7 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
     <small class="hint">Пара строк сэкономит коллегам несколько попыток.</small>
     </div>
     <p class="gerr" id="pubErr" role="alert"></p>
-    <div class="fbact"><button class="btn" type="submit" form="pubForm" id="pubSend">Опубликовать</button><span class="hint">Работу увидят все коллеги в «Идеях».</span></div>
+    <div class="fbact"><button class="btn" type="submit" form="pubForm" id="pubSend">Опубликовать</button><span class="hint" id="pubFoot">Работу увидят все коллеги в «Идеях».</span><span id="pubDelW" hidden class="pubdelw"><button class="hdel" type="button" id="pubDel">Удалить публикацию</button></span></div>
     </div>
   </form>
 </div>
@@ -2596,7 +2596,7 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px)}
       <p class="hint iprohint">Сцена и формат перенесутся в конструктор, ваши прошлые настройки можно вернуть.</p>
       <details class="iprompt" id="iPromptBox"><summary>Показать промт</summary><pre id="iPrompt"></pre></details>
       <details class="iprompt whow" id="iHow"><summary>Как сделано <span class="hint">схема и настройки сцены</span></summary><div class="wscene" id="iScene"><div class="hthumb wthumb"><div class="pv"><div class="pvfloor" hidden></div><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div></div></div><div class="achips" id="iChips"></div></details>
-      <button class="btn ghost sm iadd" type="button" id="iAdd" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Добавить картинки</button><button class="hdel" type="button" id="iDel" hidden>Удалить публикацию</button>
+      <button class="btn ghost sm iadd" type="button" id="iAdd" hidden title="Тексты, картинки, обложка, подписи продуктов и оценка"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>Редактировать</button><button class="hdel" type="button" id="iDel" hidden>Удалить публикацию</button>
       <details class="iadm" id="iAdm" hidden>
         <summary class="iadmh">Витрина<em>видно только вам</em></summary><div class="iadmb">
         <label class="lbl" for="iaTitle">Название на карточке</label><input type="text" id="iaTitle" maxlength="60"><p class="hint iaorig" id="iaOrig" hidden></p>
@@ -4541,8 +4541,8 @@ async function loadHistory(){
   if(!Cloud.sb||!Cloud.user)return;
   const {data}=await Cloud.sb.from("prompt_history").select("id,state,scene,prompt,rating,used_at").eq("user_id",Cloud.user.id).order("used_at",{ascending:false}).limit(80);
   HIST.rows=data||[];
-  const {data:pubs}=await Cloud.sb.from("publications").select("history_id").eq("user_id",Cloud.user.id);
-  HIST.published=new Set((pubs||[]).map(p=>p.history_id));
+  const {data:pubs}=await Cloud.sb.from("publications").select("id,user_id,author_name,history_id,title,usage,note,rating,image_path,thumb_path,w,h,cap,extra").eq("user_id",Cloud.user.id);
+  HIST.published=new Set((pubs||[]).map(p=>p.history_id));HIST.pubs=Object.fromEntries((pubs||[]).map(p=>[p.history_id,p]));
   syncNudge();
 }
 function histOpen(o){$("hist").hidden=!o;$("histBtn").setAttribute("aria-expanded",String(o));document.body.classList.toggle("locked",o);if(o){drawHistory();$("histClose").focus()}else $("histBtn").focus()}
@@ -4557,7 +4557,7 @@ function drawHistory(){
       <div class="achips">${sceneChips(r.scene).slice(0,6).map(x=>`<i>${escA(x)}</i>`).join("")}</div>
       <div class="hrate"><span>${r.rating?"Ваша оценка":"Как получилось?"}</span>${starsHTML(r.rating,r.id)}</div>
       <div class="hact"><button class="btn sm" type="button" data-hact="apply">Применить</button><button class="btn ghost sm" type="button" data-hact="copy">Скопировать</button>
-      ${pub?"":can?`<button class="btn ghost sm accent" type="button" data-hact="publish">Опубликовать работу</button>`:`<span class="hhint">Поставьте 4–5, чтобы опубликовать</span>`}
+      ${pub?`<button class="btn ghost sm" type="button" data-hact="edit">Редактировать публикацию</button>`:can?`<button class="btn ghost sm accent" type="button" data-hact="publish">Опубликовать работу</button>`:`<span class="hhint">Поставьте 4–5, чтобы опубликовать</span>`}
       <button class="hdel" type="button" data-hact="del" aria-label="Удалить из истории">Удалить</button></div></div></li>`}).join("");
   rows.forEach((r,i)=>miniPreview(L.children[i].querySelector(".hthumb"),r.scene,"h"+i,96,96));
 }
@@ -4577,6 +4577,7 @@ $("histList").addEventListener("click",async e=>{
     toastUndo("Настройки из истории применены",()=>{S=JSON.parse(snap);drawLights();renderProds();update()})}
   if(b.dataset.hact==="copy"){try{await navigator.clipboard.writeText(row.prompt);toast("Промт скопирован")}catch(err){toast("Не получилось скопировать")}}
   if(b.dataset.hact==="publish")pubOpen(row);
+  if(b.dataset.hact==="edit"){const p=HIST.pubs&&HIST.pubs[row.id];if(p)pubOpen(row,p)}
   if(b.dataset.hact==="del"){if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Точно удалить?";return}
     const {error}=await Cloud.sb.from("prompt_history").delete().eq("id",row.id);if(error){toast("Не получилось удалить")}else{await loadHistory();drawHistory()}}
 });
@@ -4593,7 +4594,7 @@ $("stOpen").addEventListener("click",()=>{HIST.filter=HIST.rows.some(r=>!r.ratin
 $("stX").addEventListener("click",()=>{try{localStorage.setItem("gena-tip-off",new Date().toDateString())}catch(e){}$("shareTip").hidden=true});
 $("galShare").addEventListener("click",()=>{HIST.filter=HIST.rows.some(r=>r.rating>=4&&!(HIST.published&&HIST.published.has(r.id)))?"best":HIST.rows.some(r=>!r.rating)?"new":"all";histOpen(true)});
 /* ----- 2. publish: compress in the browser ----- */
-let PUB={row:null,items:[],add:null};
+let PUB={row:null,items:[],edit:null,gone:[]};
 async function compressImage(file,max,q){
   let bmp;try{bmp=await createImageBitmap(file,{imageOrientation:"from-image"})}catch(e){throw new Error("FORMAT")}
   const k=Math.min(1,max/Math.max(bmp.width,bmp.height)),w=Math.max(1,Math.round(bmp.width*k)),h=Math.max(1,Math.round(bmp.height*k));
@@ -4602,17 +4603,23 @@ async function compressImage(file,max,q){
   return {blob,w,h}}
 const kb=n=>n>1048576?(n/1048576).toFixed(1)+" МБ":Math.round(n/1024)+" КБ";
 const PUBMAX=8;
-function pubOpen(row,addTo){slotPub(false);PUB={row,items:[],add:addTo||null};$("pubErr").textContent="";pubFieldsClear();pubClear();
-  $("pubH").textContent=addTo?"Добавить картинки к публикации":"Публикация в «Идеи»";$("pubMeta").hidden=!!addTo;$("pubSend").textContent=addTo?"Добавить":"Опубликовать";
-  $("pubScene").innerHTML=`<div class="hthumb">${pvBox}</div><div><b>${addTo?escA(addTo.ttl||addTo.title||"Публикация"):isScn(row.scene)?"Макет из истории":"Сцена из истории"}</b><div class="achips">${sceneChips(row.scene).slice(0,6).map(x=>`<i>${escA(x)}</i>`).join("")}</div>${addTo?`<small class="hint">Уже ${pics(addTo).length} ${ideaPlural(pics(addTo).length,["картинка","картинки","картинок"])} · можно добавить ещё ${PUBMAX-pics(addTo).length}</small>`:starsHTML(row.rating,"",true)}</div>`;
-  miniPreview($("pubScene").querySelector(".hthumb"),row.scene,"pub",72,72);$("pub").hidden=false;document.body.classList.add("locked");(addTo?$("pubDrop"):$("pubTitle")).focus()}
+/* edit — редактирование своей публикации (или любой — для админа): тексты, картинки, обложка, подписи, оценка */
+function pubOpen(row,edit){slotPub(false);PUB={row,items:[],edit:edit||null,gone:[]};$("pubErr").textContent="";pubFieldsClear();pubClear();
+  $("pubH").textContent=edit?"Редактировать публикацию":"Публикация в «Идеи»";$("pubMeta").hidden=false;$("pubSend").textContent=edit?"Сохранить":"Опубликовать";$("pubDelW").hidden=!edit;$("pubFoot").textContent=edit?"Изменения сразу увидят коллеги в «Идеях».":"Работу увидят все коллеги в «Идеях».";$("pubDel").dataset.arm="";$("pubDel").textContent="Удалить публикацию";
+  const own=edit&&Cloud.user&&edit.user_id===Cloud.user.id;
+  $("pubScene").innerHTML=`<div class="hthumb">${pvBox}</div><div><b>${isScn(row.scene)?"Макет из истории":"Сцена из истории"}</b><div class="achips">${sceneChips(row.scene).slice(0,6).map(x=>`<i>${escA(x)}</i>`).join("")}</div>${own?`<div class="hrate"><span>Оценка</span>${starsHTML(row.rating,row.id)}</div>`:starsHTML(row.rating,"",true)}${edit&&!own?`<small class="hint">Автор: ${escA(edit.author_name||"коллега")}. Вы правите как админ.</small>`:""}</div>`;
+  miniPreview($("pubScene").querySelector(".hthumb"),row.scene,"pub",72,72);
+  if(edit){$("pubTitle").value=edit.title||"";$("pubUse").value=edit.usage||"";$("pubNote").value=edit.note||"";
+    PUB.items=pics(edit).map(x=>({old:{image_path:x.image_path,thumb_path:x.thumb_path,w:x.w,h:x.h},url:GAL.urls[x.thumb_path]||GAL.urls[x.image_path]||"",cap:x.cap||""}));pubDraw();
+    const miss=pics(edit).map(x=>x.thumb_path).filter(t=>!GAL.urls[t]);if(miss.length)signed(miss).then(()=>{PUB.items.forEach(it=>{if(it.old&&!it.url)it.url=GAL.urls[it.old.thumb_path]||""});pubDraw()})}
+  $("pub").hidden=false;document.body.classList.add("locked");$("pubTitle").focus()}
 function pubFieldsClear(){$("pubTitle").value="";$("pubUse").value="";$("pubNote").value=""}
 function pubClose(){$("pub").hidden=true;document.body.classList.toggle("locked",!$("hist").hidden||!$("idea").hidden)}
-const pubRoom=()=>PUBMAX-(PUB.add?pics(PUB.add).length:0);
-function pubClear(){(PUB.items||[]).forEach(it=>URL.revokeObjectURL(it.url));PUB.items=[];$("pubFile").value="";pubDraw()}
+const pubRoom=()=>PUBMAX;
+function pubClear(){(PUB.items||[]).forEach(it=>{if(!it.old)URL.revokeObjectURL(it.url)});PUB.items=[];$("pubFile").value="";pubDraw()}
 function pubDraw(){const L=PUB.items||[],n=L.length,room=pubRoom();
-  $("pubPics").innerHTML=L.map((it,i)=>`<div class="pubpic" role="listitem"><div class="pubth"><img src="${it.url}" alt="Картинка ${i+1}">${i===0&&!PUB.add?'<span class="pubcov">Обложка</span>':`${PUB.add?"":`<button type="button" class="pubbtn" data-pcov="${i}" aria-label="Сделать обложкой картинку ${i+1}" title="Сделать обложкой"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.5l2.2 4.6 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5-3.6-3.5 5-.7z"/></svg></button>`}`}<button type="button" class="pubbtn pubrm" data-prm="${i}" aria-label="Убрать картинку ${i+1}" title="Убрать"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg></button></div>
-    <input type="text" class="pubcap" data-pcap="${i}" maxlength="60" value="${escA(it.cap||"")}" placeholder="${n>1||PUB.add?"Какой продукт":"Продукт · по желанию"}" aria-label="Подпись к картинке ${i+1}: какой продукт"></div>`).join("");
+  $("pubPics").innerHTML=L.map((it,i)=>`<div class="pubpic" role="listitem"><div class="pubth"><img src="${it.url}" alt="Картинка ${i+1}">${i===0?'<span class="pubcov">Обложка</span>':`${`<button type="button" class="pubbtn" data-pcov="${i}" aria-label="Сделать обложкой картинку ${i+1}" title="Сделать обложкой"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 4.5l2.2 4.6 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5-3.6-3.5 5-.7z"/></svg></button>`}`}<button type="button" class="pubbtn pubrm" data-prm="${i}" aria-label="Убрать картинку ${i+1}" title="Убрать"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg></button></div>
+    <input type="text" class="pubcap" data-pcap="${i}" maxlength="60" value="${escA(it.cap||"")}" placeholder="${n>1?"Какой продукт":"Продукт · по желанию"}" aria-label="Подпись к картинке ${i+1}: какой продукт"></div>`).join("");
   $("pubPics").hidden=!n;$("pubDrop").classList.toggle("compact",n>0);$("pubEmpty").hidden=n>0;$("pubMore").hidden=!n;$("pubDrop").hidden=n>=room;
   $("pubLbl").textContent=n>1?`Результаты генерации · ${n}`:"Результаты генерации";$("pubSize").textContent=n&&room-n>0?`ещё ${room-n}`:""}
 async function pubSet(files){files=[...(files||[])].filter(Boolean);if(!files.length)return;const room=pubRoom()-PUB.items.length;
@@ -4628,7 +4635,7 @@ $("pubDrop").addEventListener("click",()=>$("pubFile").click());
 $("pubDrop").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();$("pubFile").click()}});
 $("pubFile").addEventListener("change",e=>pubSet(e.target.files));
 $("pubPics").addEventListener("click",e=>{const rm=e.target.closest("[data-prm]"),cv=e.target.closest("[data-pcov]");
-  if(rm){const i=+rm.dataset.prm,[it]=PUB.items.splice(i,1);URL.revokeObjectURL(it.url);pubDraw();const n=$("pubPics").querySelector(`[data-prm="${Math.min(i,PUB.items.length-1)}"]`);(n||$("pubDrop")).focus();return}
+  if(rm){const i=+rm.dataset.prm,[it]=PUB.items.splice(i,1);if(it.old)PUB.gone.push(it.old.image_path,it.old.thumb_path);else URL.revokeObjectURL(it.url);pubDraw();const n=$("pubPics").querySelector(`[data-prm="${Math.min(i,PUB.items.length-1)}"]`);(n||$("pubDrop")).focus();return}
   if(cv){const i=+cv.dataset.pcov,[it]=PUB.items.splice(i,1);PUB.items.unshift(it);pubDraw();toast("Картинка стала обложкой");$("pubPics").querySelector(".pubcap").focus()}});
 $("pubPics").addEventListener("input",e=>{const t=e.target.closest("[data-pcap]");if(t)PUB.items[+t.dataset.pcap].cap=t.value});
 ["dragenter","dragover"].forEach(t=>$("pubDrop").addEventListener(t,e=>{e.preventDefault();$("pubDrop").classList.add("over")}));
@@ -4637,9 +4644,10 @@ $("pubDrop").addEventListener("drop",e=>pubSet(e.dataTransfer.files));
 document.addEventListener("paste",e=>{if($("pub").hidden&&!$("doneSlot").contains($("pubBody")))return;const f=[...(e.clipboardData||{}).items||[]].filter(i=>i.type.startsWith("image/")).map(i=>i.getAsFile());if(f.length){e.preventDefault();pubSet(f)}});
 /* одна публикация — несколько картинок: обложка в image_path, остальные в extra */
 const pics=r=>r?[{image_path:r.image_path,thumb_path:r.thumb_path,w:r.w,h:r.h,cap:r.cap||""},...(Array.isArray(r.extra)?r.extra:[])].filter(x=>x.image_path):[];
-async function pubUpload(items){const out=[],ext=b=>b.type==="image/webp"?"webp":"jpg",t0=Date.now();
+async function pubUpload(all){const items=all.filter(it=>!it.old),out=[],ext=b=>b.type==="image/webp"?"webp":"jpg",t0=Date.now();
+  all.filter(it=>it.old).forEach(it=>{it.up=Object.assign({},it.old,{cap:(it.cap||"").trim().slice(0,60)})});
   try{for(let i=0;i<items.length;i++){const it=items[i],thumb=await compressImage(it.file,480,.75),base=`${Cloud.user.id}/${t0}_${i}`,ip=`${base}.${ext(it.full.blob)}`,tp=`${base}_t.${ext(thumb.blob)}`;
-      $("pubSend").textContent=items.length>1?`Загружаю ${i+1} из ${items.length}…`:"Публикую…";
+      $("pubSend").textContent=items.length>1?`Загружаю ${i+1} из ${items.length}…`:PUB.edit?"Сохраняю…":"Публикую…";
       let u=await Cloud.sb.storage.from("works").upload(ip,it.full.blob,{contentType:it.full.blob.type});if(u.error)throw u.error;out.push(ip);
       u=await Cloud.sb.storage.from("works").upload(tp,thumb.blob,{contentType:thumb.blob.type});if(u.error)throw u.error;out.push(tp);
       it.up={image_path:ip,thumb_path:tp,w:it.full.w,h:it.full.h,cap:(it.cap||"").trim().slice(0,60)}}}
@@ -4648,16 +4656,26 @@ async function pubUpload(items){const out=[],ext=b=>b.type==="image/webp"?"webp"
 $("pubForm").addEventListener("submit",async e=>{e.preventDefault();if(!PUB.items.length){$("pubErr").textContent="Добавьте хотя бы одну картинку с результатом.";return}
   const btn=$("pubSend");btn.disabled=true;$("pubErr").textContent="";
   try{const up=await pubUpload(PUB.items),U=PUB.items.map(it=>it.up),n=U.length;
-    if(PUB.add){const r=PUB.add,extra=[...(Array.isArray(r.extra)?r.extra:[]),...U];
-      const {error}=await Cloud.sb.from("publications").update({extra}).eq("id",r.id);if(error){await Cloud.sb.storage.from("works").remove(up);throw error}
-      r.extra=extra;pubClose();toast(n>1?`Добавлено картинок: ${n}`:"Картинка добавлена");IDEA.at=0;await loadIdeas(true);if(!$("idea").hidden&&IDEA.cur&&IDEA.cur.id===r.id){IDEA.pic=pics(r).length-n;ideaOpen(r.id)}return}
+    if(PUB.edit){const r=PUB.edit,[c,...rest]=U,patch={title:$("pubTitle").value.trim(),usage:$("pubUse").value.trim()||null,note:$("pubNote").value.trim()||null,image_path:c.image_path,thumb_path:c.thumb_path,w:c.w,h:c.h,cap:c.cap||null,extra:rest};
+      const {error}=await Cloud.sb.from("publications").update(patch).eq("id",r.id);if(error){if(up.length)await Cloud.sb.storage.from("works").remove(up);throw error}
+      if(PUB.gone.length)await Cloud.sb.storage.from("works").remove(PUB.gone);
+      Object.assign(r,patch);track("pubedit",{pub:r.id,n,added:up.length/2,removed:PUB.gone.length/2});pubClose();toast("Публикация обновлена");IDEA.at=0;await loadIdeas(true);
+      if(!$("idea").hidden&&IDEA.cur&&IDEA.cur.id===r.id){IDEA.pic=0;ideaOpen(r.id)}if(!$("hist").hidden){await loadHistory();drawHistory()}return}
     const [c,...rest]=U;
     const {error}=await Cloud.sb.from("publications").insert({history_id:PUB.row.id,title:$("pubTitle").value.trim(),usage:$("pubUse").value.trim()||null,note:$("pubNote").value.trim()||null,image_path:c.image_path,thumb_path:c.thumb_path,w:c.w,h:c.h,cap:c.cap||null,extra:rest});
     if(error){await Cloud.sb.storage.from("works").remove(up);throw error}
     track("publish",{scn:isScn(PUB.row.scene),hid:PUB.row.id,via:$("done").hidden?"history":"done",n});
     if(!$("done").hidden){$("done").hidden=true;slotPub(false)}pubClose();histOpen(false);await loadHistory();toast(n>1?`Спасибо! ${n} ${ideaPlural(n,["картинка","картинки","картинок"])} уже в «Идеях» → «Мои»`:"Спасибо! Работа уже в «Идеях» → «Мои»");IDEA.sort="mine";IDEA.at=0;go("ideas");loadIdeas(true)}
   catch(err){$("pubErr").textContent="Не получилось опубликовать: "+(err&&err.message||err)}
-  finally{btn.disabled=false;btn.textContent=PUB.add?"Добавить":"Опубликовать"}});
+  finally{btn.disabled=false;btn.textContent=PUB.edit?"Сохранить":"Опубликовать"}});
+/* оценка в окне редактирования — та же, что в «Моих промтах»; в публикацию она переезжает сама */
+$("pubScene").addEventListener("click",async e=>{const st=e.target.closest("[data-rate]");if(!st||!PUB.edit)return;const v=+st.dataset.rate;if(v===PUB.row.rating)return;
+  const {error}=await Cloud.sb.from("prompt_history").update({rating:v}).eq("id",PUB.row.id);if(error){toast("Не получилось сохранить оценку");return}
+  PUB.row.rating=v;PUB.edit.rating=v;const h=HIST.rows.find(r=>r.id===PUB.row.id);if(h)h.rating=v;track("rate",{v,via:"pubedit",hid:PUB.row.id});
+  st.closest(".stars").outerHTML=starsHTML(v,PUB.row.id);toast(v<4?"Оценка ниже 4 — публикация останется, но коллеги увидят вашу оценку":"Оценка сохранена")});
+$("pubDel").addEventListener("click",async()=>{const b=$("pubDel"),r=PUB.edit;if(!r)return;if(b.dataset.arm!=="1"){b.dataset.arm="1";b.textContent="Точно удалить?";return}
+  const {error}=await Cloud.sb.from("publications").delete().eq("id",r.id);if(error){toast("Не получилось удалить");return}
+  await Cloud.sb.storage.from("works").remove(pics(r).flatMap(x=>[x.image_path,x.thumb_path]));pubClose();if(!$("idea").hidden)ideaClose();toast("Публикация удалена");IDEA.at=0;loadIdeas(true);await loadHistory();if(!$("hist").hidden)drawHistory()});
 
 /* ----- 3. gallery ----- */
 const HOME=()=>{let h=null;try{h=localStorage.getItem("gena-home")}catch(e){}if(h==="ideas"||h==="builder")return h;const r=(Cloud.profile&&Cloud.profile.role)||"";return /дизайн/i.test(r)?"builder":"ideas"};
@@ -4887,6 +4905,8 @@ function bnrPatch(out){const L=bnrLay(),b=S.bnr,g=bnrGen(),c=bnrCrop(g),q=s=>`"$
 
 /* ----- «Что нового»: только изменения для всех, без админских. Новая версия — первой строкой ----- */
 const CHANGELOG=[
+ ["2.3","30 октября",["Публикацию можно редактировать: подпись, назначение, заметку, картинки (добавить, убрать, сменить обложку), подписи продуктов и оценку. Кнопка «Редактировать» — в окне сцены в «Идеях» и в «Моих промтах» у опубликованных работ.",
+  "Оценка, изменённая в «Моих промтах», сразу обновляется и в публикации."]],
  ["2.2","30 октября",["Несколько удачных генераций на один промт — одной публикацией: до 8 картинок с подписью продукта и выбором обложки. В «Идеях» на плитке значок количества, в окне — лента миниатюр. Автор может добавить картинки и позже.",
   "Усилители включены по умолчанию везде: в конструкторе, в Макете (меню «Стиль») и при применении сцен и шаблонов.",
   "Миниатюры стилей показывают настоящие сцены команды в этом стиле — с упакованными продуктами и алкоголем.",
@@ -5059,7 +5079,7 @@ async function ideaOpen(id){const r=IDEA.rows.find(x=>x.id===id);if(!r)return;if
 /* несколько картинок одной публикации: плёнка миниатюр и подпись продукта */
 async function ideaPics(r){const P=pics(r),el=$("iPics"),i=IDEA.pic||0,p=P[i];el.hidden=P.length<2;
   $("iCap").hidden=!(p&&p.cap);$("iCap").textContent=p&&p.cap?p.cap:"";
-  const own=Cloud.user&&r.user_id===Cloud.user.id;$("iAdd").hidden=!own||P.length>=PUBMAX;
+  const own=Cloud.user&&(r.user_id===Cloud.user.id||Cloud.admin);$("iAdd").hidden=!own;
   if(P.length<2){el.innerHTML="";return}
   const miss=P.map(x=>x.thumb_path).filter(t=>!GAL.urls[t]);if(miss.length)await signed(miss);if(IDEA.cur!==r)return;
   el.innerHTML=P.map((x,k)=>`<button type="button" role="tab" class="ipic" data-pic="${k}" aria-selected="${k===i}" tabindex="${k===i?0:-1}" aria-label="Картинка ${k+1} из ${P.length}${x.cap?": "+escA(x.cap):""}"><img src="${escA(GAL.urls[x.thumb_path]||"")}" alt=""></button>`).join("");
@@ -5150,7 +5170,7 @@ $("doneStars").addEventListener("click",async e=>{const b=e.target.closest("[dat
   const {error}=await Cloud.sb.from("prompt_history").update({rating:v}).eq("id",DONE.hid);if(error){$("doneMsg").textContent="Не получилось сохранить оценку, попробуйте ещё раз";return}
   DONE.rating=v;track("rate",{v,via:"done",hid:DONE.hid});doneStars();loadHistory();
   $("done").querySelector(".donecard").classList.toggle("rated",v>=4);if(v>=4){$("doneQ").textContent="Отличный результат!";$("doneMsg").textContent="Промт сохранён навсегда. Добавьте картинку, и коллеги увидят её в «Идеях».";doneSteps(2);
-    const row={id:DONE.hid,rating:v,scene:sceneOf(S)};PUB={row,items:[],add:null};pubClear();$("pubMeta").hidden=false;$("pubErr").textContent="";pubFieldsClear();slotPub(true)}
+    const row={id:DONE.hid,rating:v,scene:sceneOf(S)};PUB={row,items:[],edit:null,gone:[]};pubClear();$("pubMeta").hidden=false;$("pubDelW").hidden=true;$("pubSend").textContent="Опубликовать";$("pubErr").textContent="";pubFieldsClear();slotPub(true)}
   else{$("doneQ").textContent="Спасибо за честную оценку";$("doneMsg").textContent=v<=2?"Попробуйте другой ракурс или свет: схема справа покажет, что поменяется.":"Промт останется среди последних 10 в «Мои промты».";doneSteps(2);$("doneSteps").lastElementChild.className="";slotPub(false)}});
 
 function copy(statusEl){
